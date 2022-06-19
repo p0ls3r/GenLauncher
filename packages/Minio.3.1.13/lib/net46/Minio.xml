@@ -1,0 +1,1517 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Minio</name>
+    </assembly>
+    <members>
+        <member name="M:Minio.MinioClient.ListBucketsAsync(System.Threading.CancellationToken)">
+            <summary>
+            List all objects in a bucket
+            </summary>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task with an iterator lazily populated with objects</returns>
+        </member>
+        <member name="M:Minio.MinioClient.MakeBucketAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Create a private bucket with the given name.
+            </summary>
+            <param name="bucketName">Name of the new bucket</param>
+            <param name="location">Region</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns> Task </returns>
+            <exception cref="T:Minio.Exceptions.InvalidBucketNameException">When bucketName is null</exception>
+        </member>
+        <member name="M:Minio.MinioClient.BucketExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns true if the specified bucketName exists, otherwise returns false.
+            </summary>
+            <param name="bucketName">Bucket to test existence of</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task that returns true if exists and user has access</returns>
+        </member>
+        <member name="M:Minio.MinioClient.RemoveBucketAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Remove a bucket
+            </summary>
+            <param name="bucketName">Name of bucket to remove</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Minio.MinioClient.ListObjectsAsync(System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            List all objects non-recursively in a bucket with a given prefix, optionally emulating a directory
+            </summary>
+            <param name="bucketName">Bucket to list objects from</param>
+            <param name="prefix">Filters all objects beginning with a given prefix</param>
+            <param name="recursive">Set to true to recursively list all objects</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>An observable of items that client can subscribe to</returns>
+        </member>
+        <member name="M:Minio.MinioClient.GetObjectListAsync(System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the list of objects in the bucket filtered by prefix
+            </summary>
+            <param name="bucketName">Bucket to list objects from</param>
+            <param name="prefix">Filters all objects starting with a given prefix</param>
+            <param name="delimiter">Delimit the output upto this character</param>
+            <param name="marker">marks location in the iterator sequence</param>
+            <returns>Task with a tuple populated with objects</returns>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.MinioClient.GetPolicyAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns current policy stored on the server for this bucket
+            </summary>
+            <param name="bucketName">Bucket name.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task that returns the Bucket policy as a json string</returns>
+        </member>
+        <member name="M:Minio.MinioClient.SetPolicyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Sets the current bucket policy
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="policyJson">Policy json as string </param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task to set a policy</returns>
+        </member>
+        <member name="M:Minio.MinioClient.GetBucketNotificationsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets notification configuration for this bucket
+            </summary>
+            <param name="bucketName">Bucket name</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.SetBucketNotificationsAsync(System.String,Minio.DataModel.BucketNotification,System.Threading.CancellationToken)">
+            <summary>
+            Sets the notification configuration for this bucket
+            </summary>
+            <param name="bucketName">Bucket name</param>
+            <param name="notification">Notification object with configuration to be set on the server</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.RemoveAllBucketNotificationsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes all bucket notification configurations stored on the server.
+            </summary>
+            <param name="bucketName">Bucket name</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.ListenBucketNotificationsAsync(System.String,System.Collections.Generic.IList{Minio.DataModel.EventType},System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to bucket change notifications (a Minio-only extension)
+            </summary>
+            <param name="bucketName">Bucket to get notifications from</param>
+            <param name="events">Events to listen for</param>
+            <param name="prefix">Filter keys starting with this prefix</param>
+            <param name="suffix">Filter keys ending with this suffix</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>An observable of JSON-based notification events</returns>
+        </member>
+        <member name="M:Minio.MinioClient.GetObjectAsync(System.String,System.String,System.Action{System.IO.Stream},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Get an object. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="cb">A stream will be passed to the callback</param>
+            <param name="sse">Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.MinioClient.GetObjectAsync(System.String,System.String,System.Int64,System.Int64,System.Action{System.IO.Stream},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Get an object. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="offset"> Offset of the object from where stream will start</param>
+            <param name="length">length of the object that will be read in the stream </param>
+            <param name="cb">A stream will be passed to the callback</param>
+            <param name="sse">Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.MinioClient.GetObjectAsync(System.String,System.String,System.String,Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Get an object. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="fileName">string with file path</param>
+            <param name="sse">Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.SelectObjectContentAsync(System.String,System.String,Minio.DataModel.SelectObjectOptions,System.Threading.CancellationToken)">
+            <summary>
+            Select an object's content. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="opts">Select Object options</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.MinioClient.PutObjectAsync(System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Creates an object from file
+            </summary>
+            <param name="bucketName">Bucket to create object in</param>
+            <param name="objectName">Key of the new object</param>
+            <param name="fileName">Path of file to upload</param>
+            <param name="contentType">Content type of the new object, null defaults to "application/octet-stream"</param>
+            <param name="metaData">Object metadata to be stored. Defaults to null.</param>
+            <param name="sse">Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.MinioClient.PutObjectAsync(System.String,System.String,System.IO.Stream,System.Int64,System.String,System.Collections.Generic.Dictionary{System.String,System.String},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Creates an object from inputstream
+            </summary>
+            <param name="bucketName">Bucket to create object in</param>
+            <param name="objectName">Key of the new object</param>
+            <param name="data">Stream of bytes to send</param>
+            <param name="size">Total size of bytes to be written, must match with data's length</param>
+            <param name="contentType">Content type of the new object, null defaults to "application/octet-stream"</param>
+            <param name="metaData">Object metadata to be stored. Defaults to null.</param>
+            <param name="sse">Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.MinioClient.CompleteMultipartUploadAsync(System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.Int32,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Internal method to complete multi part upload of object to server.
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectName">Object to be uploaded</param>
+            <param name="uploadId">Upload Id</param>
+            <param name="etags">Etags</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.ListParts(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns an async observable of parts corresponding to a uploadId for a specific bucket and objectName
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectName">Object Name</param>
+            <param name="uploadId"></param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.GetListPartsAsync(System.String,System.String,System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Gets the list of parts corresponding to a uploadId for given bucket and object
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectName">Object Name</param>
+            <param name="uploadId"></param>
+            <param name="partNumberMarker"></param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.NewMultipartUploadAsync(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Start a new multi-part upload request
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectName">Object Name</param>
+            <param name="metaData"></param>
+            <param name="sseHeaders"> Server-side encryption options</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.PutObjectAsync(System.String,System.String,System.String,System.Int32,System.Byte[],System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Upload object part to bucket for particular uploadId
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectName">Object Name</param>
+            <param name="uploadId"></param>
+            <param name="partNumber"></param>
+            <param name="data"></param>
+            <param name="metaData"></param>
+            <param name="sseHeaders">Server-side encryption headers if any </param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.GetMultipartUploadsListAsync(System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get list of multi-part uploads matching particular uploadIdMarker
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="prefix">prefix</param>
+            <param name="keyMarker"></param>
+            <param name="uploadIdMarker"></param>
+            <param name="delimiter"></param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.ListIncompleteUploads(System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Lists all incomplete uploads in a given bucket and prefix recursively
+            </summary>
+            <param name="bucketName">Bucket to list all incomplete uploads from</param>
+            <param name="prefix">Filter all incomplete uploads starting with this prefix</param>
+            <param name="recursive">Set to true to recursively list all incomplete uploads</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>A lazily populated list of incomplete uploads</returns>
+        </member>
+        <member name="M:Minio.MinioClient.listIncompleteUploads(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Lists all or delimited incomplete uploads in a given bucket with a given objectName
+            </summary>
+            <param name="bucketName">Bucket to list incomplete uploads from</param>
+            <param name="prefix">Key of object to list incomplete uploads from</param>
+            <param name="delimiter">delimiter of object to list incomplete uploads</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Observable that notifies when next next upload becomes available</returns>
+        </member>
+        <member name="M:Minio.MinioClient.RemoveIncompleteUploadAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Remove incomplete uploads from a given bucket and objectName
+            </summary>
+            <param name="bucketName">Bucket to remove incomplete uploads from</param>
+            <param name="objectName">Key to remove incomplete uploads from</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.RemoveUploadAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Remove object with matching uploadId from bucket
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectName"></param>
+            <param name="uploadId"></param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.RemoveObjectAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes an object with given name in specific bucket
+            </summary>
+            <param name="bucketName">Bucket to remove object from</param>
+            <param name="objectName">Key of object to remove</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.removeObjectsAsync(System.String,System.Collections.Generic.List{Minio.DataModel.DeleteObject},System.Threading.CancellationToken)">
+            <summary>
+            private helper method to remove list of objects from bucket
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectsList"></param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.RemoveObjectAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Removes multiple objects from a specific bucket
+            </summary>
+            <param name="bucketName">Bucket to remove objects from</param>
+            <param name="objectNames">List of object keys to remove.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.StatObjectAsync(System.String,System.String,Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Tests the object's existence and returns metadata about existing objects.
+            </summary>
+            <param name="bucketName">Bucket to test object in</param>
+            <param name="objectName">Name of the object to stat</param>
+            <param name="sse"> Server-side encryption option.Defaults to null</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Facts about the object</returns>
+        </member>
+        <member name="M:Minio.MinioClient.ReadFullAsync(System.IO.Stream,System.Int32)">
+            <summary>
+            Advances in the stream upto currentPartSize or End of Stream
+            </summary>
+            <param name="data"></param>
+            <param name="currentPartSize"></param>
+            <returns>bytes read in a byte array</returns>
+        </member>
+        <member name="M:Minio.MinioClient.CopyObjectAsync(System.String,System.String,System.String,System.String,Minio.DataModel.CopyConditions,System.Collections.Generic.Dictionary{System.String,System.String},Minio.DataModel.ServerSideEncryption,Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Copy a source object into a new destination object.
+            </summary>
+            <param name="bucketName">Bucket name where the object to be copied exists.</param>
+            <param name="objectName">Object name source to be copied.</param>
+            <param name="destBucketName">Bucket name where the object will be copied to.</param>
+            <param name="destObjectName">Object name to be created, if not provided uses source object name as destination object name.</param>
+            <param name="copyConditions">Optionally can take a key value CopyConditions as well for conditionally attempting copyObject.</param>
+            <param name="metadata">Optional Object metadata to be stored. Defaults to null.</param>
+            <param name="sseSrc">Optional source encryption options.Defaults to null. </param>
+            <param name="sseDest">Optional destination encryption options.Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.CopyObjectRequestAsync(System.String,System.String,System.String,System.String,Minio.DataModel.CopyConditions,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Threading.CancellationToken,System.Type)">
+            <summary>
+            Create the copy request, execute it and
+            </summary>
+            <param name="bucketName">Bucket name where the object to be copied exists.</param>
+            <param name="objectName">Object name source to be copied.</param>
+            <param name="destBucketName">Bucket name where the object will be copied to.</param>
+            <param name="destObjectName">Object name to be created, if not provided uses source object name as destination object name.</param>
+            <param name="copyConditions">optionally can take a key value CopyConditions as well for conditionally attempting copyObject.</param>
+            <param name="customHeaders">optional custom header to specify byte range</param>
+            <param name="resource">Optional string to specify upload id and part number </param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <param name="type">Type of XML serialization to be applied on the server response</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.MultipartCopyUploadAsync(System.String,System.String,System.String,System.String,Minio.DataModel.CopyConditions,System.Int64,System.Collections.Generic.Dictionary{System.String,System.String},Minio.DataModel.ServerSideEncryption,Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Make a multi part copy upload for objects larger than 5GB or if CopyCondition specifies a byte range.
+            </summary>
+            <param name="bucketName">source bucket name</param>
+            <param name="objectName">source object name</param>
+            <param name="destBucketName">destination bucket name</param>
+            <param name="destObjectName">destination object name</param>
+            <param name="copyConditions">copyconditions </param>
+            <param name="copySize">size of copy upload</param>
+            <param name="metadata">optional metadata on the destination side</param>
+            <param name="sseSrc">optional Server-side encryption options</param>
+            <param name="sseDest">optional Server-side encryption options</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.PresignedGetObjectAsync(System.String,System.String,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{System.DateTime})">
+            <summary>
+            Presigned get url - returns a presigned url to access an object's data without credentials.URL can have a maximum expiry of
+            upto 7 days or a minimum of 1 second.Additionally, you can override a set of response headers using reqParams.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Key of object to retrieve</param>
+            <param name="expiresInt">Expiration time in seconds</param>
+            <param name="reqParams">optional override response headers</param>
+            <param name="reqDate">optional request date and time in UTC</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.PresignedPutObjectAsync(System.String,System.String,System.Int32)">
+            <summary>
+            Presigned Put url -returns a presigned url to upload an object without credentials.URL can have a maximum expiry of
+            upto 7 days or a minimum of 1 second.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Key of object to retrieve</param>
+            <param name="expiresInt">Expiration time in seconds</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.PresignedPostPolicyAsync(Minio.DataModel.PostPolicy)">
+            <summary>
+            Presigned post policy
+            </summary>
+            <param name="policy"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Minio.MinioClient._defaultErrorHandlingDelegate">
+            <summary>
+            Default error handling delegate
+            </summary>
+        </member>
+        <member name="P:Minio.MinioClient.FullUserAgent">
+            <summary>
+            Returns the User-Agent header for the request
+            </summary>
+        </member>
+        <member name="M:Minio.MinioClient.GetRegion(System.String)">
+            <summary>
+            Resolve region bucket resides in.
+            </summary>
+            <param name="bucketName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.CreateRequest(RestSharp.Method,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Object,System.String)">
+            <summary>
+            Constructs a RestRequest. For AWS, this function has the side-effect of overriding the baseUrl
+            in the RestClient with region specific host path or virtual style path.
+            </summary>
+            <param name="method">HTTP method</param>
+            <param name="bucketName">Bucket Name</param>
+            <param name="objectName">Object Name</param>
+            <param name="headerMap">headerMap</param>
+            <param name="contentType">Content Type</param>
+            <param name="body">request body</param>
+            <param name="resourcePath">query string</param>
+            <returns>A RestRequest</returns>
+        </member>
+        <member name="M:Minio.MinioClient.InitClient">
+            <summary>
+            This method initializes a new RESTClient. The host URI for Amazon is set to virtual hosted style
+            if usePathStyle is false. Otherwise path style URL is constructed.
+            </summary>
+        </member>
+        <member name="M:Minio.MinioClient.SetAppInfo(System.String,System.String)">
+            <summary>
+            Sets app version and name. Used by RestSharp for constructing User-Agent header in all HTTP requests
+            </summary>
+            <param name="appName"></param>
+            <param name="appVersion"></param>
+        </member>
+        <member name="M:Minio.MinioClient.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates and returns an Cloud Storage client
+            </summary>
+            <param name="endpoint">Location of the server, supports HTTP and HTTPS</param>
+            <param name="accessKey">Access Key for authenticated requests (Optional, can be omitted for anonymous requests)</param>
+            <param name="secretKey">Secret Key for authenticated requests (Optional, can be omitted for anonymous requests)</param>
+            <param name="region">Optional custom region</param>
+            <param name="sessionToken">Optional session token</param>
+            <returns>Client initialized with user credentials</returns>
+        </member>
+        <member name="M:Minio.MinioClient.WithSSL">
+            <summary>
+            Connects to Cloud Storage with HTTPS if this method is invoked on client object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.WithProxy(System.Net.IWebProxy)">
+            <summary>
+            Uses webproxy for all requests if this method is invoked on client object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.WithTimeout(System.Int32)">
+            <summary>
+            Uses the set timeout for all requests if this method is invoked on client object
+            </summary>
+            <param name="timeout">Timeout in milliseconds.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.WithRetryPolicy(Minio.RetryPolicyHandlingDelegate)">
+            <summary>
+            Allows to add retry policy handler
+            </summary>
+            <param name="retryPolicyHandler">Delegate that will wrap execution of <see cref="T:RestSharp.IRestRequest"/> requests.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.MinioClient.SetTargetURL(System.Uri)">
+            <summary>
+            Sets endpoint URL on the client object that request will be made against
+            </summary>
+        </member>
+        <member name="M:Minio.MinioClient.ExecuteTaskAsync(System.Collections.Generic.IEnumerable{Minio.ApiResponseErrorHandlingDelegate},RestSharp.IRestRequest,System.Threading.CancellationToken)">
+            <summary>
+            Actual doer that executes the REST request to the server
+            </summary>
+            <param name="errorHandlers">List of handlers to override default handling</param>
+            <param name="request">request</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>IRESTResponse</returns>
+        </member>
+        <member name="M:Minio.MinioClient.ParseError(RestSharp.IRestResponse)">
+            <summary>
+            Parse response errors if any and return relevant error messages
+            </summary>
+            <param name="response"></param>
+        </member>
+        <member name="M:Minio.MinioClient.HandleIfErrorResponse(RestSharp.IRestResponse,System.Collections.Generic.IEnumerable{Minio.ApiResponseErrorHandlingDelegate},System.DateTime)">
+            <summary>
+            Delegate errors to handlers
+            </summary>
+            <param name="response"></param>
+            <param name="handlers"></param>
+            <param name="startTime"></param>
+        </member>
+        <member name="M:Minio.MinioClient.SetTraceOn(Minio.IRequestLogger)">
+            <summary>
+            Sets HTTP tracing On.Writes output to Console
+            </summary>
+        </member>
+        <member name="M:Minio.MinioClient.SetTraceOff">
+            <summary>
+            Sets HTTP tracing Off.
+            </summary>
+        </member>
+        <member name="M:Minio.MinioClient.LogRequest(RestSharp.IRestRequest,RestSharp.IRestResponse,System.Double)">
+            <summary>
+            Logs the request sent to server and corresponding response
+            </summary>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="durationMs"></param>
+        </member>
+        <member name="M:Minio.IBucketOperations.MakeBucketAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Create a private bucket with the given name.
+            </summary>
+            <param name="bucketName">Name of the new bucket</param>
+            <param name="location">Region</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.ListBucketsAsync(System.Threading.CancellationToken)">
+            <summary>
+            List all objects in a bucket
+            </summary>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task with an iterator lazily populated with objects</returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.BucketExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns true if the specified bucketName exists, otherwise returns false.
+            </summary>
+            <param name="bucketName">Bucket to test existence of</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task that returns true if exists and user has access</returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.RemoveBucketAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Remove a bucket
+            </summary>
+            <param name="bucketName">Name of bucket to remove</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.ListObjectsAsync(System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            List all objects non-recursively in a bucket with a given prefix, optionally emulating a directory
+            </summary>
+            <param name="bucketName">Bucket to list objects from</param>
+            <param name="prefix">Filter all incomplete uploads starting with this prefix</param>
+            <param name="recursive">List incomplete uploads recursively</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>An observable of items that client can subscribe to</returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.GetPolicyAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get bucket policy
+            </summary>
+            <param name="bucketName">Bucket name</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Returns Task with bucket policy json as string </returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.SetPolicyAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Sets the current bucket policy
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="policyJson">policy json</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Returns Task that sets the current bucket policy</returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.GetBucketNotificationsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the notification configuration set for this bucket
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>BucketNotification object populated with the notification subresource</returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.SetBucketNotificationsAsync(System.String,Minio.DataModel.BucketNotification,System.Threading.CancellationToken)">
+            <summary>
+            Sets bucket notification configuration
+            </summary>
+            <param name="bucketName">Bucket Name</param>
+            <param name="notification">BucketNotification object</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.RemoveAllBucketNotificationsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Remove all bucket notifications
+            </summary>
+            <param name="bucketName">bucketName</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.IBucketOperations.ListenBucketNotificationsAsync(System.String,System.Collections.Generic.IList{Minio.DataModel.EventType},System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Subscribes to bucket change notifications (a Minio-only extension)
+            </summary>
+            <param name="bucketName">Bucket to get notifications from</param>
+            <param name="events">Events to listen for</param>
+            <param name="prefix">Filter keys starting with this prefix</param>
+            <param name="suffix">Filter keys ending with this suffix</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>An observable of JSON-based notification events</returns>
+        </member>
+        <member name="M:Minio.IObjectOperations.GetObjectAsync(System.String,System.String,System.Action{System.IO.Stream},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Get an object. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="callback">A stream will be passed to the callback</param>
+            <param name="sse">Optional Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.GetObjectAsync(System.String,System.String,System.Int64,System.Int64,System.Action{System.IO.Stream},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Get an object. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="offset">offset of the object from where stream will start </param>
+            <param name="length">length of object to read in from the stream</param>
+            <param name="cb">A stream will be passed to the callback</param>
+            <param name="sse">Optional Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.SelectObjectContentAsync(System.String,System.String,Minio.DataModel.SelectObjectOptions,System.Threading.CancellationToken)">
+            <summary>
+            Select an object's content. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="opts">Select Object options</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.PutObjectAsync(System.String,System.String,System.IO.Stream,System.Int64,System.String,System.Collections.Generic.Dictionary{System.String,System.String},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Creates an object from file input stream
+            </summary>
+            <param name="bucketName">Bucket to create object in</param>
+            <param name="objectName">Key of the new object</param>
+            <param name="data">Stream of file to upload</param>
+            <param name="size">Size of stream</param>
+            <param name="contentType">Content type of the new object, null defaults to "application/octet-stream"</param>
+            <param name="metaData">Optional Object metadata to be stored. Defaults to null.</param>
+            <param name="sse">Optional Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.RemoveObjectAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes an object with given name in specific bucket
+            </summary>
+            <param name="bucketName">Bucket to remove object from</param>
+            <param name="objectName">Key of object to remove</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.IObjectOperations.RemoveObjectAsync(System.String,System.Collections.Generic.IEnumerable{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Removes objects in the list from specific bucket
+            </summary>
+            <param name="bucketName">Bucket to remove objects from</param>
+            <param name="objectsList">List of object keys to remove</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.IObjectOperations.StatObjectAsync(System.String,System.String,Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Tests the object's existence and returns metadata about existing objects.
+            </summary>
+            <param name="bucketName">Bucket to test object in</param>
+            <param name="objectName">Name of the object to stat</param>
+            <param name="sse">Optional Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>Facts about the object</returns>
+        </member>
+        <member name="M:Minio.IObjectOperations.ListIncompleteUploads(System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Lists all incomplete uploads in a given bucket and prefix recursively
+            </summary>
+            <param name="bucketName">Bucket to list all incomplete uploads from</param>
+            <param name="prefix">prefix to list all incomplete uploads</param>
+            <param name="recursive">Set to true to recursively list all incomplete uploads</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns>A lazily populated list of incomplete uploads</returns>
+        </member>
+        <member name="M:Minio.IObjectOperations.RemoveIncompleteUploadAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Remove incomplete uploads from a given bucket and objectName
+            </summary>
+            <param name="bucketName">Bucket to remove incomplete uploads from</param>
+            <param name="objectName">Key to remove incomplete uploads from</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.CopyObjectAsync(System.String,System.String,System.String,System.String,Minio.DataModel.CopyConditions,System.Collections.Generic.Dictionary{System.String,System.String},Minio.DataModel.ServerSideEncryption,Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Copy a source object into a new destination object.
+            </summary>
+            <param name="bucketName"> Bucket name where the object to be copied exists.</param>
+            <param name="objectName">Object name source to be copied.</param>
+            <param name="destBucketName">Bucket name where the object will be copied to.</param>
+            <param name="destObjectName">Object name to be created, if not provided uses source object name as destination object name.</param>
+            <param name="copyConditions">optionally can take a key value CopyConditions as well for conditionally attempting copyObject.</param>
+            <param name="metadata">Optional Object metadata to be stored. Defaults to null.</param>
+            <param name="sseSrc">Optional Server-side encryption option for source. Defaults to null.</param>
+            <param name="sseDest">Optional Server-side encryption option for destination. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.IObjectOperations.PutObjectAsync(System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Creates an object from file
+            </summary>
+            <param name="bucketName">Bucket to create object in</param>
+            <param name="objectName">Key of the new object</param>
+            <param name="filePath">Path of file to upload</param>
+            <param name="contentType">Content type of the new object, null defaults to "application/octet-stream"</param>
+            <param name="metaData">Optional Object metadata to be stored. Defaults to null.</param>
+            <param name="sse">Optional Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.GetObjectAsync(System.String,System.String,System.String,Minio.DataModel.ServerSideEncryption,System.Threading.CancellationToken)">
+            <summary>
+            Get an object. The object will be streamed to the callback given by the user.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Name of object to retrieve</param>
+            <param name="filePath">string with file path</param>
+            <param name="sse">Optional Server-side encryption option. Defaults to null.</param>
+            <param name="cancellationToken">Optional cancellation token to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.IObjectOperations.PresignedGetObjectAsync(System.String,System.String,System.Int32,System.Collections.Generic.Dictionary{System.String,System.String},System.Nullable{System.DateTime})">
+            <summary>
+            Presigned get url - returns a presigned url to access an object's data without credentials.URL can have a maximum expiry of
+            upto 7 days or a minimum of 1 second.Additionally, you can override a set of response headers using reqParams.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Key of object to retrieve</param>
+            <param name="expiresInt">Expiration time in seconds.</param>
+            <param name="reqParams">Optional override response headers</param>
+            <param name="reqDate">Optional request date and time in UTC</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.PresignedPutObjectAsync(System.String,System.String,System.Int32)">
+            <summary>
+            Presigned Put url - returns a presigned url to upload an object without credentials.URL can have a maximum expiry of
+            upto 7 days or a minimum of 1 second.
+            </summary>
+            <param name="bucketName">Bucket to retrieve object from</param>
+            <param name="objectName">Key of object to retrieve</param>
+            <param name="expiresInt">Expiration time in seconds</param>
+        </member>
+        <member name="M:Minio.IObjectOperations.PresignedPostPolicyAsync(Minio.DataModel.PostPolicy)">
+            <summary>
+            Presigned post policy
+            </summary>
+            <param name="policy"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Minio.AWSS3Endpoints">
+            <summary>
+            Amazon AWS S3 endpoints for various regions.
+            </summary>
+        </member>
+        <member name="M:Minio.AWSS3Endpoints.Endpoint(System.String)">
+            <summary>
+            Gets Amazon S3 endpoint for the relevant region.
+            </summary>
+            <param name="region"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Minio.BucketRegionCache">
+            <summary>
+            A singleton bucket/region cache map.
+            </summary>
+        </member>
+        <member name="M:Minio.BucketRegionCache.Region(System.String)">
+            <summary>
+            Returns AWS region for given bucket name.
+            </summary>
+            <param name="bucketName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.BucketRegionCache.Add(System.String,System.String)">
+            <summary>
+            Adds bucket name and its region to BucketRegionCache.
+            </summary>
+            <param name="bucketName"></param>
+            <param name="region"></param>
+        </member>
+        <member name="M:Minio.BucketRegionCache.Remove(System.String)">
+            <summary>
+            Removes region cache of the bucket if any.
+            </summary>
+            <param name="bucketName"></param>
+        </member>
+        <member name="M:Minio.BucketRegionCache.Exists(System.String)">
+            <summary>
+            Returns true if given bucket name is in the map else false.
+            </summary>
+            <param name="bucketName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.BucketRegionCache.Update(Minio.MinioClient,System.String)">
+            <summary>
+            Updates Region cache for given bucket.
+            </summary>
+            <param name="client"></param>
+            <param name="bucketName"></param>
+        </member>
+        <member name="T:Minio.DataModel.CopyConditions">
+            <summary>
+            A container class to hold all the Conditions to be checked before copying an object.
+            </summary>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.Clone">
+            <summary>
+            Clone CopyConditions object
+            </summary>
+            <returns>new CopyConditions object</returns>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.SetModified(System.DateTime)">
+            <summary>
+            Set modified condition, copy object modified since given time.
+            </summary>
+            <param name="date"></param>
+            <exception cref="T:System.ArgumentException">When date is null</exception>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.SetUnmodified(System.DateTime)">
+            <summary>
+            Unset modified condition, copy object modified since given time.
+            </summary>
+            <param name="date"></param>
+            <exception cref="T:System.ArgumentException">When date is null</exception>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.SetMatchETag(System.String)">
+            <summary>
+            Set matching ETag condition, copy object which matches
+            the following ETag.
+            </summary>
+            <param name="etag"></param>
+            <exception cref="T:System.ArgumentException">When etag is null</exception>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.SetMatchETagNone(System.String)">
+            <summary>
+            Set matching ETag none condition, copy object which does not
+            match the following ETag.
+            </summary>
+            <param name="etag"></param>
+            <exception cref="T:System.ArgumentException">When etag is null</exception>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.SetReplaceMetadataDirective">
+            <summary>
+            Set replace metadata directive which specifies that server side copy needs to replace metadata
+            on destination with custom metadata provided in the request.
+            </summary>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.HasReplaceMetadataDirective">
+            <summary>
+            Return true if replace metadata directive is specified
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.SetByteRange(System.Int64,System.Int64)">
+            <summary>
+            Set Byte Range condition, copy object which falls within the
+            start and end byte range specified by user
+            </summary>
+            <param name="firstByte"></param>
+            <param name="lastByte"></param>
+            <exception cref="T:System.ArgumentException">When firstByte is null or lastByte is null</exception>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.GetByteRange">
+            <summary>
+            Get range size
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.DataModel.CopyConditions.GetConditions">
+            <summary>
+            Get all the set copy conditions map.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Minio.DataModel.MinioNotificationRaw">
+            <summary>
+            Stores raw json events generated by ListenBucketNotifications
+            The Minio client doesn't depend on a JSON library so we can let
+             the caller use a library of their choice
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.MinioNotification">
+            <summary>
+            Helper class to deserialize notifications generated
+            from MinioNotificaitonRaw by ListenBucketNotifications
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.Arn">
+            <summary>
+            Arn holds ARN information that will be sent to the web service,
+            ARN desciption can be found in http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+            </summary>
+        </member>
+        <member name="M:Minio.DataModel.Arn.#ctor(System.String)">
+            <summary>
+            Pass valid Arn string on aws to constructor
+            </summary>
+            <param name="arnString"></param>
+        </member>
+        <member name="M:Minio.DataModel.Arn.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructs new ARN based on the given partition, service, region, account id and resource
+            </summary>
+            <param name="partition"></param>
+            <param name="service"></param>
+            <param name="region"></param>
+            <param name="accountId"></param>
+            <param name="resource"></param>
+        </member>
+        <member name="T:Minio.DataModel.BucketNotification">
+            <summary>
+            Helper class to parse NotificationConfiguration from AWS S3 response XML.
+            </summary>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.AddTopic(Minio.DataModel.TopicConfig)">
+            <summary>
+            AddTopic adds a given topic config to the general bucket notification config
+            </summary>
+            <param name="topicConfig"></param>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.AddQueue(Minio.DataModel.QueueConfig)">
+            <summary>
+            AddQueue adds a given queue config to the general bucket notification config
+            </summary>
+            <param name="queueConfig"></param>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.AddLambda(Minio.DataModel.LambdaConfig)">
+            <summary>
+            AddLambda adds a given lambda config to the general bucket notification config
+            </summary>
+            <param name="lambdaConfig"></param>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.RemoveTopicByArn(Minio.DataModel.Arn)">
+            <summary>
+            RemoveTopicByArn removes all topic configurations that match the exact specified ARN
+            </summary>
+            <param name="topicArn"></param>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.RemoveQueueByArn(Minio.DataModel.Arn)">
+            <summary>
+            RemoveQueueByArn removes all queue configurations that match the exact specified ARN
+            </summary>
+            <param name="queueArn"></param>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.RemoveLambdaByArn(Minio.DataModel.Arn)">
+            <summary>
+            RemoveLambdaByArn removes all lambda configurations that match the exact specified ARN
+            </summary>
+            <param name="lambdaArn"></param>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.ShouldSerializeLambdaConfigs">
+            <summary>
+            Helper methods to guide XMLSerializer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.DataModel.BucketNotification.ToXML">
+            <summary>
+            Serializes the notification configuration as an XML string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Minio.DataModel.EventType">
+            <summary>
+            EventType is a S3 notification event associated to the bucket notification configuration
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.FilterRule">
+            <summary>
+            FilterRule - child of S3Key, a tag in the notification xml which
+            carries suffix/prefix filters
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.LambdaConfig">
+            <summary>
+            LambdaConfig carries one single cloudfunction notification configuration
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.NotificationConfiguration">
+            <summary>
+            NotificationConfig - represents one single notification configuration
+            such as topic, queue or lambda configuration
+            </summary>
+        </member>
+        <member name="M:Minio.DataModel.NotificationConfiguration.AddFilterSuffix(System.String)">
+            <summary>
+            AddFilterSuffix sets the suffix configuration to the current notification config
+            </summary>
+            <param name="suffix"></param>
+        </member>
+        <member name="M:Minio.DataModel.NotificationConfiguration.AddFilterPrefix(System.String)">
+            <summary>
+            AddFilterPrefix sets the prefix configuration to the current notification config
+            </summary>
+            <param name="prefix"></param>
+        </member>
+        <member name="T:Minio.DataModel.QueueConfig">
+            <summary>
+            QueueConfig carries one single queue notification configuration
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.S3Key">
+            <summary>
+            S3Key - child of Filter, a tag in the notification xml which carries suffix/prefix
+            filters and allows filtering event notifications based on S3 Object key's name
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.TopicConfig">
+            <summary>
+            TopicConfig carries one single topic notification configuration
+            </summary>
+        </member>
+        <member name="M:Minio.DataModel.TopicConfig.Equals(System.Object)">
+            <summary>
+            Implement equality for this object
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.DataModel.ObjectStat.#ctor(System.String,System.Int64,System.DateTime,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Object metadata information.
+            </summary>
+            <param name="objectName">Object name</param>
+            <param name="size">Object size</param>
+            <param name="lastModified">Last when object was modified</param>
+            <param name="etag">Unique entity tag for the object</param>
+            <param name="contentType">Object content type</param>
+            <param name="metadata"></param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetExpires(System.DateTime)">
+            <summary>
+            Set expiration policy.
+            </summary>
+            <param name="expiration">Expiration time for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetKey(System.String)">
+            <summary>
+            Set key policy.
+            </summary>
+            <param name="key">Object name for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetKeyStartsWith(System.String)">
+            <summary>
+            Set key prefix policy.
+            </summary>
+            <param name="keyStartsWith">Object name prefix for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetBucket(System.String)">
+            <summary>
+            Set bucket policy.
+            </summary>
+            <param name="bucket">Bucket name for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetCacheControl(System.String)">
+            <summary>
+            Set cache control
+            </summary>
+            <param name="cacheControl">CacheControl for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetcontentType(System.String)">
+            <summary>
+            Set content type policy.
+            </summary>
+            <param name="contentType">ContentType for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetContentEncoding(System.String)">
+            <summary>
+            Set content encoding
+            </summary>
+            <param name="contentEncoding">ContentEncoding for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetContentLength(System.Int64)">
+            <summary>
+            Set content length
+            </summary>
+            <param name="contentLength">ContentLength for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetContentRange(System.Int64,System.Int64)">
+            <summary>
+            Set content range
+            </summary>
+            <param name="startRange">ContentRange for the policy</param>
+            <param name="endRange"></param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetSessionToken(System.String)">
+            <summary>
+            Set session token
+            </summary>
+            <param name="sessionToken">set session token</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetSuccessStatusAction(System.String)">
+            <summary>
+            Set the success action status of the object for this policy based upload.
+            </summary>
+            <param name="status">Success action status</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetUserMetadata(System.String,System.String)">
+            <summary>
+            Set user specified metadata as a key/value couple.
+            </summary>
+            <param name="key">Key and Value to insert in the metadata</param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetAlgorithm(System.String)">
+            <summary>
+            Set signature algorithm policy.
+            </summary>
+            <param name="algorithm">Set signature algorithm used for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetCredential(System.String)">
+            <summary>
+            Set credential policy.
+            </summary>
+            <param name="credential">Set credential string for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetDate(System.DateTime)">
+            <summary>
+            Set date policy.
+            </summary>
+            <param name="date">Set date for the policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetPolicy(System.String)">
+            <summary>
+            Set base64 encoded policy to form dictionary.
+            </summary>
+            <param name="policyBase64">Base64 encoded policy</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.SetSignature(System.String)">
+            <summary>
+            Set computed signature for the policy to form dictionary.
+            </summary>
+            <param name="signature">Computed signature</param>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.MarshalJSON">
+            <summary>
+            Serialize policy into JSON string.
+            </summary>
+            <returns>Serialized JSON policy</returns>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.Base64">
+            <summary>
+            Compute base64 encoded form of JSON policy.
+            </summary>
+            <returns>Base64 encoded string of JSON policy</returns>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.IsBucketSet">
+            <summary>
+            Verify if bucket is set in policy.
+            </summary>
+            <returns>true if bucket is set</returns>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.IsKeySet">
+            <summary>
+            Verify if key is set in policy.
+            </summary>
+            <returns>true if key is set</returns>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.IsExpirationSet">
+            <summary>
+            Verify if expiration is set in policy.
+            </summary>
+            <returns>true if expiration is set</returns>
+        </member>
+        <member name="M:Minio.DataModel.PostPolicy.GetFormData">
+            <summary>
+            Get the populated dictionary of policy data.
+            </summary>
+            <returns>Dictionary of policy data</returns>
+        </member>
+        <member name="T:Minio.DataModel.ServerSideEncryption">
+            <summary>
+            ServerSideEncryption interface
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.SSEC">
+            <summary>
+            Server-side encryption with customer provided keys (SSE-C)
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.SSECopy">
+            <summary>
+            Server-side encryption option for source side SSE-C copy operation
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.SSES3">
+            <summary>
+            Server-side encryption with S3 managed encryption keys (SSE-S3)
+            </summary>
+        </member>
+        <member name="T:Minio.DataModel.SSEKMS">
+            <summary>
+            Server-side encryption with AWS KMS managed keys
+            </summary>
+        </member>
+        <member name="M:Minio.DataModel.SSEKMS.marshalContext">
+            <summary>
+            Serialize context into JSON string.
+            </summary>
+            <returns>Serialized JSON context</returns>
+        </member>
+        <member name="F:Minio.Helper.Constants.MaxParts">
+            <summary>
+            Maximum number of parts
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.MinimumPartSize">
+            <summary>
+            Minimum part size
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.MaximumPartSize">
+            <summary>
+            Maximum part size
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.MaximumStreamObjectSize">
+            <summary>
+            Maximum streaming object size
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.MaxSinglePutObjectSize">
+            <summary>
+            maxSinglePutObjectSize - maximum size 5GiB of object per PUT operation
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.MaxSingleCopyObjectSize">
+            <summary>
+            maxSingleCopyObjectSize - 5GiB
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.MaxMultipartPutObjectSize">
+            <summary>
+            maxMultipartPutObjectSize - maximum size 5TiB of object for Multipart operation
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.OptimalReadBufferSize">
+            <summary>
+            OptimalReadBufferSize - optimal buffer 5MiB used for reading through Read operation
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.SSEGenericHeader">
+            <summary>
+            SSEGenericHeader is the AWS SSE header used for SSE-S3 and SSE-KMS.
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.SSEKMSKeyId">
+            <summary>
+            SSEKMSKeyId is the AWS SSE KMS Key-Id
+            </summary>
+        </member>
+        <member name="F:Minio.Helper.Constants.SSEKMSContext">
+            <summary>
+            SSEKMSContext is the AWS SSE KMS Context.
+            </summary>
+        </member>
+        <member name="M:Minio.Helper.s3utils.IsValidIP(System.String)">
+            <summary>
+            IsValidIP parses input string for ip address validity.
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Minio.Enum.Method">
+            <summary>
+            HTTP method to use when making requests
+            </summary>
+        </member>
+        <member name="M:Minio.RequestUtil.ValidateEndpoint(System.Uri,System.String)">
+            <summary>
+            Validates URI to check if it is well formed. Otherwise cry foul.
+            </summary>
+        </member>
+        <member name="M:Minio.RequestUtil.IsValidEndpoint(System.String)">
+            <summary>
+            Validate Url endpoint
+            </summary>
+            <param name="endpoint"></param>
+            <returns>true/false</returns>
+        </member>
+        <member name="M:Minio.utils.ValidateBucketName(System.String)">
+            <summary>
+            IsValidBucketName - verify bucket name in accordance with
+            http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html
+            </summary>
+            <param name="bucketName">Bucket to test existence of</param>
+        </member>
+        <member name="M:Minio.utils.CalculateMultiPartSize(System.Int64)">
+            <summary>
+            Calculate part size and number of parts required.
+            </summary>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Minio.utils.IsValidExpiry(System.Int32)">
+            <summary>
+            Check if input expires value is valid.
+            </summary>
+            <param name="expiryInt">time to expiry in seconds</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Minio.Regions.GetRegionFromEndpoint(System.String)">
+            <summary>
+            Get corresponding region for input host.
+            </summary>
+            <param name="endpoint">S3 API endpoint</param>
+            <returns>Region corresponding to the endpoint. Default is 'us-east-1'</returns>
+        </member>
+        <member name="T:Minio.V4Authenticator">
+            <summary>
+            V4Authenticator implements IAuthenticator interface.
+            </summary>
+        </member>
+        <member name="M:Minio.V4Authenticator.#ctor(System.Boolean,System.String,System.String,System.String,System.String)">
+            <summary>
+            Authenticator constructor.
+            </summary>
+            <param name="secure"></param>
+            <param name="accessKey">Access key id</param>
+            <param name="secretKey">Secret access key</param>
+            <param name="region">Region if specifically set</param>
+            <param name="sessionToken">sessionToken</param>
+        </member>
+        <member name="M:Minio.V4Authenticator.Authenticate(RestSharp.IRestClient,RestSharp.IRestRequest)">
+            <summary>
+            Implements Authenticate interface method for IAuthenticator.
+            </summary>
+            <param name="client">Instantiated IRestClient object</param>
+            <param name="request">Instantiated IRestRequest object</param>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetCredentialString(System.DateTime,System.String)">
+            <summary>
+            Get credential string of form {ACCESSID}/date/region/s3/aws4_request.
+            </summary>
+            <param name="signingDate">Signature initiated date</param>
+            <param name="region">Region for the credential string</param>
+            <returns>Credential string for the authorization header</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetAuthorizationHeader(System.String,System.String,System.DateTime,System.String)">
+            <summary>
+            Constructs an authorization header.
+            </summary>
+            <param name="signedHeaders">All signed http headers</param>
+            <param name="signature">Hexadecimally encoded computed signature</param>
+            <param name="signingDate">Date for signature to be signed</param>
+            <param name="region">Requested region</param>
+            <returns>Fully formed authorization header</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetSignedHeaders(System.Collections.Generic.SortedDictionary{System.String,System.String})">
+            <summary>
+            Concatenates sorted list of signed http headers.
+            </summary>
+            <param name="headersToSign">Sorted dictionary of headers to be signed</param>
+            <returns>All signed headers</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GenerateSigningKey(System.String,System.DateTime)">
+            <summary>
+            Generates signing key based on the region and date.
+            </summary>
+            <param name="region">Requested region</param>
+            <param name="signingDate">Date for signature to be signed</param>
+            <returns>bytes of computed hmac</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.SignHmac(System.Byte[],System.Byte[])">
+            <summary>
+            Compute hmac of input content with key.
+            </summary>
+            <param name="key">Hmac key</param>
+            <param name="content">Bytes to be hmac computed</param>
+            <returns>Computed hmac of input content</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetStringToSign(System.String,System.DateTime,System.String)">
+            <summary>
+            Get string to sign.
+            </summary>
+            <param name="region">Requested region</param>
+            <param name="signingDate">Date for signature to be signed</param>
+            <param name="canonicalRequestHash">Hexadecimal encoded sha256 checksum of canonicalRequest</param>
+            <returns>String to sign</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetScope(System.String,System.DateTime)">
+            <summary>
+            Get scope.
+            </summary>
+            <param name="region">Requested region</param>
+            <param name="signingDate">Date for signature to be signed</param>
+            <returns>Scope string</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.ComputeSha256(System.Byte[])">
+            <summary>
+            Compute sha256 checksum.
+            </summary>
+            <param name="body">Bytes body</param>
+            <returns>Bytes of sha256 checksum</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.BytesToHex(System.Byte[])">
+            <summary>
+            Convert bytes to hexadecimal string.
+            </summary>
+            <param name="checkSum">Bytes of any checksum</param>
+            <returns>Hexlified string of input bytes</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.PresignPostSignature(System.String,System.DateTime,System.String)">
+            <summary>
+            Generate signature for post policy.
+            </summary>
+            <param name="region">Requested region</param>
+            <param name="signingDate">Date for signature to be signed</param>
+            <param name="policyBase64">Base64 encoded policy JSON</param>
+            <returns>Computed signature</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.PresignURL(RestSharp.IRestClient,RestSharp.IRestRequest,System.Int32,System.String,System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Presigns any input client object with a requested expiry.
+            </summary>
+            <param name="client">Instantiated client</param>
+            <param name="request">Instantiated request</param>
+            <param name="expires">Expiration in seconds</param>
+            <param name="region">Region of storage</param>
+            <param name="sessionToken">Value for session token</param>
+            <param name="reqDate"> Optional request date and time in UTC</param>
+            <returns>Presigned url</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetPresignCanonicalRequest(RestSharp.Method,System.Uri,System.Collections.Generic.SortedDictionary{System.String,System.String})">
+            <summary>
+            Get presign canonical request.
+            </summary>
+            <param name="requestMethod">HTTP method used for this request</param>
+            <param name="uri">Full url for this request, including all query parameters except for headers and X-Amz-Signature</param>
+            <returns>Presigned canonical request</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetCanonicalRequest(RestSharp.IRestRequest,System.Collections.Generic.SortedDictionary{System.String,System.String})">
+            <summary>
+            Get canonical request.
+            </summary>
+            <param name="request">Instantiated request object</param>
+            <param name="headersToSign">Dictionary of http headers to be signed</param>
+            <returns>Canonical Request</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.GetHeadersToSign(RestSharp.IRestRequest)">
+            <summary>
+            Get headers to be signed.
+            </summary>
+            <param name="request">Instantiated requesst</param>
+            <returns>Sorted dictionary of headers to be signed</returns>
+        </member>
+        <member name="M:Minio.V4Authenticator.SetDateHeader(RestSharp.IRestRequest,System.DateTime)">
+            <summary>
+            Sets 'x-amz-date' http header.
+            </summary>
+            <param name="request">Instantiated request object</param>
+            <param name="signingDate">Date for signature to be signed</param>
+        </member>
+        <member name="M:Minio.V4Authenticator.SetHostHeader(RestSharp.IRestRequest,System.String)">
+            <summary>
+            Set 'Host' http header.
+            </summary>
+            <param name="request">Instantiated request object</param>
+            <param name="hostUrl">Host url</param>
+        </member>
+        <member name="M:Minio.V4Authenticator.SetSessionTokenHeader(RestSharp.IRestRequest,System.String)">
+            <summary>
+            Set 'X-Amz-Security-Token' http header.
+            </summary>
+            <param name="request">Instantiated request object</param>
+            <param name="sessionToken">session token</param>
+        </member>
+        <member name="M:Minio.V4Authenticator.SetContentSha256(RestSharp.IRestRequest)">
+            <summary>
+            Set 'x-amz-content-sha256' http header.
+            </summary>
+            <param name="request">Instantiated request object</param>
+        </member>
+        <member name="M:Minio.V4Authenticator.SetContentMd5(RestSharp.IRestRequest)">
+            <summary>
+            Set 'Content-MD5' http header.
+            </summary>
+            <param name="request">Instantiated request object</param>
+        </member>
+    </members>
+</doc>
