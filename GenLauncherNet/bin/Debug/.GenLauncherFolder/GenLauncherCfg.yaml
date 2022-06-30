@@ -1,0 +1,39 @@
+AddedModifications: {}
+ModsAndVersions:
+  concDict: {}
+GlobalAddonsAndVersions:
+  concDict:
+    CONTROL BAR PRO:
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Addon
+      Name: Control Bar Pro
+      Version: 1.0.0
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21849&authkey=APNER3HvDI6XfwM
+      UIImageSourceLink: ''
+      DiscordLink: ''
+      ModDBLink: https://www.moddb.com/mods/cc-shockwave/addons/controlbarpro-shw
+      NewsLink: ''
+      DependenceName: ''
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+AddonsAndVersions:
+  concDict: {}
+PatchesAndVersions:
+  concDict: {}
+SelectedAddons: []
+SelectedPatches: []
+ModdedExe: true
+Windowed: true
+QuickStart: true
+CameraHeight: 0
+AutoUpdateGentool: true
+AutoDeleteOldVersions: false
+GameParams: 
+SelectedMod: 
+SelectedGlobalAddons: []

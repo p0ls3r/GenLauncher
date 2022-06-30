@@ -50,3 +50,7 @@ C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\GenLauncher.
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\GenLauncher.csproj.AssemblyReference.cache
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\AddModificationWindow.g.cs
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\AddModificationWindow.baml
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\SymbolicLinkSupport.dll
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\YamlDotNet.dll
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\SymbolicLinkSupport.xml
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\YamlDotNet.xml

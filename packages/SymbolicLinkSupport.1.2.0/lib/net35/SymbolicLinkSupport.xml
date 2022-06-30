@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SymbolicLinkSupport</name>
+    </assembly>
+    <members>
+        <member name="T:SymbolicLinkSupport.DirectoryInfoExtensions">
+            <summary>
+            A class which provides extensions for <see cref="T:System.IO.DirectoryInfo"/> to handle symbolic directory links.
+            </summary>
+        </member>
+        <member name="M:SymbolicLinkSupport.DirectoryInfoExtensions.CreateSymbolicLink(System.IO.DirectoryInfo,System.String,System.Boolean)">
+            <summary>
+            Creates a symbolic link to this directory at the specified path.
+            </summary>
+            <param name="directoryInfo">the source directory for the symbolic link.</param>
+            <param name="path">the path of the symbolic link.</param>
+            <param name="makeTargetPathRelative">whether the target should be made relative to the symbolic link. Default <c>false</c>.</param>
+        </member>
+        <member name="M:SymbolicLinkSupport.DirectoryInfoExtensions.CreateSymbolicLink(System.IO.DirectoryInfo,System.String)">
+            <summary>
+            Creates a symbolic link to this directory at the specified path.
+            </summary>
+            <param name="directoryInfo">the source directory for the symbolic link.</param>
+            <param name="path">the path of the symbolic link.</param>
+        </member>
+        <member name="M:SymbolicLinkSupport.DirectoryInfoExtensions.IsSymbolicLink(System.IO.DirectoryInfo)">
+            <summary>
+            Determines whether this directory is a symbolic link.
+            </summary>
+            <param name="directoryInfo">the directory in question.</param>
+            <returns><code>true</code> if the directory is, indeed, a symbolic link, <code>false</code> otherwise.</returns>
+        </member>
+        <member name="M:SymbolicLinkSupport.DirectoryInfoExtensions.IsSymbolicLinkValid(System.IO.DirectoryInfo)">
+            <summary>
+            Determines whether the target of this symbolic link still exists.
+            </summary>
+            <param name="directoryInfo">The symbolic link in question.</param>
+            <returns><code>true</code> if this symbolic link is valid, <code>false</code> otherwise.</returns>
+            <exception cref="T:System.ArgumentException">If the directory is not a symbolic link.</exception>
+        </member>
+        <member name="M:SymbolicLinkSupport.DirectoryInfoExtensions.GetSymbolicLinkTarget(System.IO.DirectoryInfo)">
+            <summary>
+            Returns the full path to the target of this symbolic link.
+            </summary>
+            <param name="directoryInfo">The symbolic link in question.</param>
+            <returns>The path to the target of the symbolic link.</returns>
+            <exception cref="T:System.ArgumentException">If the directory in question is not a symbolic link.</exception>
+        </member>
+        <member name="T:SymbolicLinkSupport.FileInfoExtensions">
+            <summary>
+            Extension methods for System.IO.FileInfo to provide symbolic link support.
+            </summary>
+        </member>
+        <member name="M:SymbolicLinkSupport.FileInfoExtensions.CreateSymbolicLink(System.IO.FileInfo,System.String,System.Boolean)">
+            <summary>
+            Creates a symbolic link to this file at the specified path.
+            </summary>
+            <param name="it">the source file for the symbolic link.</param>
+            <param name="path">the path of the symbolic link.</param>
+            <param name="makeTargetPathRelative">whether the target should be made relative to the symbolic link. Default <c>false</c>.</param>
+        </member>
+        <member name="M:SymbolicLinkSupport.FileInfoExtensions.CreateSymbolicLink(System.IO.FileInfo,System.String)">
+            <summary>
+            Creates a symbolic link to this file at the specified path.
+            </summary>
+            <param name="it">the source file for the symbolic link.</param>
+            <param name="path">the path of the symbolic link.</param>
+        </member>
+        <member name="M:SymbolicLinkSupport.FileInfoExtensions.IsSymbolicLink(System.IO.FileInfo)">
+            <summary>
+            Determines whether this file is a symbolic link.
+            </summary>
+            <param name="it">the file in question.</param>
+            <returns><code>true</code> if the file is, indeed, a symbolic link, <code>false</code> otherwise.</returns>
+        </member>
+        <member name="M:SymbolicLinkSupport.FileInfoExtensions.IsSymbolicLinkValid(System.IO.FileInfo)">
+            <summary>
+            Determines whether the target of this symbolic link still exists.
+            </summary>
+            <param name="it">The symbolic link in question.</param>
+            <returns><code>true</code> if this symbolic link is valid, <code>false</code> otherwise.</returns>
+            <exception cref="T:System.ArgumentException">If the file in question is not a symbolic link.</exception>
+        </member>
+        <member name="M:SymbolicLinkSupport.FileInfoExtensions.GetSymbolicLinkTarget(System.IO.FileInfo)">
+            <summary>
+            Returns the full path to the target of this symbolic link.
+            </summary>
+            <param name="it">The symbolic link in question.</param>
+            <returns>The path to the target of the symbolic link.</returns>
+            <exception cref="T:System.ArgumentException">If the file in question is not a symbolic link.</exception>
+        </member>
+        <member name="F:SymbolicLinkSupport.SymbolicLink.symlinkReparsePointFlagRelative">
+            <summary>
+            Flag to indicate that the reparse point is relative
+            </summary>
+            <remarks>
+            This is SYMLINK_FLAG_RELATIVE from from ntifs.h
+            See https://msdn.microsoft.com/en-us/library/cc232006.aspx
+            </remarks>
+        </member>
+        <member name="F:SymbolicLinkSupport.SymbolicLink.maxRelativePathLengthUnicodeChars">
+            <summary>
+            The maximum number of characters for a relative path, using Unicode 2-byte characters.
+            </summary>
+            <remarks>
+            <para>This is the same as the old MAX_PATH value, because:</para>
+            <para>
+            "you cannot use the "\\?\" prefix with a relative path, relative paths are always limited to a total of MAX_PATH characters"
+            </para>
+            (https://docs.microsoft.com/en-us/windows/desktop/fileio/naming-a-file#maximum-path-length-limitation)
+            
+            This value includes allowing for a terminating null character.
+            </remarks>
+        </member>
+        <member name="T:SymbolicLinkSupport.SymbolicLinkReparseData">
+            <remarks>
+            Refer to http://msdn.microsoft.com/en-us/library/windows/hardware/ff552012%28v=vs.85%29.aspx
+            </remarks>
+        </member>
+    </members>
+</doc>
