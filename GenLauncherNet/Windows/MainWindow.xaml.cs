@@ -732,7 +732,7 @@ namespace GenLauncherNet
             }
             else
             {
-                var succes = await DownloadModFromS3Storage(modData);
+                var succes = await GetModFilesInfoFromS3StorageAndDownloadMod(modData);
 
                 if (succes)
                     return;
@@ -750,6 +750,7 @@ namespace GenLauncherNet
 
         private async Task DownloadModBySimpleLink(ModBoxData modData)
         {
+            modData.PrepareControlsToDownloadMode();
             var client = new ModificationDownloader(modData);
 
             modData.SetDownloader(client);
@@ -767,8 +768,9 @@ namespace GenLauncherNet
             }
         }
 
-        private async Task<bool> DownloadModFromS3Storage(ModBoxData modData)
+        private async Task<bool> GetModFilesInfoFromS3StorageAndDownloadMod(ModBoxData modData)
         {
+            modData.PrepareControlsToDownloadMode();
             modData.SetUIMessages("Creating temporary copy and checking changes...");
 
             List<ModificationFileInfo> filesToDownload = new List<ModificationFileInfo>();
@@ -791,24 +793,29 @@ namespace GenLauncherNet
 
             try
             {
-                var client = new ModificationDownloader(modData);
-                modData.SetDownloader(client);
-                client.ProgressChanged += DownloadProgressChanged;
-                client.Done += ModificationDownloadDone;
-
-                var result =  await client.StartS3Download(filesToDownload, tempDirectoryName);
-
-                if (result.Crashed)
-                    return false;
-                else
-                    return true;
+                return await DownloadFilesFromS3Storage(modData, filesToDownload, tempDirectoryName);
             }
             catch (Exception e)
             {
                 modData.ClearDownloader();
                 modData.SetUIMessages(e.Message);
-                return true;
+                return false;
             }
+        }
+
+        private async Task<bool> DownloadFilesFromS3Storage(ModBoxData modData, List<ModificationFileInfo> filesToDownload, string tempDirectoryName)
+        {
+            var client = new ModificationDownloader(modData);
+            modData.SetDownloader(client);
+            client.ProgressChanged += DownloadProgressChanged;
+            client.Done += ModificationDownloadDone;
+
+            var result = await client.StartS3Download(filesToDownload, tempDirectoryName);
+
+            if (result.Crashed && !result.Canceled)
+                return false;
+            else
+                return true;
         }
 
         private void SetFocuses()
@@ -1278,7 +1285,6 @@ namespace GenLauncherNet
             if (modData.Downloader == null)
             {
                 downloadingCount += 1;
-                modData.PrepareControlsToDownloadMode();
                 DownloadMod(modData);
                 e.Handled = false;
             }
@@ -1313,7 +1319,7 @@ namespace GenLauncherNet
         private void ModificationDownloadDone(ModBoxData modData, DownloadResult result)
         {
             modData.ClearDownloader();
-            
+
             downloadingCount -= 1;
 
             if (result.Canceled)
