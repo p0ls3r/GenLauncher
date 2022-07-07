@@ -124,6 +124,9 @@
     <Compile Include="HttpHandlers\ModificationDownloader.cs" />
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
+    <Compile Include="Windows\Net46NotInstalled.xaml.cs">
+      <DependentUpon>Net46NotInstalled.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ModificationNames.xaml.cs">
       <DependentUpon>ModificationNames.xaml</DependentUpon>
     </Compile>
@@ -159,15 +162,11 @@
     <Compile Include="WPFElements\UpdateButton.cs" />
     <Compile Include="WPFElements\NameTextBox.cs" />
     <Compile Include="WPFElements\VersionTextBox.cs" />
+    <Page Include="Windows\Net46NotInstalled.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ModificationNames.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ProgressBarStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ScrollStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,8 +20,6 @@ C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\RestSharp.xm
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\System.Reactive.xml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\System.Reactive.Linq.xml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\ModificationNames.baml
-C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\ProgressBarStyle.baml
-C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\ScrollStyle.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\UpdateAvailable.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\InfoWindow.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\InitWindow.baml
@@ -54,3 +52,5 @@ C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\SymbolicLink
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\YamlDotNet.dll
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\SymbolicLinkSupport.xml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\YamlDotNet.xml
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\Net46NotInstalled.g.cs
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\Net46NotInstalled.baml

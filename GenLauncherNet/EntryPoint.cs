@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -20,7 +21,7 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string GenLauncherGlobalAddonsFolder = "GenLauncherAddons";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.6.7 Beta";
+        public const string Version = "0.0.6.8 Beta";
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink = @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
         public const string AddonsFolderName = "Addons";
@@ -30,6 +31,7 @@ namespace GenLauncherNet
         public const string GenLauncherReplaceSuffix = ".GenLauncherReplaced";
         public const string GenLauncherVersionFolderCopySuffix = ".GenLauncherTempCopy";
         public const string GenLauncherOriginalFileSuffix = ".GenLauncherOriginalFile";
+        const string subkey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
 
         private static Mutex _mutex1;
 
@@ -50,6 +52,14 @@ namespace GenLauncherNet
             try
             {
                 CheckDbgCrash();
+                var app = new App();
+
+                if (!IsNet46Installed())
+                {
+                    var warningWindow = new Net46NotInstalled() { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                    app.Run(warningWindow);
+                    return;
+                }
 
                 if (!IsLauncherInGameFolder())
                 {
@@ -75,7 +85,7 @@ namespace GenLauncherNet
                     Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder));
 
                 var initWindow = new InitWindow() { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                var app = new App();
+                
                 app.Run(initWindow);
 
                 ReturGameFolderToOriginalState();
@@ -106,6 +116,25 @@ namespace GenLauncherNet
             DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory()));
             GameFilesHandler.ActivateGameFilesBack();
         }
+
+        public static bool IsNet46Installed()
+        {
+            using (var ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(subkey))
+            {
+                if (ndpKey != null && ndpKey.GetValue("Release") != null)
+                {
+                    var releaseKey = (int)ndpKey.GetValue("Release");
+                    if (releaseKey >= 393295)
+                        return true;
+
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }        
 
         public static bool OtherInstancesExists()
         {
