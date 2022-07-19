@@ -61,7 +61,8 @@ namespace GenLauncherNet
 
             var modDirectoryInfo = new DirectoryInfo(sourceFolder);
 
-            foreach (var file in modDirectoryInfo.GetFiles())
+            foreach (var file in modDirectoryInfo.GetFiles().Where(f => !String.Equals(Path.GetExtension(f.FullName), ".exe", StringComparison.OrdinalIgnoreCase))
+                .Where(f => !String.Equals(Path.GetExtension(f.FullName), ".dll", StringComparison.OrdinalIgnoreCase)))
             {
                 var sourceFile = file.FullName;
                 var targetFile = String.Empty;

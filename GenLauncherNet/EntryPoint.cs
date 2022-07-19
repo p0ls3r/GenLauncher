@@ -16,12 +16,11 @@ namespace GenLauncherNet
     {
         public const string LauncherFolder = @".GenLauncherFolder/";
         public const string ConfigName = @".GenLauncherFolder/GenLauncherCfg.yaml";
-        //public const string ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataMk2.yaml";
         public const string ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataMk3.yaml";
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string GenLauncherGlobalAddonsFolder = "GenLauncherAddons";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.6.8 Beta";
+        public const string Version = "0.0.6.9 Beta";
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink = @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
         public const string AddonsFolderName = "Addons";
@@ -50,8 +49,7 @@ namespace GenLauncherNet
         public static void Main()
         {
             try
-            {
-                CheckDbgCrash();
+            {                
                 var app = new App();
 
                 if (!IsNet46Installed())
@@ -67,9 +65,11 @@ namespace GenLauncherNet
                     return;
                 }
 
+                CheckDbgCrash();
+
                 if (!CanCreateSymbLink())
                 {
-                    MessageBox.Show("Cannot create symbolic link in game folder, check your security policies and try again later");
+                    MessageBox.Show("Cannot create symbolic link in game folder, please check Security Policy Setting Create symbolic links field");
                     return;
                 }
 

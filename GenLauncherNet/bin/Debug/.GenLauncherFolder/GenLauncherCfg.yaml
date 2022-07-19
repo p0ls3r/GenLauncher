@@ -2,8 +2,9 @@ AddedModifications: {}
 ModsAndVersions:
   concDict:
     CONTRA:
-    - IsSelected: true
-      Installed: false
+    - &o0
+      IsSelected: true
+      Installed: true
       Favorite: false
       ModificationType: Mod
       Name: Contra
@@ -13,32 +14,13 @@ ModsAndVersions:
       DiscordLink: https://discord.gg/015E6KXXHmdWFXCtt
       ModDBLink: https://www.moddb.com/mods/contra
       NewsLink: https://www.moddb.com/mods/contra/articles
-      DependenceName: ''
+      DependenceName: 
       S3HostLink: gen.insave.ovh:9000
       S3BucketName: contra
       S3FolderName: contra-individual-files
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
+      S3HostPublicKey: 
+      S3HostSecretKey: 
       NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
-    PROJECT RAPTOR:
-    - IsSelected: true
-      Installed: false
-      Favorite: false
-      ModificationType: Mod
-      Name: Project Raptor
-      Version: V10 Alpha 0.3
-      SimpleDownloadLink: ''
-      UIImageSourceLink: https://i.imgur.com/Zb0nNCG.jpg
-      DiscordLink: https://discord.gg/7NsTfDD
-      ModDBLink: https://www.moddb.com/mods/project-raptor
-      NewsLink: https://www.moddb.com/mods/project-raptor/news/project-raptor-v10-alpha-v03
-      DependenceName: ''
-      S3HostLink: gen.insave.ovh:9000
-      S3BucketName: projectraptor
-      S3FolderName: Mod
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
-      NetworkInfo: ''
 GlobalAddonsAndVersions:
   concDict:
     CONTROL BAR PRO:
@@ -237,5 +219,5 @@ CameraHeight: 0
 AutoUpdateGentool: true
 AutoDeleteOldVersions: false
 GameParams: 
-SelectedMod: 
+SelectedMod: *o0
 SelectedGlobalAddons: []
