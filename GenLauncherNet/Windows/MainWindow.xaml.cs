@@ -727,7 +727,7 @@ namespace GenLauncherNet
         private async void DownloadMod(ModBoxData modData)
         {
             if (string.IsNullOrEmpty(modData.LatestVersion.S3HostLink) || string.IsNullOrEmpty(modData.LatestVersion.S3BucketName))
-            {
+            {                
                 await DownloadModBySimpleLink(modData);
             }
             else
@@ -740,7 +740,7 @@ namespace GenLauncherNet
                 if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
                     await DownloadModBySimpleLink(modData);
                 else
-                {
+                {                    
                     var errorMsg = modData._GridControls._InfoTextBlock.Text;
                     DownloadCrashed(modData, errorMsg);
                 }
@@ -763,6 +763,7 @@ namespace GenLauncherNet
             }
             catch (Exception e)
             {
+                downloadingCount -= 1;
                 modData.ClearDownloader();
                 modData.SetUIMessages(e.Message);
             }
@@ -787,6 +788,7 @@ namespace GenLauncherNet
             }
             catch (Exception e)
             {
+                downloadingCount -= 1;
                 modData.SetUIMessages(e.Message);
                 return false;
             }
@@ -797,6 +799,7 @@ namespace GenLauncherNet
             }
             catch (Exception e)
             {
+                downloadingCount -= 1;
                 modData.ClearDownloader();
                 modData.SetUIMessages(e.Message);
                 return false;
@@ -1283,8 +1286,7 @@ namespace GenLauncherNet
             var modData = (ModBoxData)modGrid.DataContext;
 
             if (modData.Downloader == null)
-            {
-                downloadingCount += 1;
+            {                
                 DownloadMod(modData);
                 e.Handled = false;
             }

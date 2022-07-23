@@ -65,7 +65,7 @@ namespace GenLauncherNet
         public async Task StartSimpleDownload()
         {
             try
-            {
+            {                
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
                 _response = await _httpClient.GetAsync(_downloadUrl, HttpCompletionOption.ResponseHeadersRead);
                 await DownloadFileFromHttpResponseMessage();
