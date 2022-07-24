@@ -19,13 +19,11 @@ C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\Minio.xml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\RestSharp.xml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\System.Reactive.xml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\System.Reactive.Linq.xml
-C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\ModificationNames.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\UpdateAvailable.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\InfoWindow.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\InitWindow.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\MainWindow.baml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\OptionsWindow.baml
-C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\ModificationNames.g.cs
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\UpdateAvailable.g.cs
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\InfoWindow.g.cs
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\InitWindow.g.cs
@@ -54,3 +52,5 @@ C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\SymbolicLink
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\bin\Debug\YamlDotNet.xml
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\Net46NotInstalled.g.cs
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\Net46NotInstalled.baml
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\ManualAddMidificationWindow.g.cs
+C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\obj\Debug\Windows\ManualAddMidificationWindow.baml

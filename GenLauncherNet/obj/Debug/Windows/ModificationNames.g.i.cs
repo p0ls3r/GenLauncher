@@ -38,7 +38,7 @@ namespace GenLauncherNet {
     /// <summary>
     /// ModificationNames
     /// </summary>
-    public partial class ModificationNames : System.Windows.Window, System.Windows.Markup.IComponentConnector {
+    public partial class ManualAddMidificationWindow : System.Windows.Window, System.Windows.Markup.IComponentConnector {
         
         
         #line 90 "..\..\..\Windows\ModificationNames.xaml"

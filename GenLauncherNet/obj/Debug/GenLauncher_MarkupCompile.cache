@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\miste\source\repos\GenLauncherNet\GenLauncherNet\App.xaml
-8-1407421281
+81001478622
 
-46-1177771447
+46-2089776621
 271909734068
-Windows\Net46NotInstalled.xaml;Windows\ModificationNames.xaml;Windows\UpdateAvailable.xaml;Windows\InfoWindow.xaml;Windows\InitWindow.xaml;Windows\MainWindow.xaml;Windows\OptionsWindow.xaml;Windows\AddModificationWindow.xaml;
+Windows\Net46NotInstalled.xaml;Windows\ManualAddMidificationWindow.xaml;Windows\UpdateAvailable.xaml;Windows\InfoWindow.xaml;Windows\InitWindow.xaml;Windows\MainWindow.xaml;Windows\OptionsWindow.xaml;Windows\AddModificationWindow.xaml;
 
 False
 

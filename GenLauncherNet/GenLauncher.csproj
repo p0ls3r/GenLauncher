@@ -127,8 +127,8 @@
     <Compile Include="Windows\Net46NotInstalled.xaml.cs">
       <DependentUpon>Net46NotInstalled.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ModificationNames.xaml.cs">
-      <DependentUpon>ModificationNames.xaml</DependentUpon>
+    <Compile Include="Windows\ManualAddMidificationWindow.xaml.cs">
+      <DependentUpon>ManualAddMidificationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModificationsFileHandler.cs" />
     <Compile Include="S3StorageHandler.cs" />
@@ -166,7 +166,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ModificationNames.xaml">
+    <Page Include="Windows\ManualAddMidificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

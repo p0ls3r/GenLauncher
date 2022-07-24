@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GenLauncherNet"
         mc:Ignorable="d"
-        Title="InfoWindow" Height="180" Width="400" ResizeMode="NoResize" WindowStyle="None">
+        Title="InfoWindow" Height="180" Width="400" ResizeMode="NoResize" WindowStyle="None" Topmost="True">
 
     <Window.Resources>
         <Style x:Key="FocusVisual2">

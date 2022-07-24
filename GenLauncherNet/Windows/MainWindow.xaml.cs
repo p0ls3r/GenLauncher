@@ -1467,7 +1467,7 @@ namespace GenLauncherNet
 
             if (result == true)
             {
-                var setNameWindow = new ModificationNames(dlg.FileNames.ToList()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 setNameWindow.CreateModCallback += CreateModificationFromFiles;
                 setNameWindow.ShowDialog();
             }
@@ -1484,7 +1484,7 @@ namespace GenLauncherNet
 
             if (result == true)
             {
-                var setNameWindow = new ModificationNames(dlg.FileNames.ToList()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 setNameWindow.CreateModCallback += CreateGAddonFromFiles;
                 setNameWindow.ShowDialog();
             }
@@ -1503,7 +1503,7 @@ namespace GenLauncherNet
             {
                 var activeMod = DataHandler.GetSelectedMod();
 
-                var setNameWindow = new ModificationNames(dlg.FileNames.ToList(), activeMod.Name
+                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList(), activeMod.Name
                     ) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 setNameWindow.CreateAddonCallback += CreatePatchFromFiles;
                 setNameWindow.ShowDialog();
@@ -1523,7 +1523,7 @@ namespace GenLauncherNet
             {
                 var activeMod = DataHandler.GetSelectedMod();
 
-                var setNameWindow = new ModificationNames(dlg.FileNames.ToList(), activeMod.Name
+                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList(), activeMod.Name
                     ) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 setNameWindow.CreateAddonCallback += CreateAddonFromFiles;
                 setNameWindow.ShowDialog();
