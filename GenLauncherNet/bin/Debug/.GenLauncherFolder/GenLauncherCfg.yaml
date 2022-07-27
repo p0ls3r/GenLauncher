@@ -1,26 +1,6 @@
 AddedModifications: {}
 ModsAndVersions:
   concDict:
-    THE END OF DAYS:
-    - &o0
-      IsSelected: true
-      Installed: true
-      Favorite: false
-      ModificationType: Mod
-      Name: The End of Days
-      Version: 0.97.8 Patch 4
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=896C9369E9176506&resid=896C9369E9176506%21507&authkey=AG-UHBse53inhtg
-      UIImageSourceLink: https://media.discordapp.net/attachments/799373032778498069/887380847320264734/TEODLogo_500x100.png
-      DiscordLink: https://discord.com/invite/aCtu7UG
-      ModDBLink: https://www.moddb.com/mods/the-end-of-days
-      NewsLink: https://docs.google.com/document/d/1O7xeMCq5nxaaDea3MuV2fzwX7A10hNg65DGt0nLTN6Y/edit?usp=sharing
-      DependenceName: ''
-      S3HostLink: gen.insave.ovh:9000
-      S3BucketName: teod
-      S3FolderName: teod-individual-files
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
-      NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
     RISE OF THE REDS:
     - IsSelected: true
       Installed: true
@@ -62,26 +42,7 @@ GlobalAddonsAndVersions:
       S3HostSecretKey: ''
       NetworkInfo: 
 AddonsAndVersions:
-  concDict:
-    THE END OF DAYS:
-    - IsSelected: true
-      Installed: false
-      Favorite: false
-      ModificationType: Addon
-      Name: TEOD Russian Language
-      Version: 1.1.5
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=896C9369E9176506&resid=896C9369E9176506%21492&authkey=AJ2DQoVwHzisU28
-      UIImageSourceLink: ''
-      DiscordLink: ''
-      ModDBLink: ''
-      NewsLink: ''
-      DependenceName: THE END OF DAYS
-      S3HostLink: ''
-      S3BucketName: ''
-      S3FolderName: ''
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
-      NetworkInfo: 
+  concDict: {}
 PatchesAndVersions:
   concDict: {}
 SelectedAddons: []
@@ -93,5 +54,5 @@ CameraHeight: 0
 AutoUpdateGentool: true
 AutoDeleteOldVersions: false
 GameParams: 
-SelectedMod: *o0
+SelectedMod: 
 SelectedGlobalAddons: []

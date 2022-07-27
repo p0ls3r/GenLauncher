@@ -53,7 +53,6 @@ namespace GenLauncherNet
 
         public ModificationDownloader(ModBoxData modBoxData)
         {
-            _downloadUrl = DownloadsLinkParser.ParseDownloadLink(modBoxData.ModBoxModification.SimpleDownloadLink);
             _ModBoxData = modBoxData;
 
             _downloadPath = modBoxData.LatestVersion.GetFolderName();
@@ -65,7 +64,8 @@ namespace GenLauncherNet
         public async Task StartSimpleDownload()
         {
             try
-            {                
+            {
+                _downloadUrl = DownloadsLinkParser.ParseDownloadLink(_ModBoxData.ModBoxModification.SimpleDownloadLink);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
                 _response = await _httpClient.GetAsync(_downloadUrl, HttpCompletionOption.ResponseHeadersRead);
                 await DownloadFileFromHttpResponseMessage();

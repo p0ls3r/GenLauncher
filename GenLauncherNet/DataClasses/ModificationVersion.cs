@@ -41,43 +41,43 @@ namespace GenLauncherNet
             if (otherModificationVersion.Favorite || this.Favorite)
                 this.Favorite = true;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.SimpleDownloadLink) && String.IsNullOrEmpty(this.SimpleDownloadLink))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.SimpleDownloadLink) && String.IsNullOrEmpty(this.SimpleDownloadLink))
                 this.SimpleDownloadLink = otherModificationVersion.SimpleDownloadLink;
 
             if (otherModificationVersion.ModificationType != ModificationType.Mod && this.ModificationType == ModificationType.Mod)
                 this.ModificationType = otherModificationVersion.ModificationType;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.UIImageSourceLink) && String.IsNullOrEmpty(this.UIImageSourceLink))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.UIImageSourceLink) && String.IsNullOrEmpty(this.UIImageSourceLink))
                 this.UIImageSourceLink = otherModificationVersion.UIImageSourceLink;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.DependenceName) && String.IsNullOrEmpty(this.DependenceName))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.DependenceName) && String.IsNullOrEmpty(this.DependenceName))
                 this.DependenceName = otherModificationVersion.DependenceName;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.NewsLink) && String.IsNullOrEmpty(this.NewsLink))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.NewsLink) && String.IsNullOrEmpty(this.NewsLink))
                 this.NewsLink = otherModificationVersion.NewsLink;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.ModDBLink) && String.IsNullOrEmpty(this.ModDBLink))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.ModDBLink) && String.IsNullOrEmpty(this.ModDBLink))
                 this.ModDBLink = otherModificationVersion.ModDBLink;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.DiscordLink) && String.IsNullOrEmpty(this.DiscordLink))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.DiscordLink) && String.IsNullOrEmpty(this.DiscordLink))
                 this.DiscordLink = otherModificationVersion.DiscordLink;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.NetworkInfo) && String.IsNullOrEmpty(this.NetworkInfo))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.NetworkInfo) && String.IsNullOrEmpty(this.NetworkInfo))
                 this.NetworkInfo = otherModificationVersion.NetworkInfo;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.S3BucketName) && String.IsNullOrEmpty(this.S3BucketName))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.S3BucketName) && String.IsNullOrEmpty(this.S3BucketName))
                 this.S3BucketName = otherModificationVersion.S3BucketName;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.S3FolderName) && String.IsNullOrEmpty(this.S3FolderName))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.S3FolderName) && String.IsNullOrEmpty(this.S3FolderName))
                 this.S3FolderName = otherModificationVersion.S3FolderName;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.S3HostLink) && String.IsNullOrEmpty(this.S3HostLink))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.S3HostLink) && String.IsNullOrEmpty(this.S3HostLink))
                 this.S3HostLink = otherModificationVersion.S3HostLink;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.S3HostPublicKey) && String.IsNullOrEmpty(this.S3HostPublicKey))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.S3HostPublicKey) && String.IsNullOrEmpty(this.S3HostPublicKey))
                 this.S3HostPublicKey = otherModificationVersion.S3HostPublicKey;
 
-            if (!String.IsNullOrEmpty(otherModificationVersion.S3HostSecretKey) && String.IsNullOrEmpty(this.S3HostSecretKey))
+            //if (!String.IsNullOrEmpty(otherModificationVersion.S3HostSecretKey) && String.IsNullOrEmpty(this.S3HostSecretKey))
                 this.S3HostSecretKey = otherModificationVersion.S3HostSecretKey;
         }
 
