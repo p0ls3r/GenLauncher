@@ -583,7 +583,7 @@ namespace GenLauncherNet
         }
 
         private async Task CheckAndUpdateGentool()
-        {
+        {            
             if (!DataHandler.GentoolAutoUpdate() && File.Exists("d3d8.dll"))
             {
                 File.Move("d3d8.dll", "d3d8.dll" + EntryPoint.GenLauncherReplaceSuffix);
@@ -598,9 +598,7 @@ namespace GenLauncherNet
 
             if (GentoolHandler.IsGentoolOutDated())
             {
-                DisableUI();
                 await DownloadGentool();
-                EnableUI();
             }
         }
 
@@ -627,30 +625,21 @@ namespace GenLauncherNet
                     SetProgressBarInPassivelMode();
                 }
             }
-
-            catch (TaskCanceledException)
+            catch
             {
                 UpdateProgressBar.Value = 0;
-                UpdateProgress.Text = "Canceled";
-            }
-
-            catch (Exception ex)
-            {
-                UpdateProgressBar.Value = 0;
-                UpdateProgress.Text = "Error" + ex.Message;
+                UpdateProgress.Text = "Unable to download modded.exe";
             }
         }
 
         private async Task DownloadGentool()
         {
-            tokenSource = new CancellationTokenSource();
-
             if (File.Exists("d3d8.dll"))
                 File.Move("d3d8.dll", "d3d8.dll" + EntryPoint.GenLauncherReplaceSuffix);
 
             try
             {
-                using (var client = new ContentDownloader(GentoolHandler.GetGentoolDownloadLink(), null, string.Empty, tokenSource.Token))
+                using (var client = new ContentDownloader(GentoolHandler.GetGentoolDownloadLink(), null, string.Empty))
                 {
                     client.ProgressChanged += LauncherUpdateProgressChanged;
                     SetProgressBarInInstallMode();
@@ -661,18 +650,10 @@ namespace GenLauncherNet
                     SetProgressBarInPassivelMode();
                 }
             }
-            catch (TaskCanceledException)
+            catch
             {
                 UpdateProgressBar.Value = 0;
-                UpdateProgress.Text = "Canceled";
-
-                if (File.Exists("d3d8.dll" + EntryPoint.GenLauncherReplaceSuffix))
-                    File.Move("d3d8.dll" + EntryPoint.GenLauncherReplaceSuffix, "d3d8.dll");
-            }
-            catch (Exception ex)
-            {
-                UpdateProgressBar.Value = 0;
-                UpdateProgress.Text = "Error" + ex.Message;
+                UpdateProgress.Text = "Unable to check gentool";
             }
         }
 
@@ -680,11 +661,9 @@ namespace GenLauncherNet
         {
             if (!File.Exists(EntryPoint.WorldBuilderExeName))
             {
-                tokenSource = new CancellationTokenSource();
-
                 try
                 {
-                    using (var client = new ContentDownloader(EntryPoint.WorldBuilderDownloadLink, null, string.Empty, tokenSource.Token))
+                    using (var client = new ContentDownloader(EntryPoint.WorldBuilderDownloadLink, null, string.Empty))
                     {
                         client.ProgressChanged += LauncherUpdateProgressChanged;
                         SetProgressBarInInstallMode();
@@ -692,15 +671,10 @@ namespace GenLauncherNet
                         SetProgressBarInPassivelMode();
                     }
                 }
-                catch (TaskCanceledException)
+                catch
                 {
                     UpdateProgressBar.Value = 0;
-                    UpdateProgress.Text = "Canceled";
-                }
-                catch (Exception ex)
-                {
-                    UpdateProgressBar.Value = 0;
-                    UpdateProgress.Text = "Error" + ex.Message;
+                    UpdateProgress.Text = "Cannot download WorldbuilderNT27";
                 }
             }
         }
@@ -1226,10 +1200,12 @@ namespace GenLauncherNet
 
             if (ModificationsDontNeedUpdate())
             {
+                DisableUI();
                 await CheckAndUpdateGentool();
                 await CheckModdedExe();
                 var activeVersions = GetVersionOfActiveModifications();
                 _isGameRunning = true;
+                EnableUI();
                 await GameLauncher.PrepareAndRunGame(activeVersions);
                 _isGameRunning = false;
             }

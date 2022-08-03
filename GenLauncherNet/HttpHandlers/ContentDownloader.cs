@@ -38,7 +38,7 @@ namespace GenLauncherNet
 
         public async Task StartDownload()
         {
-            _httpClient = new HttpClient { Timeout = TimeSpan.FromDays(1) };
+            _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
 
             using (var response = await _httpClient.GetAsync(_downloadUrl, HttpCompletionOption.ResponseHeadersRead))
                 await DownloadFileFromHttpResponseMessage(response);

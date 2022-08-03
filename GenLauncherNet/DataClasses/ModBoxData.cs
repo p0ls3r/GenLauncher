@@ -97,17 +97,34 @@ namespace GenLauncherNet
 
         private void SetImage()
         {
+            var imageFileName = Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ModBoxModification.Name, ModBoxModification.Version);
+            if (!File.Exists(imageFileName))
+                return;
+
+            var stream = File.OpenRead(imageFileName);
+
             try
             {
-                if (File.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ModBoxModification.Name, ModBoxModification.Version)))
-                {
-                    var file = new FileInfo(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ModBoxModification.Name, ModBoxModification.Version));
-                    _GridControls._Image.Source = new BitmapImage(new Uri(file.FullName));
-                }
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                _GridControls._Image.Source = bitmap;
+                stream.Close();
             }
             catch
             {
-                //TODO logger
+                try
+                {
+                    stream.Close();
+                    if (File.Exists(imageFileName))
+                        File.Delete(imageFileName);
+                }
+                catch
+                {
+                    //TODO logger
+                }
             }
         }
 
