@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,6 +56,15 @@ namespace GenLauncherNet
                 }
             }
 
+            var validCharactersModificationName = CleanInput(ModificationName.Text);
+            var validCharactersVersion = CleanInput(Version.Text);
+
+            if (validCharactersModificationName.Length == 0 || validCharactersVersion.Length == 0)
+            {
+                CreateErrorWindow("Operation aborted", "Modification Name and Version should contain valid characters");
+                return;
+            }
+
             if (CreateModCallback != null)
             {
                 this.Close();
@@ -65,6 +75,22 @@ namespace GenLauncherNet
             {
                 this.Close();
                 CreateAddonCallback(FilesList, AddonPath, ModificationName.Text, Version.Text);
+            }
+        }
+
+        static string CleanInput(string strIn)
+        {
+            // Replace invalid characters with empty strings.
+            try
+            {
+                return Regex.Replace(strIn, @"[^\w\.@-]", "",
+                                     RegexOptions.None, TimeSpan.FromSeconds(1.5));
+            }
+            // If we timeout when replacing invalid characters,
+            // we should return Empty.
+            catch (RegexMatchTimeoutException)
+            {
+                return String.Empty;
             }
         }
 
