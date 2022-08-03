@@ -124,6 +124,7 @@
     <Compile Include="HttpHandlers\ModificationDownloader.cs" />
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
+    <Compile Include="UpdateButton.cs" />
     <Compile Include="Windows\Net46NotInstalled.xaml.cs">
       <DependentUpon>Net46NotInstalled.xaml</DependentUpon>
     </Compile>
@@ -159,7 +160,7 @@
     <Compile Include="InfoTextBlock.cs" />
     <Compile Include="WPFElements\InfoButton.cs" />
     <Compile Include="WPFElements\NetworkInfoButton.cs" />
-    <Compile Include="WPFElements\UpdateButton.cs" />
+    <Compile Include="WPFElements\ModUpdateButton.cs" />
     <Compile Include="WPFElements\NameTextBox.cs" />
     <Compile Include="WPFElements\VersionTextBox.cs" />
     <Page Include="Windows\Net46NotInstalled.xaml">

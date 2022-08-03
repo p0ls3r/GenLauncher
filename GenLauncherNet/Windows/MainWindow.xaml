@@ -754,6 +754,46 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type local:ModUpdateButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
             <Setter Property="Opacity" Value="0.7"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
@@ -889,7 +929,7 @@
 
                 <ProgressBar Grid.Row="5" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="DarkGray"/>
                 <local:InfoTextBlock FontWeight="Bold" Grid.Row="5" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
-                <local:UpdateButton Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15"/>
+                <local:ModUpdateButton Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15"/>
                 <local:ChangeLogButton Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
                 <local:NetworkInfoButton Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
 
@@ -919,7 +959,7 @@
 
                 <ProgressBar Grid.Row="2" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="DarkGray"/>
                 <local:InfoTextBlock FontWeight="Bold" Grid.Row="2" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
-                <local:UpdateButton Opacity="1" x:Name="Update" Content="Update!" Grid.Row="3" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="18"/>
+                <local:ModUpdateButton Opacity="1" x:Name="Update" Content="Update!" Grid.Row="3" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="18"/>
                 <local:ChangeLogButton Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
                 <local:NetworkInfoButton Opacity="1" x:Name="NetworkInfo" Click="NetworkInfo_Click" Content="How to play online?" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
 
@@ -997,7 +1037,7 @@
 
         </ListBox>
 
-        <Button Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="27,7,0,0" />
+        <local:UpdateButton Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="27,7,0,0" />
 
         <Button x:Name="ButtonStartGame" FontSize="17" Focusable="False" Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Launch_Click" Grid.Column="6" Grid.Row="2" Grid.RowSpan="2"/>
         <Button x:Name="ButtonWorldBuilder" FontSize="17" Focusable="False" Content="WORLD BUILDER" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWorldBuilder_Click" Grid.Column="6" Grid.Row="3"/>
@@ -1008,7 +1048,7 @@
 
         <TextBlock x:Name="LauncherVersion" Foreground="White" FontSize="15" HorizontalAlignment="Left" Margin="20,6,0,0" Text="Current version " TextWrapping="Wrap" VerticalAlignment="Top" Width="143" Height="22" Grid.Column="6" Grid.Row="4"/>
         <TextBlock x:Name="LatestLauncherVersion" Foreground="White" FontSize="15" HorizontalAlignment="Left" Margin="20,33,0,0" Text="Latest version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="23" Grid.Column="6" Grid.Row="4"/>
-        <Button x:Name="LauncherUpdate" Focusable="False" Content="Update!" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" Grid.Column="6" Grid.Row="4"/>
+        <local:UpdateButton x:Name="LauncherUpdate" BlinkCount="100" Focusable="False" Content="Update!" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" MouseEnter="LauncherUpdate_MouseEnter" Grid.Column="6" Grid.Row="4"/>
         <ProgressBar x:Name="UpdateProgressBar" HorizontalAlignment="Left" Height="24" Margin="20,96,0,0" VerticalAlignment="Top" Width="229" Grid.Column="6" Grid.Row="4"/>
         <TextBlock  x:Name="UpdateProgress" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Left" FontSize="13" Margin="25,100,0,0" TextWrapping="Wrap" TextAlignment="Center"  VerticalAlignment="Top" Width="224" Height="20" Grid.Column="6" Grid.Row="4"/>
 

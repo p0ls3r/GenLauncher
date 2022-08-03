@@ -231,7 +231,7 @@ namespace GenLauncherNet
                 Downloader = null;
                 this._GridControls._ProgressBar.Value = 0;
                 this._GridControls._InfoTextBlock.Text = String.Empty;
-                this._GridControls._UpdateButton.Content = "UPDATE!";
+                this._GridControls._UpdateButton.Content = "UPDATE!";                
 
                 UpdataModboxData();
                 UpdateComboBox();
@@ -254,6 +254,7 @@ namespace GenLauncherNet
             else
             {
                 this._GridControls._UpdateButton.IsEnabled = true;
+                this._GridControls._UpdateButton.IsBlinking = true;
             }
 
             var versionListSource = new ObservableCollection<ComboBoxData>();

@@ -144,6 +144,7 @@ namespace GenLauncherNet
                 if (IsCurrentVersionOutDated())
                 {
                     LauncherUpdate.IsEnabled = true;
+                    LauncherUpdate.IsBlinking = true;
 
                     var infoWindow = new UpdateAvailable(DataHandler.Version) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
@@ -283,7 +284,10 @@ namespace GenLauncherNet
                 ModListSource.Add(modData);
             }
 
-            ModsList.ItemsSource = ModListSource;
+            if (modDataList.Count == 0)
+                AddModButton.IsBlinking = true;
+            else
+                ModsList.ItemsSource = ModListSource;
         }
 
         public async void AddMod(string modName)
@@ -1085,6 +1089,13 @@ namespace GenLauncherNet
 
         #region MainButtonsEvents
 
+        private void LauncherUpdate_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var updateButton = sender as UpdateButton;
+            if (updateButton != null)
+                updateButton.IsBlinking = false;
+        }
+
         private void ModsButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllLists();
@@ -1596,6 +1607,6 @@ namespace GenLauncherNet
             EnableUI();
         }
 
-        #endregion                
+        #endregion        
     }
 }

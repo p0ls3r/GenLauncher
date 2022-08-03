@@ -1,9 +1,83 @@
 AddedModifications: {}
 ModsAndVersions:
   concDict:
+    CONTRA:
+    - IsSelected: true
+      Installed: true
+      Favorite: false
+      ModificationType: Mod
+      Name: Contra
+      Version: 009 Final Patch 3 Hotfix 1
+      SimpleDownloadLink: 
+      UIImageSourceLink: 
+      DiscordLink: 
+      ModDBLink: 
+      NewsLink: 
+      DependenceName: 
+      S3HostLink: 
+      S3BucketName: 
+      S3FolderName: 
+      S3HostPublicKey: 
+      S3HostSecretKey: 
+      NetworkInfo: 
+    - IsSelected: false
+      Installed: false
+      Favorite: false
+      ModificationType: Mod
+      Name: Contra
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://gen.insave.ovh/contra/mod/ContraLatestBasic.rar
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+      DiscordLink: https://discord.gg/015E6KXXHmdWFXCtt
+      ModDBLink: https://www.moddb.com/mods/contra
+      NewsLink: https://www.moddb.com/mods/contra/articles
+      DependenceName: ''
+      S3HostLink: gen.insave.ovh:9000
+      S3BucketName: contra
+      S3FolderName: contra-individual-files
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
+    THE END OF DAYS:
+    - IsSelected: true
+      Installed: true
+      Favorite: false
+      ModificationType: Mod
+      Name: The End of Days
+      Version: 0.97.8 Patch 4
+      SimpleDownloadLink: 
+      UIImageSourceLink: https://media.discordapp.net/attachments/799373032778498069/887380847320264734/TEODLogo_500x100.png
+      DiscordLink: https://discord.com/invite/aCtu7UG
+      ModDBLink: https://www.moddb.com/mods/the-end-of-days
+      NewsLink: https://docs.google.com/document/d/1O7xeMCq5nxaaDea3MuV2fzwX7A10hNg65DGt0nLTN6Y/edit?usp=sharing
+      DependenceName: ''
+      S3HostLink: gen.insave.ovh:9000
+      S3BucketName: teod
+      S3FolderName: teod-individual-files
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
     RISE OF THE REDS:
     - IsSelected: true
       Installed: true
+      Favorite: false
+      ModificationType: Mod
+      Name: Rise of the Reds
+      Version: 1.86
+      SimpleDownloadLink: 
+      UIImageSourceLink: 
+      DiscordLink: 
+      ModDBLink: 
+      NewsLink: 
+      DependenceName: 
+      S3HostLink: 
+      S3BucketName: 
+      S3FolderName: 
+      S3HostPublicKey: 
+      S3HostSecretKey: 
+      NetworkInfo: 
+    - IsSelected: false
+      Installed: false
       Favorite: false
       ModificationType: Mod
       Name: Rise of the Reds

@@ -20,7 +20,7 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string GenLauncherGlobalAddonsFolder = "GenLauncherAddons";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.7.0 Beta";
+        public const string Version = "0.0.7.1 Beta";
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink = @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
         public const string AddonsFolderName = "Addons";
