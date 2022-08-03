@@ -57,8 +57,6 @@ namespace GenLauncherNet
 
             if (connected)
             {
-                await CheckModdedExe();
-
                 var lastActivatedMod = DataHandler.GetSelectedMod();
 
                 if (lastActivatedMod != null)
@@ -84,24 +82,6 @@ namespace GenLauncherNet
                 return false;
             }
             return true;
-        }
-
-        private static async Task CheckModdedExe()
-        {
-            if (!File.Exists("modded.exe"))
-            {
-                using (HttpClient client = new HttpClient())
-                {
-                    HttpResponseMessage response = await client.GetAsync(EntryPoint.ModdedExeDownloadLink);
-
-                    response.EnsureSuccessStatusCode();
-
-                    using (FileStream fileStream = new FileStream("modded.exe", FileMode.Create, FileAccess.Write, FileShare.None))
-                    {
-                        await response.Content.CopyToAsync(fileStream);
-                    }
-                }
-            }
         }
 
         private static void CreateLauncherFolders()

@@ -76,7 +76,8 @@ ModsAndVersions:
       S3HostPublicKey: 
       S3HostSecretKey: 
       NetworkInfo: 
-    - IsSelected: false
+    - &o0
+      IsSelected: false
       Installed: false
       Favorite: false
       ModificationType: Mod
@@ -116,9 +117,101 @@ GlobalAddonsAndVersions:
       S3HostSecretKey: ''
       NetworkInfo: 
 AddonsAndVersions:
-  concDict: {}
+  concDict:
+    RISE OF THE REDS:
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Addon
+      Name: Control Bar Pro (Rotr)
+      Version: 1.0.1
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21893&authkey=AD5ILQ_iaA_XEHw
+      UIImageSourceLink: ''
+      DiscordLink: ''
+      ModDBLink: https://www.moddb.com/mods/rise-of-the-reds/addons/controlbarpro-rotr
+      NewsLink: ''
+      DependenceName: RISE OF THE REDS
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Addon
+      Name: Hanpatch Easter Egg Units
+      Version: v1
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
+      UIImageSourceLink: ''
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: ''
+      DependenceName: Rise of the Reds
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
 PatchesAndVersions:
-  concDict: {}
+  concDict:
+    RISE OF THE REDS:
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Patch
+      Name: Hanpatch
+      Version: 31.3
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=afb01c08e053a64e%21634&authkey=AI5fx4bn5FrEHJA
+      UIImageSourceLink: 
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: https://docs.google.com/document/d/1ZMlVFDPf4SDD5Y6vYatOCtaudBBl32gdWg-YrswvnGo
+      DependenceName: Rise of the Reds
+      S3HostLink: gen.insave.ovh:9000
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Patch
+      Name: Balance Patch
+      Version: 2.999.06.5
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A88C98986A457EB&resid=A88C98986A457EB%21135&authkey=AE2ADilQfRS431o
+      UIImageSourceLink: ''
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: https://docs.google.com/document/d/1iN2Zbl7i46RHSk-X9ewuYlaN8GrM_W0t2FHsP3KhMf0
+      DependenceName: rise of the reds
+      S3HostLink: gen.insave.ovh:9000
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Patch
+      Name: Babushka's Revenge
+      Version: 1.1
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=6434701D29C3ADD6&resid=6434701D29C3ADD6%2155855&authkey=AA1pfFg7PSiLuB0
+      UIImageSourceLink: ''
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: https://www.moddb.com/mods/rise-of-the-reds-babushkas-ultimate-balance-mod
+      DependenceName: Rise of the Reds
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
 SelectedAddons: []
 SelectedPatches: []
 ModdedExe: true
@@ -128,5 +221,5 @@ CameraHeight: 0
 AutoUpdateGentool: true
 AutoDeleteOldVersions: false
 GameParams: 
-SelectedMod: 
+SelectedMod: *o0
 SelectedGlobalAddons: []

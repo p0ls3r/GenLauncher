@@ -19,6 +19,7 @@ namespace GenLauncherNet
         private string _destinationFilePath;
         private readonly CancellationToken? _cancellationToken;
         private string _tempFilePrefix = "";
+        private bool _extractionRequers;
 
         private HttpClient _httpClient;
         public event Action<long?, long, int> ProgressChanged;
@@ -26,12 +27,13 @@ namespace GenLauncherNet
 
         private Action<string> _endingAction;
 
-        public ContentDownloader(string downloadUrl, Action<string> action, string tempPrefix, CancellationToken? cancellationToken = null)
+        public ContentDownloader(string downloadUrl, Action<string> action, string tempPrefix, CancellationToken? cancellationToken = null, bool extractionRequers = true)
         {
             _downloadUrl = downloadUrl;
             _cancellationToken = cancellationToken;
             _endingAction = action;
             _tempFilePrefix = tempPrefix;
+            _extractionRequers = extractionRequers;
         }
 
         public async Task StartDownload()
@@ -105,12 +107,18 @@ namespace GenLauncherNet
 
             TriggerProgressChanged(totalDownloadSize, totalBytesRead);
 
-            ExtractArchieveAndDoAction(_destinationFilePath);
+            var fileName = "GenLauncherDownloadingFile";
+
+            if (_extractionRequers)
+               fileName = ExtractFileFromArchieve(_destinationFilePath);
+
+            if (_endingAction != null)
+                _endingAction(fileName);
 
             Done?.Invoke();
         }
 
-        private void ExtractArchieveAndDoAction(string _destinationFilePath)
+        private string ExtractFileFromArchieve(string _destinationFilePath)
         {
             var tempFileName = String.Empty;
             using (var archiveFile = new ArchiveFile(_destinationFilePath))
@@ -124,8 +132,7 @@ namespace GenLauncherNet
 
             File.Delete(_destinationFilePath);
 
-            if (_endingAction != null)
-                _endingAction(tempFileName);
+            return tempFileName;
         }
 
         private void TriggerProgressChanged(long? totalDownloadSize, long totalBytesRead)

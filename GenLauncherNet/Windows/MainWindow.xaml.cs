@@ -602,7 +602,43 @@ namespace GenLauncherNet
                 await DownloadGentool();
                 EnableUI();
             }
+        }
 
+        private async Task CheckModdedExe()
+        {
+            if (!File.Exists("modded.exe"))
+            {
+                await DownloadModdedGeneralsExe();
+            }
+        }
+
+        private async Task DownloadModdedGeneralsExe()
+        {
+            tokenSource = new CancellationTokenSource();
+
+            try
+            {
+                using (var client = new ContentDownloader(EntryPoint.ModdedExeDownloadLink, RenameDownloadedModdedGeneralsExe, string.Empty, tokenSource.Token, false))
+                {
+                    client.ProgressChanged += LauncherUpdateProgressChanged;
+                    SetProgressBarInInstallMode();
+                    await client.StartDownload();
+
+                    SetProgressBarInPassivelMode();
+                }
+            }
+
+            catch (TaskCanceledException)
+            {
+                UpdateProgressBar.Value = 0;
+                UpdateProgress.Text = "Canceled";
+            }
+
+            catch (Exception ex)
+            {
+                UpdateProgressBar.Value = 0;
+                UpdateProgress.Text = "Error" + ex.Message;
+            }
         }
 
         private async Task DownloadGentool()
@@ -667,6 +703,11 @@ namespace GenLauncherNet
                     UpdateProgress.Text = "Error" + ex.Message;
                 }
             }
+        }
+
+        private static void RenameDownloadedModdedGeneralsExe(string tempFileName)
+        {
+            File.Move(tempFileName, "modded.exe");
         }
 
         private static void SelfUpdate(string tempFileName)
@@ -1186,6 +1227,7 @@ namespace GenLauncherNet
             if (ModificationsDontNeedUpdate())
             {
                 await CheckAndUpdateGentool();
+                await CheckModdedExe();
                 var activeVersions = GetVersionOfActiveModifications();
                 _isGameRunning = true;
                 await GameLauncher.PrepareAndRunGame(activeVersions);
