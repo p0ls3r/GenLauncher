@@ -65,7 +65,6 @@ namespace GenLauncherNet
             UpdateWindowedStatus();
             UpdateQuickStartStatus();
             UpdateModsList();
-            UpdateGlobalAddonsList();
             UpdateTabs();
 
             SetSelfUpdatingInfo(connected);
@@ -94,12 +93,6 @@ namespace GenLauncherNet
             foreach (var modData in ModsList.Items)
             {
                 var data = (ModBoxData)modData;
-                data.CancelDownload();
-            }
-
-            foreach (var addonData in GlobalAddonsList.Items)
-            {
-                var data = (ModBoxData)addonData;
                 data.CancelDownload();
             }
         }
@@ -243,25 +236,6 @@ namespace GenLauncherNet
                 }
                 AddonsList.ItemsSource = AddonsListSource;
             }
-        }
-
-        private void UpdateGlobalAddonsList()
-        {
-            GlobalAddonsList.ItemsSource = null;
-            GlobalAddonsListSource = new ObservableCollection<ModBoxData>();
-            GlobalAddonsList.Items.Clear();
-
-            GlobalAddonsListSource = new ObservableCollection<ModBoxData>();
-
-            var groupedgAddons = DataHandler.GetFullGlobalAddonsVersionsList().GroupBy(p => p.Name.ToUpper());
-
-            //Adding to globalAddonsList addons
-            foreach (var gAddonAndVersion in groupedgAddons)
-            {
-                GlobalAddonsListSource.Add(new ModBoxData(gAddonAndVersion.OrderBy(m => m).LastOrDefault()));
-            }
-
-            GlobalAddonsList.ItemsSource = GlobalAddonsListSource;
         }
 
         private void UpdateModsList()
@@ -510,9 +484,6 @@ namespace GenLauncherNet
                     }
                 }
 
-                if (DataHandler.GetSelectedGlobalAddons().Contains(modData.ModBoxModification))
-                    GlobalAddonsList.SelectedItems.Add(modData);
-
                 if (DataHandler.GetSelectedAddons().Contains(modData.ModBoxModification))
                     AddonsList.SelectedItems.Add(modData);
             }
@@ -525,7 +496,6 @@ namespace GenLauncherNet
         private void DisableUI()
         {
             ModsButton.IsEnabled = false;
-            GlobalAddonsButton.IsEnabled = false;
             PatchesButton.IsEnabled = false;
             AddonsButton.IsEnabled = false;
 
@@ -540,7 +510,6 @@ namespace GenLauncherNet
             AddModButton.IsEnabled = false;
 
             ManualAddMod.IsEnabled = false;
-            ManualAddGlobalAddon.IsEnabled = false;
             ManualAddAddon.IsEnabled = false;
             ManualAddPatch.IsEnabled = false;
         }
@@ -548,7 +517,6 @@ namespace GenLauncherNet
         private void EnableUI()
         {
             ModsButton.IsEnabled = true;
-            GlobalAddonsButton.IsEnabled = true;
             PatchesButton.IsEnabled = true;
             AddonsButton.IsEnabled = true;
 
@@ -562,7 +530,6 @@ namespace GenLauncherNet
 
             AddModButton.IsEnabled = true;
             ManualAddMod.IsEnabled = true;
-            ManualAddGlobalAddon.IsEnabled = true;
             ManualAddAddon.IsEnabled = true;
             ManualAddPatch.IsEnabled = true;
         }
@@ -570,14 +537,12 @@ namespace GenLauncherNet
         private void HideAllLists()
         {
             ManualAddMod.Visibility = Visibility.Hidden;
-            ManualAddGlobalAddon.Visibility = Visibility.Hidden;
             ManualAddPatch.Visibility = Visibility.Hidden;
             ManualAddAddon.Visibility = Visibility.Hidden;
 
             AddModButton.Visibility = Visibility.Hidden;
 
             ModsList.Visibility = Visibility.Hidden;
-            GlobalAddonsList.Visibility = Visibility.Hidden;
             PatchesList.Visibility = Visibility.Hidden;
             AddonsList.Visibility = Visibility.Hidden;
         }
@@ -854,15 +819,6 @@ namespace GenLauncherNet
                 container.Focus();
             }
 
-            foreach (var element in GlobalAddonsList.SelectedItems)
-            {
-                container = GlobalAddonsList.ItemContainerGenerator.ContainerFromItem(element) as FrameworkElement;
-                if (container != null)
-                {
-                    container.Focus();
-                }
-            }
-
             foreach (var element in AddonsList.SelectedItems)
             {
                 container = AddonsList.ItemContainerGenerator.ContainerFromItem(element) as FrameworkElement;
@@ -878,7 +834,6 @@ namespace GenLauncherNet
             var versionsList = new List<ModificationVersion>();
 
             versionsList.Add(DataHandler.GetSelectedModAndItsVersion());
-            versionsList.AddRange(DataHandler.GetSelectedGlobalAddonsAndItsVersions());
             versionsList.Add(DataHandler.GetSelectedPatchAndItsVersion());
             versionsList.AddRange(DataHandler.GetSelectedAddonsAndItsVersions());
 
@@ -898,8 +853,7 @@ namespace GenLauncherNet
             var selectedModVersion = DataHandler.GetSelectedModAndItsVersion();
             var selectedPatchVersion = DataHandler.GetSelectedPatchAndItsVersion();
 
-            var selectedAddonsVersions = DataHandler.GetSelectedAddonsAndItsVersions().Where(m => m != null);
-            var selectedGlobalAddonsVersions = DataHandler.GetSelectedGlobalAddonsAndItsVersions().Where(m => m != null);
+            var selectedAddonsVersions = DataHandler.GetSelectedAddonsAndItsVersions().Where(m => m != null);            
 
             if (selectedModVersion == null)
             {
@@ -921,16 +875,6 @@ namespace GenLauncherNet
                 modMessage = String.Format("{0} was selected but not installed -  launch aborted!", selectedPatchVersion.Name);
                 CreateErrorWindow(mainMessage, modMessage);
                 return false;
-            }
-
-            foreach (var gAddon in selectedGlobalAddonsVersions)
-            {
-                if (!gAddon.Installed)
-                {
-                    modMessage = String.Format("{0} was selected but not installed -  launch aborted!", gAddon.Name);
-                    CreateErrorWindow(mainMessage, modMessage);
-                    return false;
-                }
             }
 
             foreach (var addon in selectedAddonsVersions)
@@ -966,11 +910,6 @@ namespace GenLauncherNet
             foreach (var data in AddonsList.SelectedItems)
             {
                 selectedAddonsData.Add((ModBoxData)data);
-            }
-
-            foreach (var data in GlobalAddonsList.SelectedItems)
-            {
-                selectedGAddonsData.Add((ModBoxData)data);
             }
 
             if (selectedModVersion == null)
@@ -1070,22 +1009,6 @@ namespace GenLauncherNet
                 }
             }
 
-            var selectedGlobalAddons = DataHandler.GetSelectedGlobalAddons().Where(m => m != null);
-
-            if (selectedGlobalAddons.Count() > 0)
-            {
-                foreach (var selectedGlobalAddon in selectedGlobalAddons)
-                {
-                    var selectedGlobalAddonLastVersion = DataHandler.GetFullGlobalAddonsVersionsList().Where(m => String.Equals(m.Name, selectedGlobalAddon.Name, StringComparison.OrdinalIgnoreCase))?.OrderBy(m => m).LastOrDefault();
-                    if (selectedGlobalAddonLastVersion != null && !selectedGlobalAddonLastVersion.Installed)
-                    {
-                        succes = false;
-                        modsMessage = String.Format("There is uninstalled update for {0} ", selectedGlobalAddonLastVersion.Name);
-                        break;
-                    }
-                }
-            }
-
             if (!succes)
             {
                 var mainMessage = "There are modifications that can be updated: ";
@@ -1117,13 +1040,6 @@ namespace GenLauncherNet
             ManualAddMod.Visibility = Visibility.Visible;
             ModsList.Visibility = Visibility.Visible;
             AddModButton.Visibility = Visibility.Visible;
-        }
-
-        private void GlobalAddonsButton_Click(object sender, RoutedEventArgs e)
-        {
-            HideAllLists();
-            GlobalAddonsList.Visibility = Visibility.Visible;
-            ManualAddGlobalAddon.Visibility = Visibility.Visible;
         }
 
         private void PatchesButton_Click(object sender, RoutedEventArgs e)

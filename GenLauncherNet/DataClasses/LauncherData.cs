@@ -23,7 +23,6 @@ namespace GenLauncherNet
 
         // Name/ModificationVersions
         public StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>> ModsAndVersions = new StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>>();
-        public StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>> GlobalAddonsAndVersions = new StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>>();
 
         // Dependency Name/Addons and Patches versions        
         public StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>> AddonsAndVersions = new StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>>();
@@ -45,17 +44,6 @@ namespace GenLauncherNet
                 resultList.Add(modVersion);
 
             return resultList;
-        }
-
-        internal List<ModificationVersion> GetSelectedGlobalAddonsAndItsVersions()
-        {
-            var result = new List<ModificationVersion>();
-
-            foreach (var gAddon in SelectedGlobalAddons)
-                if (GlobalAddonsAndVersions.ContainsKey(gAddon.Name))
-                    result.Add(GlobalAddonsAndVersions[gAddon.Name].Where(m=>m.IsSelected).FirstOrDefault());
-
-            return result;
         }
 
         internal List<ModificationVersion> GetSelectedAddonsAndItsVersions()
@@ -113,16 +101,6 @@ namespace GenLauncherNet
                 return null;
         }
 
-        internal List<ModificationVersion> GetFullGloalAddonsVersionsList()
-        {
-            var resultList = new List<ModificationVersion>();
-            foreach (var modificationsAndVersions in GlobalAddonsAndVersions.ToList())
-                foreach (var modVersion in modificationsAndVersions.Value.ToList())
-                    resultList.Add(modVersion);
-
-            return resultList;
-        }
-
         internal List<ModificationVersion> GetModVersions(ModificationReposVersion modification)
         {
             var versions = new SynchronizedCollection<ModificationVersion>();
@@ -146,17 +124,6 @@ namespace GenLauncherNet
                 else
                     return new List<ModificationVersion>();
             }
-            else
-                return new List<ModificationVersion>();
-        }
-
-        internal List<ModificationVersion> GetGlobalAddonVersions(ModificationReposVersion modification)
-        {
-            var versions = new SynchronizedCollection<ModificationVersion>();
-            GlobalAddonsAndVersions.TryGetValue(modification.Name, out versions);
-
-            if (versions != null)
-                return versions.ToList();
             else
                 return new List<ModificationVersion>();
         }
@@ -203,7 +170,7 @@ namespace GenLauncherNet
         }
 
         internal void AddOrUpdate(ModificationVersion modificationVersion)
-        {                        
+        {
             switch (modificationVersion.ModificationType)
             {
                 case ModificationType.Mod:
@@ -211,7 +178,7 @@ namespace GenLauncherNet
                     break;              
                 case ModificationType.Addon:
                     if (String.IsNullOrEmpty(modificationVersion.DependenceName))
-                        AddOrUpdateModification(GlobalAddonsAndVersions, modificationVersion);
+                        return;
                     else
                         AddOrUpdateModification(AddonsAndVersions, modificationVersion);
                     break;
@@ -232,11 +199,8 @@ namespace GenLauncherNet
                         DeleteModification(PatchesAndVersions, modificationVersion);
                     }
                     break;
-                case ModificationType.Addon:
-                    if (modificationVersion.DependenceName == null)
-                        DeleteModification(GlobalAddonsAndVersions, modificationVersion);
-                    else                    
-                        DeleteModification(AddonsAndVersions, modificationVersion);                    
+                case ModificationType.Addon:                 
+                        DeleteModification(AddonsAndVersions, modificationVersion);
                     break;
                 case ModificationType.Patch:
                     DeleteModification(PatchesAndVersions, modificationVersion);
@@ -339,7 +303,7 @@ namespace GenLauncherNet
                     break;
                 case ModificationType.Addon:
                     if (String.IsNullOrEmpty(comboBoxData.Modification.DependenceName))
-                        UpdateSelectedVersionForModification(GlobalAddonsAndVersions[keyModification.Name], comboBoxData);
+                        return;
                     else
                         UpdateSelectedVersionForModification(AddonsAndVersions[keyModification.DependenceName], comboBoxData);
                     break;

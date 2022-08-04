@@ -20,7 +20,8 @@ ModsAndVersions:
       S3HostPublicKey: 
       S3HostSecretKey: 
       NetworkInfo: 
-    - IsSelected: false
+    - &o0
+      IsSelected: false
       Installed: false
       Favorite: false
       ModificationType: Mod
@@ -46,17 +47,17 @@ ModsAndVersions:
       Name: The End of Days
       Version: 0.97.8 Patch 4
       SimpleDownloadLink: 
-      UIImageSourceLink: https://media.discordapp.net/attachments/799373032778498069/887380847320264734/TEODLogo_500x100.png
-      DiscordLink: https://discord.com/invite/aCtu7UG
-      ModDBLink: https://www.moddb.com/mods/the-end-of-days
-      NewsLink: https://docs.google.com/document/d/1O7xeMCq5nxaaDea3MuV2fzwX7A10hNg65DGt0nLTN6Y/edit?usp=sharing
-      DependenceName: ''
-      S3HostLink: gen.insave.ovh:9000
-      S3BucketName: teod
-      S3FolderName: teod-individual-files
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
-      NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
+      UIImageSourceLink: 
+      DiscordLink: 
+      ModDBLink: 
+      NewsLink: 
+      DependenceName: 
+      S3HostLink: 
+      S3BucketName: 
+      S3FolderName: 
+      S3HostPublicKey: 
+      S3HostSecretKey: 
+      NetworkInfo: 
     RISE OF THE REDS:
     - IsSelected: true
       Installed: true
@@ -76,8 +77,7 @@ ModsAndVersions:
       S3HostPublicKey: 
       S3HostSecretKey: 
       NetworkInfo: 
-    - &o0
-      IsSelected: false
+    - IsSelected: false
       Installed: false
       Favorite: false
       ModificationType: Mod
@@ -95,42 +95,39 @@ ModsAndVersions:
       S3HostPublicKey: ''
       S3HostSecretKey: ''
       NetworkInfo: 
-GlobalAddonsAndVersions:
-  concDict:
-    CONTROL BAR PRO:
-    - IsSelected: true
-      Installed: false
-      Favorite: false
-      ModificationType: Addon
-      Name: Control Bar Pro
-      Version: 1.0.0
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21849&authkey=APNER3HvDI6XfwM
-      UIImageSourceLink: ''
-      DiscordLink: ''
-      ModDBLink: https://www.moddb.com/mods/cc-shockwave/addons/controlbarpro-shw
-      NewsLink: ''
-      DependenceName: ''
-      S3HostLink: ''
-      S3BucketName: ''
-      S3FolderName: ''
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
-      NetworkInfo: 
 AddonsAndVersions:
   concDict:
-    RISE OF THE REDS:
+    CONTRA:
+    - IsSelected: true
+      Installed: true
+      Favorite: false
+      ModificationType: Addon
+      Name: Fog effects disabler
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: 
+      UIImageSourceLink: 
+      DiscordLink: 
+      ModDBLink: 
+      NewsLink: 
+      DependenceName: Contra
+      S3HostLink: 
+      S3BucketName: 
+      S3FolderName: 
+      S3HostPublicKey: 
+      S3HostSecretKey: 
+      NetworkInfo: 
     - IsSelected: true
       Installed: false
       Favorite: false
       ModificationType: Addon
-      Name: Control Bar Pro (Rotr)
-      Version: 1.0.1
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21893&authkey=AD5ILQ_iaA_XEHw
-      UIImageSourceLink: ''
+      Name: Funny portraits
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211118&authkey=AHq9yjrI01HufLE
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
       DiscordLink: ''
-      ModDBLink: https://www.moddb.com/mods/rise-of-the-reds/addons/controlbarpro-rotr
+      ModDBLink: ''
       NewsLink: ''
-      DependenceName: RISE OF THE REDS
+      DependenceName: Contra
       S3HostLink: ''
       S3BucketName: ''
       S3FolderName: ''
@@ -141,14 +138,68 @@ AddonsAndVersions:
       Installed: false
       Favorite: false
       ModificationType: Addon
-      Name: Hanpatch Easter Egg Units
-      Version: v1
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
+      Name: Native unit voices
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211119&authkey=AJrPam1REfhXWTo
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: ''
+      DependenceName: Contra
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Addon
+      Name: New music
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211120&authkey=AMmEussvLfRuA4E
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: ''
+      DependenceName: Contra
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Addon
+      Name: Water effects disabler
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211116&authkey=AAbOwmthXeN1CaA
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: ''
+      DependenceName: Contra
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Addon
+      Name: Control Bar Pro (Contra)
+      Version: 1.0.0
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21850&authkey=AJUXZtf1wCCm8RY
       UIImageSourceLink: ''
       DiscordLink: ''
       ModDBLink: ''
       NewsLink: ''
-      DependenceName: Rise of the Reds
+      DependenceName: CONTRA
       S3HostLink: ''
       S3BucketName: ''
       S3FolderName: ''
@@ -157,62 +208,77 @@ AddonsAndVersions:
       NetworkInfo: 
 PatchesAndVersions:
   concDict:
-    RISE OF THE REDS:
+    CONTRA:
     - IsSelected: true
       Installed: false
       Favorite: false
       ModificationType: Patch
-      Name: Hanpatch
-      Version: 31.3
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=afb01c08e053a64e%21634&authkey=AI5fx4bn5FrEHJA
-      UIImageSourceLink: 
+      Name: Russian language and Leikeze hotkeys
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21119&authkey=ABzlDV_5Zz_LLj8
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
       DiscordLink: ''
       ModDBLink: ''
-      NewsLink: https://docs.google.com/document/d/1ZMlVFDPf4SDD5Y6vYatOCtaudBBl32gdWg-YrswvnGo
-      DependenceName: Rise of the Reds
-      S3HostLink: gen.insave.ovh:9000
-      S3BucketName: ''
-      S3FolderName: ''
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
-      NetworkInfo: 
-    - IsSelected: true
-      Installed: false
-      Favorite: false
-      ModificationType: Patch
-      Name: Balance Patch
-      Version: 2.999.06.5
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A88C98986A457EB&resid=A88C98986A457EB%21135&authkey=AE2ADilQfRS431o
-      UIImageSourceLink: ''
-      DiscordLink: ''
-      ModDBLink: ''
-      NewsLink: https://docs.google.com/document/d/1iN2Zbl7i46RHSk-X9ewuYlaN8GrM_W0t2FHsP3KhMf0
-      DependenceName: rise of the reds
-      S3HostLink: gen.insave.ovh:9000
-      S3BucketName: ''
-      S3FolderName: ''
-      S3HostPublicKey: ''
-      S3HostSecretKey: ''
-      NetworkInfo: 
-    - IsSelected: true
-      Installed: false
-      Favorite: false
-      ModificationType: Patch
-      Name: Babushka's Revenge
-      Version: 1.1
-      SimpleDownloadLink: https://onedrive.live.com/embed?cid=6434701D29C3ADD6&resid=6434701D29C3ADD6%2155855&authkey=AA1pfFg7PSiLuB0
-      UIImageSourceLink: ''
-      DiscordLink: ''
-      ModDBLink: ''
-      NewsLink: https://www.moddb.com/mods/rise-of-the-reds-babushkas-ultimate-balance-mod
-      DependenceName: Rise of the Reds
+      NewsLink: ''
+      DependenceName: Contra
       S3HostLink: ''
       S3BucketName: ''
       S3FolderName: ''
       S3HostPublicKey: ''
       S3HostSecretKey: ''
       NetworkInfo: 
-SelectedAddons: []
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Patch
+      Name: Russian language and Legacy hotkeys
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21117&authkey=ACeetXrxgzK2gfU
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: ''
+      DependenceName: Contra
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+    - IsSelected: true
+      Installed: false
+      Favorite: false
+      ModificationType: Patch
+      Name: English language and Leikeze hotkeys
+      Version: 009 Final Patch 3 Hotfix 4
+      SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21118&authkey=AJXJ4n6czBsX9Gs
+      UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+      DiscordLink: ''
+      ModDBLink: ''
+      NewsLink: ''
+      DependenceName: Contra
+      S3HostLink: ''
+      S3BucketName: ''
+      S3FolderName: ''
+      S3HostPublicKey: ''
+      S3HostSecretKey: ''
+      NetworkInfo: 
+SelectedAddons:
+- ModificationType: Addon
+  Name: Fog effects disabler
+  Version: 
+  SimpleDownloadLink: 
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
 SelectedPatches: []
 ModdedExe: true
 Windowed: true

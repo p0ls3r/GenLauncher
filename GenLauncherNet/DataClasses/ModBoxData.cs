@@ -45,10 +45,7 @@ namespace GenLauncherNet
                     SetModboxDataFromModificationVersions(DataHandler.GetModVersions(ModBoxModification));
                     break;
                 case ModificationType.Addon:
-                    if (string.IsNullOrEmpty(ModBoxModification.DependenceName))
-                        SetModboxDataFromModificationVersions(DataHandler.GetGlobalAddonVersions(ModBoxModification));
-                    else
-                        SetModboxDataFromModificationVersions(DataHandler.GetAddonVersions(ModBoxModification));
+                    SetModboxDataFromModificationVersions(DataHandler.GetAddonVersions(ModBoxModification));
                     break;
                 case ModificationType.Patch:
                     SetModboxDataFromModificationVersions(DataHandler.GetPatchVersions(ModBoxModification));

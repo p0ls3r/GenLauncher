@@ -1015,9 +1015,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="41"></ColumnDefinition>
             <ColumnDefinition Width="70*"></ColumnDefinition>
-            <ColumnDefinition Width="91*"></ColumnDefinition>
-            <ColumnDefinition Width="227*"></ColumnDefinition>
-            <ColumnDefinition Width="227*"></ColumnDefinition>
+            <ColumnDefinition Width="66*"></ColumnDefinition>
+            <ColumnDefinition Width="206*"></ColumnDefinition>
+            <ColumnDefinition Width="273*"></ColumnDefinition>
             <ColumnDefinition Width="13"></ColumnDefinition>
             <ColumnDefinition Width="259*"></ColumnDefinition>
             <ColumnDefinition Width="52"></ColumnDefinition>
@@ -1027,17 +1027,12 @@
 
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="ModsList" ItemTemplate="{StaticResource ModificationTemplate}" SelectionChanged="ModsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple">
         </ListBox>
-        <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="GlobalAddonsList" ItemTemplate="{StaticResource AddonsTemplate}" SelectionChanged="GlolbalAddonsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
 
-        </ListBox>
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="PatchesList" ItemTemplate="{StaticResource AddonsTemplate}"  SelectionChanged="PatchesList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
-
         </ListBox>
+
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="AddonsList" ItemTemplate="{StaticResource AddonsTemplate}"  SelectionChanged="AddonsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
-
         </ListBox>
-
-        <local:UpdateButton Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="27,7,0,0" />
 
         <Button x:Name="ButtonStartGame" FontSize="17" Focusable="False" Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Launch_Click" Grid.Column="6" Grid.Row="2" Grid.RowSpan="2"/>
         <Button x:Name="ButtonWorldBuilder" FontSize="17" Focusable="False" Content="WORLD BUILDER" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWorldBuilder_Click" Grid.Column="6" Grid.Row="3"/>
@@ -1052,7 +1047,7 @@
         <ProgressBar x:Name="UpdateProgressBar" HorizontalAlignment="Left" Height="24" Margin="20,96,0,0" VerticalAlignment="Top" Width="229" Grid.Column="6" Grid.Row="4"/>
         <TextBlock  x:Name="UpdateProgress" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Left" FontSize="13" Margin="25,100,0,0" TextWrapping="Wrap" TextAlignment="Center"  VerticalAlignment="Top" Width="224" Height="20" Grid.Column="6" Grid.Row="4"/>
 
-        <Image x:Name="DownloadingImage" Source="/Images/gl02.png" Visibility="Hidden" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Width="180" Grid.ColumnSpan="20" Grid.RowSpan="20" >
+        <Image x:Name="DownloadingImage" Source="/Images/gl02.png" Visibility="Hidden" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="0" Width="180" Grid.RowSpan="6" Margin="1,0,92,0" >
             <Image.RenderTransform>
                 <RotateTransform x:Name="rotate"
                          CenterX="90"
@@ -1070,17 +1065,17 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Image x:Name="DownloadingImage2"  Source="/Images/gl01.png" Visibility="Hidden" HorizontalAlignment="Center" Width="135" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="20" Grid.RowSpan="20"/>
+        <Image x:Name="DownloadingImage2"  Source="/Images/gl01.png" Visibility="Hidden" HorizontalAlignment="Center" Width="139" Grid.Column="4" Grid.Row="0" Grid.RowSpan="6" Margin="20,0,110,0"/>
 
-        <Button Grid.Column="1" Grid.Row ="1" x:Name="ModsButton" Content="Mods" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Click="ModsButton_Click" Height="25"/>
-        <Button Grid.Column="2" Grid.Row ="1" x:Name="GlobalAddonsButton" FontSize="12" Content="Global Addons" HorizontalAlignment="Left" VerticalAlignment="Top"  Click="GlobalAddonsButton_Click" Height="25" Margin="2,0,0,0" Width="86"/>
-        <Button Grid.Column="3" Grid.Row ="1" x:Name="PatchesButton" FontSize="12" Content="Patches" HorizontalAlignment="Left" VerticalAlignment="Top" Width="224" Click="PatchesButton_Click" Height="25"/>
-        <Button Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="12" Content="Addons for" HorizontalAlignment="Left" VerticalAlignment="Top" Width="224" Click="AddonsButton_Click" Height="25"/>
+        <Button Grid.Column="1" Grid.Row ="1" x:Name="ModsButton" Content="Mods" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Click="ModsButton_Click" Height="25"/>
+        <Button Grid.Column="2" Grid.Row ="1" Grid.ColumnSpan="2" x:Name="PatchesButton" FontSize="14" Content="Patches" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="PatchesButton_Click" Height="25"/>
+        <Button Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="14" Content="Addons for" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="AddonsButton_Click" Height="25"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="White" FontSize="25" Text="Sponsored by: Aziz" VerticalAlignment="Center" Width="430" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
-        <Button x:Name="ManualAddMod" FontSize="16" Content="Add mod from files" FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="130,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" Height="28" Click="ManualAddMod_Click"/>
-        <Button x:Name="ManualAddGlobalAddon" FontSize="16" Content="Add global addon from files" FontWeight="Bold" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="82,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="270" Height="28" Click="ManualAddGlobalAddon_Click"/>
-        <Button x:Name="ManualAddPatch" FontSize="13" Content="Add patch for " FontWeight="Bold" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="53,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddPatch_Click"/>
-        <Button x:Name="ManualAddAddon" FontSize="13" Content="Add addon for " FontWeight="Bold" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="53,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddAddon_Click"/>
+        
+        <local:UpdateButton Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" />
+        <Button x:Name="ManualAddMod" FontSize="16" Content="Add mod from files" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="170,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" Height="28" Click="ManualAddMod_Click" Grid.ColumnSpan="2"/>
+        <Button x:Name="ManualAddPatch" FontSize="13" Content="Add patch for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddPatch_Click"/>
+        <Button x:Name="ManualAddAddon" FontSize="13" Content="Add addon for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddAddon_Click"/>
 
     </Grid>
 </Window>

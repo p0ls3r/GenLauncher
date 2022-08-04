@@ -158,11 +158,6 @@ namespace GenLauncherNet
             return Data.GetSelectedModAndItsVersion();
         }
 
-        internal static List<ModificationVersion> GetSelectedGlobalAddonsAndItsVersions()
-        {
-            return Data.GetSelectedGlobalAddonsAndItsVersions();
-        }
-
         internal static ModificationVersion GetSelectedPatchAndItsVersion()
         {
             return Data.GetSelectedPatchAndItsVersionForMod(Data.SelectedMod.Name);
@@ -204,19 +199,10 @@ namespace GenLauncherNet
         {
             return Data.GetAddonVersions(modification);
         }
-        public static List<ModificationVersion> GetGlobalAddonVersions(ModificationReposVersion modification)
-        {
-            return Data.GetGlobalAddonVersions(modification);
-        }
 
         internal static List<ModificationVersion> GetPatchVersions(ModificationReposVersion modification)
         {
             return Data.GetPatchVersions(modification);
-        }
-
-        public static List<ModificationVersion> GetFullGlobalAddonsVersionsList()
-        {
-            return Data.GetFullGloalAddonsVersionsList();
         }
 
         public static List<ModificationVersion> GetAddonVersionsForModList(string modName)
@@ -504,7 +490,6 @@ namespace GenLauncherNet
         private static void DeleteOutdatedModifications()
         {
             var modVersions = Data.GetFullModsVersionsList();
-            var globalAddons = Data.GetFullGloalAddonsVersionsList();
 
             foreach (var modVersion in modVersions)
             {
@@ -531,20 +516,6 @@ namespace GenLauncherNet
                 foreach (var patchVersion in patchesVersions)
                 {
                     CheckAddonExistence(patchVersion, EntryPoint.PatchesFolderName);
-                }
-            }
-
-            foreach (var gAddon in globalAddons)
-            {
-                //Checking existing in data globalAddon
-                if (!Directory.Exists(EntryPoint.GenLauncherGlobalAddonsFolder + "\\" + gAddon.Name)
-                    || !Directory.Exists(EntryPoint.GenLauncherGlobalAddonsFolder + "\\" + gAddon.Name + "\\" + gAddon.Version)
-                    || !ModFolderContainsFiles(new DirectoryInfo(EntryPoint.GenLauncherGlobalAddonsFolder + "\\" + gAddon.Name + "\\" + gAddon.Version)))
-                {
-                    if (downloadedReposContent.Contains(gAddon))
-                        gAddon.Installed = false;
-                    else
-                        Data.Delete(gAddon);
                 }
             }
         }
