@@ -280,23 +280,12 @@ namespace GenLauncherNet
                     break;
 
                 case ModificationType.Addon:
-                    if (String.IsNullOrEmpty(modification.DependenceName))
-                    {
-                        var tempAddon = new ModificationReposVersion(modification.Name);
-                        tempAddon.ModificationType = modification.ModificationType;
+                    var tempAddon = new ModificationReposVersion(modification.Name);
+                    tempAddon.ModificationType = modification.ModificationType;
+                    tempAddon.DependenceName = modification.DependenceName;
 
-                        if (!Data.SelectedGlobalAddons.Contains(tempAddon))
-                            Data.SelectedGlobalAddons.Add(tempAddon);
-                    }
-                    else
-                    {
-                        var tempAddon = new ModificationReposVersion(modification.Name);
-                        tempAddon.ModificationType = modification.ModificationType;
-                        tempAddon.DependenceName = modification.DependenceName;
-
-                        if (!Data.SelectedAddons.Contains(tempAddon))
-                            Data.SelectedAddons.Add(tempAddon);
-                    }
+                    if (!Data.SelectedAddons.Contains(tempAddon))
+                        Data.SelectedAddons.Add(tempAddon);
                     break;
             }
         }

@@ -929,7 +929,7 @@
 
                 <ProgressBar Grid.Row="5" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="DarkGray"/>
                 <local:InfoTextBlock FontWeight="Bold" Grid.Row="5" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
-                <local:ModUpdateButton Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15"/>
+                <local:ModUpdateButton Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15" MouseEnter="UpdateButton_MouseEnter"/>
                 <local:ChangeLogButton Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
                 <local:NetworkInfoButton Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
 
@@ -1043,7 +1043,7 @@
 
         <TextBlock x:Name="LauncherVersion" Foreground="White" FontSize="15" HorizontalAlignment="Left" Margin="20,6,0,0" Text="Current version " TextWrapping="Wrap" VerticalAlignment="Top" Width="143" Height="22" Grid.Column="6" Grid.Row="4"/>
         <TextBlock x:Name="LatestLauncherVersion" Foreground="White" FontSize="15" HorizontalAlignment="Left" Margin="20,33,0,0" Text="Latest version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="23" Grid.Column="6" Grid.Row="4"/>
-        <local:UpdateButton x:Name="LauncherUpdate" BlinkCount="100" Focusable="False" Content="Update!" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" MouseEnter="LauncherUpdate_MouseEnter" Grid.Column="6" Grid.Row="4"/>
+        <local:UpdateButton x:Name="LauncherUpdate" BlinkCount="100" Focusable="False" Content="Update!" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" MouseEnter="UpdateButton_MouseEnter" Grid.Column="6" Grid.Row="4"/>
         <ProgressBar x:Name="UpdateProgressBar" HorizontalAlignment="Left" Height="24" Margin="20,96,0,0" VerticalAlignment="Top" Width="229" Grid.Column="6" Grid.Row="4"/>
         <TextBlock  x:Name="UpdateProgress" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Left" FontSize="13" Margin="25,100,0,0" TextWrapping="Wrap" TextAlignment="Center"  VerticalAlignment="Top" Width="224" Height="20" Grid.Column="6" Grid.Row="4"/>
 
@@ -1071,8 +1071,8 @@
         <Button Grid.Column="2" Grid.Row ="1" Grid.ColumnSpan="2" x:Name="PatchesButton" FontSize="14" Content="Patches" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="PatchesButton_Click" Height="25"/>
         <Button Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="14" Content="Addons for" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="AddonsButton_Click" Height="25"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="White" FontSize="25" Text="Sponsored by: Aziz" VerticalAlignment="Center" Width="430" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
-        
-        <local:UpdateButton Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" />
+
+        <local:UpdateButton Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" MouseEnter="UpdateButton_MouseEnter" />
         <Button x:Name="ManualAddMod" FontSize="16" Content="Add mod from files" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="170,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" Height="28" Click="ManualAddMod_Click" Grid.ColumnSpan="2"/>
         <Button x:Name="ManualAddPatch" FontSize="13" Content="Add patch for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddPatch_Click"/>
         <Button x:Name="ManualAddAddon" FontSize="13" Content="Add addon for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddAddon_Click"/>

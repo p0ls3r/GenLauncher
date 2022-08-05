@@ -245,7 +245,7 @@ namespace GenLauncherNet
                 Downloader = null;
                 this._GridControls._ProgressBar.Value = 0;
                 this._GridControls._InfoTextBlock.Text = String.Empty;
-                this._GridControls._UpdateButton.Content = "UPDATE!";                
+                this._GridControls._UpdateButton.Content = "UPDATE!";
 
                 UpdataModboxData();
                 UpdateComboBox();
@@ -268,7 +268,8 @@ namespace GenLauncherNet
             else
             {
                 this._GridControls._UpdateButton.IsEnabled = true;
-                this._GridControls._UpdateButton.IsBlinking = true;
+                if (ModBoxModification.ModificationType == ModificationType.Mod)
+                    this._GridControls._UpdateButton.IsBlinking = true;
             }
 
             var versionListSource = new ObservableCollection<ComboBoxData>();
@@ -293,7 +294,7 @@ namespace GenLauncherNet
                 return;
             }
 
-            //Case no VersionsInstalled
+            //Case there is Repos version for mod
             if (ModificationVersions.Count == 1 && !LatestVersion.Installed)
             {
                 if (!DataHandler.TempAddedMods.Contains(ModBoxModification.Name))
@@ -316,6 +317,7 @@ namespace GenLauncherNet
                 if (ItemIndex != -1)
                     _GridControls._ComboBox.SelectedItem = _GridControls._ComboBox.Items[ItemIndex];
             }
+
             //Case there was installation, select last version
             else
             {

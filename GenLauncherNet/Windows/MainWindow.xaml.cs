@@ -1027,7 +1027,7 @@ namespace GenLauncherNet
 
         #region MainButtonsEvents
 
-        private void LauncherUpdate_MouseEnter(object sender, MouseEventArgs e)
+        private void UpdateButton_MouseEnter(object sender, MouseEventArgs e)
         {
             var updateButton = sender as UpdateButton;
             if (updateButton != null)
