@@ -338,9 +338,9 @@ namespace GenLauncherNet
                     break;
                 case ModificationType.Addon:
                     if (String.IsNullOrEmpty(modificationVersion.DependenceName))
-                        Directory.Delete(EntryPoint.GenLauncherGlobalAddonsFolder + '/' + modificationVersion.Name + '/' + modificationVersion.Version, true);
+                        return;
                     else
-                        Directory.Delete(EntryPoint.GenLauncherModsFolder+ '/' + modificationVersion.DependenceName + '/' + EntryPoint.AddonsFolderName + '/' + modificationVersion.Name + '/' + modificationVersion.Version, true);
+                        Directory.Delete(EntryPoint.GenLauncherModsFolder + '/' + modificationVersion.DependenceName + '/' + EntryPoint.AddonsFolderName + '/' + modificationVersion.Name + '/' + modificationVersion.Version, true);
                     break;
                 case ModificationType.Patch:
                     Directory.Delete(EntryPoint.GenLauncherModsFolder + '/' + modificationVersion.DependenceName + '/' + EntryPoint.PatchesFolderName + '/' + modificationVersion.Name + '/' + modificationVersion.Version, true);
@@ -395,16 +395,10 @@ namespace GenLauncherNet
         private static void AddUnregistredModifications()
         {
             var modDirectoryInfo = new DirectoryInfo(startPath + "//" + EntryPoint.GenLauncherModsFolder);
-            var addonDirectoryInfo = new DirectoryInfo(startPath + "//" + EntryPoint.GenLauncherGlobalAddonsFolder);
 
             foreach (var directory in modDirectoryInfo.GetDirectories())
             {
                 CheckSubDirectoryForModificationsVersions(directory);
-            }
-
-            foreach (var directory in addonDirectoryInfo.GetDirectories())
-            {
-                CheckSubDirectoryForGlobalAddonsVersions(directory);
             }
         }
 
@@ -465,24 +459,6 @@ namespace GenLauncherNet
                     addonVersion.DependenceName = dependency;
 
                     Data.AddOrUpdate(addonVersion);
-                }
-            }
-        }
-
-        private static void CheckSubDirectoryForGlobalAddonsVersions(DirectoryInfo directory)
-        {
-            foreach (var subDirectory in directory.GetDirectories())
-            {
-                if (ModFolderContainsFiles(subDirectory) && !subDirectory.Name.Contains(EntryPoint.GenLauncherVersionFolderCopySuffix))
-                {
-
-                    var globalAddonVersion = new ModificationVersion();
-                    globalAddonVersion.Name = directory.Name;
-                    globalAddonVersion.Version = subDirectory.Name;
-                    globalAddonVersion.ModificationType = ModificationType.Addon;
-                    globalAddonVersion.Installed = true;
-
-                    Data.AddOrUpdate(globalAddonVersion);
                 }
             }
         }

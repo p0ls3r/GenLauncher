@@ -23,6 +23,7 @@ namespace GenLauncherNet
 
         // Name/ModificationVersions
         public StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>> ModsAndVersions = new StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>>();
+        public StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>> GlobalAddonsAndVersions = new StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>>();
 
         // Dependency Name/Addons and Patches versions        
         public StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>> AddonsAndVersions = new StringConcurrentDictionary<SynchronizedCollection<ModificationVersion>>();

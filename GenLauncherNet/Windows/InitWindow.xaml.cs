@@ -87,7 +87,6 @@ namespace GenLauncherNet
         private static void CreateLauncherFolders()
         {
             CreateFolder(EntryPoint.GenLauncherModsFolder);
-            CreateFolder(EntryPoint.GenLauncherGlobalAddonsFolder);
         }
 
         private static void CreateFolder(string folderName)

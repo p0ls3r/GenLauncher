@@ -93,7 +93,7 @@ namespace GenLauncherNet
                 {
                     if (string.IsNullOrEmpty(version.DependenceName))
                     {
-                        SymbolicLinkHandler.CreateMirrorsFromFolder(EntryPoint.GenLauncherGlobalAddonsFolder + "\\" + version.Name + "\\" + version.Version);
+                        return;
                     }
                     else
                     {

@@ -1418,23 +1418,6 @@ namespace GenLauncherNet
             }
         }
 
-        private void ManualAddGlobalAddon_Click(object sender, RoutedEventArgs e)
-        {
-            var dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".big";
-            dlg.Filter = "ARCHIVE (*.big,*.7z,*.zip,*.rar)|*big;*.7z;*.zip;*.rar";
-            dlg.Multiselect = true;
-
-            var result = dlg.ShowDialog();
-
-            if (result == true)
-            {
-                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList()) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                setNameWindow.CreateModCallback += CreateGAddonFromFiles;
-                setNameWindow.ShowDialog();
-            }
-        }
-
         private void ManualAddPatch_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new Microsoft.Win32.OpenFileDialog();
@@ -1489,21 +1472,6 @@ namespace GenLauncherNet
             ModListSource.Add(modData);
 
             DataHandler.AddAddedModification(modData.ModBoxModification.Name);
-
-            EnableUI();
-        }
-
-        public async void CreateGAddonFromFiles(List<string> files, string modName, string version)
-        {
-            DisableUI();
-            await Task.Run(() => ModificationsFileHandler.CreateModificationsFromFiles(files, EntryPoint.GenLauncherGlobalAddonsFolder + '/' + modName + '/' + version));
-
-            DataHandler.UpdateModificationsData();
-            var tempModification = new ModificationReposVersion(modName);
-            tempModification.Version = version;
-            tempModification.ModificationType = ModificationType.Addon;
-            var modData = new ModBoxData(tempModification);
-            GlobalAddonsListSource.Add(modData);
 
             EnableUI();
         }

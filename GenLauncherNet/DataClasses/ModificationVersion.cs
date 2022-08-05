@@ -132,15 +132,7 @@ namespace GenLauncherNet
             switch (this.ModificationType)
             {
                 case ModificationType.Addon:
-                    if (string.IsNullOrEmpty(this.DependenceName))
-                    {
-                        versionFolder = EntryPoint.GenLauncherGlobalAddonsFolder + '/' + this.Name + '/' + this.Version;
-                    }
-                    else
-                    {
-                        versionFolder = EntryPoint.GenLauncherModsFolder + '/' + this.DependenceName + '/' + EntryPoint.AddonsFolderName + '/' + this.Name + '/' + this.Version;
-                    }
-
+                    versionFolder = EntryPoint.GenLauncherModsFolder + '/' + this.DependenceName + '/' + EntryPoint.AddonsFolderName + '/' + this.Name + '/' + this.Version;
                     break;
                 case ModificationType.Mod:
                     {
