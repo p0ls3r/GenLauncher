@@ -877,7 +877,6 @@
             </Grid>
         </DataTemplate>
 
-
         <DataTemplate x:Key="ModificationTemplate">
             <Grid x:Name="GridItem" Loaded="GridItem_Loaded" Width="550">
                 <Grid.ColumnDefinitions>
@@ -887,7 +886,6 @@
                     <ColumnDefinition Width="40" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="26"/>
                     <RowDefinition Height="23"/>
                     <RowDefinition Height="23"/>
                     <RowDefinition Height="50"/>
@@ -896,39 +894,26 @@
                     <RowDefinition Height="33"/>
                 </Grid.RowDefinitions>
 
-                <Rectangle Grid.ColumnSpan="4" Grid.RowSpan="4" Visibility="Hidden">
-                    <Rectangle.Fill>
-                        <RadialGradientBrush GradientOrigin="0.2,0" Center="0.2,0" RadiusX="1" RadiusY="0.5">
-                            <RadialGradientBrush.GradientStops>
-                                <GradientStop Color="Yellow" Offset="0" />
-                                <GradientStop Color="Transparent" Offset="0.5" />
-                            </RadialGradientBrush.GradientStops>
-                        </RadialGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-
-                <RadioButton x:Name="MyFavorite" Foreground="DarkGray"  FontSize="16" Grid.Column="0" Grid.Row="0" Content="My favorite" Margin="10,3,0,3" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="MyFavorite_Click"/>
-
-                <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="DarkGray" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="1" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
-                <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="DarkGray" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
-                <ComboBox x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
+                <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="DarkGray" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
+                <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="DarkGray" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
+                <ComboBox MouseEnter="VersionsList_MouseEnter" MouseLeave="VersionsList_MouseLeave" x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
                 </ComboBox>
 
-                <Border BorderThickness="2" BorderBrush="DarkGray" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
+                <Border BorderThickness="2" BorderBrush="DarkGray" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
                 </Border>
 
-                <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2"  HorizontalAlignment="Left" Source="{Binding ImageSource}" Height="100" Width="500" Margin="10,0,0,0" />
+                <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2"  HorizontalAlignment="Left" Source="{Binding ImageSource}" Height="100" Width="500" Margin="10,0,0,0" />
 
-                <local:InfoButton x:Name="DiscordButton" Opacity="1" Grid.Row="3" Grid.Column="3" Height="26" Width="26" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="DiscordButton_Click" Margin="0,0,5,0">
+                <local:InfoButton x:Name="DiscordButton" Opacity="1" Grid.Row="2" Grid.Column="3" Height="26" Width="26" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="DiscordButton_Click" Margin="0,0,5,0">
                     <Image Source="/Images/discord.png"/>
                 </local:InfoButton>
 
-                <local:InfoButton x:Name="ModdbButton" Opacity="1" Grid.Row="4" Grid.Column="3" Height="29" Width="29" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="ModdbButton_Click" Margin="0,0,5,0">
+                <local:InfoButton x:Name="ModdbButton" Opacity="1" Grid.Row="3" Grid.Column="3" Height="29" Width="29" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="ModdbButton_Click" Margin="0,0,5,0">
                     <Image Source="/Images/moddb.png"/>
                 </local:InfoButton>
 
-                <ProgressBar Grid.Row="5" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="DarkGray"/>
-                <local:InfoTextBlock FontWeight="Bold" Grid.Row="5" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
+                <ProgressBar Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="DarkGray"/>
+                <local:InfoTextBlock FontWeight="Bold" Grid.Row="4" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
                 <local:ModUpdateButton Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15" MouseEnter="UpdateButton_MouseEnter"/>
                 <local:ChangeLogButton Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
                 <local:NetworkInfoButton Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
@@ -996,6 +981,9 @@
 
                 </Setter.Value>
             </Setter>
+            <Setter Property="AllowDrop" Value="True"/>
+            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBoxItem_PreviewMouseLeftButtonDown"/>
+            <EventSetter Event="Drop" Handler="ListBoxItem_Drop" />
         </Style>
 
     </Window.Resources>
@@ -1025,7 +1013,7 @@
 
 
 
-        <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="ModsList" ItemTemplate="{StaticResource ModificationTemplate}" SelectionChanged="ModsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple">
+        <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="ModsList" ItemTemplate="{StaticResource ModificationTemplate}" SelectionChanged="ModsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
         </ListBox>
 
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="PatchesList" ItemTemplate="{StaticResource AddonsTemplate}"  SelectionChanged="PatchesList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >

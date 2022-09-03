@@ -9,14 +9,13 @@ namespace GenLauncherNet
     public class ComboBoxData
     {
         public string VersionName { get; set; }
-        public ModificationReposVersion Modification { get; set; }
+        public ModificationVersion SelectedVersion { get; set; }
 
-        public ModBoxData ModBoxData { get; set; }
+        public ModificationContainer ModBoxData { get; set; }
 
-        public GridControls _GridControls { get; private set; }
-        public ComboBoxData(ModificationReposVersion modification, string version, ModBoxData modBoxData)
+        public ComboBoxData(ModificationVersion SelectedModification, string version, ModificationContainer modBoxData)
         {
-            Modification = modification;
+            SelectedVersion = SelectedModification;
             VersionName = version;
             ModBoxData = modBoxData;
         }

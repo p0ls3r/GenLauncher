@@ -61,9 +61,9 @@ namespace GenLauncherNet
                     AddDownloadedModificationData(reposAddon);
                 }
 
-                if (Data.SelectedMod != null)
+                if (GetSelectedMod() != null)
                 {
-                    await ReadPatchesAndAddonsForMod(Data.SelectedMod);
+                    await ReadPatchesAndAddonsForMod(GetSelectedMod());
                 }
             }
         }
@@ -143,87 +143,118 @@ namespace GenLauncherNet
 
         #region DataGetters
 
-        internal static ModificationReposVersion GetSelectedMod()
+        internal static GameModification GetSelectedMod()
         {
-            return Data.SelectedMod;
+            return Data.Modifications.Where(m => m.IsSelected).FirstOrDefault();
         }
 
-        internal static StringHashSet GetAddedToMainWindowModifications()
+        internal static ModificationVersion GetSelectedModVersion()
         {
-            return Data.AddedModifications;
+            var selectedMod = GetSelectedMod();
+            if (selectedMod != null)
+                return selectedMod.ModificationVersions.Where(m => m.IsSelected).FirstOrDefault();
+            else
+                return null;
         }
 
-        internal static ModificationVersion GetSelectedModAndItsVersion()
+        internal static ModificationVersion GetSelectedPatchVersion()
         {
-            return Data.GetSelectedModAndItsVersion();
-        }
-
-        internal static ModificationVersion GetSelectedPatchAndItsVersion()
-        {
-            return Data.GetSelectedPatchAndItsVersionForMod(Data.SelectedMod.Name);
-        }
-
-        internal static List<ModificationVersion> GetSelectedAddonsAndItsVersions()
-        {
-            return Data.GetSelectedAddonsAndItsVersions();
-        }
-
-        internal static List<ModificationReposVersion> GetSelectedGlobalAddons()
-        {
-            return Data.SelectedGlobalAddons.ToList();
-        }
-        internal static List<ModificationReposVersion> GetSelectedAddons()
-        {
-            return Data.SelectedAddons.ToList();
-        }
-
-        internal static ModificationReposVersion GetSelectedPatch()
-        {
-            if (Data.SelectedMod != null)
-                return Data.GetSelectedPatchAndItsVersionForMod(Data.SelectedMod.Name);
+            var selectedMod = GetSelectedMod();
+            if (selectedMod != null)
+            {
+                return Data.Patches.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase))
+                    .Where(m => m.IsSelected)
+                    .SelectMany(m => m.ModificationVersions)
+                    .Where(m => m.IsSelected)
+                    .FirstOrDefault();
+            }
 
             return null;
         }
 
-        public static List<ModificationVersion> GetFullModsVersionsList()
+        internal static List<GameModification> GetPatchesForSelectedMod()
         {
-            return Data.GetFullModsVersionsList();
+            var selectedMod = GetSelectedMod();
+            if (selectedMod != null)
+                return Data.Patches.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+            else
+                return new List<GameModification>();
         }
 
-        public static List<ModificationVersion> GetModVersions(ModificationReposVersion modification)
+        internal static List<GameModification> GetAddonsForSelectedMod()
         {
-            return Data.GetModVersions(modification);
+            var selectedMod = GetSelectedMod();
+            if (selectedMod != null)
+                return Data.Addons.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+            else
+                return new List<GameModification>();
         }
 
-        public static List<ModificationVersion> GetAddonVersions(ModificationReposVersion modification)
+        public static List<ModificationVersion> GetSelectedModVersions()
         {
-            return Data.GetAddonVersions(modification);
+            return GetSelectedMod().ModificationVersions;
         }
 
-        internal static List<ModificationVersion> GetPatchVersions(ModificationReposVersion modification)
+        internal static List<ModificationVersion> GetSelectedAddonsVersions()
         {
-            return Data.GetPatchVersions(modification);
+            var result = new List<ModificationVersion>();
+            var selectedMod = GetSelectedMod();
+            if (selectedMod != null)
+            {
+                return Data.Addons.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase))
+                    .Where(m => m.IsSelected)
+                    .SelectMany(m => m.ModificationVersions.Where(t => t.IsSelected))
+                    .Union(Data.Addons.Where(m => String.Equals(m.DependenceName, GetSelectedPatch()?.Name, StringComparison.OrdinalIgnoreCase))
+                      .Where(m => m.IsSelected)
+                      .SelectMany(m => m.ModificationVersions.Where(t => t.IsSelected)))
+                    .ToList();
+            }
+
+            return result;
+        }
+
+        internal static List<GameModification> GetSelectedAddonsForSelectedMod()
+        {
+            return GetAddonsForSelectedMod().Where(m => m.IsSelected).ToList();
+        }
+
+        internal static GameModification GetSelectedPatch()
+        {
+            return GetPatchesForSelectedMod().Where(m => m.IsSelected).FirstOrDefault();
+        }
+
+        public static List<ModificationVersion> GetAllModsVersionsList()
+        {
+            return Data.Modifications.Where(m => m.Installed)
+               .Select(m => m.ModificationVersions)
+               .SelectMany(m => m)
+               .ToList();
         }
 
         public static List<ModificationVersion> GetAddonVersionsForModList(string modName)
         {
-            return Data.GetAddonsVersionsByMod(modName);
+            return Data.Addons.Where(m => String.Equals(m.DependenceName, modName, StringComparison.OrdinalIgnoreCase))
+                .SelectMany(m => m.ModificationVersions)
+                .Union(Data.Addons.Where(m => String.Equals(m.DependenceName, GetSelectedPatchVersion()?.Name, StringComparison.OrdinalIgnoreCase)).SelectMany(m => m.ModificationVersions))
+                .ToList();
         }
 
         public static List<ModificationVersion> GetPatchVersionsForModList(string modName)
         {
-            return Data.GetPatchesVersionsByMod(modName);
+            return Data.Patches.Where(m => String.Equals(m.DependenceName, modName, StringComparison.OrdinalIgnoreCase))
+               .SelectMany(m => m.ModificationVersions)
+               .ToList();
         }
 
         #endregion
 
-        internal static async Task<ModificationReposVersion> DownloadModificationDataFromRepos(string name)
+        internal static async Task<GameModification> DownloadModificationDataFromRepos(string name)
         {
             var kvp = await gitHubMainDataReader.DownloadModDataByName(name);
             MofificationsAndAddons.Add(kvp.Key, kvp.Value);
             await DownloadImageIfItNotExist(kvp.Key);
             AddDownloadedModificationData(kvp.Key);
-            return kvp.Key;
+            return new GameModification(new ModificationVersion(kvp.Key));
         }
 
         private static async Task DownloadImageIfItNotExist(ModificationReposVersion mod)
@@ -257,49 +288,18 @@ namespace GenLauncherNet
             downloadedReposContent.Add(new ModificationVersion(reposVersion));
         }
 
-        internal static void AddActiveModification(ModificationReposVersion modification)
+        internal static List<GameModification> GetMods()
         {
-            if (modification == null)
-            {
-                Data.SelectedMod = null;
-                return;
-            }
-
-            switch (modification.ModificationType)
-            {
-                case ModificationType.Mod:
-                    Data.SelectedMod = modification;
-                    break;
-                case ModificationType.Patch:
-                    var tempPatch = new ModificationReposVersion(modification.Name);
-                    tempPatch.ModificationType = modification.ModificationType;
-                    tempPatch.DependenceName = modification.DependenceName;
-
-                    if (!Data.SelectedPatches.Contains(tempPatch))
-                        Data.SelectedPatches.Add(tempPatch);
-                    break;
-
-                case ModificationType.Addon:
-                    var tempAddon = new ModificationReposVersion(modification.Name);
-                    tempAddon.ModificationType = modification.ModificationType;
-                    tempAddon.DependenceName = modification.DependenceName;
-
-                    if (!Data.SelectedAddons.Contains(tempAddon))
-                        Data.SelectedAddons.Add(tempAddon);
-                    break;
-            }
-        }
-
-        internal static void RemoveActiveModification(ModificationReposVersion modification)
-        {
-            Data.RemoveModificationFromActive(modification);
+            return Data.Modifications;
         }
 
         #region UpdateData
 
         internal static void DeleteVersion(ComboBoxData versionData)
         {
-            var modification = versionData.Modification;
+            //var comboBoxSelectedItem = versionData.ModBoxData.ContainerModification.ModificationVersions.Where(m => m.IsSelected).FirstOrDefault();
+
+            var modification = versionData.SelectedVersion;
             var version = versionData.VersionName;
 
             var modificationVersion = new ModificationVersion();
@@ -308,14 +308,13 @@ namespace GenLauncherNet
             modificationVersion.ModificationType = modification.ModificationType;
             modificationVersion.DependenceName = modification.DependenceName;
 
-            DeleteVersion(modificationVersion);            
+            DeleteVersion(modificationVersion);
             UpdateModificationsData();
         }
 
         internal static void DeleteVersion(ModificationVersion version)
         {
             DeleteModificationVersion(version);
-            RemoveActiveModification(version);
         }
 
         internal static void DeleteModificationVersion(ModificationVersion modificationVersion)
@@ -375,12 +374,6 @@ namespace GenLauncherNet
             DeleteOutdatedModifications();
         }
 
-        public static void AddAddedModification(string name)
-        {
-            if (!Data.AddedModifications.Contains(name))
-                Data.AddedModifications.Add(name);
-        }
-
         private static void AddUnregistredModifications()
         {
             var modDirectoryInfo = new DirectoryInfo(startPath + "//" + EntryPoint.GenLauncherModsFolder);
@@ -421,16 +414,10 @@ namespace GenLauncherNet
                     modVersion.ModificationType = ModificationType.Mod;
                     Data.AddOrUpdate(modVersion);
 
-                    if (!Data.AddedModifications.Contains(modVersion.Name))
-                        Data.AddedModifications.Add(modVersion.Name);
+                    if (TempAddedMods.Contains(modVersion.Name))
+                        TempAddedMods.Add(modVersion.Name);
                 }
             }
-        }
-
-        public static void RemoveModificationFromAdded(ModificationReposVersion modification)
-        {
-            if (modification.ModificationType == ModificationType.Mod)
-                Data.RemoveModificationFromAdded(modification.Name);
         }
 
         private static void CheckSubDirectoryForAddonsVersions(DirectoryInfo directory, string dependency, ModificationType type)
@@ -454,7 +441,7 @@ namespace GenLauncherNet
 
         private static void DeleteOutdatedModifications()
         {
-            var modVersions = Data.GetFullModsVersionsList();
+            var modVersions = GetAllModsVersionsList();
 
             foreach (var modVersion in modVersions)
             {
@@ -470,14 +457,14 @@ namespace GenLauncherNet
                 }
 
                 //Checking existing in data addons for mod
-                var addonsVersions = Data.GetAddonsVersionsByMod(modVersion.Name);
+                var addonsVersions = GetAddonVersionsForModList(modVersion.Name);
                 foreach (var addonVersion in addonsVersions)
                 {
                     CheckAddonExistence(addonVersion, EntryPoint.AddonsFolderName);
                 }
 
                 //Checking existing in data patches for mod
-                var patchesVersions = Data.GetPatchesVersionsByMod(modVersion.Name);
+                var patchesVersions = GetPa(modVersion.Name);
                 foreach (var patchVersion in patchesVersions)
                 {
                     CheckAddonExistence(patchVersion, EntryPoint.PatchesFolderName);
@@ -595,11 +582,6 @@ namespace GenLauncherNet
                 var folder = Directory.CreateDirectory(path);
                 folder.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
             }
-        }
-
-        internal static void UpdateSelectedVersionForModification(ComboBoxData comboBoxData)
-        {
-            Data.UpdateSelectedVersionForModification(comboBoxData);
         }
 
         static public void SaveLauncherData()

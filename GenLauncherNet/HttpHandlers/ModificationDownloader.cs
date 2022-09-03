@@ -45,13 +45,13 @@ namespace GenLauncherNet
         FileStream _fileStream;
         long? _totalDownloadSize;
 
-        ModBoxData _ModBoxData;
+        ModificationContainer _ModBoxData;
         private HttpClient _httpClient;
 
-        public event Action<long?, long, double?, ModBoxData, string> ProgressChanged;
-        public event Action<ModBoxData, DownloadResult> Done;
+        public event Action<long?, long, double?, ModificationContainer, string> ProgressChanged;
+        public event Action<ModificationContainer, DownloadResult> Done;
 
-        public ModificationDownloader(ModBoxData modBoxData)
+        public ModificationDownloader(ModificationContainer modBoxData)
         {
             _ModBoxData = modBoxData;
 
@@ -65,7 +65,7 @@ namespace GenLauncherNet
         {
             try
             {
-                _downloadUrl = DownloadsLinkParser.ParseDownloadLink(_ModBoxData.ModBoxModification.SimpleDownloadLink);
+                _downloadUrl = DownloadsLinkParser.ParseDownloadLink(_ModBoxData.ContainerModification.SimpleDownloadLink);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
                 _response = await _httpClient.GetAsync(_downloadUrl, HttpCompletionOption.ResponseHeadersRead);
                 await DownloadFileFromHttpResponseMessage();
@@ -214,18 +214,18 @@ namespace GenLauncherNet
 
                 foreach (var file in modFiles)
                 {
-                    var downloadURL = string.Format("https://{0}/{1}/{2}/{3}", ReposModification.S3HostLink.Split(':')[0],
-                        ReposModification.S3BucketName, ReposModification.S3FolderName, file.FileName);
-
-                    _response = await _httpClient.GetAsync(downloadURL, HttpCompletionOption.ResponseHeadersRead);
-                    await DownloadFileFromS3HttpResponseMessage(file.FileName, downloadPath);
-
                     if (Result.Canceled || Result.Crashed || Result.TimedOut)
                     {
                         this.Dispose();
                         Done(_ModBoxData, Result);
                         return Result;
                     }
+
+                    var downloadURL = string.Format("https://{0}/{1}/{2}/{3}", ReposModification.S3HostLink.Split(':')[0],
+                        ReposModification.S3BucketName, ReposModification.S3FolderName, file.FileName);
+
+                    _response = await _httpClient.GetAsync(downloadURL, HttpCompletionOption.ResponseHeadersRead);
+                    await DownloadFileFromS3HttpResponseMessage(file.FileName, downloadPath);
                 }
 
                 this.Dispose();
@@ -372,8 +372,6 @@ namespace GenLauncherNet
         public void CancelDownload()
         {
             Result.Canceled = true;
-
-            this.Dispose();
         }
 
         public void Dispose()

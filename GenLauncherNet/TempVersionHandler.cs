@@ -17,10 +17,10 @@ namespace GenLauncherNet
         private ModificationVersion LatestInstalledVersion;
 
         //TODO refcoring - the method does two things
-        public async Task DownloadFilesInfoFromS3Storage(ModBoxData modData)
+        public async Task DownloadFilesInfoFromS3Storage(ModificationContainer modData)
         {
             ReposModification = modData.LatestVersion;
-            LatestInstalledVersion = modData.ModificationVersions.OrderBy(v => v).Where(v => v.Installed).LastOrDefault();
+            LatestInstalledVersion = modData.ContainerModification.ModificationVersions.OrderBy(v => v).Where(v => v.Installed).LastOrDefault();
 
             var localFilesInfo = await Task.Run(() => GetModFilesInfoFromLocalMod(LatestInstalledVersion));
 

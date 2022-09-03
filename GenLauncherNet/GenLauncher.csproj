@@ -116,6 +116,8 @@
     </ApplicationDefinition>
     <Compile Include="BigHandler.cs" />
     <Compile Include="CamelCaseExtension.cs" />
+    <Compile Include="DataClasses\GameModification.cs" />
+    <Compile Include="DataClasses\ReposModificationsVersion.cs" />
     <Compile Include="GameFilesHandler.cs" />
     <Compile Include="GameLauncher.cs" />
     <Compile Include="GentoolHandler.cs" />
@@ -155,7 +157,6 @@
     <Compile Include="GridControls.cs" />
     <Compile Include="HttpHandlers\GitHubCoreYamlReader.cs" />
     <Compile Include="HttpHandlers\GitHubMainDataReader.cs" />
-    <Compile Include="DataClasses\ModificationReposVersion.cs" />
     <Compile Include="DataClasses\ReposModsData.cs" />
     <Compile Include="InfoTextBlock.cs" />
     <Compile Include="WPFElements\InfoButton.cs" />
@@ -210,7 +211,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataClasses\ModBoxData.cs" />
+    <Compile Include="DataClasses\ModificationContainer.cs" />
     <Compile Include="DataClasses\ModificationVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

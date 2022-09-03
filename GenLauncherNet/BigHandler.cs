@@ -161,7 +161,7 @@ namespace GenLauncherNet
                 uint offset = bigReader.ReadUintBigEndian();
                 uint length = bigReader.ReadUintBigEndian();
                 string name = bigReader.ReadString(Encoding.ASCII.GetChars(new byte[] { 0 })[0]);
-                if (name == @"Data\INI\GameData.ini")
+                if (String.Equals(name, @"Data\INI\GameData.ini", StringComparison.OrdinalIgnoreCase))
                 {
                     bigReader.BaseStream.Position = offset;
                     {
