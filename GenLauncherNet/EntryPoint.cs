@@ -35,6 +35,13 @@ namespace GenLauncherNet
 
         [DllImport("kernel32.dll")]
         static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private const int SW_RESTORE = 9;
+        [DllImport("user32.dll")]
+        static extern bool IsIconic(IntPtr hWnd);
 
         enum SymbolicLink
         {
@@ -74,7 +81,22 @@ namespace GenLauncherNet
 
                 if (!OtherInstancesExists())
                 {
-                    MessageBox.Show("Other GenLauncher process is still active, please wait or finish it.");
+                    Process[] procs = Process.GetProcesses();
+
+                    foreach (Process proc in procs)
+                    {
+                        if (proc.ProcessName == Process.GetCurrentProcess().ProcessName)
+                        {
+                            var windowHandle= proc.MainWindowHandle;
+                            if (IsIconic(windowHandle))
+                            {
+                                ShowWindow(windowHandle, SW_RESTORE);
+                            }
+                            SetForegroundWindow(windowHandle);
+                            return;
+                        }
+                    }
+
                     return;
                 }
 
