@@ -38,10 +38,10 @@ namespace GenLauncherNet
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
         [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        private const int SW_RESTORE = 9;
-        [DllImport("user32.dll")]
         static extern bool IsIconic(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        static extern bool ShowWindowAsync(HandleRef hWnd, int nCmdShow);
+        private const int SW_RESTORE = 9;
 
         enum SymbolicLink
         {
@@ -81,22 +81,7 @@ namespace GenLauncherNet
 
                 if (!OtherInstancesExists())
                 {
-                    Process[] procs = Process.GetProcesses();
-
-                    foreach (Process proc in procs)
-                    {
-                        if (proc.ProcessName == Process.GetCurrentProcess().ProcessName)
-                        {
-                            var windowHandle= proc.MainWindowHandle;
-                            if (IsIconic(windowHandle))
-                            {
-                                ShowWindow(windowHandle, SW_RESTORE);
-                            }
-                            SetForegroundWindow(windowHandle);
-                            return;
-                        }
-                    }
-
+                    MoveExistingWindowOnTop();
                     return;
                 }
 
@@ -175,6 +160,13 @@ namespace GenLauncherNet
             return true;
         }
 
+        private static void MoveExistingWindowOnTop()
+        {
+            var proc = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).FirstOrDefault();
+            var windowHandle = proc.MainWindowHandle;
+            ShowWindowAsync(new HandleRef(null, windowHandle), SW_RESTORE);
+            SetForegroundWindow(windowHandle);
+        }
 
         private static void DeleteOldGenLauncherFile()
         {
