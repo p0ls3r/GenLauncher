@@ -26,8 +26,6 @@ namespace GenLauncherNet
         private static HashSet<ModificationReposVersion> downloadedModsInfo = new HashSet<ModificationReposVersion>();
         private static HashSet<ModificationVersion> downloadedReposContent = new HashSet<ModificationVersion>();
 
-        public static StringHashSet TempAddedMods = new StringHashSet();
-
         private static HttpClient LogoDownloader = new HttpClient();
 
         public static async Task InitData(bool connectionToGithub)
@@ -43,7 +41,7 @@ namespace GenLauncherNet
 
             if (connected)
             {
-                var installedMods = GetAddedToMainWindowModifications();
+                var installedMods = GetMods().Select(t => t.Name.ToLower()).ToList();
                 ReposModsNames = gitHubMainDataReader.GetReposModsNames();
 
                 MofificationsAndAddons = await gitHubMainDataReader.UpdateDownloadedModsDataFromRepos(installedMods);
@@ -225,7 +223,7 @@ namespace GenLauncherNet
 
         public static List<ModificationVersion> GetAllModsVersionsList()
         {
-            return Data.Modifications.Where(m => m.Installed)
+            return Data.Modifications
                .Select(m => m.ModificationVersions)
                .SelectMany(m => m)
                .ToList();
@@ -248,13 +246,20 @@ namespace GenLauncherNet
 
         #endregion
 
-        internal static async Task<GameModification> DownloadModificationDataFromRepos(string name)
+        internal static void AddModModification(ModificationVersion modification)
+        {
+            Data.AddOrUpdate(modification);
+        }
+
+        internal static async Task<ModificationVersion> DownloadModificationDataFromRepos(string name)
         {
             var kvp = await gitHubMainDataReader.DownloadModDataByName(name);
-            MofificationsAndAddons.Add(kvp.Key, kvp.Value);
+            if (!MofificationsAndAddons.ContainsKey(kvp.Key))
+                MofificationsAndAddons.Add(kvp.Key, kvp.Value);
+
             await DownloadImageIfItNotExist(kvp.Key);
             AddDownloadedModificationData(kvp.Key);
-            return new GameModification(new ModificationVersion(kvp.Key));
+            return new ModificationVersion(kvp.Key);
         }
 
         private static async Task DownloadImageIfItNotExist(ModificationReposVersion mod)
@@ -297,8 +302,6 @@ namespace GenLauncherNet
 
         internal static void DeleteVersion(ComboBoxData versionData)
         {
-            //var comboBoxSelectedItem = versionData.ModBoxData.ContainerModification.ModificationVersions.Where(m => m.IsSelected).FirstOrDefault();
-
             var modification = versionData.SelectedVersion;
             var version = versionData.VersionName;
 
@@ -413,9 +416,6 @@ namespace GenLauncherNet
                     modVersion.Version = subDirectory.Name;
                     modVersion.ModificationType = ModificationType.Mod;
                     Data.AddOrUpdate(modVersion);
-
-                    if (TempAddedMods.Contains(modVersion.Name))
-                        TempAddedMods.Add(modVersion.Name);
                 }
             }
         }
@@ -464,7 +464,7 @@ namespace GenLauncherNet
                 }
 
                 //Checking existing in data patches for mod
-                var patchesVersions = GetPa(modVersion.Name);
+                var patchesVersions = GetPatchVersionsForModList(modVersion.Name);
                 foreach (var patchVersion in patchesVersions)
                 {
                     CheckAddonExistence(patchVersion, EntryPoint.PatchesFolderName);

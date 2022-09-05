@@ -1024,8 +1024,8 @@
 
         <Button x:Name="ButtonStartGame" FontSize="17" Focusable="False" Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Launch_Click" Grid.Column="6" Grid.Row="2" Grid.RowSpan="2"/>
         <Button x:Name="ButtonWorldBuilder" FontSize="17" Focusable="False" Content="WORLD BUILDER" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWorldBuilder_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button x:Name="ButtonWindowed" FontSize="17" Focusable="False" Content="WINDOWED" HorizontalAlignment="Left" Margin="25,64,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWindowed_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button x:Name="ButtonQuickStart" FontSize="17" Focusable="False" Content="QUICK START" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonQuickStart_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button x:Name="ButtonWindowed" FontSize="17" Focusable="False" Content="CHANGE TO FULL SCREEN" HorizontalAlignment="Left" Margin="25,64,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWindowed_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button x:Name="ButtonQuickStart" FontSize="17" Focusable="False" Content="CHANGE TO NORMAL START" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonQuickStart_Click" Grid.Column="6" Grid.Row="3"/>
         <Button x:Name="ButtonOptions" FontSize="17" Focusable="False"  Content="OPTIONS"  HorizontalAlignment="Left" Margin="25,154,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonOptions_Click" Grid.Column="6" Grid.Row="3"/>
         <Button x:Name="ButtonExit" FontSize="17" Focusable="False"  Content="EXIT" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Button_Click" Grid.Column="6" Grid.Row="3"/>
 
@@ -1058,7 +1058,7 @@
         <Button Grid.Column="1" Grid.Row ="1" x:Name="ModsButton" Content="Mods" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Click="ModsButton_Click" Height="25"/>
         <Button Grid.Column="2" Grid.Row ="1" Grid.ColumnSpan="2" x:Name="PatchesButton" FontSize="14" Content="Patches" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="PatchesButton_Click" Height="25"/>
         <Button Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="14" Content="Addons for" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="AddonsButton_Click" Height="25"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="White" FontSize="25" Text="Sponsored by: Aziz" VerticalAlignment="Center" Width="430" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="White" FontSize="25" Text="In memory of my friend and comrade Aziz" VerticalAlignment="Center" Width="605" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
 
         <local:UpdateButton Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" MouseEnter="UpdateButton_MouseEnter" />
         <Button x:Name="ManualAddMod" FontSize="16" Content="Add mod from files" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="170,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" Height="28" Click="ManualAddMod_Click" Grid.ColumnSpan="2"/>

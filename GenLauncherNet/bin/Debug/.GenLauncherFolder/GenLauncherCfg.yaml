@@ -1,5 +1,5 @@
 Modifications:
-- IsSelected: false
+- IsSelected: true
   Installed: true
   ModificationVersions:
   - IsSelected: true
@@ -19,22 +19,39 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
-  NumberInList: 0
+  - IsSelected: false
+    Installed: false
+    ModificationType: Mod
+    Name: Contra
+    Version: 009 Final Patch 3 Hotfix 4
+    SimpleDownloadLink: https://gen.insave.ovh/contra/mod/ContraLatestBasic.rar
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+    DiscordLink: https://discord.gg/015E6KXXHmdWFXCtt
+    ModDBLink: https://www.moddb.com/mods/contra
+    NewsLink: https://www.moddb.com/mods/contra/articles
+    DependenceName: ''
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: contra
+    S3FolderName: contra-individual-files
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
+  NumberInList: 1
   ModificationType: Mod
   Name: Contra
   Version: 
-  SimpleDownloadLink: 
-  UIImageSourceLink: 
-  DiscordLink: 
-  ModDBLink: 
-  NewsLink: 
+  SimpleDownloadLink: https://gen.insave.ovh/contra/mod/ContraLatestBasic.rar
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+  DiscordLink: https://discord.gg/015E6KXXHmdWFXCtt
+  ModDBLink: https://www.moddb.com/mods/contra
+  NewsLink: https://www.moddb.com/mods/contra/articles
   DependenceName: 
-  S3HostLink: 
-  S3BucketName: 
-  S3FolderName: 
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: contra
+  S3FolderName: contra-individual-files
   S3HostPublicKey: 
   S3HostSecretKey: 
-  NetworkInfo: 
+  NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
 - IsSelected: false
   Installed: true
   ModificationVersions:
@@ -44,30 +61,30 @@ Modifications:
     Name: Project Raptor
     Version: V10 Alpha 0.3
     SimpleDownloadLink: 
-    UIImageSourceLink: 
-    DiscordLink: 
-    ModDBLink: 
-    NewsLink: 
+    UIImageSourceLink: https://i.imgur.com/Zb0nNCG.jpg
+    DiscordLink: https://discord.gg/7NsTfDD
+    ModDBLink: https://www.moddb.com/mods/project-raptor
+    NewsLink: https://www.moddb.com/mods/project-raptor/news/project-raptor-v10-alpha-v03
     DependenceName: 
-    S3HostLink: 
-    S3BucketName: 
-    S3FolderName: 
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: projectraptor
+    S3FolderName: Mod
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
-  NumberInList: 0
+  NumberInList: 2
   ModificationType: Mod
   Name: Project Raptor
   Version: 
   SimpleDownloadLink: 
-  UIImageSourceLink: 
-  DiscordLink: 
-  ModDBLink: 
-  NewsLink: 
+  UIImageSourceLink: https://i.imgur.com/Zb0nNCG.jpg
+  DiscordLink: https://discord.gg/7NsTfDD
+  ModDBLink: https://www.moddb.com/mods/project-raptor
+  NewsLink: https://www.moddb.com/mods/project-raptor/news/project-raptor-v10-alpha-v03
   DependenceName: 
-  S3HostLink: 
-  S3BucketName: 
-  S3FolderName: 
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: projectraptor
+  S3FolderName: Mod
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
@@ -91,19 +108,36 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
-  NumberInList: 0
+  - IsSelected: false
+    Installed: false
+    ModificationType: Mod
+    Name: Rise of the Reds
+    Version: 1.87 Public Build 2.0
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21593&authkey=AMJHOwXKTTTErrI
+    UIImageSourceLink: https://i.imgur.com/FNgEp6t.png
+    DiscordLink: https://discord.gg/REcbv37
+    ModDBLink: https://www.moddb.com/mods/rise-of-the-reds
+    NewsLink: https://www.moddb.com/mods/rise-of-the-reds/articles
+    DependenceName: ''
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: rotr
+    S3FolderName: rotr-individual-files
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 4
   ModificationType: Mod
   Name: Rise of the Reds
   Version: 
-  SimpleDownloadLink: 
-  UIImageSourceLink: 
-  DiscordLink: 
-  ModDBLink: 
-  NewsLink: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21593&authkey=AMJHOwXKTTTErrI
+  UIImageSourceLink: https://i.imgur.com/FNgEp6t.png
+  DiscordLink: https://discord.gg/REcbv37
+  ModDBLink: https://www.moddb.com/mods/rise-of-the-reds
+  NewsLink: https://www.moddb.com/mods/rise-of-the-reds/articles
   DependenceName: 
-  S3HostLink: 
-  S3BucketName: 
-  S3FolderName: 
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: rotr
+  S3FolderName: rotr-individual-files
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
@@ -161,33 +195,50 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
-  NumberInList: 0
+  - IsSelected: false
+    Installed: false
+    ModificationType: Mod
+    Name: The End of Days
+    Version: 0.97.8 Patch 8
+    SimpleDownloadLink: 
+    UIImageSourceLink: https://media.discordapp.net/attachments/799373032778498069/887380847320264734/TEODLogo_500x100.png
+    DiscordLink: https://discord.com/invite/aCtu7UG
+    ModDBLink: https://www.moddb.com/mods/the-end-of-days
+    NewsLink: https://docs.google.com/document/d/1O7xeMCq5nxaaDea3MuV2fzwX7A10hNg65DGt0nLTN6Y/edit?usp=sharing
+    DependenceName: ''
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: teod
+    S3FolderName: teod-individual-files
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
+  NumberInList: 3
   ModificationType: Mod
   Name: The End of Days
   Version: 
   SimpleDownloadLink: 
-  UIImageSourceLink: 
-  DiscordLink: 
-  ModDBLink: 
-  NewsLink: 
+  UIImageSourceLink: https://media.discordapp.net/attachments/799373032778498069/887380847320264734/TEODLogo_500x100.png
+  DiscordLink: https://discord.com/invite/aCtu7UG
+  ModDBLink: https://www.moddb.com/mods/the-end-of-days
+  NewsLink: https://docs.google.com/document/d/1O7xeMCq5nxaaDea3MuV2fzwX7A10hNg65DGt0nLTN6Y/edit?usp=sharing
   DependenceName: 
-  S3HostLink: 
-  S3BucketName: 
-  S3FolderName: 
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: teod
+  S3FolderName: teod-individual-files
   S3HostPublicKey: 
   S3HostSecretKey: 
-  NetworkInfo: 
+  NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
 Addons:
 - IsSelected: false
   Installed: true
   ModificationVersions:
-  - IsSelected: false
+  - IsSelected: true
     Installed: true
     ModificationType: Addon
     Name: Fog effects disabler
     Version: 009 Final Patch 3 Hotfix 4
-    SimpleDownloadLink: 
-    UIImageSourceLink: 
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211113&authkey=AGN9ZrIb1sQmAOg
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
     DiscordLink: 
     ModDBLink: 
     NewsLink: 
@@ -202,8 +253,8 @@ Addons:
   ModificationType: Addon
   Name: Fog effects disabler
   Version: 
-  SimpleDownloadLink: 
-  UIImageSourceLink: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211113&authkey=AGN9ZrIb1sQmAOg
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
   DiscordLink: 
   ModDBLink: 
   NewsLink: 
@@ -214,17 +265,197 @@ Addons:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Addon
+    Name: Funny portraits
+    Version: 009 Final Patch 3 Hotfix 4
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211118&authkey=AHq9yjrI01HufLE
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: ''
+    DependenceName: Contra
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Funny portraits
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211118&authkey=AHq9yjrI01HufLE
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Addon
+    Name: Native unit voices
+    Version: 009 Final Patch 3 Hotfix 4
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211119&authkey=AJrPam1REfhXWTo
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: ''
+    DependenceName: Contra
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Native unit voices
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211119&authkey=AJrPam1REfhXWTo
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Addon
+    Name: New music
+    Version: 009 Final Patch 3 Hotfix 4
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211120&authkey=AMmEussvLfRuA4E
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: ''
+    DependenceName: Contra
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: New music
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211120&authkey=AMmEussvLfRuA4E
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Addon
+    Name: Water effects disabler
+    Version: 009 Final Patch 3 Hotfix 4
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211116&authkey=AAbOwmthXeN1CaA
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: ''
+    DependenceName: Contra
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Water effects disabler
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=E7CDC3585E98B730&resid=E7CDC3585E98B730%211116&authkey=AAbOwmthXeN1CaA
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Addon
+    Name: Control Bar Pro (Contra)
+    Version: 1.0.0
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21850&authkey=AJUXZtf1wCCm8RY
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: ''
+    DependenceName: CONTRA
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Control Bar Pro (Contra)
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21850&authkey=AJUXZtf1wCCm8RY
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: CONTRA
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
 Patches:
 - IsSelected: false
   Installed: true
   ModificationVersions:
-  - IsSelected: false
+  - IsSelected: true
     Installed: true
     ModificationType: Patch
     Name: Russian language and Legacy hotkeys
     Version: 009 Final Patch 3 Hotfix 4
-    SimpleDownloadLink: 
-    UIImageSourceLink: 
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21117&authkey=ACeetXrxgzK2gfU
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
     DiscordLink: 
     ModDBLink: 
     NewsLink: 
@@ -239,8 +470,8 @@ Patches:
   ModificationType: Patch
   Name: Russian language and Legacy hotkeys
   Version: 
-  SimpleDownloadLink: 
-  UIImageSourceLink: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21117&authkey=ACeetXrxgzK2gfU
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
   DiscordLink: 
   ModDBLink: 
   NewsLink: 
@@ -254,13 +485,13 @@ Patches:
 - IsSelected: false
   Installed: true
   ModificationVersions:
-  - IsSelected: false
+  - IsSelected: true
     Installed: true
     ModificationType: Patch
     Name: Russian language and Leikeze hotkeys
     Version: 009 Final Patch 3 Hotfix 4
-    SimpleDownloadLink: 
-    UIImageSourceLink: 
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21119&authkey=ABzlDV_5Zz_LLj8
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
     DiscordLink: 
     ModDBLink: 
     NewsLink: 
@@ -275,8 +506,44 @@ Patches:
   ModificationType: Patch
   Name: Russian language and Leikeze hotkeys
   Version: 
-  SimpleDownloadLink: 
-  UIImageSourceLink: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21119&authkey=ABzlDV_5Zz_LLj8
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Patch
+    Name: English language and Leikeze hotkeys
+    Version: 009 Final Patch 3 Hotfix 4
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21118&authkey=AJXJ4n6czBsX9Gs
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: ''
+    DependenceName: Contra
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Patch
+  Name: English language and Leikeze hotkeys
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=DF993F578469D9AE&resid=DF993F578469D9AE%21118&authkey=AJXJ4n6czBsX9Gs
+  UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
   DiscordLink: 
   ModDBLink: 
   NewsLink: 
@@ -289,7 +556,7 @@ Patches:
   NetworkInfo: 
 ModdedExe: true
 Windowed: true
-QuickStart: true
+QuickStart: false
 CameraHeight: 0
 AutoUpdateGentool: true
 AutoDeleteOldVersions: false

@@ -262,15 +262,15 @@ namespace GenLauncherNet
         {
             DisableUI();
 
-            var mod = await DataHandler.DownloadModificationDataFromRepos(modName);
-            await DataHandler.ReadPatchesAndAddonsForMod(mod);
+            var modVersion = await DataHandler.DownloadModificationDataFromRepos(modName);
+            await DataHandler.ReadPatchesAndAddonsForMod(modVersion);
+            DataHandler.AddModModification(modVersion);
+
+            var mod = DataHandler.GetMods().Where(m => String.Equals(m.Name, modVersion.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
             var tempModBox = new ModificationContainer(mod);
-
-            DataHandler.TempAddedMods.Add(mod.Name);
-
             ModsListSource.Add(tempModBox);
-
-            Move(tempModBox, ModsListSource.Count - 1, 0);
+            MoveModInList(tempModBox, ModsListSource.Count - 1, 0);
 
             ModsList.ItemsSource = ModsListSource;
 
@@ -319,7 +319,7 @@ namespace GenLauncherNet
                 int sourceIndex = ModsList.Items.IndexOf(source);
                 int targetIndex = ModsList.Items.IndexOf(target);
 
-                Move(source, sourceIndex, targetIndex);
+                MoveModInList(source, sourceIndex, targetIndex);
             }
         }
 
@@ -359,11 +359,10 @@ namespace GenLauncherNet
                         ((ModificationContainer)ModsList.SelectedItem).SetUnSelectedStatus();
                         ((ModificationContainer)ModsList.SelectedItem).ContainerModification.IsSelected = false;
 
-                        var newMod = ((ModificationContainer)e.AddedItems[0]).ContainerModification;
-                        newMod.IsSelected = true;
+                        ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
 
                         DisableUI();
-                        await UpdateAddonsAndPatches(newMod);
+                        await UpdateAddonsAndPatches(((ModificationContainer)e.AddedItems[0]).ContainerModification);
                         UpdateTabs();
                         EnableUI();
                     }
@@ -522,7 +521,7 @@ namespace GenLauncherNet
 
         #region SupportMethods
 
-        private void Move(ModificationContainer source, int sourceIndex, int targetIndex)
+        private void MoveModInList(ModificationContainer source, int sourceIndex, int targetIndex)
         {
             if (sourceIndex < targetIndex)
             {
@@ -617,7 +616,7 @@ namespace GenLauncherNet
         }
 
         private async Task CheckAndUpdateGentool()
-        {            
+        {
             if (!DataHandler.GentoolAutoUpdate() && File.Exists("d3d8.dll"))
             {
                 File.Move("d3d8.dll", "d3d8.dll" + EntryPoint.GenLauncherReplaceSuffix);
@@ -747,7 +746,7 @@ namespace GenLauncherNet
         private async Task UpdateAddonsAndPatches(ModificationReposVersion mod)
         {
             if (mod != null)
-            { 
+            {
                 await DataHandler.ReadPatchesAndAddonsForMod(mod);
             }
         }
@@ -768,7 +767,7 @@ namespace GenLauncherNet
                 AddonsButton.Visibility = Visibility.Visible;
 
                 UpdatePatchesList();
-                UpdateAddonsList();                
+                UpdateAddonsList();
             }
             else
             {
@@ -1245,9 +1244,9 @@ namespace GenLauncherNet
         private void UpdateWindowedStatus()
         {
             if (DataHandler.IsWindowed())
-                ButtonWindowed.Content = "WINDOWED";
+                ButtonWindowed.Content = "CHANGE TO FULL SCREEN";
             else
-                ButtonWindowed.Content = "FULL SCREEN";
+                ButtonWindowed.Content = "CHANGE TO WINDOWED";
         }
 
         private void ButtonQuickStart_Click(object sender, RoutedEventArgs e)
@@ -1259,15 +1258,15 @@ namespace GenLauncherNet
         private void UpdateQuickStartStatus()
         {
             if (DataHandler.IsQuickStart())
-                ButtonQuickStart.Content = "QUICK START";
+                ButtonQuickStart.Content = "CHANGE TO NORMAL START";
             else
-                ButtonQuickStart.Content = "NORMAL START";
+                ButtonQuickStart.Content = "CHANGE TO QUICK START";
         }
 
         private void AddMod_Click(object sender, RoutedEventArgs e)
         {
-            var addedModificationsNames = DataHandler.GetAddedToMainWindowModifications();            
-            var notAddedModificationsNames = DataHandler.ReposModsNames.Where(t => !addedModificationsNames.Contains(t)).ToList(); 
+            var addedModificationsNames = DataHandler.GetMods();
+            var notAddedModificationsNames = DataHandler.ReposModsNames.Where(t => !addedModificationsNames.Select(m => m.Name.ToLower()).Contains(t.ToLower())).ToList();
 
             var addNewModWindow = new AddModificationWindow(notAddedModificationsNames)
             {
@@ -1525,9 +1524,7 @@ namespace GenLauncherNet
 
             var modData = new ModificationContainer(savedModification);
             ModsListSource.Add(modData);
-            Move(modData, ModsListSource.Count - 1, 0);
-
-            //DataHandler.AddAddedModification(modData.ContainerModification.Name);
+            MoveModInList(modData, ModsListSource.Count - 1, 0);
 
             EnableUI();
         }

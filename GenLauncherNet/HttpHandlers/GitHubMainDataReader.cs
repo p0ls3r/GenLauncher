@@ -31,13 +31,13 @@ namespace GenLauncherNet
             return _data.modDatas.Select(t => t.ModName).ToList();
         }
 
-        public async Task<Dictionary<ModificationReposVersion, ModAddonsAndPatches>> UpdateDownloadedModsDataFromRepos(StringHashSet downloadedMods)
+        public async Task<Dictionary<ModificationReposVersion, ModAddonsAndPatches>> UpdateDownloadedModsDataFromRepos(List<string> downloadedMods)
         {
             var mods = new Dictionary<ModificationReposVersion, ModAddonsAndPatches>();
 
             foreach (var modData in _data.modDatas)
             {
-                if (!String.IsNullOrEmpty(modData.ModName) && !downloadedMods.Contains(modData.ModName))
+                if (!String.IsNullOrEmpty(modData.ModName) && !downloadedMods.Contains(modData.ModName.ToLower()))
                     continue;
 
                 try
