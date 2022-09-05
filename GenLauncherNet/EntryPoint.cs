@@ -38,8 +38,6 @@ namespace GenLauncherNet
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
         [DllImport("user32.dll")]
-        static extern bool IsIconic(IntPtr hWnd);
-        [DllImport("user32.dll")]
         static extern bool ShowWindowAsync(HandleRef hWnd, int nCmdShow);
         private const int SW_RESTORE = 9;
 
