@@ -316,9 +316,8 @@ namespace GenLauncherNet
                 var source = e.Data.GetData(typeof(ModificationContainer)) as ModificationContainer;
                 var target = ((ListBoxItem)(sender)).DataContext as ModificationContainer;
 
-                int sourceIndex = ModsList.Items.IndexOf(source);
-                int targetIndex = ModsList.Items.IndexOf(target);
-
+                var sourceIndex = ModsList.Items.IndexOf(source);
+                var targetIndex = ModsList.Items.IndexOf(target);
                 MoveModInList(source, sourceIndex, targetIndex);
             }
         }
@@ -775,7 +774,9 @@ namespace GenLauncherNet
                 AddonsButton.Visibility = Visibility.Hidden;
             }
         }
-        
+
+        #region DownloadModification
+
         private async void DownloadMod(ModificationContainer modData)
         {
             if (string.IsNullOrEmpty(modData.LatestVersion.S3HostLink) || string.IsNullOrEmpty(modData.LatestVersion.S3BucketName))
@@ -872,6 +873,8 @@ namespace GenLauncherNet
             else
                 return true;
         }
+
+        #endregion
 
         private void SetFocuses()
         {

@@ -128,7 +128,6 @@ namespace GenLauncherNet
 
         public void SetUnSelectedStatus()
         {
-            //ContainerModification.IsSelected = false;
             _GridControls._Name.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkGray");
             _GridControls._VersionTextBlock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkGray");
             _GridControls._Name.FontWeight = FontWeights.Normal;
@@ -167,6 +166,9 @@ namespace GenLauncherNet
                 SetImage();
 
             SetUnSelectedStatus();
+
+            if (!ReadyToRun && Downloader != null)
+                PrepareControlsToDownloadMode();
         }
 
         public void UpdateUIelements()
