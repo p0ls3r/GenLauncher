@@ -39,7 +39,6 @@ namespace GenLauncherNet
         private bool _ignoreSelectionFlagPatches = false;
         private volatile bool _isGameRunning = false;
         private volatile bool _isWBRunning = false;
-        private bool _updatingLists = false;
 
         private volatile int downloadingCount = 0;
         private Point _dragStartPoint;
@@ -345,7 +344,7 @@ namespace GenLauncherNet
 
         private async void ModsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!_ignoreSelectionFlagMods && e.OriginalSource is ListBox && !_updatingLists)
+            if (!_ignoreSelectionFlagMods && e.OriginalSource is ListBox)
             {
                 if (e.AddedItems.Count > 0)
                 {
@@ -391,7 +390,7 @@ namespace GenLauncherNet
 
         private void PatchesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!_ignoreSelectionFlagPatches && e.OriginalSource is ListBox && !_updatingLists && ((ListBox)sender).Items.Count != 0)
+            if (!_ignoreSelectionFlagPatches && e.OriginalSource is ListBox && ((ListBox)sender).Items.Count != 0)
             {
                 if (e.AddedItems.Count > 0)
                 {
@@ -438,12 +437,14 @@ namespace GenLauncherNet
                         ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                     }
                 }
+
+                UpdateAddonsList();
             }
         }
 
         private void AddonsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.OriginalSource is ListBox && !_updatingLists && ((ListBox)sender).Items.Count != 0)
+            if (e.OriginalSource is ListBox && ((ListBox)sender).Items.Count != 0)
             {
                 if (e.AddedItems.Count > 0)
                 {

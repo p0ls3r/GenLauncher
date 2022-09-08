@@ -29,13 +29,16 @@ namespace GenLauncherNet
             Loaded += delegate
             {
                 try
-                {
+                {                    
                     ContentPresenter cp = FindChild<ContentPresenter>(this);
-                    Decorator decor = cp.Parent as Decorator;
-                    Grid grid = new Grid();
-                    decor.Child = grid;
-                    grid.Children.Add(cp);
-                    grid.Children.Add(blinkBorder);
+                    if (cp != null)
+                    {
+                        Decorator decor = cp.Parent as Decorator;
+                        Grid grid = new Grid();
+                        decor.Child = grid;
+                        grid.Children.Add(cp);
+                        grid.Children.Add(blinkBorder);
+                    }
                 }
                 catch { }
             };
@@ -43,7 +46,7 @@ namespace GenLauncherNet
 
         void IsBlinkingChanged()
         {
-            if (DesignerProperties.GetIsInDesignMode(this))// чтоб не мигала в конструкторе
+            if (DesignerProperties.GetIsInDesignMode(this))
                 return;
             if (IsBlinking)
             {

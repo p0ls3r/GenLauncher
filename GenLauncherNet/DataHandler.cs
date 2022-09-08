@@ -157,10 +157,9 @@ namespace GenLauncherNet
 
         internal static ModificationVersion GetSelectedPatchVersion()
         {
-            var selectedMod = GetSelectedMod();
-            if (selectedMod != null)
+            if (GetSelectedMod() != null)
             {
-                return Data.Patches.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase))
+                return GetPatchesForSelectedMod()
                     .Where(m => m.IsSelected)
                     .SelectMany(m => m.ModificationVersions)
                     .Where(m => m.IsSelected)
@@ -173,8 +172,12 @@ namespace GenLauncherNet
         internal static List<GameModification> GetPatchesForSelectedMod()
         {
             var selectedMod = GetSelectedMod();
+
             if (selectedMod != null)
-                return Data.Patches.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+            {
+                return Data.Patches.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
             else
                 return new List<GameModification>();
         }
@@ -182,8 +185,11 @@ namespace GenLauncherNet
         internal static List<GameModification> GetAddonsForSelectedMod()
         {
             var selectedMod = GetSelectedMod();
+
             if (selectedMod != null)
-                return Data.Addons.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+                return Data.Addons.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase))
+                    .Union(Data.Addons.Where(m=> String.Equals(m.DependenceName, GetSelectedPatch()?.Name, StringComparison.OrdinalIgnoreCase)))
+                    .ToList();
             else
                 return new List<GameModification>();
         }
@@ -199,7 +205,7 @@ namespace GenLauncherNet
             var selectedMod = GetSelectedMod();
             if (selectedMod != null)
             {
-                return Data.Addons.Where(m => String.Equals(m.DependenceName, selectedMod.Name, StringComparison.OrdinalIgnoreCase))
+                return GetAddonsForSelectedMod()
                     .Where(m => m.IsSelected)
                     .SelectMany(m => m.ModificationVersions.Where(t => t.IsSelected))
                     .Union(Data.Addons.Where(m => String.Equals(m.DependenceName, GetSelectedPatch()?.Name, StringComparison.OrdinalIgnoreCase))

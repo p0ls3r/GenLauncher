@@ -16,7 +16,7 @@ namespace GenLauncherNet
     {
         public const string LauncherFolder = @".GenLauncherFolder/";
         public const string ConfigName = @".GenLauncherFolder/GenLauncherCfg.yaml";
-        public const string ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataMk3.yaml";
+        public const string ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataTest.yaml";
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
         public const string Version = "0.0.7.2 Test";

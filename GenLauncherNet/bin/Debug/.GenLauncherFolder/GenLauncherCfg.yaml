@@ -52,7 +52,7 @@ Modifications:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
-- IsSelected: false
+- IsSelected: true
   Installed: true
   ModificationVersions:
   - IsSelected: true
@@ -192,42 +192,6 @@ Modifications:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
-- IsSelected: false
-  Installed: false
-  ModificationVersions:
-  - IsSelected: true
-    Installed: false
-    ModificationType: Mod
-    Name: NProject Mod
-    Version: 2.10.1.0
-    SimpleDownloadLink: https://onedrive.live.com/embed?cid=096C88DE30D75B53&resid=96C88DE30D75B53%21132&authkey=AJShlns-e7er1fg
-    UIImageSourceLink: https://i.imgur.com/XVhG6uQ.jpg
-    DiscordLink: https://discord.gg/7NsTfDD
-    ModDBLink: https://www.moddb.com/mods/nproject-mod
-    NewsLink: https://www.moddb.com/mods/nproject-mod/news/nproject-mod-2101-released
-    DependenceName: ''
-    S3HostLink: gen.insave.ovh:9000
-    S3BucketName: nproject
-    S3FolderName: npm-v2101
-    S3HostPublicKey: ''
-    S3HostSecretKey: ''
-    NetworkInfo: 
-  NumberInList: 0
-  ModificationType: Mod
-  Name: NProject Mod
-  Version: 
-  SimpleDownloadLink: https://onedrive.live.com/embed?cid=096C88DE30D75B53&resid=96C88DE30D75B53%21132&authkey=AJShlns-e7er1fg
-  UIImageSourceLink: https://i.imgur.com/XVhG6uQ.jpg
-  DiscordLink: https://discord.gg/7NsTfDD
-  ModDBLink: https://www.moddb.com/mods/nproject-mod
-  NewsLink: https://www.moddb.com/mods/nproject-mod/news/nproject-mod-2101-released
-  DependenceName: ''
-  S3HostLink: gen.insave.ovh:9000
-  S3BucketName: nproject
-  S3FolderName: npm-v2101
-  S3HostPublicKey: 
-  S3HostSecretKey: 
-  NetworkInfo: 
 Addons:
 - IsSelected: false
   Installed: true
@@ -259,6 +223,78 @@ Addons:
   ModDBLink: 
   NewsLink: 
   DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: true
+  Installed: true
+  ModificationVersions:
+  - IsSelected: true
+    Installed: true
+    ModificationType: Addon
+    Name: Control Bar Pro (Rotr)
+    Version: 1.0.1
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21893&authkey=AD5ILQ_iaA_XEHw
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: https://www.moddb.com/mods/rise-of-the-reds/addons/controlbarpro-rotr
+    NewsLink: ''
+    DependenceName: RISE OF THE REDS
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Control Bar Pro (Rotr)
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21893&authkey=AD5ILQ_iaA_XEHw
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: https://www.moddb.com/mods/rise-of-the-reds/addons/controlbarpro-rotr
+  NewsLink: 
+  DependenceName: RISE OF THE REDS
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: true
+  Installed: true
+  ModificationVersions:
+  - IsSelected: true
+    Installed: true
+    ModificationType: Addon
+    Name: Hanpatch Easter Egg Units
+    Version: v1
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: ''
+    DependenceName: Hanpatch
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Hanpatch Easter Egg Units
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Hanpatch
   S3HostLink: 
   S3BucketName: 
   S3FolderName: 
@@ -332,6 +368,114 @@ Patches:
   ModDBLink: 
   NewsLink: 
   DependenceName: Contra
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: false
+  Installed: true
+  ModificationVersions:
+  - IsSelected: true
+    Installed: true
+    ModificationType: Patch
+    Name: Hanpatch
+    Version: 31.3
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=afb01c08e053a64e%21634&authkey=AI5fx4bn5FrEHJA
+    UIImageSourceLink: 
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: https://docs.google.com/document/d/1ZMlVFDPf4SDD5Y6vYatOCtaudBBl32gdWg-YrswvnGo
+    DependenceName: Rise of the Reds
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Patch
+  Name: Hanpatch
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=afb01c08e053a64e%21634&authkey=AI5fx4bn5FrEHJA
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: https://docs.google.com/document/d/1ZMlVFDPf4SDD5Y6vYatOCtaudBBl32gdWg-YrswvnGo
+  DependenceName: Rise of the Reds
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: true
+  Installed: true
+  ModificationVersions:
+  - IsSelected: true
+    Installed: true
+    ModificationType: Patch
+    Name: Balance Patch
+    Version: 2.999.06.5
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A88C98986A457EB&resid=A88C98986A457EB%21135&authkey=AE2ADilQfRS431o
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: https://docs.google.com/document/d/1iN2Zbl7i46RHSk-X9ewuYlaN8GrM_W0t2FHsP3KhMf0
+    DependenceName: rise of the reds
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Patch
+  Name: Balance Patch
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A88C98986A457EB&resid=A88C98986A457EB%21135&authkey=AE2ADilQfRS431o
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: https://docs.google.com/document/d/1iN2Zbl7i46RHSk-X9ewuYlaN8GrM_W0t2FHsP3KhMf0
+  DependenceName: rise of the reds
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Patch
+    Name: Babushka's Revenge
+    Version: 1.1
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=6434701D29C3ADD6&resid=6434701D29C3ADD6%2155855&authkey=AA1pfFg7PSiLuB0
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: https://www.moddb.com/mods/rise-of-the-reds-babushkas-ultimate-balance-mod
+    DependenceName: Rise of the Reds
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+  NumberInList: 0
+  ModificationType: Patch
+  Name: Babushka's Revenge
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=6434701D29C3ADD6&resid=6434701D29C3ADD6%2155855&authkey=AA1pfFg7PSiLuB0
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: https://www.moddb.com/mods/rise-of-the-reds-babushkas-ultimate-balance-mod
+  DependenceName: Rise of the Reds
   S3HostLink: 
   S3BucketName: 
   S3FolderName: 
