@@ -35,6 +35,11 @@ namespace GenLauncherNet
 
         [DllImport("kernel32.dll")]
         static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        static extern bool ShowWindowAsync(HandleRef hWnd, int nCmdShow);
+        private const int SW_RESTORE = 9;
 
         enum SymbolicLink
         {
@@ -74,7 +79,7 @@ namespace GenLauncherNet
 
                 if (!OtherInstancesExists())
                 {
-                    MessageBox.Show("Other GenLauncher process is still active, please wait or finish it.");
+                    MoveExistingWindowOnTop();
                     return;
                 }
 
@@ -153,6 +158,13 @@ namespace GenLauncherNet
             return true;
         }
 
+        private static void MoveExistingWindowOnTop()
+        {
+            var proc = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).FirstOrDefault();
+            var windowHandle = proc.MainWindowHandle;
+            ShowWindowAsync(new HandleRef(null, windowHandle), SW_RESTORE);
+            SetForegroundWindow(windowHandle);
+        }
 
         private static void DeleteOldGenLauncherFile()
         {
