@@ -31,7 +31,6 @@ namespace GenLauncherNet
         private ObservableCollection<ModificationContainer> ModsListSource = new ObservableCollection<ModificationContainer>();
         private ObservableCollection<ModificationContainer> PatchesListSource = new ObservableCollection<ModificationContainer>();
         private ObservableCollection<ModificationContainer> AddonsListSource = new ObservableCollection<ModificationContainer>();
-        private bool connected;
 
         private CancellationTokenSource tokenSource;
         private bool updating = false;
@@ -45,10 +44,8 @@ namespace GenLauncherNet
 
         private bool mouseOverVersionList;
 
-        public MainWindow(bool con)
+        public MainWindow()
         {
-            connected = con;
-
             InitializeComponent();
 
             this.MouseDown += Window_MouseDown;
@@ -61,7 +58,7 @@ namespace GenLauncherNet
             ManualAddMod.Visibility = Visibility.Visible;
             AddModButton.Visibility = Visibility.Visible;
 
-            if (!connected)
+            if (!EntryPoint.SessionInfo.Connected)
                 AddModButton.Visibility = Visibility.Hidden;
 
             UpdateWindowedStatus();
@@ -69,7 +66,7 @@ namespace GenLauncherNet
             UpdateModsList();
             UpdateTabs();
 
-            SetSelfUpdatingInfo(connected);
+            SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
         }
 
         private void Exit()
@@ -637,7 +634,10 @@ namespace GenLauncherNet
 
         private async Task CheckModdedExe()
         {
-            if (!File.Exists("modded.exe"))
+            if (EntryPoint.SessionInfo.GameMode == Game.Generals)
+                DataHandler.SetModdedExeStatus(false);
+
+            if (!File.Exists("modded.exe") && DataHandler.IsModdedExe())
             {
                 await DownloadModdedGeneralsExe();
             }
@@ -1148,14 +1148,14 @@ namespace GenLauncherNet
 
             if (ModificationsDontNeedUpdate())
             {
-                if (connected)
+                if (EntryPoint.SessionInfo.Connected)
                 {
                     LauncherUpdate.IsEnabled = false;
                     DisableUI();
                     await CheckAndDowloadWB();
                     EnableUI();
 
-                    SetSelfUpdatingInfo(connected);
+                    SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
                     UpdateProgress.Text = String.Empty;
                     UpdateProgressBar.Value = 0;
                 }
@@ -1539,12 +1539,9 @@ namespace GenLauncherNet
             await Task.Run(() => ModificationsFileHandler.CreateModificationsFromFiles(files, EntryPoint.GenLauncherModsFolder + '/' + path + '/' + EntryPoint.AddonsFolderName + '/' + modName + '/' + version));
 
             DataHandler.UpdateModificationsData();
-            var tempModification = new ModificationReposVersion(modName);
-            tempModification.Version = version;
-            tempModification.ModificationType = ModificationType.Addon;
-            tempModification.DependenceName = path;
+            var savedModification = DataHandler.GetAddonsForSelectedMod().Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
-            var modData = new ModificationContainer((GameModification)tempModification);
+            var modData = new ModificationContainer(savedModification);
             AddonsListSource.Add(modData);
 
             EnableUI();
@@ -1556,11 +1553,9 @@ namespace GenLauncherNet
             await Task.Run(() => ModificationsFileHandler.CreateModificationsFromFiles(files, EntryPoint.GenLauncherModsFolder + '/' + path + '/' + EntryPoint.PatchesFolderName + '/' + modName + '/' + version));
 
             DataHandler.UpdateModificationsData();
-            var tempModification = new ModificationReposVersion(modName);
-            tempModification.Version = version;
-            tempModification.DependenceName = path;
-            tempModification.ModificationType = ModificationType.Patch;
-            var modData = new ModificationContainer((GameModification)tempModification);
+            var savedModification = DataHandler.GetPatchesForSelectedMod().Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+            var modData = new ModificationContainer(savedModification);
             PatchesListSource.Add(modData);
 
             EnableUI();

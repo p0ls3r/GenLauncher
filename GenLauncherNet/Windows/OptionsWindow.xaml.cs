@@ -12,11 +12,16 @@ namespace GenLauncherNet
     public partial class OptionsWindow : Window
     {
         private Dictionary<string, string> gameOptions = new Dictionary<string, string>();
-        private string optionsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data" + "/Options.ini";
+        private string optionsFilePath;
         private bool gameOptionsChanged;
 
         public OptionsWindow()
         {
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+                optionsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data" + "/Options.ini";
+            else
+                optionsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Data" + "/Options.ini";
+
             CheckGameOptionsFile();
             ReadOptions();
             ValidateOptions();
@@ -29,6 +34,18 @@ namespace GenLauncherNet
 
         private void InitUIStatus()
         {
+            if (EntryPoint.SessionInfo.GameMode == Game.Generals)
+            {
+                DataHandler.SetModdedExeStatus(false);
+                modded.Visibility = Visibility.Hidden;
+                generals.Visibility = Visibility.Hidden;
+
+                customCamera.Visibility = Visibility.Hidden;
+                defaultCamera.Visibility = Visibility.Hidden;
+                CameraHeightSlider.Visibility = Visibility.Hidden;
+                DataHandler.SetCameraHeight(0);
+            }
+
             FillResolutionComboBox();
             SetParticleSliderValue();
             SetTextureReductionSliderValue();

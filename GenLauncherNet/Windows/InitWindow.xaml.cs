@@ -37,11 +37,11 @@ namespace GenLauncherNet
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CreateLauncherFolders();
-           
-            var connected = await PrepareLauncher();
+
+            EntryPoint.SessionInfo.Connected = await PrepareLauncher();
 
             this.Hide();
-            MainWindow mainWindow = new MainWindow(connected);
+            MainWindow mainWindow = new MainWindow();
             mainWindow.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             mainWindow.Show();
             this.Close();
@@ -49,9 +49,7 @@ namespace GenLauncherNet
 
         public async Task<bool> PrepareLauncher()
         {
-            var connected = false;
-
-            connected = await CheckConnection();
+            var connected = await CheckConnection();
 
             await DataHandler.InitData(connected);
 

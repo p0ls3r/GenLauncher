@@ -45,18 +45,12 @@ namespace GenLauncherNet
                 ReposModsNames = gitHubMainDataReader.GetReposModsNames();
 
                 MofificationsAndAddons = await gitHubMainDataReader.UpdateDownloadedModsDataFromRepos(installedMods);
-                var ReposAddons = await gitHubMainDataReader.ReadGlobalAddons();
                 var ReposMods = MofificationsAndAddons.Keys.ToList();
 
                 foreach (var reposMod in ReposMods)
                 {
                     await DownloadImageIfItNotExist(reposMod);
                     AddDownloadedModificationData(reposMod);
-                }
-
-                foreach (var reposAddon in ReposAddons)
-                {
-                    AddDownloadedModificationData(reposAddon);
                 }
 
                 if (GetSelectedMod() != null)
@@ -274,8 +268,8 @@ namespace GenLauncherNet
             {
                 try
                 {
-                    if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name.Replace(":", ""))))
-                        Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name.Replace(":", "")));
+                    if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name)))
+                        Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name));
 
                     if (!File.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.UIImageSourceLink)))
                         using (var stream = await LogoDownloader.GetStreamAsync(mod.UIImageSourceLink))

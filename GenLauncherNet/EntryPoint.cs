@@ -16,7 +16,7 @@ namespace GenLauncherNet
     {
         public const string LauncherFolder = @".GenLauncherFolder/";
         public const string ConfigName = @".GenLauncherFolder/GenLauncherCfg.yaml";
-        public const string ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataTest.yaml";
+        public static string ModsRepos;
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
         public const string Version = "0.0.7.2 Test";
@@ -31,7 +31,10 @@ namespace GenLauncherNet
         public const string GenLauncherOriginalFileSuffix = ".GenLauncherOriginalFile";
         const string subkey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
 
+        public static SessionInformation SessionInfo;
+
         private static Mutex _mutex1;
+        
 
         [DllImport("kernel32.dll")]
         static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
@@ -47,7 +50,7 @@ namespace GenLauncherNet
             Directory = 1
         }
 
-        public static HashSet<string> ZHFiles = new HashSet<string>();
+        public static HashSet<string> GameFiles = new HashSet<string>();
 
         [System.STAThreadAttribute()]
         public static void Main()
@@ -65,9 +68,10 @@ namespace GenLauncherNet
 
                 if (!IsLauncherInGameFolder())
                 {
-                    MessageBox.Show("Please move launcher to the Generals ZH game folder");
+                    MessageBox.Show("Please move launcher to the Generals ZH or Generals game folder");
                     return;
                 }
+
 
                 CheckDbgCrash();
 
@@ -103,12 +107,34 @@ namespace GenLauncherNet
         private static void PrepareLauncher()
         {
             DllsUnpacker.ExtractDlls();
-            FillZHFiles();
             SymbolicLinkHandler.DeleteAllSymbolicLinksInGameFolders();
             RenameReplacedFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
             RenameOriginalFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
             DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory()));
             DeleteOldGenLauncherFile();
+
+            SetSessionInfo();
+        }
+
+        private static void SetSessionInfo()
+        {
+            SessionInfo = new SessionInformation();
+
+            if (File.Exists("W3DZH.big"))
+            {
+                SessionInfo.GameMode = Game.ZeroHour;
+                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataMk3.yaml";
+                FillZHFiles();
+                return;
+            }
+
+            if (File.Exists("W3D.big"))
+            {
+                SessionInfo.GameMode = Game.Generals;
+                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals.yaml";
+                FillGeneralsFiles();
+                return;
+            }
         }
 
         private static void ReturGameFolderToOriginalState()
@@ -215,58 +241,104 @@ namespace GenLauncherNet
 
         private static void FillZHFiles()
         {
-            ZHFiles.Add("AudioChineseZH.big".ToLower());
-            ZHFiles.Add("Gensec.big".ToLower());
-            ZHFiles.Add("AudioEnglishZH.big".ToLower());
-            ZHFiles.Add("AudioFrenchZH.big".ToLower());
-            ZHFiles.Add("AudioGermanZH.big".ToLower());
-            ZHFiles.Add("AudioItalianZH.big".ToLower());
-            ZHFiles.Add("AudioKoreanZH.big".ToLower());
-            ZHFiles.Add("AudioPolishZH.big".ToLower());
-            ZHFiles.Add("AudioSpanishZH.big".ToLower());
-            ZHFiles.Add("AudioZH.big".ToLower());
-            ZHFiles.Add("BrazilianZH.big".ToLower());
-            ZHFiles.Add("ChineseZH.big".ToLower());
-            ZHFiles.Add("EnglishZH.big".ToLower());
-            ZHFiles.Add("FrenchZH.big".ToLower());
-            ZHFiles.Add("GermanZH.big".ToLower());
-            ZHFiles.Add("ItalianZH.big".ToLower());
-            ZHFiles.Add("KoreanZH.big".ToLower());
-            ZHFiles.Add("PolishZH.big".ToLower());
-            ZHFiles.Add("SpanishZH.big".ToLower());
-            ZHFiles.Add("GensecZH.big".ToLower());
-            ZHFiles.Add("INIZH.big".ToLower());
-            ZHFiles.Add("MapsZH.big".ToLower());
-            ZHFiles.Add("Music.big".ToLower());
-            ZHFiles.Add("MusicZH.big".ToLower());
-            ZHFiles.Add("PatchZH.big".ToLower());
-            ZHFiles.Add("ShadersZH.big".ToLower());
-            ZHFiles.Add("SpeechBrazilianZH.big".ToLower());
-            ZHFiles.Add("SpeechChineseZH.big".ToLower());
-            ZHFiles.Add("SpeechEnglishZH.big".ToLower());
-            ZHFiles.Add("SpeechFrenchZH.big".ToLower());
-            ZHFiles.Add("SpeechGermanZH.big".ToLower());
-            ZHFiles.Add("SpeechItalianZH.big".ToLower());
-            ZHFiles.Add("SpeechKoreanZH.big".ToLower());
-            ZHFiles.Add("SpeechPolishZH.big".ToLower());
-            ZHFiles.Add("SpeechSpanishZH.big".ToLower());
-            ZHFiles.Add("SpeechZH.big".ToLower());
-            ZHFiles.Add("TerrainZH.big".ToLower());
-            ZHFiles.Add("TexturesZH.big".ToLower());
-            ZHFiles.Add("W3DEnglishZH.big".ToLower());
-            ZHFiles.Add("W3DZH.big".ToLower());
-            ZHFiles.Add("WindowZH.big".ToLower());
+            GameFiles.Add("AudioChineseZH.big".ToLower());
+            GameFiles.Add("Gensec.big".ToLower());
+            GameFiles.Add("AudioEnglishZH.big".ToLower());
+            GameFiles.Add("AudioFrenchZH.big".ToLower());
+            GameFiles.Add("AudioGermanZH.big".ToLower());
+            GameFiles.Add("AudioItalianZH.big".ToLower());
+            GameFiles.Add("AudioKoreanZH.big".ToLower());
+            GameFiles.Add("AudioPolishZH.big".ToLower());
+            GameFiles.Add("AudioSpanishZH.big".ToLower());
+            GameFiles.Add("AudioZH.big".ToLower());
+            GameFiles.Add("BrazilianZH.big".ToLower());
+            GameFiles.Add("ChineseZH.big".ToLower());
+            GameFiles.Add("EnglishZH.big".ToLower());
+            GameFiles.Add("FrenchZH.big".ToLower());
+            GameFiles.Add("GermanZH.big".ToLower());
+            GameFiles.Add("ItalianZH.big".ToLower());
+            GameFiles.Add("KoreanZH.big".ToLower());
+            GameFiles.Add("PolishZH.big".ToLower());
+            GameFiles.Add("SpanishZH.big".ToLower());
+            GameFiles.Add("GensecZH.big".ToLower());
+            GameFiles.Add("INIZH.big".ToLower());
+            GameFiles.Add("MapsZH.big".ToLower());
+            GameFiles.Add("Music.big".ToLower());
+            GameFiles.Add("MusicZH.big".ToLower());
+            GameFiles.Add("PatchZH.big".ToLower());
+            GameFiles.Add("ShadersZH.big".ToLower());
+            GameFiles.Add("SpeechBrazilianZH.big".ToLower());
+            GameFiles.Add("SpeechChineseZH.big".ToLower());
+            GameFiles.Add("SpeechEnglishZH.big".ToLower());
+            GameFiles.Add("SpeechFrenchZH.big".ToLower());
+            GameFiles.Add("SpeechGermanZH.big".ToLower());
+            GameFiles.Add("SpeechItalianZH.big".ToLower());
+            GameFiles.Add("SpeechKoreanZH.big".ToLower());
+            GameFiles.Add("SpeechPolishZH.big".ToLower());
+            GameFiles.Add("SpeechSpanishZH.big".ToLower());
+            GameFiles.Add("SpeechZH.big".ToLower());
+            GameFiles.Add("TerrainZH.big".ToLower());
+            GameFiles.Add("TexturesZH.big".ToLower());
+            GameFiles.Add("W3DEnglishZH.big".ToLower());
+            GameFiles.Add("W3DZH.big".ToLower());
+            GameFiles.Add("WindowZH.big".ToLower());
+        }
+
+        private static void FillGeneralsFiles()
+        {
+            GameFiles.Add("Audio.big".ToLower());
+            GameFiles.Add("AudioBrazilian.big".ToLower());
+            GameFiles.Add("AudioChinese.big".ToLower());
+            GameFiles.Add("AudioEnglish.big".ToLower());
+            GameFiles.Add("AudioFrench.big".ToLower());
+            GameFiles.Add("AudioGerman.big".ToLower());
+            GameFiles.Add("AudioGerman2.big".ToLower());
+            GameFiles.Add("AudioItalian.big".ToLower());
+            GameFiles.Add("AudioKorean.big".ToLower());
+            GameFiles.Add("AudioPolish.big".ToLower());
+            GameFiles.Add("AudioSpanish.big".ToLower());
+            GameFiles.Add("Brazilian.big".ToLower());
+            GameFiles.Add("Chinese.big".ToLower());
+            GameFiles.Add("English.big".ToLower());
+            GameFiles.Add("French.big".ToLower());
+            GameFiles.Add("German.big".ToLower());
+            GameFiles.Add("German2.big".ToLower());
+            GameFiles.Add("Italian.big".ToLower());
+            GameFiles.Add("Korean.big".ToLower());
+            GameFiles.Add("Polish.big".ToLower());
+            GameFiles.Add("Spanish.big".ToLower());
+            GameFiles.Add("gensec.big".ToLower());
+            GameFiles.Add("INI.big".ToLower());
+            GameFiles.Add("maps.big".ToLower());
+            GameFiles.Add("Music.big".ToLower());
+            GameFiles.Add("Patch.big".ToLower());
+            GameFiles.Add("shaders.big".ToLower());
+            GameFiles.Add("Speech.big".ToLower());
+            GameFiles.Add("SpeechBrazilian.big".ToLower());
+            GameFiles.Add("SpeechChinese.big".ToLower());
+            GameFiles.Add("SpeechEnglish.big".ToLower());
+            GameFiles.Add("SpeechFrench.big".ToLower());
+            GameFiles.Add("SpeechGerman.big".ToLower());
+            GameFiles.Add("SpeechGerman2.big".ToLower());
+            GameFiles.Add("SpeechItalian.big".ToLower());
+            GameFiles.Add("SpeechKorean.big".ToLower());
+            GameFiles.Add("SpeechPolish.big".ToLower());
+            GameFiles.Add("SpeechSpanish.big".ToLower());
+            GameFiles.Add("Terrain.big".ToLower());
+            GameFiles.Add("Textures.big".ToLower());
+            GameFiles.Add("W3D.big".ToLower());
+            GameFiles.Add("Window.big".ToLower());
         }
 
         private static bool IsLauncherInGameFolder()
         {
             //TODO improve checking
-            if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL"))
+            if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") && (File.Exists("W3DZH.big") || File.Exists("W3D.big")))
             {
                 return true;
             }
             else
-            {                
+            {
                 return false;
             }
         }

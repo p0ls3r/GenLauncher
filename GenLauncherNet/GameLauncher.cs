@@ -28,13 +28,13 @@ namespace GenLauncherNet
             DeactivateGameFiles();
         }
 
-        private static void RemoveNoneZHBigs(DirectoryInfo directoryInfo)
+        private static void RemoveNoneGameBigs(DirectoryInfo directoryInfo)
         {
             foreach (var file in directoryInfo.GetFiles())
             {
                 try
                 {
-                    if (Path.GetExtension(file.Name).Contains("big") && BigHandler.IsBigArchive(file.FullName) && !EntryPoint.ZHFiles.Contains(file.Name.ToLower()))
+                    if (Path.GetExtension(file.Name).Contains("big") && BigHandler.IsBigArchive(file.FullName) && !EntryPoint.GameFiles.Contains(file.Name.ToLower()))
                     {
                         if (File.Exists(file.FullName + EntryPoint.GenLauncherReplaceSuffix))
                             File.Delete(file.FullName);
@@ -49,7 +49,7 @@ namespace GenLauncherNet
             }
 
             foreach (var directory in directoryInfo.GetDirectories())
-                RemoveNoneZHBigs(directory);
+                RemoveNoneGameBigs(directory);
         }
 
         private static void DeactivateGameFiles()
@@ -65,9 +65,10 @@ namespace GenLauncherNet
         //TODO refactoring, remove converting to tempModifications, remove checking in LocalModificationsHandler
         private static void PrepareGameFiles(List<ModificationVersion> versions)
         {
-            RemoveNoneZHBigs(new DirectoryInfo(Directory.GetCurrentDirectory()));
+            RemoveNoneGameBigs(new DirectoryInfo(Directory.GetCurrentDirectory()));
 
-            SetCameraHeight(versions);
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+                SetCameraHeight(versions);
 
             GameFilesHandler.DeactivateGameFiles();
 

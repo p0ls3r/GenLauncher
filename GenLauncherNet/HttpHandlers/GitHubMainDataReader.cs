@@ -72,31 +72,6 @@ namespace GenLauncherNet
             return await DownloadModData(modData);
         }
 
-        public async Task<List<ModificationReposVersion>> ReadGlobalAddons()
-        {
-            var mods = new List<ModificationReposVersion>();
-
-            foreach (var addonUrl in _data.globalAddonsData)
-            {
-                try
-                {
-                    ModificationReposVersion modification = null;
-
-                    using (var response = await _httpClient.GetAsync(addonUrl, HttpCompletionOption.ResponseHeadersRead))
-                        modification = await DownloadDataFromHttpResponseMessage(response);
-
-                    mods.Add(modification);
-                }
-                catch
-                {
-                    //TODO logger
-                    continue;
-                }
-            }
-
-            return mods;
-        }
-
         public async Task<List<ModificationReposVersion>> ReadAddonsForMod(List<string> urls)
         {
             var result = new List<ModificationReposVersion>();

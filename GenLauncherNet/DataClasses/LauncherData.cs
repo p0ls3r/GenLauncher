@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 
 namespace GenLauncherNet
 {
-    //Class for keeping LauncherData
+    //Class for keeping information needed for launcher
     public class LauncherData
     {
         public bool ModdedExe { get; set; } = true;
@@ -19,7 +19,6 @@ namespace GenLauncherNet
         public string GameParams { get; set; }
 
         public List<GameModification> Modifications = new List<GameModification>();
-
         public List<GameModification> Addons = new List<GameModification>();
         public List<GameModification> Patches = new List<GameModification>();
 
