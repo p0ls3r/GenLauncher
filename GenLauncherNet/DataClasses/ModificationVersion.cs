@@ -75,6 +75,12 @@ namespace GenLauncherNet
 
             if (!String.IsNullOrEmpty(otherModificationVersion.S3HostSecretKey) && String.IsNullOrEmpty(this.S3HostSecretKey))
                 this.S3HostSecretKey = otherModificationVersion.S3HostSecretKey;
+
+            if (!this.Deprecated && otherModificationVersion.Deprecated)
+                this.Deprecated = true;
+
+            if (this.ColorsInformation == null && otherModificationVersion.ColorsInformation != null)
+                this.ColorsInformation = otherModificationVersion.ColorsInformation;
         }
 
         public int CompareTo(object o)
@@ -119,6 +125,7 @@ namespace GenLauncherNet
             this.S3FolderName = modification.S3FolderName;
             this.S3HostPublicKey = modification.S3HostPublicKey;
             this.S3HostSecretKey = modification.S3HostSecretKey;
+            this.Deprecated = modification.Deprecated;
         }
 
         public string GetFolderName()

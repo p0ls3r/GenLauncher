@@ -108,8 +108,8 @@ namespace GenLauncherNet
         public void SetSelectedStatus()
         {
             ContainerModification.IsSelected = true;
-            _GridControls._Name.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#baff0c");
-            _GridControls._VersionTextBlock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("White");
+            _GridControls._Name.Foreground = EntryPoint.Colors.GenLauncherActiveColor;
+            _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
             _GridControls._Name.FontWeight = FontWeights.Bold;
             _GridControls._ComboBox.Visibility = System.Windows.Visibility.Visible;
 
@@ -120,7 +120,7 @@ namespace GenLauncherNet
                 else
                 {
                     _GridControls._ImageBorder.BorderThickness = new Thickness(2, 2, 2, 2);
-                    _GridControls._ImageBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#baff0c");
+                    _GridControls._ImageBorder.BorderBrush = EntryPoint.Colors.GenLauncherActiveColor;
                 }
 
             }
@@ -128,8 +128,8 @@ namespace GenLauncherNet
 
         public void SetUnSelectedStatus()
         {
-            _GridControls._Name.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkGray");
-            _GridControls._VersionTextBlock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkGray");
+            _GridControls._Name.Foreground = EntryPoint.Colors.GenLauncherInactiveBorder;
+            _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherInactiveBorder;
             _GridControls._Name.FontWeight = FontWeights.Normal;
             _GridControls._ComboBox.Visibility = System.Windows.Visibility.Hidden;
 
@@ -141,7 +141,7 @@ namespace GenLauncherNet
                 else
                 {
                     _GridControls._ImageBorder.BorderThickness = new Thickness(2, 2, 2, 2);
-                    _GridControls._ImageBorder.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkGray");
+                    _GridControls._ImageBorder.BorderBrush = EntryPoint.Colors.GenLauncherInactiveBorder;
                 }
             }
 
@@ -151,9 +151,9 @@ namespace GenLauncherNet
         {
             if (_GridControls != null && _GridControls._ProgressBar != null)
             {
-                this._GridControls._ProgressBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#090502");
-                this._GridControls._ProgressBar.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkGray");
-                this._GridControls._InfoTextBlock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("White");
+                this._GridControls._ProgressBar.Background = EntryPoint.Colors.GenLauncherDarkBackGround;
+                this._GridControls._ProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherInactiveBorder;
+                this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
             }
         }
 
@@ -277,9 +277,9 @@ namespace GenLauncherNet
             this._GridControls._ComboBox.IsEnabled = false;
             this.ReadyToRun = false;
 
-            this._GridControls._ProgressBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#2534ff");
-            this._GridControls._ProgressBar.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#00e3ff");
-            this._GridControls._InfoTextBlock.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("Black");
+            this._GridControls._ProgressBar.Background = new SolidColorBrush(EntryPoint.Colors.GenLauncherButtonSelectionColor);
+            this._GridControls._ProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherBorderColor;
+            this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDarkBackGround;
         }
 
         public void SetUIMessages(string message)

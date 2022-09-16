@@ -19,6 +19,27 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  - IsSelected: false
+    Installed: false
+    ModificationType: Mod
+    Name: Contra
+    Version: 009 Final Patch 3 Hotfix 4
+    SimpleDownloadLink: https://gen.insave.ovh/contra/mod/ContraLatestBasic.rar
+    UIImageSourceLink: https://cdn.discordapp.com/attachments/410500983198580740/886922818460209152/contra-logo.png
+    DiscordLink: https://discord.gg/015E6KXXHmdWFXCtt
+    ModDBLink: https://www.moddb.com/mods/contra
+    NewsLink: https://www.moddb.com/mods/contra/articles
+    DependenceName: ''
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: contra
+    S3FolderName: contra-individual-files
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
+    Deprecated: false
+    ColorsInformation: 
   NumberInList: 1
   ModificationType: Mod
   Name: Contra
@@ -35,7 +56,9 @@ Modifications:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
-- IsSelected: false
+  Deprecated: false
+  ColorsInformation: 
+- IsSelected: true
   Installed: true
   ModificationVersions:
   - IsSelected: true
@@ -55,7 +78,28 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
-  NumberInList: 3
+    Deprecated: false
+    ColorsInformation: 
+  - IsSelected: false
+    Installed: false
+    ModificationType: Mod
+    Name: Rise of the Reds
+    Version: 1.87 Public Build 2.0
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21593&authkey=AMJHOwXKTTTErrI
+    UIImageSourceLink: https://i.imgur.com/FNgEp6t.png
+    DiscordLink: https://discord.gg/REcbv37
+    ModDBLink: https://www.moddb.com/mods/rise-of-the-reds
+    NewsLink: https://www.moddb.com/mods/rise-of-the-reds/articles
+    DependenceName: ''
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: rotr
+    S3FolderName: rotr-individual-files
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  NumberInList: 0
   ModificationType: Mod
   Name: Rise of the Reds
   Version: 
@@ -71,6 +115,8 @@ Modifications:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
 - IsSelected: false
   Installed: true
   ModificationVersions:
@@ -91,6 +137,8 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
   - IsSelected: false
     Installed: true
     ModificationType: Mod
@@ -108,6 +156,8 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
   - IsSelected: true
     Installed: true
     ModificationType: Mod
@@ -125,6 +175,27 @@ Modifications:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  - IsSelected: false
+    Installed: false
+    ModificationType: Mod
+    Name: The End of Days
+    Version: 0.97.8 Patch 8
+    SimpleDownloadLink: 
+    UIImageSourceLink: https://media.discordapp.net/attachments/799373032778498069/887380847320264734/TEODLogo_500x100.png
+    DiscordLink: https://discord.com/invite/aCtu7UG
+    ModDBLink: https://www.moddb.com/mods/the-end-of-days
+    NewsLink: https://docs.google.com/document/d/1O7xeMCq5nxaaDea3MuV2fzwX7A10hNg65DGt0nLTN6Y/edit?usp=sharing
+    DependenceName: ''
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: teod
+    S3FolderName: teod-individual-files
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
+    Deprecated: false
+    ColorsInformation: 
   NumberInList: 2
   ModificationType: Mod
   Name: The End of Days
@@ -141,7 +212,49 @@ Modifications:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
+  Deprecated: false
+  ColorsInformation: 
 Addons:
+- IsSelected: false
+  Installed: true
+  ModificationVersions:
+  - IsSelected: false
+    Installed: true
+    ModificationType: Addon
+    Name: Hanpatch Easter Egg Units
+    Version: v1
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
+    UIImageSourceLink: 
+    DiscordLink: 
+    ModDBLink: 
+    NewsLink: 
+    DependenceName: Hanpatch
+    S3HostLink: 
+    S3BucketName: 
+    S3FolderName: 
+    S3HostPublicKey: 
+    S3HostSecretKey: 
+    NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Hanpatch Easter Egg Units
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: Hanpatch
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
 - IsSelected: false
   Installed: true
   ModificationVersions:
@@ -162,6 +275,8 @@ Addons:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
   NumberInList: 0
   ModificationType: Addon
   Name: Fog effects disabler
@@ -178,42 +293,8 @@ Addons:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
-- IsSelected: true
-  Installed: true
-  ModificationVersions:
-  - IsSelected: true
-    Installed: true
-    ModificationType: Addon
-    Name: Hanpatch Easter Egg Units
-    Version: v1
-    SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
-    UIImageSourceLink: ''
-    DiscordLink: ''
-    ModDBLink: ''
-    NewsLink: ''
-    DependenceName: Hanpatch
-    S3HostLink: ''
-    S3BucketName: ''
-    S3FolderName: ''
-    S3HostPublicKey: ''
-    S3HostSecretKey: ''
-    NetworkInfo: 
-  NumberInList: 0
-  ModificationType: Addon
-  Name: Hanpatch Easter Egg Units
-  Version: 
-  SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21629&authkey=AIWM1mF7nc6EBN4
-  UIImageSourceLink: 
-  DiscordLink: 
-  ModDBLink: 
-  NewsLink: 
-  DependenceName: Hanpatch
-  S3HostLink: 
-  S3BucketName: 
-  S3FolderName: 
-  S3HostPublicKey: 
-  S3HostSecretKey: 
-  NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
 - IsSelected: false
   Installed: true
   ModificationVersions:
@@ -234,6 +315,8 @@ Addons:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
   NumberInList: 0
   ModificationType: Addon
   Name: K
@@ -250,6 +333,48 @@ Addons:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Addon
+    Name: Control Bar Pro (Rotr)
+    Version: 1.0.1
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21893&authkey=AD5ILQ_iaA_XEHw
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: https://www.moddb.com/mods/rise-of-the-reds/addons/controlbarpro-rotr
+    NewsLink: ''
+    DependenceName: RISE OF THE REDS
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  NumberInList: 0
+  ModificationType: Addon
+  Name: Control Bar Pro (Rotr)
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A7BE9CA5A3AE1D0&resid=A7BE9CA5A3AE1D0%21893&authkey=AD5ILQ_iaA_XEHw
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: https://www.moddb.com/mods/rise-of-the-reds/addons/controlbarpro-rotr
+  NewsLink: 
+  DependenceName: RISE OF THE REDS
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
 Patches:
 - IsSelected: false
   Installed: true
@@ -271,6 +396,8 @@ Patches:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
   NumberInList: 0
   ModificationType: Patch
   Name: Russian language and Legacy hotkeys
@@ -287,6 +414,8 @@ Patches:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
 - IsSelected: false
   Installed: true
   ModificationVersions:
@@ -307,6 +436,8 @@ Patches:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
   NumberInList: 0
   ModificationType: Patch
   Name: Russian language and Leikeze hotkeys
@@ -323,9 +454,131 @@ Patches:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
-ModdedExe: false
+  Deprecated: false
+  ColorsInformation: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Patch
+    Name: Hanpatch
+    Version: 31.3
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=afb01c08e053a64e%21634&authkey=AI5fx4bn5FrEHJA
+    UIImageSourceLink: 
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: https://docs.google.com/document/d/1ZMlVFDPf4SDD5Y6vYatOCtaudBBl32gdWg-YrswvnGo
+    DependenceName: Rise of the Reds
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  NumberInList: 0
+  ModificationType: Patch
+  Name: Hanpatch
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=afb01c08e053a64e%21634&authkey=AI5fx4bn5FrEHJA
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: https://docs.google.com/document/d/1ZMlVFDPf4SDD5Y6vYatOCtaudBBl32gdWg-YrswvnGo
+  DependenceName: Rise of the Reds
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Patch
+    Name: Balance Patch
+    Version: 2.999.06.5
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A88C98986A457EB&resid=A88C98986A457EB%21135&authkey=AE2ADilQfRS431o
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: https://docs.google.com/document/d/1iN2Zbl7i46RHSk-X9ewuYlaN8GrM_W0t2FHsP3KhMf0
+    DependenceName: rise of the reds
+    S3HostLink: gen.insave.ovh:9000
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  NumberInList: 0
+  ModificationType: Patch
+  Name: Balance Patch
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=0A88C98986A457EB&resid=A88C98986A457EB%21135&authkey=AE2ADilQfRS431o
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: https://docs.google.com/document/d/1iN2Zbl7i46RHSk-X9ewuYlaN8GrM_W0t2FHsP3KhMf0
+  DependenceName: rise of the reds
+  S3HostLink: gen.insave.ovh:9000
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
+- IsSelected: false
+  Installed: false
+  ModificationVersions:
+  - IsSelected: true
+    Installed: false
+    ModificationType: Patch
+    Name: Babushka's Revenge
+    Version: 1.1
+    SimpleDownloadLink: https://onedrive.live.com/embed?cid=6434701D29C3ADD6&resid=6434701D29C3ADD6%2155855&authkey=AA1pfFg7PSiLuB0
+    UIImageSourceLink: ''
+    DiscordLink: ''
+    ModDBLink: ''
+    NewsLink: https://www.moddb.com/mods/rise-of-the-reds-babushkas-ultimate-balance-mod
+    DependenceName: Rise of the Reds
+    S3HostLink: ''
+    S3BucketName: ''
+    S3FolderName: ''
+    S3HostPublicKey: ''
+    S3HostSecretKey: ''
+    NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  NumberInList: 0
+  ModificationType: Patch
+  Name: Babushka's Revenge
+  Version: 
+  SimpleDownloadLink: https://onedrive.live.com/embed?cid=6434701D29C3ADD6&resid=6434701D29C3ADD6%2155855&authkey=AA1pfFg7PSiLuB0
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: https://www.moddb.com/mods/rise-of-the-reds-babushkas-ultimate-balance-mod
+  DependenceName: Rise of the Reds
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
+ModdedExe: true
 Windowed: true
-QuickStart: false
+QuickStart: true
 CameraHeight: 0
 AutoUpdateGentool: true
 AutoDeleteOldVersions: false

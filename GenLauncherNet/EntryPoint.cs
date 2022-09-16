@@ -19,7 +19,7 @@ namespace GenLauncherNet
         public static string ModsRepos;
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.7.2 Test";
+        public const string Version = "0.0.7.3 Test";
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink = @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
         public const string AddonsFolderName = "Addons";
@@ -32,9 +32,10 @@ namespace GenLauncherNet
         const string subkey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
 
         public static SessionInformation SessionInfo;
+        public static ColorsInfo Colors;
+        public static ColorsInfo DefaultColors;
 
         private static Mutex _mutex1;
-        
 
         [DllImport("kernel32.dll")]
         static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
@@ -114,6 +115,41 @@ namespace GenLauncherNet
             DeleteOldGenLauncherFile();
 
             SetSessionInfo();
+            SetColorsInfo();
+
+            CheckForVisualInfo();
+        }
+
+        private static void CheckForVisualInfo()
+        {
+            if (!File.Exists("Colors.yaml"))
+                return;
+
+            var deSerializer = new YamlDotNet.Serialization.Deserializer();
+
+            ColorsInfoString colors = new ColorsInfoString();
+
+            using (FileStream fstream = new FileStream("Colors.yaml", FileMode.OpenOrCreate))
+            {
+                colors = deSerializer.Deserialize<ColorsInfoString>(new StreamReader(fstream));
+            }
+
+            if (colors != null)
+                Colors = new ColorsInfo(colors);
+        }
+
+        private static void SetColorsInfo()
+        {
+            if (SessionInfo.GameMode == Game.ZeroHour)
+            {
+                DefaultColors = new ColorsInfo("#00e3ff", "DarkGray", "#7a7db0", "#baff0c", "#232977", "#090502", "#B3000000", "White", "#F21d2057", "#F21d2057", "#2534ff");
+            }
+            else
+            {
+                DefaultColors = new ColorsInfo("Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red");
+            }
+
+            Colors = DefaultColors;
         }
 
         private static void SetSessionInfo()

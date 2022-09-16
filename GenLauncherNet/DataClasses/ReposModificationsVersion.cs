@@ -27,6 +27,9 @@ namespace GenLauncherNet
         public string S3HostSecretKey { get; set; }
 
         public string NetworkInfo { get; set; }
+        public bool Deprecated { get; set; }
+
+        public ColorsInfoString ColorsInformation { get; set; }
 
         public ModificationReposVersion()
         {

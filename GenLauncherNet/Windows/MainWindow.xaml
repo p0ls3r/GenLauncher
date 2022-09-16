@@ -6,90 +6,29 @@
         xmlns:local="clr-namespace:GenLauncherNet"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="GenLauncherNet.MainWindow"
         mc:Ignorable="d"
+        Background="{DynamicResource GenLauncherBackGroundImage}"
         Title="GenLauncher" Height="762" Width="986" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
-        <Style TargetType="{x:Type RadioButton}">
-            <Setter Property="SnapsToDevicePixels" Value="true" />
-            <Setter Property="OverridesDefaultStyle" Value="true" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource RadioButtonFocusVisual}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RadioButton}">
-                        <BulletDecorator Background="Transparent">
-                            <BulletDecorator.Bullet>
-                                <Grid Width="18" Height="18">
-                                    <Rectangle
-                                x:Name="Border"
-                                StrokeThickness="2"
-                                Stroke="#00e3ff"
-                                Fill="Black"
-                                />
-                                    <Rectangle
-                                x:Name="CheckMark"
-                                Fill="Gold"
-                                Visibility="Collapsed"
-                                Margin="3"
-                                />
-                                </Grid>
-                            </BulletDecorator.Bullet>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="MouseOver" />
-                                    <VisualState x:Name="Pressed" />
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ColorAnimationUsingKeyFrames
-                                        Storyboard.TargetName="Border"
-                                        Storyboard.TargetProperty="Stroke.Color"
-                                        >
-                                                <DiscreteColorKeyFrame KeyTime="0" Value="LightGray" />
-                                            </ColorAnimationUsingKeyFrames>
-                                            <ColorAnimationUsingKeyFrames
-                                        Storyboard.TargetName="CheckMark"
-                                        Storyboard.TargetProperty="Fill.Color"
-                                        >
-                                                <DiscreteColorKeyFrame KeyTime="0" Value="LightGray" />
-                                            </ColorAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="CheckStates">
-                                    <VisualState x:Name="Checked" >
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames
-                                        Storyboard.TargetName="CheckMark"
-                                        Storyboard.TargetProperty="(UIElement.Visibility)"
-                                        >
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Unchecked" />
-                                    <VisualState x:Name="Indeterminate" />
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter
-                        Margin="4,0,0,0"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        RecognizesAccessKey="True"
-                        />
-                        </BulletDecorator>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ImageBrush x:Key="GenLauncherBackGroundImage" ImageSource="/Images/Background.png"/>
+        
+        <SolidColorBrush x:Key="GenLauncherBorderColor" Color="#00e3ff"/>
+        <SolidColorBrush x:Key="GenLauncherInactiveBorder" Color="DarkGray"/>
+        <SolidColorBrush x:Key="GenLauncherInactiveBorder2" Color="#7a7db0"/>
+        <SolidColorBrush x:Key="GenLauncherActiveColor" Color="#baff0c"/>
+        <SolidColorBrush x:Key="GenLauncherDarkFillColor" Color="#232977"/>
+        <SolidColorBrush x:Key="GenLauncherDarkBackGround" Color="#090502"/>
+        <SolidColorBrush x:Key="GenLauncherLightBackGround" Color="#B3000000"/>
+        <SolidColorBrush x:Key="GenLauncherDefaultTextColor" Color="White"/>
 
+        <Color x:Key="GenLauncherListBoxSelectionColor2">#F21d2057</Color>
+        <Color x:Key="GenLauncherListBoxSelectionColor1">#E61d2057</Color>
+        <Color x:Key="GenLauncherButtonSelectionColor">#2534ff</Color>
 
-        <SolidColorBrush x:Key="ProgressBar.Progress" Color="#baff0c"/>
-        <SolidColorBrush x:Key="ProgressBar.Background" Color="#090502"/>
-        <SolidColorBrush x:Key="ProgressBar.Border" Color="DarkGray"/>
         <Style TargetType="{x:Type ProgressBar}">
-            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
-            <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherActiveColor}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherInactiveBorder}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -147,17 +86,12 @@
             </Setter>
         </Style>
 
-
         <SolidColorBrush x:Key="StandardBorderBrush" Color="#00000000" />
         <SolidColorBrush x:Key="StandardBackgroundBrush" Color="#00000000" />
         <SolidColorBrush x:Key="HoverBorderBrush" Color="#00000000" />
         <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#00000000" />
         <SolidColorBrush x:Key="SelectedForegroundBrush" Color="#00000000" />
         <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#00000000" />
-        <SolidColorBrush x:Key="NormalBrush" Color="#050400" />
-        <SolidColorBrush x:Key="NormalBorderBrush" Color="#02e2fc" />
-        <SolidColorBrush x:Key="HorizontalNormalBrush" Color="#232977" />
-        <SolidColorBrush x:Key="HorizontalNormalBorderBrush" Color="#02e2fc" />
         <LinearGradientBrush x:Key="ListBoxBackgroundBrush"
             StartPoint="0,0" EndPoint="1,0.001">
             <LinearGradientBrush.GradientStops>
@@ -178,17 +112,6 @@
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
         <SolidColorBrush x:Key="GlyphBrush" Color="#b2b6fd" />
-        <LinearGradientBrush x:Key="PressedBrush"
-            StartPoint="0,0" EndPoint="0,1">
-            <LinearGradientBrush.GradientStops>
-                <GradientStopCollection>
-                    <GradientStop Color="#212876" Offset="0.0"/>
-                    <GradientStop Color="#212876" Offset="0.1"/>
-                    <GradientStop Color="#212876" Offset="0.9"/>
-                    <GradientStop Color="#212876" Offset="1.0"/>
-                </GradientStopCollection>
-            </LinearGradientBrush.GradientStops>
-        </LinearGradientBrush>
 
         <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -201,19 +124,15 @@
           x:Name="Border"
           Margin="1"
           CornerRadius="0"
-          Background="{StaticResource NormalBrush}"
-          BorderBrush="{StaticResource NormalBorderBrush}"
+          Background="{DynamicResource GenLauncherDarkBackGround}"
+          BorderBrush="{DynamicResource GenLauncherBorderColor}"
           BorderThickness="1.5">
-                            <Path
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"                                                        
-            Fill="{StaticResource GlyphBrush}"
-            Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Path HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{DynamicResource GenLauncherInactiveBorder2}" Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="true">
                                 <Setter TargetName="Border" Property="Background"
-                                Value="{StaticResource PressedBrush}" />
+                                Value="{DynamicResource GenLauncherDarkFillColor}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground"
@@ -287,8 +206,8 @@
                         <Thumb
           Style="{StaticResource ScrollBarThumb}"
           Margin="1,0,1,0"
-          Background="{StaticResource HorizontalNormalBrush}"
-          BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+          Background="{DynamicResource GenLauncherDarkFillColor}"
+          BorderBrush="{DynamicResource GenLauncherBorderColor}" />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton
@@ -335,8 +254,8 @@
                         <Thumb
           Style="{StaticResource ScrollBarThumb}"
           Margin="0,1,0,1"
-          Background="{StaticResource NormalBrush}"
-          BorderBrush="{StaticResource NormalBorderBrush}" />
+          Background="{DynamicResource GenLauncherDarkBackGround}"
+          BorderBrush="{DynamicResource GenLauncherBorderColor}" />
                     </Track.Thumb>
                     <Track.IncreaseRepeatButton>
                         <RepeatButton
@@ -418,58 +337,41 @@
                   x:Name="Border" 
                   Grid.ColumnSpan="2"
                   CornerRadius="0"
-                  Background="#232977"
-                  BorderBrush="#02e2fc"
+                  Background="{DynamicResource GenLauncherDarkFillColor}"
+                  BorderBrush="{DynamicResource GenLauncherBorderColor}"
                   BorderThickness="1" />
                 <Border
                   x:Name="TextBoxBorder"
                   Grid.Column="0"
                   CornerRadius="0" 
                   Margin="1" 
-                  Background="#232977" 
-                  BorderBrush="#02e2fc"
+                  Background="{DynamicResource GenLauncherDarkFillColor}"
+                  BorderBrush="{DynamicResource GenLauncherBorderColor}"
                   BorderThickness="0,0,1,0" />
                 <Path 
                   x:Name="Arrow"
                   Grid.Column="1"     
-                  Fill="#02e2fc"
+                  Fill="{DynamicResource GenLauncherBorderColor}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
                 />
-
-
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="Border" Property="Background" Value="#040301" />
-                    <Setter TargetName="Border" Property="BorderBrush" Value="#7a7cad" />
-                    <Setter TargetName="TextBoxBorder" Property="Background" Value="#040301" />
-                    <Setter TargetName="TextBoxBorder" Property="BorderBrush" Value="#7a7cad" />
+                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource GenLauncherDarkBackGround}" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource GenLauncherInactiveBorder2}" />
+                    <Setter TargetName="TextBoxBorder" Property="Background" Value="{DynamicResource GenLauncherDarkBackGround}" />
+                    <Setter TargetName="TextBoxBorder" Property="BorderBrush" Value="{DynamicResource GenLauncherInactiveBorder2}" />
                     <Setter Property="Foreground" Value="#888888"/>
                     <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
                 </Trigger>
             </ControlTemplate.Triggers>
-            <!--<ControlTemplate.Triggers>
-            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#808080" />
-            </Trigger>
-            <Trigger Property="ToggleButton.IsChecked" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
-                <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
-                <Setter Property="Foreground" Value="#888888"/>
-                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
-            </Trigger>
-        </ControlTemplate.Triggers>-->
         </ControlTemplate>
 
         <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
 
             <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
-
 
         </ControlTemplate>
 
@@ -525,10 +427,10 @@
                               MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border 
                                 x:Name="DropDownBorder"
-                                Background="#232977"
+                                Background="{DynamicResource GenLauncherDarkFillColor}"
 
                                 BorderThickness="1"
-                                BorderBrush="#02e2fc"/>
+                                BorderBrush="{DynamicResource GenLauncherBorderColor}"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                     </ScrollViewer>
@@ -574,23 +476,12 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsHighlighted" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="#b2b6fd"/>
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground" Value="#888888"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
-        <Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle StrokeDashArray="1 2" StrokeThickness="1" Stroke="Red" SnapsToDevicePixels="true" Margin="2"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -606,27 +497,18 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#B3000000"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#2534ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Pressed.Foreground1" Color="#baff0c"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Black"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="DarkGray"/>
 
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
-            <GradientStop Color="#2534ff" Offset="0.1"/>
-            <GradientStop Color="#2534ff" Offset="0.9"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
             <GradientStop Color="#B3000000" Offset="1"/>
         </LinearGradientBrush>
 
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+        <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -645,18 +527,18 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource GenLauncherActiveColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -664,91 +546,11 @@
             </Setter>
         </Style>
 
-        <Style TargetType="{x:Type local:NetworkInfoButton}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
 
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="{x:Type local:ChangeLogButton}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Opacity" Value="0.7"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="{x:Type local:UpdateButton}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+        <Style x:Key="UpdateButtonStyle" TargetType="{x:Type local:UpdateButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -767,17 +569,17 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource GenLauncherActiveColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -785,84 +587,38 @@
             </Setter>
         </Style>
 
-        <Style TargetType="{x:Type local:ModUpdateButton}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Opacity" Value="0.7"/>
-            <Setter Property="Foreground" Value="White"/>
+        <LinearGradientBrush x:Key="ListBoxSelectedItemBackground" EndPoint="1,0" StartPoint="0,0">
+            <GradientStop Color="{DynamicResource GenLauncherListBoxSelectionColor1}" Offset="0.0"/>
+            <GradientStop Color="{DynamicResource GenLauncherListBoxSelectionColor2}" Offset="0.7"/>
+            <GradientStop Color="#00000000" Offset="1.0"/>
+        </LinearGradientBrush>
+        <Style TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherInactiveBorder}">
+                            <ContentPresenter></ContentPresenter>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
-        <Style TargetType="{x:Type local:InfoButton}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="#00000000"/>
-            <Setter Property="BorderBrush" Value="#00000000"/>
-            <Setter Property="Foreground" Value="#00000000"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Opacity" Value="0.7"/>
-            <Setter Property="Foreground" Value="#00000000"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="border"  Property="Background" Value="{StaticResource ListBoxSelectedItemBackground}"></Setter>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"></Setter>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="#00000000"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
+
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="border"  Property="Background" Value="#00000000"></Setter>
                             </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="#00000000"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="#00000000"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="#00000000"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#00000000"/>
-                            </Trigger>
+
+
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
+
                 </Setter.Value>
             </Setter>
+            <Setter Property="AllowDrop" Value="True"/>
+            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBoxItem_PreviewMouseLeftButtonDown"/>
+            <EventSetter Event="Drop" Handler="ListBoxItem_Drop" />
         </Style>
 
         <DataTemplate x:Key="VersionTemplate" >
@@ -872,8 +628,8 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock x:Name="Name" Grid.Column="0" Text="{Binding VersionName}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" />
-                <Button x:Name="Delete"  Content="Delete" Grid.Column="1" HorizontalAlignment="Center" Click="DeleteVersion_Click" Width="45"/>
+                <TextBlock Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="Name" Grid.Column="0" Text="{Binding VersionName}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" />
+                <Button Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" x:Name="Delete"  Content="Delete" Grid.Column="1" HorizontalAlignment="Center" Click="DeleteVersion_Click" Width="45"/>
             </Grid>
         </DataTemplate>
 
@@ -894,29 +650,29 @@
                     <RowDefinition Height="33"/>
                 </Grid.RowDefinitions>
 
-                <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="DarkGray" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
-                <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="DarkGray" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
+                <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
+                <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
                 <ComboBox MouseEnter="VersionsList_MouseEnter" MouseLeave="VersionsList_MouseLeave" x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
                 </ComboBox>
 
-                <Border BorderThickness="2" BorderBrush="DarkGray" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
+                <Border BorderThickness="2" BorderBrush="{DynamicResource GenLauncherInactiveBorder}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
                 </Border>
 
                 <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2"  HorizontalAlignment="Left" Source="{Binding ImageSource}" Height="100" Width="500" Margin="10,0,0,0" />
 
-                <local:InfoButton x:Name="DiscordButton" Opacity="1" Grid.Row="2" Grid.Column="3" Height="26" Width="26" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="DiscordButton_Click" Margin="0,0,5,0">
+                <local:InfoButton x:Name="DiscordButton" Style="{StaticResource DefaultButtonStyle}" Opacity="1" Grid.Row="2" Grid.Column="3" Height="26" Width="26" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="DiscordButton_Click" Margin="0,0,5,0">
                     <Image Source="/Images/discord.png"/>
                 </local:InfoButton>
 
-                <local:InfoButton x:Name="ModdbButton" Opacity="1" Grid.Row="3" Grid.Column="3" Height="29" Width="29" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="ModdbButton_Click" Margin="0,0,5,0">
+                <local:InfoButton x:Name="ModdbButton" Style="{StaticResource DefaultButtonStyle}" Opacity="1" Grid.Row="3" Grid.Column="3" Height="29" Width="29" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="ModdbButton_Click" Margin="0,0,5,0">
                     <Image Source="/Images/moddb.png"/>
                 </local:InfoButton>
 
-                <ProgressBar Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="DarkGray"/>
+                <ProgressBar Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="{DynamicResource GenLauncherInactiveBorder}"/>
                 <local:InfoTextBlock FontWeight="Bold" Grid.Row="4" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
-                <local:ModUpdateButton Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15" MouseEnter="UpdateButton_MouseEnter"/>
-                <local:ChangeLogButton Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
-                <local:NetworkInfoButton Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
+                <local:ModUpdateButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource UpdateButtonStyle}" Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15" MouseEnter="UpdateButton_MouseEnter"/>
+                <local:ChangeLogButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
+                <local:NetworkInfoButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
 
             </Grid>
         </DataTemplate>
@@ -936,62 +692,23 @@
                     <RowDefinition Height="33"/>
                 </Grid.RowDefinitions>
 
-                <local:NameTextBox x:Name="Name" FontSize="13" FontWeight="Bold" Margin="10,0,10,0" Foreground="DarkGray" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
-                <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="DarkGray" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
+                <local:NameTextBox x:Name="Name" FontSize="13" FontWeight="Bold" Margin="10,0,10,0" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
+                <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
                 <ComboBox x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
 
                 </ComboBox>
 
-                <ProgressBar Grid.Row="2" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="DarkGray"/>
+                <ProgressBar Grid.Row="2" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="{DynamicResource GenLauncherInactiveBorder}"/>
                 <local:InfoTextBlock FontWeight="Bold" Grid.Row="2" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
-                <local:ModUpdateButton Opacity="1" x:Name="Update" Content="Update!" Grid.Row="3" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="18"/>
-                <local:ChangeLogButton Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
-                <local:NetworkInfoButton Opacity="1" x:Name="NetworkInfo" Click="NetworkInfo_Click" Content="How to play online?" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
+                <local:ModUpdateButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Update" Content="Update!" Grid.Row="3" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="18"/>
+                <local:ChangeLogButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
+                <local:NetworkInfoButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Click="NetworkInfo_Click" Content="How to play online?" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
 
             </Grid>
         </DataTemplate>
 
-        <LinearGradientBrush x:Key="ListBoxSelectedItemBackground" EndPoint="1,0" StartPoint="0,0">
-            <GradientStop Color="#F21d2057" Offset="0.0"/>
-            <GradientStop Color="#E61d2057" Offset="0.7"/>
-            <GradientStop Color="#00000000" Offset="1.0"/>
-        </LinearGradientBrush>
-
-        <Style TargetType="ListBoxItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="border" BorderThickness="2" BorderBrush="DarkGray">
-                            <ContentPresenter></ContentPresenter>
-                        </Border>
-                        <ControlTemplate.Triggers>
-
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="border"  Property="Background" Value="{StaticResource ListBoxSelectedItemBackground}"></Setter>
-                                <Setter TargetName="border" Property="BorderBrush" Value="#00e3ff"></Setter>
-                            </Trigger>
-
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="border"  Property="Background" Value="#00000000"></Setter>
-                            </Trigger>
-
-
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-
-                </Setter.Value>
-            </Setter>
-            <Setter Property="AllowDrop" Value="True"/>
-            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBoxItem_PreviewMouseLeftButtonDown"/>
-            <EventSetter Event="Drop" Handler="ListBoxItem_Drop" />
-        </Style>
-
     </Window.Resources>
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/Background.png"/>
-        </Grid.Background>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
@@ -1022,16 +739,16 @@
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="AddonsList" ItemTemplate="{StaticResource AddonsTemplate}"  SelectionChanged="AddonsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
         </ListBox>
 
-        <Button x:Name="ButtonStartGame" FontSize="17" Focusable="False" Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Launch_Click" Grid.Column="6" Grid.Row="2" Grid.RowSpan="2"/>
-        <Button x:Name="ButtonWorldBuilder" FontSize="17" Focusable="False" Content="WORLD BUILDER" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWorldBuilder_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button x:Name="ButtonWindowed" FontSize="17" Focusable="False" Content="CHANGE TO FULL SCREEN" HorizontalAlignment="Left" Margin="25,64,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWindowed_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button x:Name="ButtonQuickStart" FontSize="17" Focusable="False" Content="CHANGE TO NORMAL START" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonQuickStart_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button x:Name="ButtonOptions" FontSize="17" Focusable="False"  Content="OPTIONS"  HorizontalAlignment="Left" Margin="25,154,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonOptions_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button x:Name="ButtonExit" FontSize="17" Focusable="False"  Content="EXIT" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Button_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonStartGame" FontSize="17" Focusable="False" Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Launch_Click" Grid.Column="6" Grid.Row="2" Grid.RowSpan="2"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonWorldBuilder" FontSize="17" Focusable="False" Content="WORLD BUILDER" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWorldBuilder_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonWindowed" FontSize="17" Focusable="False" Content="CHANGE TO FULL SCREEN" HorizontalAlignment="Left" Margin="25,64,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWindowed_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonQuickStart" FontSize="17" Focusable="False" Content="CHANGE TO NORMAL START" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonQuickStart_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonOptions" FontSize="17" Focusable="False"  Content="OPTIONS"  HorizontalAlignment="Left" Margin="25,154,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonOptions_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonExit" FontSize="17" Focusable="False"  Content="EXIT" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Button_Click" Grid.Column="6" Grid.Row="3"/>
 
-        <TextBlock x:Name="LauncherVersion" Foreground="White" FontSize="15" HorizontalAlignment="Left" Margin="20,6,0,0" Text="Current version " TextWrapping="Wrap" VerticalAlignment="Top" Width="143" Height="22" Grid.Column="6" Grid.Row="4"/>
-        <TextBlock x:Name="LatestLauncherVersion" Foreground="White" FontSize="15" HorizontalAlignment="Left" Margin="20,33,0,0" Text="Latest version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="23" Grid.Column="6" Grid.Row="4"/>
-        <local:UpdateButton x:Name="LauncherUpdate" BlinkCount="100" Focusable="False" Content="Update!" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" MouseEnter="UpdateButton_MouseEnter" Grid.Column="6" Grid.Row="4"/>
+        <TextBlock x:Name="LauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,6,0,0" Text="Current version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="22" Grid.Column="6" Grid.Row="4"/>
+        <TextBlock x:Name="LatestLauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,33,0,0" Text="Latest version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="23" Grid.Column="6" Grid.Row="4"/>
+        <local:UpdateButton Style="{StaticResource UpdateButtonStyle}" x:Name="LauncherUpdate" BlinkCount="100" Focusable="False" Content="Update!" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" MouseEnter="UpdateButton_MouseEnter" Grid.Column="6" Grid.Row="4"/>
         <ProgressBar x:Name="UpdateProgressBar" HorizontalAlignment="Left" Height="24" Margin="20,96,0,0" VerticalAlignment="Top" Width="229" Grid.Column="6" Grid.Row="4"/>
         <TextBlock  x:Name="UpdateProgress" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Left" FontSize="13" Margin="25,100,0,0" TextWrapping="Wrap" TextAlignment="Center"  VerticalAlignment="Top" Width="224" Height="20" Grid.Column="6" Grid.Row="4"/>
 
@@ -1055,15 +772,15 @@
         </Image>
         <Image x:Name="DownloadingImage2"  Source="/Images/gl01.png" Visibility="Hidden" HorizontalAlignment="Center" Width="139" Grid.Column="4" Grid.Row="0" Grid.RowSpan="6" Margin="20,0,110,0"/>
 
-        <Button Grid.Column="1" Grid.Row ="1" x:Name="ModsButton" Content="Mods" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Click="ModsButton_Click" Height="25"/>
-        <Button Grid.Column="2" Grid.Row ="1" Grid.ColumnSpan="2" x:Name="PatchesButton" FontSize="14" Content="Patches" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="PatchesButton_Click" Height="25"/>
-        <Button Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="14" Content="Addons for" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="AddonsButton_Click" Height="25"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="White" FontSize="25" Text="In memory of my friend and comrade Aziz" VerticalAlignment="Center" Width="605" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="1" Grid.Row ="1" x:Name="ModsButton" Content="Mods" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Click="ModsButton_Click" Height="25"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="2" Grid.Row ="1" Grid.ColumnSpan="2" x:Name="PatchesButton" FontSize="14" Content="Patches" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="PatchesButton_Click" Height="25"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="14" Content="Addons for" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="AddonsButton_Click" Height="25"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="25" Text="In memory of my friend and comrade Aziz" VerticalAlignment="Center" Width="605" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
 
-        <local:UpdateButton Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" MouseEnter="UpdateButton_MouseEnter" />
-        <Button x:Name="ManualAddMod" FontSize="16" Content="Add mod from files" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="170,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" Height="28" Click="ManualAddMod_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="ManualAddPatch" FontSize="13" Content="Add patch for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddPatch_Click"/>
-        <Button x:Name="ManualAddAddon" FontSize="13" Content="Add addon for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddAddon_Click"/>
+        <local:UpdateButton Style="{StaticResource UpdateButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" MouseEnter="UpdateButton_MouseEnter" />
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddMod" FontSize="16" Content="Add mod from files" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="170,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" Height="28" Click="ManualAddMod_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddPatch" FontSize="13" Content="Add patch for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddPatch_Click"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddAddon" FontSize="13" Content="Add addon for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddAddon_Click"/>
 
     </Grid>
 </Window>

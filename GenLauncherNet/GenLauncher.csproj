@@ -116,6 +116,7 @@
     </ApplicationDefinition>
     <Compile Include="BigHandler.cs" />
     <Compile Include="CamelCaseExtension.cs" />
+    <Compile Include="ColorsInfo.cs" />
     <Compile Include="DataClasses\GameModification.cs" />
     <Compile Include="DataClasses\ReposModificationsVersion.cs" />
     <Compile Include="GameFilesHandler.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
     <Compile Include="SessionInformation.cs" />
-    <Compile Include="UpdateButton.cs" />
+    <Compile Include="WPFElements\UpdateButton.cs" />
     <Compile Include="Windows\Net46NotInstalled.xaml.cs">
       <DependentUpon>Net46NotInstalled.xaml</DependentUpon>
     </Compile>

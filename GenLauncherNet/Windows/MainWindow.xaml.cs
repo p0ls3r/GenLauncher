@@ -67,6 +67,35 @@ namespace GenLauncherNet
             UpdateTabs();
 
             SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
+
+            UpdateVisuals();
+
+            CheckForCustomBG();
+        }
+
+        private void CheckForCustomBG()
+        {
+            if (!File.Exists("GlBg.png"))
+                return;
+
+            this.Resources["GenLauncherBackGroundImage"] = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.Combine(Directory.GetCurrentDirectory(), @"GlBg.png"), UriKind.Absolute)));
+        }
+
+        private void UpdateVisuals()
+        {
+            this.Resources["GenLauncherBorderColor"] = EntryPoint.Colors.GenLauncherBorderColor;
+            this.Resources["GenLauncherActiveColor"] = EntryPoint.Colors.GenLauncherActiveColor;
+            this.Resources["GenLauncherDarkFillColor"] = EntryPoint.Colors.GenLauncherDarkFillColor;
+            this.Resources["GenLauncherInactiveBorder"] = EntryPoint.Colors.GenLauncherInactiveBorder;
+            this.Resources["GenLauncherInactiveBorder2"] = EntryPoint.Colors.GenLauncherInactiveBorder2;
+            this.Resources["GenLauncherDefaultTextColor"] = EntryPoint.Colors.GenLauncherDefaultTextColor;
+            this.Resources["GenLauncherLightBackGround"] = EntryPoint.Colors.GenLauncherLightBackGround;
+            this.Resources["GenLauncherDarkBackGround"] = EntryPoint.Colors.GenLauncherDarkBackGround;
+            this.Resources["GenLauncherDefaultTextColor"] = EntryPoint.Colors.GenLauncherDefaultTextColor;
+
+            this.Resources["GenLauncherListBoxSelectionColor2"] = EntryPoint.Colors.GenLauncherListBoxSelectionColor2;
+            this.Resources["GenLauncherListBoxSelectionColor1"] = EntryPoint.Colors.GenLauncherListBoxSelectionColor1;
+            this.Resources["GenLauncherButtonSelectionColor"] = EntryPoint.Colors.GenLauncherButtonSelectionColor;
         }
 
         private void Exit()
@@ -250,6 +279,8 @@ namespace GenLauncherNet
                     ModsListSource.Add(new ModificationContainer(mod));
                 }
             }
+            else
+                AddModButton.IsBlinking = true;
 
             ModsList.ItemsSource = ModsListSource;
         }
@@ -1560,7 +1591,6 @@ namespace GenLauncherNet
 
             EnableUI();
         }
-
         #endregion
     }
 }
