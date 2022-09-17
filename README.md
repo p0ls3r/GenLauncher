@@ -1,15 +1,14 @@
 <img align="left" src="GenLauncherNet/fd.ico" width="100" alt="GenLauncher Icon">
 
 # GenLauncher
- <a href="https://discord.gg/fFGpudz5hV">
-        <img src="https://img.shields.io/discord/364823341506363392.svg?label=Discord&style=flat-square&colorB=7683D5" alt="GenLauncher Discord">
-    </a>
+[![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
+[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/fFGpudz5hV)
 <br>
 
 ### About
 
 GenLauncher is a mod management utility for the game Command & Conquer: Generals and it's expansion Zero Hour 
-that provides various faculties that eases the burden of setting up and maintaining a modded game.
+that provides various faculties that ease the burden of setting up and maintaining a modded game.
 
 ### Features
 
@@ -23,7 +22,7 @@ that provides various faculties that eases the burden of setting up and maintain
 - Supports common commandline arguments such as running the game in windowed mode, quickstart mode aswell as user specified command line arguments.
 - Installed modifications are consolidated to there own respective directories and are linked to the game folder during game launch 
 and unlinked after closing the game ensuring that the game folder remains relatively untouched.
-- Contains an options menu that can be used to tweak every single graphical option in the game aswell as a variety of other things such as ingame camera height.
+- Contains an options menu that can be used to adjust every single graphical option in the game aswell as a variety of other things such as ingame camera height.
 - Can install and use the [modded game executable](https://www.gentool.net/download/executables/) by xezon that allows for mods to bypass the ingame camera height restriction in LAN games (Zero Hour only, can be disabled).
 - Can install and update [GenTool](https://www.gentool.net/).
 
