@@ -76,10 +76,9 @@ namespace GenLauncherNet
             if (!String.IsNullOrEmpty(otherModificationVersion.S3HostSecretKey) && String.IsNullOrEmpty(this.S3HostSecretKey))
                 this.S3HostSecretKey = otherModificationVersion.S3HostSecretKey;
 
-            if (!this.Deprecated && otherModificationVersion.Deprecated)
-                this.Deprecated = true;
+            this.Deprecated = otherModificationVersion.Deprecated;
 
-            if (this.ColorsInformation == null && otherModificationVersion.ColorsInformation != null)
+            if (otherModificationVersion.ColorsInformation != null)
                 this.ColorsInformation = otherModificationVersion.ColorsInformation;
         }
 
