@@ -215,10 +215,10 @@ Modifications:
   Deprecated: false
   ColorsInformation: 
 Addons:
-- IsSelected: false
+- IsSelected: true
   Installed: true
   ModificationVersions:
-  - IsSelected: false
+  - IsSelected: true
     Installed: true
     ModificationType: Addon
     Name: Hanpatch Easter Egg Units
@@ -235,7 +235,7 @@ Addons:
     S3HostPublicKey: 
     S3HostSecretKey: 
     NetworkInfo: 
-    Deprecated: false
+    Deprecated: true
     ColorsInformation: 
   NumberInList: 0
   ModificationType: Addon
@@ -253,7 +253,7 @@ Addons:
   S3HostPublicKey: 
   S3HostSecretKey: 
   NetworkInfo: 
-  Deprecated: false
+  Deprecated: true
   ColorsInformation: 
 - IsSelected: false
   Installed: true
@@ -335,11 +335,11 @@ Addons:
   NetworkInfo: 
   Deprecated: false
   ColorsInformation: 
-- IsSelected: false
-  Installed: false
+- IsSelected: true
+  Installed: true
   ModificationVersions:
   - IsSelected: true
-    Installed: false
+    Installed: true
     ModificationType: Addon
     Name: Control Bar Pro (Rotr)
     Version: 1.0.1
@@ -456,11 +456,11 @@ Patches:
   NetworkInfo: 
   Deprecated: false
   ColorsInformation: 
-- IsSelected: false
-  Installed: false
+- IsSelected: true
+  Installed: true
   ModificationVersions:
   - IsSelected: true
-    Installed: false
+    Installed: true
     ModificationType: Patch
     Name: Hanpatch
     Version: 31.3

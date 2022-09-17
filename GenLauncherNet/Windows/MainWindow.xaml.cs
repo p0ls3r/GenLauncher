@@ -1117,7 +1117,49 @@ namespace GenLauncherNet
                 var mainMessage = "There are modifications that can be updated: ";
 
                 var infoWindow = new InfoWindow(mainMessage, modsMessage) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                infoWindow.Ok.Visibility = Visibility.Hidden;                
+                infoWindow.Ok.Visibility = Visibility.Hidden;
+
+                infoWindow.ShowDialog();
+                return infoWindow.GetResult();
+            }
+
+            return succes;
+        }
+
+        private bool ModificationsAreNotDeprecated()
+        {
+            var modsMessage = "Selected mod is up-to-date";
+
+            var succes = true;
+
+            var activePatch = DataHandler.GetSelectedPatch();
+            if (activePatch != null && activePatch.Deprecated)
+            {
+                succes = false;
+                modsMessage = String.Format("{0} is Deprecated.", activePatch.Name);
+            }
+
+            var selectedAddons = DataHandler.GetSelectedAddonsForSelectedMod()?.Where(m => m != null);
+
+            if (selectedAddons.Count() > 0)
+            {
+                foreach (var selectedAddon in selectedAddons)
+                {
+                    if (selectedAddon != null && selectedAddon.Deprecated)
+                    {
+                        succes = false;
+                        modsMessage = String.Format("{0} is Deprecated.", selectedAddon.Name);
+                        break;
+                    }
+                }
+            }
+
+            if (!succes)
+            {
+                var mainMessage = "Compatibility with the mod cannot be guaranteed!";
+
+                var infoWindow = new InfoWindow(mainMessage, modsMessage) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                infoWindow.Ok.Visibility = Visibility.Hidden;
 
                 infoWindow.ShowDialog();
                 return infoWindow.GetResult();
@@ -1177,7 +1219,7 @@ namespace GenLauncherNet
                 return;
             }
 
-            if (ModificationsDontNeedUpdate())
+            if (ModificationsDontNeedUpdate() && ModificationsAreNotDeprecated())
             {
                 if (EntryPoint.SessionInfo.Connected)
                 {
@@ -1217,7 +1259,7 @@ namespace GenLauncherNet
                 return;
             }
 
-            if (ModificationsDontNeedUpdate())
+            if (ModificationsDontNeedUpdate() && ModificationsAreNotDeprecated())
             {
                 DisableUI();
                 await CheckAndUpdateGentool();
@@ -1323,15 +1365,30 @@ namespace GenLauncherNet
             var modData = (ModificationContainer)modGrid.DataContext;
 
             if (modData.Downloader == null)
-            {                
-                DownloadMod(modData);
-                e.Handled = false;
+            {
+                if ((modData.ContainerModification.Deprecated && CreateInfoWindowForDeprecatedMod(String.Format("{0} is Deprecated.", modData.ContainerModification.Name))) || !modData.ContainerModification.Deprecated)
+                {
+                    DownloadMod(modData);
+                    e.Handled = false;
+                }
             }
             else
             {
                 modData.CancelDownload();
             }
         }
+
+        private static bool CreateInfoWindowForDeprecatedMod(string modsMessage)
+        {
+            var mainMessage = "Compatibility with the mod cannot be guaranteed!";
+
+            var infoWindow = new InfoWindow(mainMessage, modsMessage) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            infoWindow.Ok.Visibility = Visibility.Hidden;
+
+            infoWindow.ShowDialog();
+            return infoWindow.GetResult();
+        }
+        
 
         static void DownloadProgressChanged(long? totalDownloadSize, long totalBytesRead, double? progressPercentage, ModificationContainer modData, string fileName)
         {
