@@ -330,6 +330,9 @@
   <ItemGroup>
     <Resource Include="Images\ManualAddMod.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BackgroundGenerals.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets" Condition="Exists('..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

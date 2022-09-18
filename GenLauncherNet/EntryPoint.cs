@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace GenLauncherNet
 {
@@ -146,7 +148,8 @@ namespace GenLauncherNet
             }
             else
             {
-                DefaultColors = new ColorsInfo("Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red", "Red");
+                DefaultColors = new ColorsInfo("#ffbb00", "DarkGray", "#ffbb00", "#ffbb00", "#e24c17", "#090502", "#B3000000", "White", "#5a210d", "#8a2e0d", "#e24c17");
+                DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/BackgroundGenerals.png")));
             }
 
             Colors = DefaultColors;
