@@ -25,6 +25,8 @@ namespace GenLauncherNet
         public Color GenLauncherListBoxSelectionColor1;
         public Color GenLauncherButtonSelectionColor;
 
+        public ImageBrush GenLauncherBackgroundImage;
+
         public ColorsInfo()
         {
 
@@ -88,6 +90,8 @@ namespace GenLauncherNet
         public string GenLauncherListBoxSelectionColor1;
         public string GenLauncherButtonSelectionColor;
 
+        public string GenLauncherBackgroundImageLink;
+
         public ColorsInfoString()
         {
 
@@ -108,5 +112,5 @@ namespace GenLauncherNet
             GenLauncherListBoxSelectionColor1 = sColor1;
             GenLauncherButtonSelectionColor = bColor;
         }
-    }    
+    }
 }

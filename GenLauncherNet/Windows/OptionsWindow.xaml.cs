@@ -37,12 +37,12 @@ namespace GenLauncherNet
             if (EntryPoint.SessionInfo.GameMode == Game.Generals)
             {
                 DataHandler.SetModdedExeStatus(false);
-                modded.Visibility = Visibility.Hidden;
-                generals.Visibility = Visibility.Hidden;
+                modded.IsEnabled = false;
+                generals.IsEnabled = false;
 
-                customCamera.Visibility = Visibility.Hidden;
-                defaultCamera.Visibility = Visibility.Hidden;
-                CameraHeightSlider.Visibility = Visibility.Hidden;
+                customCamera.IsEnabled = false;
+                defaultCamera.IsEnabled = false;
+                CameraHeightSlider.IsEnabled = false;
                 DataHandler.SetCameraHeight(0);
             }
 
