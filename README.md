@@ -39,6 +39,8 @@ into the respective game folder that you wish to use GenLauncher with.
 
 **Note:** Ensure that the game is installed on a drive with a filesystem that supports symbolic links such NTFS otherwise GenLauncher won't work.
 
+**Running GenLauncher on non windows operating systems or under wine has not been tested and is not officially supported.**
+
 ### Submitting Bug Reports and Feature Requests
 
 Please use the projects [issue tracker](https://github.com/p0ls3r/GenLauncher/issues) to submit bug reports or feature requests or join the [GenLauncher discord](https://discord.gg/fFGpudz5hV) and post in the respective channels.
