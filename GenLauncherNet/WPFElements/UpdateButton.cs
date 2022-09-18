@@ -26,7 +26,6 @@ namespace GenLauncherNet
         {
             blinkBorder = new Border();
 
-
             blinkBorder.Background = EntryPoint.Colors.GenLauncherDarkFillColor;
 
             blinkBorder.Opacity = 0;

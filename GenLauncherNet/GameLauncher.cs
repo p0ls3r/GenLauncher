@@ -208,7 +208,7 @@ namespace GenLauncherNet
                 parameters += "-win ";
 
             if (DataHandler.IsQuickStart())
-                parameters += " -quickstart ";
+                parameters += " -quickstart -noshellmap ";
 
             parameters += " " + DataHandler.GetGameParams();
 

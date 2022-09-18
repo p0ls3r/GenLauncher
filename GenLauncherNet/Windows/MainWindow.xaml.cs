@@ -96,6 +96,12 @@ namespace GenLauncherNet
             this.Resources["GenLauncherListBoxSelectionColor2"] = EntryPoint.Colors.GenLauncherListBoxSelectionColor2;
             this.Resources["GenLauncherListBoxSelectionColor1"] = EntryPoint.Colors.GenLauncherListBoxSelectionColor1;
             this.Resources["GenLauncherButtonSelectionColor"] = EntryPoint.Colors.GenLauncherButtonSelectionColor;
+
+            if (EntryPoint.Colors.GenLauncherBackgroundImage != null)
+                this.Resources["GenLauncherBackGroundImage"] = EntryPoint.Colors.GenLauncherBackgroundImage;
+
+            if (EntryPoint.SessionInfo.GameMode == Game.Generals)
+                ButtonQuickStart.IsEnabled = false;
         }
 
         private void Exit()
