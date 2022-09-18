@@ -7,7 +7,7 @@
 
 ### About
 
-GenLauncher is a mod management utility for the game Command & Conquer: Generals and it's expansion Zero Hour 
+GenLauncher is a mod management utility for the game **Command & Conquer: Generals and it's expansion Zero Hour** 
 that provides various faculties that ease the burden of setting up and maintaining a modded game.
 
 ### Features
@@ -34,7 +34,7 @@ and unlinked after closing the game ensuring that the game folder remains relati
 
 ### Installation
 
-GenLauncher can be used for both Command & Conquer: Generals and it's expansion Zero Hour. To install GenLauncher for either game, simply extract GenLauncher.exe 
+GenLauncher can be used for both **Command & Conquer: Generals and it's expansion Zero Hour**. To install GenLauncher for either game, simply extract GenLauncher.exe 
 into the respective game folder that you wish to use GenLauncher with.
 
 **Note:** Ensure that the game is installed on a drive with a filesystem that supports symbolic links such NTFS otherwise GenLauncher won't work.
