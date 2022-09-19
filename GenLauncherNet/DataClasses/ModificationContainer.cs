@@ -27,14 +27,16 @@ namespace GenLauncherNet
         public string LatestVersionInfo { get; private set; }
         public bool ReadyToRun { get; set; } = true;
 
+        public ColorsInfo Colors { get; set; }
+
         public ModificationContainer(GameModification modification)
         {
             ContainerModification = modification;
 
-            UpdataModboxData();
+            UpdataContainerData();
         }
 
-        public void UpdataModboxData()
+        public void UpdataContainerData()
         {
             NameInfo = ContainerModification.Name;
 
@@ -95,7 +97,7 @@ namespace GenLauncherNet
                 Downloader.CancelDownload();
                 ClearDownloader();
 
-                UpdataModboxData();
+                UpdataContainerData();
 
                 if (ContainerModification.ModificationVersions.Where(m => m.Installed).Any())
                 {
@@ -103,6 +105,20 @@ namespace GenLauncherNet
                 }
             }
             SetUnactiveProgressBar();
+        }
+
+        public void BruteCancelDownload()
+        {
+            if (Downloader != null)
+            {
+                Downloader.Dispose();
+            }
+        }
+
+        public void RefreshUpdateButton()
+        {
+            if (_GridControls != null)
+                _GridControls._UpdateButton.Refresh();
         }
 
         public void SetSelectedStatus()
@@ -122,7 +138,6 @@ namespace GenLauncherNet
                     _GridControls._ImageBorder.BorderThickness = new Thickness(2, 2, 2, 2);
                     _GridControls._ImageBorder.BorderBrush = EntryPoint.Colors.GenLauncherActiveColor;
                 }
-
             }
         }
 
@@ -160,6 +175,7 @@ namespace GenLauncherNet
         public void SetUIElements(GridControls gridControls)
         {
             _GridControls = gridControls;
+            _GridControls._UpdateButton.Refresh();
             UpdateUIelements();
 
             if (LatestVersion != null && LatestVersion.ModificationType == ModificationType.Mod)
@@ -180,7 +196,7 @@ namespace GenLauncherNet
                 this._GridControls._InfoTextBlock.Text = String.Empty;
                 this._GridControls._UpdateButton.Content = "UPDATE!";
 
-                UpdataModboxData();
+                UpdataContainerData();
                 UpdateComboBox();
                 SelectItemInComboBox();
             }
@@ -279,7 +295,7 @@ namespace GenLauncherNet
 
             this._GridControls._ProgressBar.Background = new SolidColorBrush(EntryPoint.Colors.GenLauncherButtonSelectionColor);
             this._GridControls._ProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherBorderColor;
-            this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDarkBackGround;
+            this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDownloadTextColor;
         }
 
         public void SetUIMessages(string message)

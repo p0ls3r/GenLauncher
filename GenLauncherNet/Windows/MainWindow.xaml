@@ -20,6 +20,7 @@
         <SolidColorBrush x:Key="GenLauncherDarkBackGround" Color="#090502"/>
         <SolidColorBrush x:Key="GenLauncherLightBackGround" Color="#B3000000"/>
         <SolidColorBrush x:Key="GenLauncherDefaultTextColor" Color="White"/>
+        <SolidColorBrush x:Key="GenLauncherDownloadTextColor" Color="#090502"/>
 
         <Color x:Key="GenLauncherListBoxSelectionColor2">#F21d2057</Color>
         <Color x:Key="GenLauncherListBoxSelectionColor1">#E61d2057</Color>
@@ -487,7 +488,6 @@
             </Setter>
         </Style>
 
-
         <Style x:Key="FocusVisual2">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -546,7 +546,6 @@
             </Setter>
         </Style>
 
-
         <Style x:Key="UpdateButtonStyle" TargetType="{x:Type local:UpdateButton}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
             <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
@@ -592,6 +591,7 @@
             <GradientStop Color="{DynamicResource GenLauncherListBoxSelectionColor2}" Offset="0.7"/>
             <GradientStop Color="#00000000" Offset="1.0"/>
         </LinearGradientBrush>
+        
         <Style TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>

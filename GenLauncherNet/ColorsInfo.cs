@@ -20,6 +20,7 @@ namespace GenLauncherNet
         public SolidColorBrush GenLauncherDarkBackGround;
         public SolidColorBrush GenLauncherLightBackGround;
         public SolidColorBrush GenLauncherDefaultTextColor;
+        public SolidColorBrush GenLauncherDownloadTextColor;
 
         public Color GenLauncherListBoxSelectionColor2;
         public Color GenLauncherListBoxSelectionColor1;
@@ -42,13 +43,14 @@ namespace GenLauncherNet
             GenLauncherDarkBackGround = GetColorBrushFromString(colorsInfoString.GenLauncherDarkBackGround);
             GenLauncherLightBackGround = GetColorBrushFromString(colorsInfoString.GenLauncherLightBackGround);
             GenLauncherDefaultTextColor = GetColorBrushFromString(colorsInfoString.GenLauncherDefaultTextColor);
+            GenLauncherDownloadTextColor = GetColorBrushFromString(colorsInfoString.GenLauncherDownloadTextColor);
 
             GenLauncherListBoxSelectionColor2 = GetColorFromString(colorsInfoString.GenLauncherListBoxSelectionColor1);
             GenLauncherListBoxSelectionColor1 = GetColorFromString(colorsInfoString.GenLauncherListBoxSelectionColor2);
             GenLauncherButtonSelectionColor = GetColorFromString(colorsInfoString.GenLauncherButtonSelectionColor);
         }
 
-        public ColorsInfo(string border, string inactiveBorder, string inactiveBorder2, string activeColor, string darkFill, string darkBackground, string lightBackground, string text, string sColor2, string sColor1, string bColor)
+        public ColorsInfo(string border, string inactiveBorder, string inactiveBorder2, string activeColor, string darkFill, string darkBackground, string lightBackground, string text, string text2, string sColor2, string sColor1, string bColor)
         {
             GenLauncherBorderColor = GetColorBrushFromString(border);
             GenLauncherInactiveBorder = GetColorBrushFromString(inactiveBorder);
@@ -58,6 +60,7 @@ namespace GenLauncherNet
             GenLauncherDarkBackGround = GetColorBrushFromString(darkBackground);
             GenLauncherLightBackGround = GetColorBrushFromString(lightBackground);
             GenLauncherDefaultTextColor = GetColorBrushFromString(text);
+            GenLauncherDownloadTextColor = GetColorBrushFromString(text2);
 
             GenLauncherListBoxSelectionColor2 = GetColorFromString(sColor2);
             GenLauncherListBoxSelectionColor1 = GetColorFromString(sColor1);
@@ -85,6 +88,7 @@ namespace GenLauncherNet
         public string GenLauncherDarkBackGround;
         public string GenLauncherLightBackGround;
         public string GenLauncherDefaultTextColor;
+        public string GenLauncherDownloadTextColor;
 
         public string GenLauncherListBoxSelectionColor2;
         public string GenLauncherListBoxSelectionColor1;
@@ -97,7 +101,7 @@ namespace GenLauncherNet
 
         }
 
-        public ColorsInfoString(string border, string inactiveBorder, string inactiveBorder2, string activeColor, string darkFill, string darkBackground, string lightBackground, string text, string sColor2, string sColor1, string bColor)
+        public ColorsInfoString(string border, string inactiveBorder, string inactiveBorder2, string activeColor, string darkFill, string darkBackground, string lightBackground, string text, string text2, string sColor2, string sColor1, string bColor)
         {
             GenLauncherBorderColor = border;
             GenLauncherInactiveBorder = inactiveBorder;
@@ -107,6 +111,7 @@ namespace GenLauncherNet
             GenLauncherDarkBackGround = darkBackground;
             GenLauncherLightBackGround = lightBackground;
             GenLauncherDefaultTextColor = text;
+            GenLauncherDownloadTextColor = text2;
 
             GenLauncherListBoxSelectionColor2 = sColor2;
             GenLauncherListBoxSelectionColor1 = sColor1;
