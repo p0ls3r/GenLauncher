@@ -1,17 +1,14 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using GenLauncherNet.Utility;
 
 namespace GenLauncherNet
 {
@@ -40,7 +37,7 @@ namespace GenLauncherNet
         public static ColorsInfo DefaultColors;
 
         private const uint RequiredNetFrameworkVersionReleaseKey = 393295; // Version 4.6
-        private const string RequiredNetFrameworkVersion = "4.6";
+        private const string RequiredNetFrameworkVersion = "4.6"; // Release key = 393295
 
         private static Mutex _mutex1;
 
@@ -71,29 +68,18 @@ namespace GenLauncherNet
                 {
                     var result =
                         MessageBox.Show(
-                            $"GenLauncher requires version {RequiredNetFrameworkVersion} or later of the .Net Framework to be installed. " +
+                            $"GenLauncher requires version {RequiredNetFrameworkVersion} or later of .Net Framework to be installed. " +
                             $"Would you like to visit the download page?",
-                            ".Net Framework version not found!",
+                            "Missing .Net Framework Version!",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning
                         );
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        try
-                        {
-                            Process.Start("https://dotnet.microsoft.com/en-us/download/dotnet-framework");
-                        }
-                        catch (System.ComponentModel.Win32Exception noBrowser)
-                        {
-                            if (noBrowser.ErrorCode == -2147467259)
-                                MessageBox.Show(noBrowser.Message);
-                        }
-                        catch (Exception other)
-                        {
-                            MessageBox.Show(other.Message);
-                        }
+                        Utilities.OpenWebpageInBrowser("https://dotnet.microsoft.com/en-us/download/dotnet-framework");
                     }
+
                     return;
                 }
 

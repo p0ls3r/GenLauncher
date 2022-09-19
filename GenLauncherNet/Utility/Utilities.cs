@@ -1,6 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
+using Microsoft.Win32;
 
-namespace GenLauncherNet
+namespace GenLauncherNet.Utility
 {
     internal static class Utilities
     {
@@ -23,6 +27,27 @@ namespace GenLauncherNet
             }
 
             return false; // Not installed
+        }
+
+        /// <summary>
+        ///     Opens a specific webpage in the user's default browser based on a given URL.
+        /// </summary>
+        /// <param name="webpageUrl">URL of the webpage to open.</param>
+        internal static void OpenWebpageInBrowser(string webpageUrl)
+        {
+            try
+            {
+                Process.Start(webpageUrl);
+            }
+            catch (Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259)
+                    MessageBox.Show(noBrowser.Message);
+            }
+            catch (Exception other)
+            {
+                MessageBox.Show(other.Message);
+            }
         }
     }
 }
