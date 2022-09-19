@@ -49,7 +49,7 @@ namespace GenLauncherNet
 
                 foreach (var reposMod in ReposMods)
                 {
-                    await DownloadImageIfItNotExist(reposMod);
+                    await DownloadImagesIfTheyNotExist(reposMod);
                     AddDownloadedModificationData(reposMod);
                 }
 
@@ -257,12 +257,12 @@ namespace GenLauncherNet
             if (!MofificationsAndAddons.ContainsKey(kvp.Key))
                 MofificationsAndAddons.Add(kvp.Key, kvp.Value);
 
-            await DownloadImageIfItNotExist(kvp.Key);
+            await DownloadImagesIfTheyNotExist(kvp.Key);
             AddDownloadedModificationData(kvp.Key);
             return new ModificationVersion(kvp.Key);
         }
 
-        private static async Task DownloadImageIfItNotExist(ModificationReposVersion mod)
+        private static async Task DownloadImagesIfTheyNotExist(ModificationReposVersion mod)
         {
             if (!String.IsNullOrEmpty(mod.UIImageSourceLink))
             {
@@ -271,10 +271,29 @@ namespace GenLauncherNet
                     if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name)))
                         Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name));
 
-                    if (!File.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.UIImageSourceLink)))
+                    if (!File.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version)))
                         using (var stream = await LogoDownloader.GetStreamAsync(mod.UIImageSourceLink))
                         {
                             using (var fileStream = new FileStream(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version), FileMode.CreateNew))
+                            {
+                                await stream.CopyToAsync(fileStream);
+                            }
+                        }
+                }
+                catch
+                {
+
+                }
+            }
+
+            if (mod.ColorsInformation != null && !String.IsNullOrEmpty(mod.ColorsInformation.GenLauncherBackgroundImageLink))
+            {
+                try
+                {
+                    if (!File.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version + "bg")))
+                        using (var stream = await LogoDownloader.GetStreamAsync(mod.ColorsInformation.GenLauncherBackgroundImageLink))
+                        {
+                            using (var fileStream = new FileStream(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version + "bg"), FileMode.CreateNew))
                             {
                                 await stream.CopyToAsync(fileStream);
                             }

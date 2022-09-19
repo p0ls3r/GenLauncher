@@ -125,6 +125,8 @@ namespace GenLauncherNet
             this.S3HostPublicKey = modification.S3HostPublicKey;
             this.S3HostSecretKey = modification.S3HostSecretKey;
             this.Deprecated = modification.Deprecated;
+
+            this.ColorsInformation = modification.ColorsInformation;
         }
 
         public string GetFolderName()

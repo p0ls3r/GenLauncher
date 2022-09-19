@@ -102,6 +102,14 @@ namespace GenLauncherNet
 
             if (EntryPoint.SessionInfo.GameMode == Game.Generals)
                 ButtonQuickStart.IsEnabled = false;
+
+            LauncherUpdate.Refresh();
+
+            foreach (var modData in ModsList.Items)
+            {
+                var data = (ModificationContainer)modData;
+                data.RefreshUpdateButton();
+            }
         }
 
         private void Exit()
@@ -114,19 +122,19 @@ namespace GenLauncherNet
             foreach (var patchData in PatchesList.Items)
             {
                 var data = (ModificationContainer)patchData;
-                data.CancelDownload();
+                data.BruteCancelDownload();
             }
 
             foreach (var addonData in AddonsList.Items)
             {
                 var data = (ModificationContainer)addonData;
-                data.CancelDownload();
+                data.BruteCancelDownload();
             }
 
             foreach (var modData in ModsList.Items)
             {
                 var data = (ModificationContainer)modData;
-                data.CancelDownload();
+                data.BruteCancelDownload();
             }
         }
 
@@ -209,15 +217,18 @@ namespace GenLauncherNet
 
         private void SetProgressBarInInstallMode()
         {
-            UpdateProgress.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("Black");
-            UpdateProgressBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#2534ff");
-            UpdateProgressBar.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#00e3ff");
+            UpdateProgress.Foreground = EntryPoint.Colors.GenLauncherDownloadTextColor;
+            UpdateProgressBar.Background = new SolidColorBrush(EntryPoint.Colors.GenLauncherButtonSelectionColor);
+            UpdateProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherBorderColor;
+
         }
 
         private void SetProgressBarInPassivelMode()
         {
-            UpdateProgressBar.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#090502");
-            UpdateProgressBar.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("DarkGray");
+            UpdateProgressBar.Background = EntryPoint.Colors.GenLauncherDarkBackGround;
+            UpdateProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherInactiveBorder;
+            UpdateProgress.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
+
             UpdateProgressBar.Value = 0;
             UpdateProgress.Text = String.Empty;
         }
@@ -395,6 +406,7 @@ namespace GenLauncherNet
 
                         DisableUI();
                         await UpdateAddonsAndPatches(((ModificationContainer)e.AddedItems[0]).ContainerModification);
+
                         UpdateTabs();
                         EnableUI();
                     }
@@ -405,6 +417,8 @@ namespace GenLauncherNet
                     ModsList.UnselectAll();
                     ModsList.SelectedItems.Add(e.AddedItems[0]);
 
+                    UpdateVisualResourcesForMod((ModificationContainer)ModsList.SelectedItem);
+                    UpdateVisuals();
 
                     ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
 
@@ -417,9 +431,67 @@ namespace GenLauncherNet
                     ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                     PatchesButton.Visibility = Visibility.Hidden;
                     AddonsButton.Visibility = Visibility.Hidden;
+                    SetDefaultVisual();
+                    UpdateVisuals();
                 }
             }
             SetFocuses();
+        }
+
+        private void SetDefaultVisual()
+        {
+            EntryPoint.Colors = EntryPoint.DefaultColors;
+        }
+
+        private void UpdateVisualResourcesForMod(ModificationContainer container)
+        {
+            if (container.Colors != null)
+            {
+                EntryPoint.Colors = container.Colors;
+                return;
+            }
+
+            if (container.ContainerModification.ColorsInformation == null)
+            {
+                SetDefaultVisual();
+                return;
+            }
+
+            container.Colors = new ColorsInfo(container.ContainerModification.ColorsInformation);
+
+            var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name, container.LatestVersion.Version + "bg");
+
+            if (!File.Exists(imageFileName))
+                return;
+
+            var stream = File.OpenRead(imageFileName);
+
+            try
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                container.Colors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/Background.png")));
+                container.Colors.GenLauncherBackgroundImage.ImageSource = bitmap;
+                stream.Close();
+            }
+            catch
+            {
+                try
+                {
+                    stream.Close();
+                    if (File.Exists(imageFileName))
+                        File.Delete(imageFileName);
+                }
+                catch
+                {
+                    //TODO logger
+                }
+            }
+
+            EntryPoint.Colors = container.Colors;            
         }
 
         private void PatchesList_SelectionChanged(object sender, SelectionChangedEventArgs e)

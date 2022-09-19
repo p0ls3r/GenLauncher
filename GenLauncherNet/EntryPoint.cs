@@ -21,7 +21,7 @@ namespace GenLauncherNet
         public static string ModsRepos;
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.7.3 Test";
+        public const string Version = "0.0.7.3 Pre Release";
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink = @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
         public const string AddonsFolderName = "Addons";
@@ -144,11 +144,12 @@ namespace GenLauncherNet
         {
             if (SessionInfo.GameMode == Game.ZeroHour)
             {
-                DefaultColors = new ColorsInfo("#00e3ff", "DarkGray", "#7a7db0", "#baff0c", "#232977", "#090502", "#B3000000", "White", "#F21d2057", "#F21d2057", "#2534ff");
+                DefaultColors = new ColorsInfo("#00e3ff", "DarkGray", "#7a7db0", "#baff0c", "#232977", "#090502", "#B3000000", "White", "#090502", "#F21d2057", "#F21d2057", "#2534ff");
+                DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/Background.png")));
             }
             else
             {
-                DefaultColors = new ColorsInfo("#ffbb00", "DarkGray", "#ffbb00", "#ffbb00", "#e24c17", "#090502", "#B3000000", "White", "#5a210d", "#8a2e0d", "#e24c17");
+                DefaultColors = new ColorsInfo("#ffbb00", "DarkGray", "#ffbb00", "#ffbb00", "#e24c17", "#090502", "#B3000000", "White", "#090502", "#5a210d", "#8a2e0d", "#e24c17");
                 DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/BackgroundGenerals.png")));
             }
 
@@ -211,7 +212,7 @@ namespace GenLauncherNet
             _mutex1 = new Mutex(initiallyOwned: true, "GenLauncher", out createdNew);
 
             if (!createdNew)
-            {                
+            {
                 Thread.Sleep(5000);
                 _mutex1.Close();
 

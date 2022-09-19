@@ -47,6 +47,11 @@ namespace GenLauncherNet
             };
         }
 
+        public void Refresh()
+        {
+            blinkBorder.Background = EntryPoint.Colors.GenLauncherDarkFillColor;
+        }
+
         void IsBlinkingChanged()
         {
             if (DesignerProperties.GetIsInDesignMode(this))
