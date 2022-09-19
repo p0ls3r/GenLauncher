@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace GenLauncherNet
 {
@@ -31,11 +32,15 @@ namespace GenLauncherNet
         public const string GenLauncherReplaceSuffix = ".GenLauncherReplaced";
         public const string GenLauncherVersionFolderCopySuffix = ".GenLauncherTempCopy";
         public const string GenLauncherOriginalFileSuffix = ".GenLauncherOriginalFile";
-        const string subkey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
+
+      
 
         public static SessionInformation SessionInfo;
         public static ColorsInfo Colors;
         public static ColorsInfo DefaultColors;
+
+        private const uint RequiredNetFrameworkVersionReleaseKey = 393295; // Version 4.6
+        private const string RequiredNetFrameworkVersion = "4.6";
 
         private static Mutex _mutex1;
 
@@ -62,10 +67,33 @@ namespace GenLauncherNet
             {                
                 var app = new App();
 
-                if (!IsNet46Installed())
+                if (!Utilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
                 {
-                    var warningWindow = new Net46NotInstalled() { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                    app.Run(warningWindow);
+                    var result =
+                        MessageBox.Show(
+                            $"GenLauncher requires version {RequiredNetFrameworkVersion} or later of the .Net Framework to be installed. " +
+                            $"Would you like to visit the download page?",
+                            ".Net Framework version not found!",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Warning
+                        );
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        try
+                        {
+                            Process.Start("https://dotnet.microsoft.com/en-us/download/dotnet-framework");
+                        }
+                        catch (System.ComponentModel.Win32Exception noBrowser)
+                        {
+                            if (noBrowser.ErrorCode == -2147467259)
+                                MessageBox.Show(noBrowser.Message);
+                        }
+                        catch (Exception other)
+                        {
+                            MessageBox.Show(other.Message);
+                        }
+                    }
                     return;
                 }
 
@@ -187,24 +215,7 @@ namespace GenLauncherNet
             GameFilesHandler.ActivateGameFilesBack();
         }
 
-        public static bool IsNet46Installed()
-        {
-            using (var ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(subkey))
-            {
-                if (ndpKey != null && ndpKey.GetValue("Release") != null)
-                {
-                    var releaseKey = (int)ndpKey.GetValue("Release");
-                    if (releaseKey >= 393295)
-                        return true;
-
-                    return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }        
+              
 
         public static bool OtherInstancesExists()
         {
