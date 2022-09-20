@@ -150,9 +150,6 @@
     <Compile Include="SessionInformation.cs" />
     <Compile Include="Utility\Utilities.cs" />
     <Compile Include="WPFElements\UpdateButton.cs" />
-    <Compile Include="Windows\Net46NotInstalled.xaml.cs">
-      <DependentUpon>Net46NotInstalled.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\ManualAddMidificationWindow.xaml.cs">
       <DependentUpon>ManualAddMidificationWindow.xaml</DependentUpon>
     </Compile>
@@ -187,10 +184,6 @@
     <Compile Include="WPFElements\ModUpdateButton.cs" />
     <Compile Include="WPFElements\NameTextBox.cs" />
     <Compile Include="WPFElements\VersionTextBox.cs" />
-    <Page Include="Windows\Net46NotInstalled.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\ManualAddMidificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
