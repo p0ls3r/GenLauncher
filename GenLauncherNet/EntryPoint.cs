@@ -68,16 +68,16 @@ namespace GenLauncherNet
                 {
                     var result =
                         MessageBox.Show(
-                            $"GenLauncher requires version {RequiredNetFrameworkVersion} or later of .Net Framework to be installed. " +
-                            $"Would you like to visit the download page?",
-                            "Missing .Net Framework Version!",
+                            $".NET Framework {RequiredNetFrameworkVersion} or later is required for GenLauncher. " +
+                            $"Would you like to download a compatible version?",
+                            $".NET Framework {RequiredNetFrameworkVersion} or later required",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning
                         );
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        Utilities.OpenWebpageInBrowser("https://dotnet.microsoft.com/en-us/download/dotnet-framework");
+                        Utilities.OpenWebpageInBrowser("https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer");
                     }
 
                     return;

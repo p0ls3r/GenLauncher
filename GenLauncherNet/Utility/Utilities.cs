@@ -9,9 +9,9 @@ namespace GenLauncherNet.Utility
     internal static class Utilities
     {
         /// <summary>
-        ///     Checks the registry if there is a installed .Net Framework version matching or exceeding a specified version.
+        ///     Checks the registry if there is a installed .NET Framework version matching or exceeding a specified version.
         /// </summary>
-        /// <param name="requiredVersionReleaseKey">Numerical release key of the .Net Framework version to check for.</param>
+        /// <param name="requiredVersionReleaseKey">Numerical release key of the .NET Framework version to check for.</param>
         /// <returns></returns>
         internal static bool IsRequiredNetFrameworkVersionInstalled(uint requiredVersionReleaseKey)
         {
