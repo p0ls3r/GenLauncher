@@ -148,10 +148,8 @@
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
     <Compile Include="SessionInformation.cs" />
+    <Compile Include="Utility\Utilities.cs" />
     <Compile Include="WPFElements\UpdateButton.cs" />
-    <Compile Include="Windows\Net46NotInstalled.xaml.cs">
-      <DependentUpon>Net46NotInstalled.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\ManualAddMidificationWindow.xaml.cs">
       <DependentUpon>ManualAddMidificationWindow.xaml</DependentUpon>
     </Compile>
@@ -185,10 +183,6 @@
     <Compile Include="WPFElements\NetworkInfoButton.cs" />
     <Compile Include="WPFElements\NameTextBox.cs" />
     <Compile Include="WPFElements\VersionTextBox.cs" />
-    <Page Include="Windows\Net46NotInstalled.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\ManualAddMidificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -352,6 +346,7 @@
   <ItemGroup>
     <Resource Include="Images\BackgroundGenerals.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets" Condition="Exists('..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

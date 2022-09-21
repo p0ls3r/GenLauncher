@@ -1,16 +1,14 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using GenLauncherNet.Utility;
 
 namespace GenLauncherNet
 {
@@ -31,11 +29,15 @@ namespace GenLauncherNet
         public const string GenLauncherReplaceSuffix = ".GenLauncherReplaced";
         public const string GenLauncherVersionFolderCopySuffix = ".GenLauncherTempCopy";
         public const string GenLauncherOriginalFileSuffix = ".GenLauncherOriginalFile";
-        const string subkey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
+
+      
 
         public static SessionInformation SessionInfo;
         public static ColorsInfo Colors;
         public static ColorsInfo DefaultColors;
+
+        private const uint RequiredNetFrameworkVersionReleaseKey = 393295; // Version 4.6
+        private const string RequiredNetFrameworkVersion = "4.6"; // Release key = 393295
 
         private static Mutex _mutex1;
 
@@ -62,10 +64,22 @@ namespace GenLauncherNet
             {                
                 var app = new App();
 
-                if (!IsNet46Installed())
+                if (!Utilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
                 {
-                    var warningWindow = new Net46NotInstalled() { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                    app.Run(warningWindow);
+                    var result =
+                        MessageBox.Show(
+                            $".NET Framework {RequiredNetFrameworkVersion} or later is required for GenLauncher. " +
+                            $"Would you like to download a compatible version?",
+                            $".NET Framework {RequiredNetFrameworkVersion} or later required",
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Warning
+                        );
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Utilities.OpenWebpageInBrowser("https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer");
+                    }
+
                     return;
                 }
 
@@ -187,24 +201,7 @@ namespace GenLauncherNet
             GameFilesHandler.ActivateGameFilesBack();
         }
 
-        public static bool IsNet46Installed()
-        {
-            using (var ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(subkey))
-            {
-                if (ndpKey != null && ndpKey.GetValue("Release") != null)
-                {
-                    var releaseKey = (int)ndpKey.GetValue("Release");
-                    if (releaseKey >= 393295)
-                        return true;
-
-                    return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }        
+              
 
         public static bool OtherInstancesExists()
         {
