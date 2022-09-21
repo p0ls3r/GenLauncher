@@ -1,16 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenLauncher", "GenLauncherNet\GenLauncher.csproj", "{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug for Generals|Any CPU = Debug for Generals|Any CPU
+		Debug for Zero Hour|Any CPU = Debug for Zero Hour|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}.Debug for Generals|Any CPU.ActiveCfg = Debug for Generals|Any CPU
+		{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}.Debug for Generals|Any CPU.Build.0 = Debug for Generals|Any CPU
+		{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}.Debug for Zero Hour|Any CPU.ActiveCfg = Debug for Zero Hour|Any CPU
+		{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}.Debug for Zero Hour|Any CPU.Build.0 = Debug for Zero Hour|Any CPU
 		{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A8C2419-CE0F-405A-8D72-5CC6A6A3D1AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
