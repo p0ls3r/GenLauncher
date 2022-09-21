@@ -47,6 +47,7 @@ namespace GenLauncherNet
         public MainWindow()
         {
             InitializeComponent();
+            SetWindowTitleBasedOnGameMode();
 
             this.MouseDown += Window_MouseDown;
             this.Closing += MainWindow_Closing;
@@ -71,6 +72,17 @@ namespace GenLauncherNet
             UpdateVisuals();
 
             CheckForCustomBG();
+        }
+
+        private void SetWindowTitleBasedOnGameMode()
+        {
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+            {
+                this.Title += " - Command & Conquer: Generals - Zero Hour";
+                return;
+            }
+
+            this.Title += " - Command & Conquer: Generals";
         }
 
         private void CheckForCustomBG()
