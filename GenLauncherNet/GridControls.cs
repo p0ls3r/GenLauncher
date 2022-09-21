@@ -11,7 +11,7 @@ namespace GenLauncherNet
     public class GridControls
     {
         public NetworkInfoButton _NetworkInfo { get; }
-        public ModUpdateButton _UpdateButton { get; }
+        public UpdateButton _UpdateButton { get; }
         public ProgressBar _ProgressBar { get; }
         public InfoTextBlock _InfoTextBlock { get; }
         public VersionTextBox _VersionTextBlock { get; }
@@ -35,8 +35,8 @@ namespace GenLauncherNet
                     _InfoTextBlock = children as InfoTextBlock;
                 if (children is NetworkInfoButton)
                     _NetworkInfo = children as NetworkInfoButton;
-                if (children is ModUpdateButton)
-                    _UpdateButton = children as ModUpdateButton;
+                if (children is UpdateButton)
+                    _UpdateButton = children as UpdateButton;
                 if (children is VersionTextBox)
                     _VersionTextBlock = children as VersionTextBox;
                 if (children is NameTextBox)

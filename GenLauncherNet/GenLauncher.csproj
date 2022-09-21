@@ -163,7 +163,6 @@
     <Compile Include="InfoTextBlock.cs" />
     <Compile Include="WPFElements\InfoButton.cs" />
     <Compile Include="WPFElements\NetworkInfoButton.cs" />
-    <Compile Include="WPFElements\ModUpdateButton.cs" />
     <Compile Include="WPFElements\NameTextBox.cs" />
     <Compile Include="WPFElements\VersionTextBox.cs" />
     <Page Include="Windows\Net46NotInstalled.xaml">

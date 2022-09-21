@@ -115,10 +115,17 @@ namespace GenLauncherNet
             }
         }
 
-        public void RefreshUpdateButton()
+        public void Refresh()
         {
             if (_GridControls != null)
+            {
                 _GridControls._UpdateButton.Refresh();
+
+                if (Downloader == null)
+                    SetUnactiveProgressBar();
+                else
+                    SetActiveProgressBar();
+            }
         }
 
         public void SetSelectedStatus()
@@ -169,6 +176,16 @@ namespace GenLauncherNet
                 this._GridControls._ProgressBar.Background = EntryPoint.Colors.GenLauncherDarkBackGround;
                 this._GridControls._ProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherInactiveBorder;
                 this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
+            }
+        }
+
+        public void SetActiveProgressBar()
+        {
+            if (_GridControls != null && _GridControls._ProgressBar != null)
+            {
+                this._GridControls._ProgressBar.Background = new SolidColorBrush(EntryPoint.Colors.GenLauncherButtonSelectionColor);
+                this._GridControls._ProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherBorderColor;
+                this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDownloadTextColor;
             }
         }
 
@@ -293,9 +310,7 @@ namespace GenLauncherNet
             this._GridControls._ComboBox.IsEnabled = false;
             this.ReadyToRun = false;
 
-            this._GridControls._ProgressBar.Background = new SolidColorBrush(EntryPoint.Colors.GenLauncherButtonSelectionColor);
-            this._GridControls._ProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherBorderColor;
-            this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDownloadTextColor;
+            SetActiveProgressBar();
         }
 
         public void SetUIMessages(string message)

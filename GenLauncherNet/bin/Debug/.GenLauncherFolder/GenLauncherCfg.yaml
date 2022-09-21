@@ -40,7 +40,7 @@ Modifications:
     NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
     Deprecated: false
     ColorsInformation: 
-  NumberInList: 1
+  NumberInList: 2
   ModificationType: Mod
   Name: Contra
   Version: 
@@ -99,7 +99,7 @@ Modifications:
     NetworkInfo: 
     Deprecated: false
     ColorsInformation: 
-  NumberInList: 2
+  NumberInList: 3
   ModificationType: Mod
   Name: Rise of the Reds
   Version: 
@@ -117,7 +117,7 @@ Modifications:
   NetworkInfo: 
   Deprecated: false
   ColorsInformation: 
-- IsSelected: true
+- IsSelected: false
   Installed: true
   ModificationVersions:
   - IsSelected: false
@@ -209,7 +209,7 @@ Modifications:
       GenLauncherListBoxSelectionColor1: '#36ff2730'
       GenLauncherButtonSelectionColor: '#6c3636'
       GenLauncherBackgroundImageLink: https://cdn.discordapp.com/attachments/799373032778498069/1021428151131312169/GlBg.png
-  NumberInList: 0
+  NumberInList: 1
   ModificationType: Mod
   Name: The End of Days
   Version: 
@@ -227,6 +227,46 @@ Modifications:
   NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
   Deprecated: false
   ColorsInformation: *o0
+- IsSelected: true
+  Installed: true
+  ModificationVersions:
+  - IsSelected: true
+    Installed: true
+    ModificationType: Mod
+    Name: Leang
+    Version: 1
+    SimpleDownloadLink: 
+    UIImageSourceLink: 
+    DiscordLink: 
+    ModDBLink: 
+    NewsLink: 
+    DependenceName: 
+    S3HostLink: 
+    S3BucketName: 
+    S3FolderName: 
+    S3HostPublicKey: 
+    S3HostSecretKey: 
+    NetworkInfo: 
+    Deprecated: false
+    ColorsInformation: 
+  NumberInList: 0
+  ModificationType: Mod
+  Name: Leang
+  Version: 
+  SimpleDownloadLink: 
+  UIImageSourceLink: 
+  DiscordLink: 
+  ModDBLink: 
+  NewsLink: 
+  DependenceName: 
+  S3HostLink: 
+  S3BucketName: 
+  S3FolderName: 
+  S3HostPublicKey: 
+  S3HostSecretKey: 
+  NetworkInfo: 
+  Deprecated: false
+  ColorsInformation: 
 Addons:
 - IsSelected: false
   Installed: true
@@ -300,46 +340,6 @@ Addons:
   ModDBLink: 
   NewsLink: 
   DependenceName: Hanpatch
-  S3HostLink: 
-  S3BucketName: 
-  S3FolderName: 
-  S3HostPublicKey: 
-  S3HostSecretKey: 
-  NetworkInfo: 
-  Deprecated: false
-  ColorsInformation: 
-- IsSelected: false
-  Installed: false
-  ModificationVersions:
-  - IsSelected: true
-    Installed: false
-    ModificationType: Addon
-    Name: TEOD Russian Language
-    Version: 1.1.8
-    SimpleDownloadLink: https://onedrive.live.com/embed?cid=896C9369E9176506&resid=896C9369E9176506%21492&authkey=AJ2DQoVwHzisU28
-    UIImageSourceLink: ''
-    DiscordLink: ''
-    ModDBLink: ''
-    NewsLink: ''
-    DependenceName: THE END OF DAYS
-    S3HostLink: ''
-    S3BucketName: ''
-    S3FolderName: ''
-    S3HostPublicKey: ''
-    S3HostSecretKey: ''
-    NetworkInfo: 
-    Deprecated: false
-    ColorsInformation: 
-  NumberInList: 0
-  ModificationType: Addon
-  Name: TEOD Russian Language
-  Version: 
-  SimpleDownloadLink: https://onedrive.live.com/embed?cid=896C9369E9176506&resid=896C9369E9176506%21492&authkey=AJ2DQoVwHzisU28
-  UIImageSourceLink: 
-  DiscordLink: 
-  ModDBLink: 
-  NewsLink: 
-  DependenceName: THE END OF DAYS
   S3HostLink: 
   S3BucketName: 
   S3FolderName: 

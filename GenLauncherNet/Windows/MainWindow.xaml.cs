@@ -108,7 +108,7 @@ namespace GenLauncherNet
             foreach (var modData in ModsList.Items)
             {
                 var data = (ModificationContainer)modData;
-                data.RefreshUpdateButton();
+                data.Refresh();
             }
         }
 
@@ -889,6 +889,17 @@ namespace GenLauncherNet
 
         private async void DownloadMod(ModificationContainer modData)
         {
+            if (modData.ContainerModification.ModificationType == ModificationType.Mod)
+                ModsList.SelectedItems.Add(modData);
+
+            if (modData.ContainerModification.ModificationType == ModificationType.Addon)
+                AddonsList.SelectedItems.Add(modData);
+
+            if (modData.ContainerModification.ModificationType == ModificationType.Patch)
+                PatchesList.SelectedItems.Add(modData);
+
+            modData.SetActiveProgressBar();
+
             if (string.IsNullOrEmpty(modData.LatestVersion.S3HostLink) || string.IsNullOrEmpty(modData.LatestVersion.S3BucketName))
             {
                 await DownloadModBySimpleLink(modData);
