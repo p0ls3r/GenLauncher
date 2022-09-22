@@ -74,6 +74,8 @@ namespace GenLauncherNet
             CheckForCustomBG();
         }
 
+        #region Changing Visuals
+
         private void SetWindowTitleBasedOnGameMode()
         {
             if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
@@ -124,30 +126,63 @@ namespace GenLauncherNet
             }
         }
 
+        #endregion
+
+        #region Drag and Drop methods
+
+        private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = e.GetPosition(null);
+            Vector diff = _dragStartPoint - point;
+            if (!mouseOverVersionList && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+                var lbi = FindVisualParent<ListBoxItem>(((DependencyObject)e.OriginalSource));
+                if (lbi != null)
+                {
+                    DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void VersionsList_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mouseOverVersionList = true;
+        }
+
+        private void VersionsList_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mouseOverVersionList = false;
+        }
+
+        private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _dragStartPoint = e.GetPosition(null);
+        }
+
+        private void ListBoxItem_Drop(object sender, DragEventArgs e)
+        {
+            if (sender is ListBoxItem)
+            {
+                var source = e.Data.GetData(typeof(ModificationContainer)) as ModificationContainer;
+                var target = ((ListBoxItem)(sender)).DataContext as ModificationContainer;
+
+                var sourceIndex = ModsList.Items.IndexOf(source);
+                var targetIndex = ModsList.Items.IndexOf(target);
+                MoveModInList(source, sourceIndex, targetIndex);
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+                this.DragMove();
+        }
+
+        #endregion
+
         private void Exit()
         {
             this.Close();
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            foreach (var patchData in PatchesList.Items)
-            {
-                var data = (ModificationContainer)patchData;
-                data.BruteCancelDownload();
-            }
-
-            foreach (var addonData in AddonsList.Items)
-            {
-                var data = (ModificationContainer)addonData;
-                data.BruteCancelDownload();
-            }
-
-            foreach (var modData in ModsList.Items)
-            {
-                var data = (ModificationContainer)modData;
-                data.BruteCancelDownload();
-            }
         }
 
         #region SelfUpdater
@@ -336,52 +371,25 @@ namespace GenLauncherNet
 
         #region MainWindowEvents
 
-        private void ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Point point = e.GetPosition(null);
-            Vector diff = _dragStartPoint - point;
-            if (!mouseOverVersionList && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            foreach (var patchData in PatchesList.Items)
             {
-                var lbi = FindVisualParent<ListBoxItem>(((DependencyObject)e.OriginalSource));
-                if (lbi != null)
-                {
-                    DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
-                }
+                var data = (ModificationContainer)patchData;
+                data.BruteCancelDownload();
             }
-        }
 
-        private void VersionsList_MouseEnter(object sender, MouseEventArgs e)
-        {
-            mouseOverVersionList = true;
-        }
-
-        private void VersionsList_MouseLeave(object sender, MouseEventArgs e)
-        {
-            mouseOverVersionList = false;
-        }
-
-        private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _dragStartPoint = e.GetPosition(null);
-        }
-
-        private void ListBoxItem_Drop(object sender, DragEventArgs e)
-        {
-            if (sender is ListBoxItem)
+            foreach (var addonData in AddonsList.Items)
             {
-                var source = e.Data.GetData(typeof(ModificationContainer)) as ModificationContainer;
-                var target = ((ListBoxItem)(sender)).DataContext as ModificationContainer;
-
-                var sourceIndex = ModsList.Items.IndexOf(source);
-                var targetIndex = ModsList.Items.IndexOf(target);
-                MoveModInList(source, sourceIndex, targetIndex);
+                var data = (ModificationContainer)addonData;
+                data.BruteCancelDownload();
             }
-        }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Mouse.LeftButton == MouseButtonState.Pressed)
-                this.DragMove();
+            foreach (var modData in ModsList.Items)
+            {
+                var data = (ModificationContainer)modData;
+                data.BruteCancelDownload();
+            }
         }
 
         private void CancelAllAddonsDownloads()
