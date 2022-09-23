@@ -619,6 +619,7 @@
             <Setter Property="AllowDrop" Value="True"/>
             <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBoxItem_PreviewMouseLeftButtonDown"/>
             <EventSetter Event="Drop" Handler="ListBoxItem_Drop" />
+            <EventSetter Event="GiveFeedback" Handler="ModsList_GiveFeedback" />
         </Style>
 
         <DataTemplate x:Key="VersionTemplate" >
@@ -650,11 +651,15 @@
                     <RowDefinition Height="33"/>
                 </Grid.RowDefinitions>
 
+                <Rectangle Fill="{DynamicResource ButtonPressedBackground}" Visibility="Hidden"  Grid.RowSpan="10" Grid.ColumnSpan="10" />
+                
                 <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
                 <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
                 <ComboBox MouseEnter="VersionsList_MouseEnter" MouseLeave="VersionsList_MouseLeave" x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
                 </ComboBox>
 
+                
+                
                 <Border BorderThickness="2" BorderBrush="{DynamicResource GenLauncherInactiveBorder}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
                 </Border>
 
@@ -710,27 +715,27 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="0.32*"></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50" AllowDrop="True"></RowDefinition>
+            <RowDefinition Height="35" AllowDrop="True"></RowDefinition>
+            <RowDefinition Height="40" AllowDrop="True"></RowDefinition>
+            <RowDefinition Height="1*" AllowDrop="True"></RowDefinition>
+            <RowDefinition Height="0.32*" AllowDrop="True"></RowDefinition>
+            <RowDefinition Height="50" AllowDrop="True"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="41"></ColumnDefinition>
-            <ColumnDefinition Width="70*"></ColumnDefinition>
-            <ColumnDefinition Width="66*"></ColumnDefinition>
-            <ColumnDefinition Width="206*"></ColumnDefinition>
-            <ColumnDefinition Width="273*"></ColumnDefinition>
-            <ColumnDefinition Width="13"></ColumnDefinition>
-            <ColumnDefinition Width="259*"></ColumnDefinition>
-            <ColumnDefinition Width="52"></ColumnDefinition>
+            <ColumnDefinition Width="41" AllowDrop="True"></ColumnDefinition>
+            <ColumnDefinition Width="70*" AllowDrop="True"></ColumnDefinition>
+            <ColumnDefinition Width="66*" AllowDrop="True"></ColumnDefinition>
+            <ColumnDefinition Width="206*" AllowDrop="True"></ColumnDefinition>
+            <ColumnDefinition Width="273*" AllowDrop="True"></ColumnDefinition>
+            <ColumnDefinition Width="13" AllowDrop="True"></ColumnDefinition>
+            <ColumnDefinition Width="259*" AllowDrop="True"></ColumnDefinition>
+            <ColumnDefinition Width="52" AllowDrop="True"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
 
 
-        <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="ModsList" ItemTemplate="{StaticResource ModificationTemplate}" SelectionChanged="ModsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
+        <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" DragOver="ModsList_DragOver" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="ModsList" ItemTemplate="{StaticResource ModificationTemplate}" SelectionChanged="ModsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
         </ListBox>
 
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="PatchesList" ItemTemplate="{StaticResource AddonsTemplate}"  SelectionChanged="PatchesList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >

@@ -12,13 +12,13 @@ using System.Windows.Media.Imaging;
 
 namespace GenLauncherNet
 {
-    public class ModificationContainer
+    public class ModificationContainer : UserControl
     {
         public GameModification ContainerModification { get; private set; }
 
         public ModificationVersion LatestVersion { get; private set; }
         public ModificationVersion SelectedVersion { get; private set; }
-        
+
         public ModificationDownloader Downloader { get; set; }
         public GridControls _GridControls { get; private set; }
         public BitmapImage ImageSource { get; }
@@ -54,6 +54,18 @@ namespace GenLauncherNet
                 LatestVersion = ContainerVersions.Last();
                 LatestVersionInfo = "Latest version: " + LatestVersion.Version;
             }
+        }
+
+        public void SetDragAndDropMod()
+        {
+            _GridControls._DragAndDropRectangle.Visibility = Visibility.Visible;
+            SetSelectedStatus();
+        }
+
+        public void RemoveDragAndDropMod()
+        {
+            _GridControls._DragAndDropRectangle.Visibility = Visibility.Hidden;
+            SetUnSelectedStatus();
         }
 
         private void SetImage()
@@ -130,7 +142,6 @@ namespace GenLauncherNet
 
         public void SetSelectedStatus()
         {
-            ContainerModification.IsSelected = true;
             _GridControls._Name.Foreground = EntryPoint.Colors.GenLauncherActiveColor;
             _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
             _GridControls._Name.FontWeight = FontWeights.Bold;
@@ -154,7 +165,6 @@ namespace GenLauncherNet
             _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherInactiveBorder;
             _GridControls._Name.FontWeight = FontWeights.Normal;
             _GridControls._ComboBox.Visibility = System.Windows.Visibility.Hidden;
-
 
             if (_GridControls._Image != null && _GridControls._ImageBorder != null)
             {
@@ -198,7 +208,10 @@ namespace GenLauncherNet
             if (LatestVersion != null && LatestVersion.ModificationType == ModificationType.Mod)
                 SetImage();
 
-            SetUnSelectedStatus();
+            if (ContainerModification.IsSelected)
+                SetSelectedStatus();
+            else
+                SetUnSelectedStatus();
 
             if (!ReadyToRun && Downloader != null)
                 PrepareControlsToDownloadMode();

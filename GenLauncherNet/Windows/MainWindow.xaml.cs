@@ -16,6 +16,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -42,7 +43,8 @@ namespace GenLauncherNet
         private volatile int downloadingCount = 0;
         private Point _dragStartPoint;
 
-        private bool mouseOverVersionList;
+        private Window _dragdropWindow = null;
+        private bool _mouseOverVersionList;
 
         public MainWindow()
         {
@@ -134,24 +136,79 @@ namespace GenLauncherNet
         {
             Point point = e.GetPosition(null);
             Vector diff = _dragStartPoint - point;
-            if (!mouseOverVersionList && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            if (!_mouseOverVersionList && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
                 var lbi = FindVisualParent<ListBoxItem>(((DependencyObject)e.OriginalSource));
                 if (lbi != null)
                 {
+                    var container = lbi.DataContext as ModificationContainer;
+
+                    if (!ModsList.SelectedItems.Contains(container))
+                    {
+                        ModsList.SelectedItems.Add(container);
+                    }
+
+                    container.SetDragAndDropMod();
+                    CreateDragDropWindow(lbi);
                     DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
+
+                    TerminateDragDropWindow();
+
+                    if (!ModsList.SelectedItems.Contains(container))
+                        ModsList.SelectedItems.Add(container);
+
+                    container.RemoveDragAndDropMod();
                 }
             }
         }
 
+        private void ModsList_DragOver(object sender, System.Windows.DragEventArgs e)
+        {
+            ListBox li = sender as ListBox;
+            ScrollViewer sv = FindVisualChild<ScrollViewer>(ModsList);
+
+            double tolerance = 40;
+            double verticalPos = e.GetPosition(li).Y;
+            double offset = 15;
+
+            if (verticalPos < tolerance)
+            {
+                sv.ScrollToVerticalOffset(sv.VerticalOffset - offset);
+            }
+            else if (verticalPos > li.ActualHeight - tolerance)
+            {
+                sv.ScrollToVerticalOffset(sv.VerticalOffset + offset);
+            }
+        }
+
+        public static childItem FindVisualChild<childItem>(DependencyObject obj) where childItem : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+
+                if (child != null && child is childItem)
+                    return (childItem)child;
+                else
+                {
+                    childItem childOfChild = FindVisualChild<childItem>(child);
+
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+
+            return null;
+        }
+
         private void VersionsList_MouseEnter(object sender, MouseEventArgs e)
         {
-            mouseOverVersionList = true;
+            _mouseOverVersionList = true;
         }
 
         private void VersionsList_MouseLeave(object sender, MouseEventArgs e)
         {
-            mouseOverVersionList = false;
+            _mouseOverVersionList = false;
         }
 
         private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -169,6 +226,17 @@ namespace GenLauncherNet
                 var sourceIndex = ModsList.Items.IndexOf(source);
                 var targetIndex = ModsList.Items.IndexOf(target);
                 MoveModInList(source, sourceIndex, targetIndex);
+
+                TerminateDragDropWindow();
+            }
+        }
+
+        private void TerminateDragDropWindow()
+        {
+            if (this._dragdropWindow != null)
+            {
+                this._dragdropWindow.Close();
+                this._dragdropWindow = null;
             }
         }
 
@@ -177,6 +245,54 @@ namespace GenLauncherNet
             if (Mouse.LeftButton == MouseButtonState.Pressed)
                 this.DragMove();
         }
+
+        private void CreateDragDropWindow(Visual dragElement)
+        {
+            this._dragdropWindow = new Window();
+            _dragdropWindow.WindowStyle = WindowStyle.None;
+            _dragdropWindow.AllowsTransparency = true;
+            _dragdropWindow.AllowDrop = false;
+            _dragdropWindow.Background = null;
+            _dragdropWindow.IsHitTestVisible = false;
+            _dragdropWindow.SizeToContent = SizeToContent.WidthAndHeight;
+            _dragdropWindow.Topmost = true;
+            _dragdropWindow.ShowInTaskbar = false;
+
+            Rectangle r = new Rectangle();
+            r.Width = ((FrameworkElement)dragElement).ActualWidth;
+            r.Height = ((FrameworkElement)dragElement).ActualHeight;
+            r.Fill = new VisualBrush(dragElement);
+            this._dragdropWindow.Content = r;
+
+            Win32Point w32Mouse = new Win32Point();
+            GetCursorPos(ref w32Mouse);
+
+            this._dragdropWindow.Left = w32Mouse.X + 1;
+            this._dragdropWindow.Top = w32Mouse.Y + 1;
+
+
+            this._dragdropWindow.Show();
+        }
+
+        private void ModsList_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            Win32Point w32Mouse = new Win32Point();
+            GetCursorPos(ref w32Mouse);
+
+            this._dragdropWindow.Left = w32Mouse.X + 1;
+            this._dragdropWindow.Top = w32Mouse.Y + 1;
+        }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetCursorPos(ref Win32Point pt);
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct Win32Point
+        {
+            public Int32 X;
+            public Int32 Y;
+        };
 
         #endregion
 
@@ -422,6 +538,7 @@ namespace GenLauncherNet
                         ((ModificationContainer)ModsList.SelectedItem).SetUnSelectedStatus();
                         ((ModificationContainer)ModsList.SelectedItem).ContainerModification.IsSelected = false;
 
+                        ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
                         ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
 
                         DisableUI();
@@ -441,6 +558,7 @@ namespace GenLauncherNet
                     UpdateVisuals();
 
                     ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
+                    ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
 
                     e.Handled = true;
                     _ignoreSelectionFlagMods = false;
@@ -547,6 +665,7 @@ namespace GenLauncherNet
                     PatchesList.UnselectAll();
                     PatchesList.SelectedItems.Add(e.AddedItems[0]);
                     ((ModificationContainer)listBox.SelectedItems[0]).SetSelectedStatus();
+                    ((ModificationContainer)listBox.SelectedItems[0]).ContainerModification.IsSelected = true;
 
                     e.Handled = true;
                     _ignoreSelectionFlagPatches = false;

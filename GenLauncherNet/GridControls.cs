@@ -21,7 +21,7 @@ namespace GenLauncherNet
         public Border _ImageBorder { get; set; }
         public ChangeLogButton _ChangeLogButton { get; set; }
         public RadioButton _MyFavorite { get; set; }
-        public System.Windows.Shapes.Rectangle _FavoriteRectangle { get; set; }
+        public System.Windows.Shapes.Rectangle _DragAndDropRectangle { get; set; }
 
         public GridControls(Grid controlGrid)
         {
@@ -49,9 +49,8 @@ namespace GenLauncherNet
                     _ChangeLogButton = children as ChangeLogButton;
                 if (children is RadioButton)
                     _MyFavorite = children as RadioButton;
-
                 if (children is System.Windows.Shapes.Rectangle)
-                    _FavoriteRectangle = children as System.Windows.Shapes.Rectangle;
+                    _DragAndDropRectangle = children as System.Windows.Shapes.Rectangle;
             }
         }
     }
