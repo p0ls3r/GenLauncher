@@ -584,7 +584,7 @@ namespace GenLauncherNet
                         CancelAllAddonsDownloads();
 
                         ((ModificationContainer)ModsList.SelectedItem).SetUnSelectedStatus();
-                        ((ModificationContainer)ModsList.SelectedItem).ContainerModification.IsSelected = false;
+                        DataHandler.UnselectAllModifications();
 
                         ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
                         ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
@@ -614,7 +614,7 @@ namespace GenLauncherNet
                 else
                 {
                     ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
-                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
+                    DataHandler.UnselectAllModifications();
                     PatchesButton.Visibility = Visibility.Hidden;
                     AddonsButton.Visibility = Visibility.Hidden;
                 }

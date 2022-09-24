@@ -251,6 +251,12 @@ namespace GenLauncherNet
             Data.AddOrUpdate(modification);
         }
 
+        internal static void UnselectAllModifications()
+        {
+            foreach (var mod in Data.Modifications)
+                mod.IsSelected = false;
+        }
+
         internal static async Task<ModificationVersion> DownloadModificationDataFromRepos(string name)
         {
             var kvp = await gitHubMainDataReader.DownloadModDataByName(name);
