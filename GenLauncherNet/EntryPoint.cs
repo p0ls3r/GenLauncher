@@ -30,8 +30,6 @@ namespace GenLauncherNet
         public const string GenLauncherVersionFolderCopySuffix = ".GenLauncherTempCopy";
         public const string GenLauncherOriginalFileSuffix = ".GenLauncherOriginalFile";
 
-      
-
         public static SessionInformation SessionInfo;
         public static ColorsInfo Colors;
         public static ColorsInfo DefaultColors;
@@ -133,25 +131,8 @@ namespace GenLauncherNet
             SetSessionInfo();
             SetColorsInfo();
 
-            CheckForVisualInfo();
-        }
-
-        private static void CheckForVisualInfo()
-        {
-            if (!File.Exists("Colors.yaml"))
-                return;
-
-            var deSerializer = new YamlDotNet.Serialization.Deserializer();
-
-            ColorsInfoString colors = new ColorsInfoString();
-
-            using (FileStream fstream = new FileStream("Colors.yaml", FileMode.OpenOrCreate))
-            {
-                colors = deSerializer.Deserialize<ColorsInfoString>(new StreamReader(fstream));
-            }
-
-            if (colors != null)
-                Colors = new ColorsInfo(colors);
+            CheckForCustomVisualInfo();
+            CheckForCustomBG();
         }
 
         private static void SetColorsInfo()
@@ -168,6 +149,32 @@ namespace GenLauncherNet
             }
 
             Colors = DefaultColors;
+        }
+
+        private static void CheckForCustomBG()
+        {
+            if (!File.Exists("GlBg.png"))
+                return;
+
+            DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.Combine(Directory.GetCurrentDirectory(), @"GlBg.png"), UriKind.Absolute)));
+        }
+
+        private static void CheckForCustomVisualInfo()
+        {
+            if (!File.Exists("Colors.yaml"))
+                return;
+
+            var deSerializer = new YamlDotNet.Serialization.Deserializer();
+
+            ColorsInfoString colors = new ColorsInfoString();
+
+            using (FileStream fstream = new FileStream("Colors.yaml", FileMode.OpenOrCreate))
+            {
+                colors = deSerializer.Deserialize<ColorsInfoString>(new StreamReader(fstream));
+            }
+
+            if (colors != null)
+                EntryPoint.DefaultColors = new ColorsInfo(colors);
         }
 
         private static void SetSessionInfo()

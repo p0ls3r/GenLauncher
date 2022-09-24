@@ -71,9 +71,8 @@ namespace GenLauncherNet
 
             SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
 
+            SetDefaultVisual();
             UpdateVisuals();
-
-            CheckForCustomBG();
         }
 
         #region Changing Visuals
@@ -89,12 +88,60 @@ namespace GenLauncherNet
             this.Title += " - Command & Conquer: Generals";
         }
 
-        private void CheckForCustomBG()
+        private void SetDefaultVisual()
         {
-            if (!File.Exists("GlBg.png"))
+            EntryPoint.Colors = EntryPoint.DefaultColors;
+        }
+
+        private void UpdateVisualResourcesForMod(ModificationContainer container)
+        {
+            if (container.Colors != null)
+            {
+                EntryPoint.Colors = container.Colors;
+                return;
+            }
+
+            if (container.ContainerModification.ColorsInformation == null)
+            {
+                SetDefaultVisual();
+                return;
+            }
+
+            container.Colors = new ColorsInfo(container.ContainerModification.ColorsInformation);
+
+            var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name, container.LatestVersion.Version + "bg");
+
+            if (!File.Exists(imageFileName))
                 return;
 
-            this.Resources["GenLauncherBackGroundImage"] = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.Combine(Directory.GetCurrentDirectory(), @"GlBg.png"), UriKind.Absolute)));
+            var stream = File.OpenRead(imageFileName);
+
+            try
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                container.Colors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/Background.png")));
+                container.Colors.GenLauncherBackgroundImage.ImageSource = bitmap;
+                stream.Close();
+            }
+            catch
+            {
+                try
+                {
+                    stream.Close();
+                    if (File.Exists(imageFileName))
+                        File.Delete(imageFileName);
+                }
+                catch
+                {
+                    //TODO logger
+                }
+            }
+
+            EntryPoint.Colors = container.Colors;
         }
 
         private void UpdateVisuals()
@@ -150,10 +197,10 @@ namespace GenLauncherNet
 
                     TerminateDragDropWindow();
 
+                    container.RemoveDragAndDropMod();
+
                     if (!ModsList.SelectedItems.Contains(container))
                         ModsList.SelectedItems.Add(container);
-
-                    container.RemoveDragAndDropMod();
                 }
             }
         }
@@ -567,62 +614,6 @@ namespace GenLauncherNet
                 }
             }
             SetFocuses();
-        }
-
-        private void SetDefaultVisual()
-        {
-            EntryPoint.Colors = EntryPoint.DefaultColors;
-        }
-
-        private void UpdateVisualResourcesForMod(ModificationContainer container)
-        {
-            if (container.Colors != null)
-            {
-                EntryPoint.Colors = container.Colors;
-                return;
-            }
-
-            if (container.ContainerModification.ColorsInformation == null)
-            {
-                SetDefaultVisual();
-                return;
-            }
-
-            container.Colors = new ColorsInfo(container.ContainerModification.ColorsInformation);
-
-            var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name, container.LatestVersion.Version + "bg");
-
-            if (!File.Exists(imageFileName))
-                return;
-
-            var stream = File.OpenRead(imageFileName);
-
-            try
-            {
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.StreamSource = stream;
-                bitmap.EndInit();
-                container.Colors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/Background.png")));
-                container.Colors.GenLauncherBackgroundImage.ImageSource = bitmap;
-                stream.Close();
-            }
-            catch
-            {
-                try
-                {
-                    stream.Close();
-                    if (File.Exists(imageFileName))
-                        File.Delete(imageFileName);
-                }
-                catch
-                {
-                    //TODO logger
-                }
-            }
-
-            EntryPoint.Colors = container.Colors;            
         }
 
         private void PatchesList_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -137,6 +137,11 @@ namespace GenLauncherNet
                     SetUnactiveProgressBar();
                 else
                     SetActiveProgressBar();
+
+                if (ContainerModification.IsSelected)
+                    SetSelectedStatus();
+                else
+                    SetUnSelectedStatus();
             }
         }
 
