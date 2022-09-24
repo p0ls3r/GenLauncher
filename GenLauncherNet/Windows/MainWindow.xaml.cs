@@ -191,16 +191,22 @@ namespace GenLauncherNet
                 {
                     var container = lbi.DataContext as ModificationContainer;
 
+                    if (!ModsList.SelectedItems.Contains(container))
+                        ModsList.SelectedItems.Add(container);
+
                     container.SetDragAndDropMod();
                     CreateDragDropWindow(lbi);
-                    DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
+                    var result = DragDrop.DoDragDrop(lbi, lbi.DataContext, DragDropEffects.Move);
 
                     TerminateDragDropWindow();
 
                     container.RemoveDragAndDropMod();
 
-                    if (!ModsList.SelectedItems.Contains(container))
+                    if (result == DragDropEffects.Move && !ModsList.SelectedItems.Contains(container))
                         ModsList.SelectedItems.Add(container);
+                    else
+                        if (result == DragDropEffects.None)
+                        container.SetSelectedStatus();
                 }
             }
         }
