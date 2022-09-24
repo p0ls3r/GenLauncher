@@ -34,7 +34,7 @@ namespace GenLauncherNet
         private ObservableCollection<ModificationContainer> AddonsListSource = new ObservableCollection<ModificationContainer>();
 
         private CancellationTokenSource tokenSource;
-        private bool updating = false;
+        private bool _updating = false;
         private bool _ignoreSelectionFlagMods = false;
         private bool _ignoreSelectionFlagPatches = false;
         private volatile bool _isGameRunning = false;
@@ -136,17 +136,13 @@ namespace GenLauncherNet
         {
             Point point = e.GetPosition(null);
             Vector diff = _dragStartPoint - point;
+
             if (!_mouseOverVersionList && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
                 var lbi = FindVisualParent<ListBoxItem>(((DependencyObject)e.OriginalSource));
                 if (lbi != null)
                 {
                     var container = lbi.DataContext as ModificationContainer;
-
-                    if (!ModsList.SelectedItems.Contains(container))
-                    {
-                        ModsList.SelectedItems.Add(container);
-                    }
 
                     container.SetDragAndDropMod();
                     CreateDragDropWindow(lbi);
@@ -269,7 +265,6 @@ namespace GenLauncherNet
 
             this._dragdropWindow.Left = w32Mouse.X + 1;
             this._dragdropWindow.Top = w32Mouse.Y + 1;
-
 
             this._dragdropWindow.Show();
         }
@@ -569,8 +564,6 @@ namespace GenLauncherNet
                     ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                     PatchesButton.Visibility = Visibility.Hidden;
                     AddonsButton.Visibility = Visibility.Hidden;
-                    SetDefaultVisual();
-                    UpdateVisuals();
                 }
             }
             SetFocuses();
@@ -1504,14 +1497,14 @@ namespace GenLauncherNet
 
         private void LauncherUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (updating)
+            if (_updating)
             {
                 LauncherUpdate.Content = "Update";
                 UpdateProgress.Text = String.Empty;
                 UpdateProgressBar.Value = 0;
                 tokenSource.Cancel();
                 EnableUI();
-                updating = false;
+                _updating = false;
             }
             else
             {
@@ -1522,7 +1515,7 @@ namespace GenLauncherNet
                     UpdateLauncher();
                     LauncherUpdate.Content = "Cancel";
                     DisableUI();
-                    updating = true;
+                    _updating = true;
                 }
             }
         }
