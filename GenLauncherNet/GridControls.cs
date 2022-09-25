@@ -20,8 +20,8 @@ namespace GenLauncherNet
         public NameTextBox _Name { get; set; }
         public Border _ImageBorder { get; set; }
         public ChangeLogButton _ChangeLogButton { get; set; }
-        public RadioButton _MyFavorite { get; set; }
         public System.Windows.Shapes.Rectangle _DragAndDropRectangle { get; set; }
+        public System.Windows.Shapes.Rectangle _UpdateRectangle { get; set; }
 
         public GridControls(Grid controlGrid)
         {
@@ -47,11 +47,10 @@ namespace GenLauncherNet
                     _Image = children as Image;
                 if (children is ChangeLogButton)
                     _ChangeLogButton = children as ChangeLogButton;
-                if (children is RadioButton)
-                    _MyFavorite = children as RadioButton;
-                if (children is System.Windows.Shapes.Rectangle)
-                    _DragAndDropRectangle = children as System.Windows.Shapes.Rectangle;
             }
+
+            _DragAndDropRectangle = controlGrid.FindName("DragAndDropBackground") as System.Windows.Shapes.Rectangle;
+            _UpdateRectangle = controlGrid.FindName("UpdateRectangle") as System.Windows.Shapes.Rectangle;
         }
     }
 }

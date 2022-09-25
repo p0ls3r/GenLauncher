@@ -651,19 +651,37 @@
                     <RowDefinition Height="33"/>
                 </Grid.RowDefinitions>
 
-                <Rectangle Fill="{DynamicResource ButtonPressedBackground}" Visibility="Hidden"  Grid.RowSpan="10" Grid.ColumnSpan="10" />
+                <Rectangle x:Name="DragAndDropBackground" Fill="{DynamicResource ButtonPressedBackground}" Visibility="Hidden"  Grid.RowSpan="10" Grid.ColumnSpan="10" />
                 
                 <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
                 <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
                 <ComboBox MouseEnter="VersionsList_MouseEnter" MouseLeave="VersionsList_MouseLeave" x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
                 </ComboBox>
 
-                
-                
                 <Border BorderThickness="2" BorderBrush="{DynamicResource GenLauncherInactiveBorder}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
                 </Border>
 
                 <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2"  HorizontalAlignment="Left" Source="{Binding ImageSource}" Height="100" Width="500" Margin="10,0,0,0" />
+
+                <Rectangle Margin="10,0,0,0" Grid.Row="2" Visibility="Hidden" x:Name="UpdateRectangle" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush x:Name="UpdateBrush">
+                            <GradientStop x:Name="GradientStop1" Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.0" />
+                            <GradientStop x:Name="GradientStop2" Color="Transparent" Offset="0.3" />
+                            <GradientStop x:Name="GradientStop3" Color="Transparent" Offset="0.6" />
+                            <GradientStop x:Name="GradientStop4" Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="UpdateBrush" Storyboard.TargetProperty="Opacity" From="0.0" To="0.75" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="7x"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
 
                 <local:InfoButton x:Name="DiscordButton" Style="{StaticResource DefaultButtonStyle}" Opacity="1" Grid.Row="2" Grid.Column="3" Height="26" Width="26" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="DiscordButton_Click" Margin="0,0,5,0">
                     <Image Source="/Images/discord.png"/>

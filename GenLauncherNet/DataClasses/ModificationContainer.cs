@@ -201,6 +201,10 @@ namespace GenLauncherNet
                 this._GridControls._ProgressBar.Background = new SolidColorBrush(EntryPoint.Colors.GenLauncherButtonSelectionColor);
                 this._GridControls._ProgressBar.BorderBrush = EntryPoint.Colors.GenLauncherBorderColor;
                 this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDownloadTextColor;
+                if (ContainerModification.ModificationType == ModificationType.Mod)
+                {
+                    this._GridControls._UpdateRectangle.Visibility = Visibility.Hidden;
+                }
             }
         }
 
@@ -248,12 +252,19 @@ namespace GenLauncherNet
             if (LatestVersion != null && LatestVersion.Installed)
             {
                 this._GridControls._UpdateButton.IsEnabled = false;
+                if (ContainerModification.ModificationType == ModificationType.Mod)
+                {
+                    this._GridControls._UpdateRectangle.Visibility = Visibility.Hidden;
+                }
             }
             else
             {
                 this._GridControls._UpdateButton.IsEnabled = true;
                 if (ContainerModification.ModificationType == ModificationType.Mod)
+                {
+                    this._GridControls._UpdateRectangle.Visibility = Visibility.Visible;
                     this._GridControls._UpdateButton.IsBlinking = true;
+                }
             }
 
             var versionListSource = new ObservableCollection<ComboBoxData>();
@@ -347,6 +358,11 @@ namespace GenLauncherNet
             this._GridControls._ComboBox.IsEnabled = false;
             this._GridControls._UpdateButton.Content = "INSTALL!";
             this.ReadyToRun = false;
+
+            if (ContainerModification.ModificationType == ModificationType.Mod)
+            {
+                this._GridControls._UpdateRectangle.Visibility = Visibility.Hidden;
+            }
         }
 
         private static int GetIndexOfItemByName(System.Windows.Controls.ComboBox box, string itemName)
