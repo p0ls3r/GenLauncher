@@ -1018,15 +1018,7 @@ namespace GenLauncherNet
 
         private async void DownloadMod(ModificationContainer modData)
         {
-            if (modData.ContainerModification.ModificationType == ModificationType.Mod)
-                ModsList.SelectedItems.Add(modData);
-
-            if (modData.ContainerModification.ModificationType == ModificationType.Addon)
-                AddonsList.SelectedItems.Add(modData);
-
-            if (modData.ContainerModification.ModificationType == ModificationType.Patch)
-                PatchesList.SelectedItems.Add(modData);
-
+            downloadingCount += 1;
             modData.SetActiveProgressBar();
 
             if (string.IsNullOrEmpty(modData.LatestVersion.S3HostLink) || string.IsNullOrEmpty(modData.LatestVersion.S3BucketName))
@@ -1035,7 +1027,30 @@ namespace GenLauncherNet
             }
             else
             {
-                var succes = await GetModFilesInfoFromS3StorageAndDownloadMod(modData);
+                modData.PrepareControlsToDownloadMode();
+                modData.SetUIMessages("Creating temporary copy and checking changes...");
+
+                string tempFolderName;
+                List<ModificationFileInfo> filesToDownload;
+
+                try
+                {
+                    var tempVersionHandler = new TempVersionHandler();
+                    tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
+
+                    await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
+                    filesToDownload = tempVersionHandler.GetFilesToDownload();
+                }
+                catch (Exception e)
+                {
+                    downloadingCount -= 1;
+                    DownloadCrashed(modData, e.Message);
+                    modData._GridControls._UpdateButton.IsEnabled = true;
+                    return;
+                }
+
+                modData._GridControls._UpdateButton.IsEnabled = true;
+                var succes = await DownloadModFilesFromS3Storage(modData, filesToDownload, tempFolderName);
 
                 if (succes)
                     return;
@@ -1043,13 +1058,12 @@ namespace GenLauncherNet
                 if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
                     await DownloadModBySimpleLink(modData);
                 else
-                {                    
+                {
                     var errorMsg = modData._GridControls._InfoTextBlock.Text;
                     DownloadCrashed(modData, errorMsg);
                 }
             }
         }
-
 
         private async Task DownloadModBySimpleLink(ModificationContainer modData)
         {
@@ -1059,6 +1073,7 @@ namespace GenLauncherNet
             modData.SetDownloader(client);
             client.ProgressChanged += DownloadProgressChanged;
             client.Done += ModificationDownloadDone;
+            modData._GridControls._UpdateButton.IsEnabled = true;
 
             try
             {
@@ -1069,36 +1084,47 @@ namespace GenLauncherNet
                 downloadingCount -= 1;
                 modData.ClearDownloader();
                 modData.SetUIMessages(e.Message);
+                modData._GridControls._UpdateButton.IsEnabled = true;
             }
         }
 
-        private async Task<bool> GetModFilesInfoFromS3StorageAndDownloadMod(ModificationContainer modData)
+        /// <summary>
+        ///     Creates temporary folder for downloaded files and returns its name.
+        /// </summary>
+        /// <param name="handler">List of files to download.</param>
+        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
+        /// <returns>
+        ///    Name of temp folder.
+        /// </returns>
+        private async Task<string> GetTempFolderName(TempVersionHandler handler, ModificationContainer modData)
         {
-            modData.PrepareControlsToDownloadMode();
-            modData.SetUIMessages("Creating temporary copy and checking changes...");
+            await handler.DownloadFilesInfoFromS3Storage(modData);
+            var tempDirectoryName = await Task.Run(() => handler.CreateTempCopyOfFolder());
 
-            List<ModificationFileInfo> filesToDownload = new List<ModificationFileInfo>();
+            return tempDirectoryName;
+        }
 
-            string tempDirectoryName;
-
+        /// <summary>
+        ///     Download modification files from S3 storage, that doesn't exists in temp folder.
+        /// </summary>
+        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
+        /// <param name="filesToDownload">List of files to download.</param>
+        /// <param name="tempDirectoryName">Temp directory, where files will be download.</param>
+        /// <returns>
+        ///     True files downloaded successfully, else false
+        /// </returns>
+        private async Task<bool> DownloadModFilesFromS3Storage(ModificationContainer modData, List<ModificationFileInfo> filesToDownload, string tempDirectoryName)
+        {
             try
             {
-                var tempVersionHandler = new TempVersionHandler();
-                await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
-                tempDirectoryName = await Task.Run(() => tempVersionHandler.CreateTempCopyOfFolder());
+                var client = new ModificationDownloader(modData);
+                modData.SetDownloader(client);
+                client.ProgressChanged += DownloadProgressChanged;
+                client.Done += ModificationDownloadDone;
 
-                filesToDownload = tempVersionHandler.GetFilesToDownload();
-            }
-            catch (Exception e)
-            {
-                downloadingCount -= 1;
-                modData.SetUIMessages(e.Message);
-                return false;
-            }
+                var result = await client.StartS3Download(filesToDownload, tempDirectoryName);
 
-            try
-            {
-                return await DownloadFilesFromS3Storage(modData, filesToDownload, tempDirectoryName);
+                return true;
             }
             catch (Exception e)
             {
@@ -1107,21 +1133,6 @@ namespace GenLauncherNet
                 modData.SetUIMessages(e.Message);
                 return false;
             }
-        }
-
-        private async Task<bool> DownloadFilesFromS3Storage(ModificationContainer modData, List<ModificationFileInfo> filesToDownload, string tempDirectoryName)
-        {
-            var client = new ModificationDownloader(modData);
-            modData.SetDownloader(client);
-            client.ProgressChanged += DownloadProgressChanged;
-            client.Done += ModificationDownloadDone;
-
-            var result = await client.StartS3Download(filesToDownload, tempDirectoryName);
-
-            if (result.Crashed && !result.Canceled)
-                return false;
-            else
-                return true;
         }
 
         #endregion
@@ -1586,6 +1597,16 @@ namespace GenLauncherNet
             {
                 if ((modData.ContainerModification.Deprecated && CreateInfoWindowForDeprecatedMod(String.Format("{0} is Deprecated.", modData.ContainerModification.Name))) || !modData.ContainerModification.Deprecated)
                 {
+                    if (modData.ContainerModification.ModificationType == ModificationType.Mod)
+                        ModsList.SelectedItems.Add(modData);
+
+                    if (modData.ContainerModification.ModificationType == ModificationType.Addon)
+                        AddonsList.SelectedItems.Add(modData);
+
+                    if (modData.ContainerModification.ModificationType == ModificationType.Patch)
+                        PatchesList.SelectedItems.Add(modData);
+
+                    modData._GridControls._UpdateButton.IsEnabled = false;
                     DownloadMod(modData);
                     e.Handled = false;
                 }
@@ -1623,7 +1644,7 @@ namespace GenLauncherNet
 
                 if (percentage == 100)
                 {
-                    message = "Unpacking...";
+                    message = "Unpacking/Preparing...";
                 }
 
                 modData.SetUIMessages(message, percentage);
