@@ -44,7 +44,7 @@ namespace GenLauncherNet
         private Point _dragStartPoint;
 
         private Window _dragdropWindow = null;
-        private bool _mouseOverVersionList;
+        private bool _DragAndDropEnabled;
 
         public MainWindow()
         {
@@ -184,7 +184,7 @@ namespace GenLauncherNet
             Point point = e.GetPosition(null);
             Vector diff = _dragStartPoint - point;
 
-            if (!_mouseOverVersionList && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            if (!_DragAndDropEnabled && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
                 var lbi = FindVisualParent<ListBoxItem>(((DependencyObject)e.OriginalSource));
                 if (lbi != null)
@@ -250,14 +250,14 @@ namespace GenLauncherNet
             return null;
         }
 
-        private void VersionsList_MouseEnter(object sender, MouseEventArgs e)
+        private void BlockDragAndDrop(object sender, MouseEventArgs e)
         {
-            _mouseOverVersionList = true;
+            _DragAndDropEnabled = true;
         }
 
-        private void VersionsList_MouseLeave(object sender, MouseEventArgs e)
+        private void EnableDragAndDrop(object sender, MouseEventArgs e)
         {
-            _mouseOverVersionList = false;
+            _DragAndDropEnabled = false;
         }
 
         private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -861,6 +861,7 @@ namespace GenLauncherNet
             if (!await GentoolHandler.CanConnectToGentoolWebSite())
             {
                 UpdateProgress.Text = "Unable to check gentool";
+
                 return;
             }
 
@@ -1403,6 +1404,7 @@ namespace GenLauncherNet
 
         private void UpdateButton_MouseEnter(object sender, MouseEventArgs e)
         {
+            _DragAndDropEnabled = true;
             var updateButton = sender as UpdateButton;
             if (updateButton != null)
                 updateButton.IsBlinking = false;

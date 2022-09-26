@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GenLauncherNet.Utility;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +9,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using GenLauncherNet.Utility;
 
 namespace GenLauncherNet
 {
@@ -59,7 +59,7 @@ namespace GenLauncherNet
         public static void Main()
         {
             try
-            {                
+            {
                 var app = new App();
 
                 if (!Utilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
@@ -115,7 +115,7 @@ namespace GenLauncherNet
             }
             catch (Exception e)
             {
-                MessageBox.Show(String.Format("Error: {0} \r\n StackTrace: {1} ", e.Message, e.StackTrace));
+                MessageBox.Show(String.Format("GenLauncher version: {2} \r\n  Error: {0} \r\n StackTrace: {1} ", e.Message, e.StackTrace, Version));
             }
         }
 
@@ -207,8 +207,6 @@ namespace GenLauncherNet
             DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory()));
             GameFilesHandler.ActivateGameFilesBack();
         }
-
-              
 
         public static bool OtherInstancesExists()
         {
@@ -453,10 +451,42 @@ namespace GenLauncherNet
             foreach (var dirInfo in directoryInfo.GetDirectories())
             {
                 if (dirInfo.Name.Contains(GenLauncherVersionFolderCopySuffix))
-                    Directory.Delete(dirInfo.FullName, true);
-                else
                 {
+                    RecursiveDeleteFolder(dirInfo);
+                }
+                else
                     DeleteTempFolders(dirInfo);
+            }
+        }
+
+        private static void RecursiveDeleteFolder(DirectoryInfo directoryInfo)
+        {
+            foreach (var dirInfo in directoryInfo.GetDirectories())
+                RecursiveDeleteFolder(dirInfo);
+
+            DeleteFilesInFolder(directoryInfo);
+
+            try
+            {
+                Directory.Delete(directoryInfo.FullName, true);
+            }
+            catch
+            {
+                //TODO logger
+            }
+        }
+
+        private static void DeleteFilesInFolder(DirectoryInfo directoryInfo)
+        {
+            foreach (var file in directoryInfo.GetFiles())
+            {
+                try
+                {
+                    File.Delete(file.FullName);
+                }
+                catch
+                {
+                    //TODO logger
                 }
             }
         }

@@ -209,7 +209,7 @@ namespace GenLauncherNet
         }
 
         public void SetUIElements(GridControls gridControls)
-        {
+        {            
             _GridControls = gridControls;
             _GridControls._UpdateButton.Refresh();
             UpdateUIelements();

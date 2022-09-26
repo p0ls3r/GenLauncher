@@ -655,7 +655,7 @@
                 
                 <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
                 <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
-                <ComboBox MouseEnter="VersionsList_MouseEnter" MouseLeave="VersionsList_MouseLeave" x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
+                <ComboBox MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
                 </ComboBox>
 
                 <Border BorderThickness="2" BorderBrush="{DynamicResource GenLauncherInactiveBorder}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
@@ -683,19 +683,19 @@
                     </Rectangle.Triggers>
                 </Rectangle>
 
-                <local:InfoButton x:Name="DiscordButton" Style="{StaticResource DefaultButtonStyle}" Opacity="1" Grid.Row="2" Grid.Column="3" Height="26" Width="26" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="DiscordButton_Click" Margin="0,0,5,0">
+                <local:InfoButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" x:Name="DiscordButton" Style="{StaticResource DefaultButtonStyle}" Opacity="1" Grid.Row="2" Grid.Column="3" Height="26" Width="26" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="DiscordButton_Click" Margin="0,0,5,0">
                     <Image Source="/Images/discord.png"/>
                 </local:InfoButton>
 
-                <local:InfoButton x:Name="ModdbButton" Style="{StaticResource DefaultButtonStyle}" Opacity="1" Grid.Row="3" Grid.Column="3" Height="29" Width="29" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="ModdbButton_Click" Margin="0,0,5,0">
+                <local:InfoButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" x:Name="ModdbButton" Style="{StaticResource DefaultButtonStyle}" Opacity="1" Grid.Row="3" Grid.Column="3" Height="29" Width="29" HorizontalAlignment="Center" Background="Transparent" Focusable="False" BorderThickness="0" Click="ModdbButton_Click" Margin="0,0,5,0">
                     <Image Source="/Images/moddb.png"/>
                 </local:InfoButton>
 
                 <ProgressBar Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="{DynamicResource GenLauncherInactiveBorder}"/>
-                <local:InfoTextBlock FontWeight="Bold" Grid.Row="4" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
-                <local:UpdateButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource UpdateButtonStyle}" Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15" MouseEnter="UpdateButton_MouseEnter"/>
-                <local:ChangeLogButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
-                <local:NetworkInfoButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
+                <local:InfoTextBlock MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" FontWeight="Bold" Grid.Row="4" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
+                <local:UpdateButton  MouseEnter="UpdateButton_MouseEnter" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource UpdateButtonStyle}" Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15"/>
+                <local:ChangeLogButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
+                <local:NetworkInfoButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
 
             </Grid>
         </DataTemplate>
@@ -750,8 +750,6 @@
             <ColumnDefinition Width="259*" AllowDrop="True"></ColumnDefinition>
             <ColumnDefinition Width="52" AllowDrop="True"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-
 
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" DragOver="ModsList_DragOver" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="ModsList" ItemTemplate="{StaticResource ModificationTemplate}" SelectionChanged="ModsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
         </ListBox>
