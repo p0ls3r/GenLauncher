@@ -8,7 +8,7 @@ namespace GenLauncherNet
 {
     public class GameModification : ModificationVersion
     {
-        public List<ModificationVersion> ModificationVersions { get; set; } = new List<ModificationVersion>();      
+        public List<ModificationVersion> ModificationVersions { get; set; } = new List<ModificationVersion>();
 
         public int NumberInList { get; set; }
 
@@ -30,6 +30,9 @@ namespace GenLauncherNet
             {
                 var modificationVersion = ModificationVersions[ModificationVersions.IndexOf(version)];
                 modificationVersion.UnionModifications(version);
+
+                if (this.ModificationType == ModificationType.Advertising)
+                    UpdateAdvertising(version);
             }
             else
                 ModificationVersions.Add(version);
@@ -38,6 +41,14 @@ namespace GenLauncherNet
                 this.Installed = true;
 
             this.UnionModifications(version);
+        }
+
+        private void UpdateAdvertising(ModificationVersion version)
+        {
+            this.ModDBLink = version.ModDBLink;
+            this.NetworkInfo = version.NetworkInfo;
+            this.DiscordLink = version.DiscordLink;
+            this.SimpleDownloadLink = version.SimpleDownloadLink;
         }
 
         public override bool Equals(object obj)

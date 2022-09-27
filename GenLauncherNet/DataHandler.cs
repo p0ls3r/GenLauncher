@@ -25,6 +25,9 @@ namespace GenLauncherNet
         private static string startPath = Directory.GetCurrentDirectory();
         private static HashSet<ModificationReposVersion> downloadedModsInfo = new HashSet<ModificationReposVersion>();
         private static HashSet<ModificationVersion> downloadedReposContent = new HashSet<ModificationVersion>();
+        private static List<AdvertisingData> AdvData = new List<AdvertisingData>();
+
+        private static ModificationReposVersion Advertising;
 
         private static HttpClient LogoDownloader = new HttpClient();
 
@@ -49,7 +52,7 @@ namespace GenLauncherNet
 
                 foreach (var reposMod in ReposMods)
                 {
-                    await DownloadImagesIfTheyNotExist(reposMod);
+                    await DownloadImages(reposMod);
                     AddDownloadedModificationData(reposMod);
                 }
 
@@ -134,6 +137,15 @@ namespace GenLauncherNet
         #endregion
 
         #region DataGetters
+
+        internal static ModificationVersion GetAdvertising()
+        {
+            //TODO maybe in far future make more than 1 advertising
+            if (Advertising != null)
+                return new ModificationVersion(Advertising);
+            else
+                return null;
+        }
 
         internal static GameModification GetSelectedMod()
         {
@@ -263,53 +275,9 @@ namespace GenLauncherNet
             if (!MofificationsAndAddons.ContainsKey(kvp.Key))
                 MofificationsAndAddons.Add(kvp.Key, kvp.Value);
 
-            await DownloadImagesIfTheyNotExist(kvp.Key);
+            await DownloadImages(kvp.Key);
             AddDownloadedModificationData(kvp.Key);
             return new ModificationVersion(kvp.Key);
-        }
-
-        private static async Task DownloadImagesIfTheyNotExist(ModificationReposVersion mod)
-        {
-            if (!String.IsNullOrEmpty(mod.UIImageSourceLink))
-            {
-                try
-                {
-                    if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name)))
-                        Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name));
-
-                    if (!File.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version)))
-                        using (var stream = await LogoDownloader.GetStreamAsync(mod.UIImageSourceLink))
-                        {
-                            using (var fileStream = new FileStream(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version), FileMode.CreateNew))
-                            {
-                                await stream.CopyToAsync(fileStream);
-                            }
-                        }
-                }
-                catch
-                {
-
-                }
-            }
-
-            if (mod.ColorsInformation != null && !String.IsNullOrEmpty(mod.ColorsInformation.GenLauncherBackgroundImageLink))
-            {
-                try
-                {
-                    if (!File.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version + "bg")))
-                        using (var stream = await LogoDownloader.GetStreamAsync(mod.ColorsInformation.GenLauncherBackgroundImageLink))
-                        {
-                            using (var fileStream = new FileStream(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name, mod.Version + "bg"), FileMode.CreateNew))
-                            {
-                                await stream.CopyToAsync(fileStream);
-                            }
-                        }
-                }
-                catch
-                {
-
-                }
-            }
         }
 
         private static void AddDownloadedModificationData(ModificationReposVersion reposVersion)
@@ -466,7 +434,7 @@ namespace GenLauncherNet
 
         private static void DeleteOutdatedModifications()
         {
-            var modVersions = GetAllModsVersionsList();
+            var modVersions = GetAllModsVersionsList().Where(m => m.ModificationType != ModificationType.Advertising);
 
             foreach (var modVersion in modVersions)
             {
@@ -555,10 +523,75 @@ namespace GenLauncherNet
             Version = reposData.LauncherVersion;
             DownloadLink = reposData.DownloadLink;
 
+            AdvData = reposData.AdvData;
             gitHubMainDataReader = new GitHubMainDataReader(reposData);
+
+            await DownloadAdvertisingData(gitHubMainDataReader);
+        }
+
+        private static async Task DownloadAdvertisingData(GitHubMainDataReader gitHubMainDataReader)
+        {
+            //TODO maybe make more than 1 advertasing in far future
+            var advData = AdvData[0];
+            Advertising = await gitHubMainDataReader.DownloadAdvertisingInfo(advData.ModLink);
+
+            var folderName = advData.ModName.Trim(Path.GetInvalidFileNameChars());
+            var dirInfo = new DirectoryInfo(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName));
+            var filesCount = dirInfo.GetFiles().Length;
+
+            if (filesCount != advData.ImagesData.Count)
+                foreach(var image in dirInfo.GetFiles())
+                {
+                    try
+                    {
+                        File.Delete(image.FullName);
+                    }
+                    catch
+                    {
+                        //TODO logger
+                    }
+                }
+
+            var i = 0;
+            foreach (var imageLink in advData.ImagesData)
+            {
+                await DownloadImageIfItsNotExist(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, advData.ModName.Trim(Path.GetInvalidFileNameChars())), i.ToString(), imageLink);
+                i++;
+            }
         }
 
         #endregion
+
+        private static async Task DownloadImageIfItsNotExist(string path, string fileName, string link)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                if (!File.Exists(Path.Combine(path, fileName)))
+                    using (var stream = await LogoDownloader.GetStreamAsync(link))
+                    {
+                        using (var fileStream = new FileStream(Path.Combine(path, fileName), FileMode.CreateNew))
+                        {
+                            await stream.CopyToAsync(fileStream);
+                        }
+                    }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private static async Task DownloadImages(ModificationReposVersion mod)
+        {
+            if (!String.IsNullOrEmpty(mod.UIImageSourceLink))
+                await DownloadImageIfItsNotExist(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name), mod.Version, mod.UIImageSourceLink);
+
+            if (mod.ColorsInformation != null && !String.IsNullOrEmpty(mod.ColorsInformation.GenLauncherBackgroundImageLink))
+                await DownloadImageIfItsNotExist(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, mod.Name), mod.Version + "bg", mod.ColorsInformation.GenLauncherBackgroundImageLink);
+        }
 
         #region Save/Load
         public static void ReadData()
@@ -627,7 +660,7 @@ namespace GenLauncherNet
             {
 
             }
-        }        
+        }
         #endregion
     }
 }

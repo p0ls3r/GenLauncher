@@ -28,7 +28,10 @@ namespace GenLauncherNet
             {
                 case ModificationType.Mod:
                     AddOrUpdateModificationVersion(Modifications, modificationVersion);
-                    break;              
+                    break;
+                case ModificationType.Advertising:
+                    AddOrUpdateModificationVersion(Modifications, modificationVersion);
+                    break;
                 case ModificationType.Addon:
                     if (String.IsNullOrEmpty(modificationVersion.DependenceName))
                         return;

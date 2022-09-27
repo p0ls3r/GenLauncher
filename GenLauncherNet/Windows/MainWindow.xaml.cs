@@ -44,7 +44,7 @@ namespace GenLauncherNet
         private Point _dragStartPoint;
 
         private Window _dragdropWindow = null;
-        private bool _DragAndDropEnabled;
+        private bool _DragAndDropDisable;
 
         public MainWindow()
         {
@@ -184,11 +184,12 @@ namespace GenLauncherNet
             Point point = e.GetPosition(null);
             Vector diff = _dragStartPoint - point;
 
-            if (!_DragAndDropEnabled && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            if (!_DragAndDropDisable && e.LeftButton == MouseButtonState.Pressed && (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
                 var lbi = FindVisualParent<ListBoxItem>(((DependencyObject)e.OriginalSource));
                 if (lbi != null)
                 {
+                    _DragAndDropDisable = true;
                     var container = lbi.DataContext as ModificationContainer;
 
                     if (!ModsList.SelectedItems.Contains(container))
@@ -207,6 +208,8 @@ namespace GenLauncherNet
                     else
                         if (result == DragDropEffects.None)
                         container.SetSelectedStatus();
+
+                    _DragAndDropDisable = false;
                 }
             }
         }
@@ -252,12 +255,12 @@ namespace GenLauncherNet
 
         private void BlockDragAndDrop(object sender, MouseEventArgs e)
         {
-            _DragAndDropEnabled = true;
+            _DragAndDropDisable = true;
         }
 
         private void EnableDragAndDrop(object sender, MouseEventArgs e)
         {
-            _DragAndDropEnabled = false;
+            _DragAndDropDisable = false;
         }
 
         private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -343,11 +346,6 @@ namespace GenLauncherNet
         };
 
         #endregion
-
-        private void Exit()
-        {
-            this.Close();
-        }
 
         #region SelfUpdater
         private bool IsCurrentVersionOutDated()
@@ -448,6 +446,43 @@ namespace GenLauncherNet
 
         #region ListsContentFillers
 
+        private void UpdateModsList()
+        {
+            ModsList.ItemsSource = null;
+            ModsListSource = new ObservableCollection<ModificationContainer>();
+            ModsList.Items.Clear();
+
+            var mods = DataHandler.GetMods().OrderBy(m => m.NumberInList).ToList();
+
+            if (mods.Where(m => m.ModificationType == ModificationType.Advertising).Count() == 0 && mods.Count >= 3 && EntryPoint.SessionInfo.Connected)
+            {
+                var advertising = DataHandler.GetAdvertising();
+                DataHandler.AddModModification(advertising);
+                var advInData = DataHandler.GetMods().Where(m => String.Equals(m.Name, advertising.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                var tempModBox = new ModificationContainer(advInData);
+                ModsListSource.Add(tempModBox);
+            }
+            else
+            if (mods.Where(m => m.ModificationType == ModificationType.Advertising).Count() != 0 && EntryPoint.SessionInfo.Connected)
+            {
+                var advertising = DataHandler.GetAdvertising();
+                DataHandler.AddModModification(advertising);
+            }
+
+            if (mods.Count > 0)
+            {
+                foreach (var mod in mods)
+                {
+                    ModsListSource.Add(new ModificationContainer(mod));
+                }
+            }
+            else
+                AddModButton.IsBlinking = true;
+
+            ModsList.ItemsSource = ModsListSource;
+            SetIndexNumbersForMods();
+        }
+
         private void UpdatePatchesList()
         {
             PatchesList.ItemsSource = null;
@@ -490,29 +525,6 @@ namespace GenLauncherNet
             AddonsList.ItemsSource = AddonsListSource;
         }
 
-        private void UpdateModsList()
-        {
-            ModsList.ItemsSource = null;
-            ModsListSource = new ObservableCollection<ModificationContainer>();
-            ModsList.Items.Clear();
-
-            var mods = DataHandler.GetMods().OrderBy(m => m.NumberInList).ToList();
-
-            if (mods.Count > 0)
-            {
-                ModsListSource = new ObservableCollection<ModificationContainer>();
-
-                foreach (var mod in mods)
-                {
-                    ModsListSource.Add(new ModificationContainer(mod));
-                }
-            }
-            else
-                AddModButton.IsBlinking = true;
-
-            ModsList.ItemsSource = ModsListSource;
-        }
-
         public async void AddModToList(string modName)
         {
             DisableUI();
@@ -534,6 +546,11 @@ namespace GenLauncherNet
         #endregion
 
         #region MainWindowEvents
+
+        private void Exit()
+        {
+            this.Close();
+        }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -994,7 +1011,7 @@ namespace GenLauncherNet
         {
             var currentMod = DataHandler.GetSelectedMod();
 
-            if (currentMod != null)
+            if (currentMod != null && currentMod.ModificationType != ModificationType.Advertising)
             {
                 PatchesButton.Content = "Patches for " + currentMod.Name;
                 AddonsButton.Content = "Addons for " + currentMod.Name;
@@ -1404,7 +1421,7 @@ namespace GenLauncherNet
 
         private void UpdateButton_MouseEnter(object sender, MouseEventArgs e)
         {
-            _DragAndDropEnabled = true;
+            _DragAndDropDisable = true;
             var updateButton = sender as UpdateButton;
             if (updateButton != null)
                 updateButton.IsBlinking = false;
@@ -1434,6 +1451,9 @@ namespace GenLauncherNet
 
         private async void ButtonWorldBuilder_Click(object sender, RoutedEventArgs e)
         {
+            if (DataHandler.GetSelectedMod() != null && DataHandler.GetSelectedMod().ModificationType == ModificationType.Advertising)
+                return;
+
             if (_isWBRunning)
             {
                 CreateErrorWindow("Launch aborted", "World Builder is already running!");
@@ -1474,6 +1494,9 @@ namespace GenLauncherNet
 
         private async void Launch_Click(object sender, RoutedEventArgs e)
         {
+            if (DataHandler.GetSelectedMod() != null && DataHandler.GetSelectedMod().ModificationType == ModificationType.Advertising)
+                return;
+
             if (_isGameRunning)
             {
                 CreateErrorWindow("Launch aborted", "Generals game is already running!");
@@ -1594,6 +1617,16 @@ namespace GenLauncherNet
         {
             var modGrid = (Grid)(((Button)sender).Parent);
             var modData = (ModificationContainer)modGrid.DataContext;
+            
+
+            if (modData.ContainerModification.ModificationType == ModificationType.Advertising && !string.IsNullOrEmpty(modData.ContainerModification.SimpleDownloadLink))
+            {
+                var newsUrl = modData.ContainerModification.SimpleDownloadLink;
+                newsUrl = newsUrl.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {newsUrl}") { CreateNoWindow = true });
+                modData._GridControls._InfoTextBlock.Text = "Thank you!";
+                return;
+            }
 
             if (modData.Downloader == null)
             {
@@ -1739,6 +1772,11 @@ namespace GenLauncherNet
 
             var newsUrl = modData.ContainerModification.NewsLink;
 
+            if (modData.ContainerModification.ModificationType == ModificationType.Advertising)
+            {
+                modData._GridControls._InfoTextBlock.Text = "Thank you!";
+            }
+
             if (!string.IsNullOrEmpty(newsUrl))
             {
                 newsUrl = newsUrl.Replace("&", "^&");
@@ -1752,6 +1790,11 @@ namespace GenLauncherNet
             var modData = (ModificationContainer)modGrid.DataContext;
 
             var networkUrl = modData.ContainerModification.NetworkInfo;
+
+            if (modData.ContainerModification.ModificationType == ModificationType.Advertising)
+            {
+                modData._GridControls._InfoTextBlock.Text = "Thank you!";
+            }
 
             if (!string.IsNullOrEmpty(networkUrl))
             {

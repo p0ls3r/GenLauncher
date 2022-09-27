@@ -14,6 +14,8 @@ namespace GenLauncherNet
         public List<ModAddonsAndPatches> modDatas = new List<ModAddonsAndPatches>();
 
         public List<string> globalAddonsData = new List<string>();
+
+        public List<AdvertisingData> AdvData = new List<AdvertisingData>();
     }
 
     public class ModAddonsAndPatches
@@ -29,6 +31,17 @@ namespace GenLauncherNet
             ModPatches = new List<string>();
             ModAddons = new List<string>();
         }
+    }
 
+    public class AdvertisingData
+    {
+        public string ModName { get; set; }
+        public string ModLink { get; set; }
+        public List<string> ImagesData { get; set; }
+
+        public AdvertisingData()
+        {
+            ImagesData = new List<string>();
+        }
     }
 }

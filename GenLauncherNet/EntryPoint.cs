@@ -184,7 +184,8 @@ namespace GenLauncherNet
             if (File.Exists("W3DZH.big"))
             {
                 SessionInfo.GameMode = Game.ZeroHour;
-                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataMk3.yaml";
+                //ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataMk3.yaml";
+                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataTest.yaml";
                 FillZHFiles();
                 return;
             }

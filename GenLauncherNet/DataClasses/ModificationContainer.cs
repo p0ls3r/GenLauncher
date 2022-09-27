@@ -29,6 +29,8 @@ namespace GenLauncherNet
 
         public ColorsInfo Colors { get; set; }
 
+        private int imageIndex = -1;
+
         public ModificationContainer(GameModification modification)
         {
             ContainerModification = modification;
@@ -52,7 +54,13 @@ namespace GenLauncherNet
                 SelectedVersion.IsSelected = true;
 
                 LatestVersion = ContainerVersions.Last();
-                LatestVersionInfo = "Latest version: " + LatestVersion.Version;
+
+                if (ContainerModification.ModificationType == ModificationType.Advertising)
+                {
+                    LatestVersionInfo = LatestVersion.Version;
+                }
+                else
+                    LatestVersionInfo = "Latest version: " + LatestVersion.Version;
             }
         }
 
@@ -70,11 +78,43 @@ namespace GenLauncherNet
 
         private void SetImage()
         {
-            var imageFileName = Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
-            if (!File.Exists(imageFileName))
+            if (ContainerModification.ModificationType == ModificationType.Mod)
+            {
+                var imageFileName = Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+                SetImage(imageFileName);
+            }
+
+            if (ContainerModification.ModificationType == ModificationType.Advertising)
+            {
+                var folderName = ContainerModification.Name.Trim(Path.GetInvalidFileNameChars());
+
+                var dirInfo = new DirectoryInfo(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName));
+
+                var filesCount = dirInfo.GetFiles().Length;
+
+                if (imageIndex == -1)
+                {
+                    var rand = new Random();
+
+                    var k = rand.Next(0, 50);
+
+                    if (k == 0)
+                        imageIndex = rand.Next(filesCount / 2, filesCount);
+                    else
+                        imageIndex = rand.Next(0, filesCount / 2);
+                }
+
+                var imageFileName = Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName, imageIndex.ToString());
+                SetImage(imageFileName);
+            }
+        }
+
+        private void SetImage(string path)
+        {
+            if (!File.Exists(path))
                 return;
 
-            var stream = File.OpenRead(imageFileName);
+            var stream = File.OpenRead(path);
 
             try
             {
@@ -91,8 +131,8 @@ namespace GenLauncherNet
                 try
                 {
                     stream.Close();
-                    if (File.Exists(imageFileName))
-                        File.Delete(imageFileName);
+                    if (File.Exists(path))
+                        File.Delete(path);
                 }
                 catch
                 {
@@ -150,7 +190,14 @@ namespace GenLauncherNet
             _GridControls._Name.Foreground = EntryPoint.Colors.GenLauncherActiveColor;
             _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
             _GridControls._Name.FontWeight = FontWeights.Bold;
-            _GridControls._ComboBox.Visibility = System.Windows.Visibility.Visible;
+            if (ContainerModification.ModificationType == ModificationType.Advertising)
+            {
+                _GridControls._ComboBox.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                _GridControls._ComboBox.Visibility = Visibility.Visible;
+            }
 
             if (_GridControls._Image != null && _GridControls._ImageBorder != null)
             {
@@ -209,12 +256,12 @@ namespace GenLauncherNet
         }
 
         public void SetUIElements(GridControls gridControls)
-        {            
+        {
             _GridControls = gridControls;
             _GridControls._UpdateButton.Refresh();
             UpdateUIelements();
 
-            if (LatestVersion != null && LatestVersion.ModificationType == ModificationType.Mod)
+            if (LatestVersion != null && (LatestVersion.ModificationType == ModificationType.Mod || LatestVersion.ModificationType == ModificationType.Advertising))
                 SetImage();
 
             if (ContainerModification.IsSelected)
@@ -233,11 +280,28 @@ namespace GenLauncherNet
                 Downloader = null;
                 this._GridControls._ProgressBar.Value = 0;
                 this._GridControls._InfoTextBlock.Text = String.Empty;
-                this._GridControls._UpdateButton.Content = "UPDATE!";
+
+                if (ContainerModification.ModificationType != ModificationType.Advertising)
+                    this._GridControls._UpdateButton.Content = "UPDATE!";
+                else
+                {
+                    this._GridControls._UpdateButton.Content = "Donation Alerts";
+                    this._GridControls._ChangeLogButton.Content = "Boosty.to";
+                    this._GridControls._NetworkInfo.Content = "Donate more $";
+                    this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
+                }
 
                 UpdataContainerData();
-                UpdateComboBox();
-                SelectItemInComboBox();
+
+                if (ContainerModification.ModificationType != ModificationType.Advertising)
+                {
+                    UpdateComboBox();
+                    SelectItemInComboBox();
+                }
+                else
+                {
+                    _GridControls._ComboBox.Visibility = Visibility.Hidden;
+                }
             }
 
             if (String.IsNullOrEmpty(ContainerModification.NewsLink))

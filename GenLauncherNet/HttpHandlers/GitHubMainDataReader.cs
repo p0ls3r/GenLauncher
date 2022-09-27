@@ -55,6 +55,21 @@ namespace GenLauncherNet
             return mods;
         }
 
+        public async Task<ModificationReposVersion> DownloadAdvertisingInfo(string advLink)
+        {
+            try
+            {
+                using (var response = await _httpClient.GetAsync(advLink, HttpCompletionOption.ResponseHeadersRead))
+                    return await DownloadDataFromHttpResponseMessage(response);
+            }
+            catch
+            {
+                //TODO logger
+            }
+
+            return null;
+        }
+
         public async Task<KeyValuePair<ModificationReposVersion, ModAddonsAndPatches>> DownloadModData(ModAddonsAndPatches modData)
         {
             ModificationReposVersion modification = null;

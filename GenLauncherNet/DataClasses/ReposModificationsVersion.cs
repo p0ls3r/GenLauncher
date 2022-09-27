@@ -28,6 +28,7 @@ namespace GenLauncherNet
 
         public string NetworkInfo { get; set; }
         public bool Deprecated { get; set; }
+        public string SupportLink { get; set; }
 
         public ColorsInfoString ColorsInformation { get; set; }
 
@@ -73,6 +74,7 @@ namespace GenLauncherNet
     {
         Mod,
         Addon,
-        Patch
+        Patch,
+        Advertising
     }
 }
