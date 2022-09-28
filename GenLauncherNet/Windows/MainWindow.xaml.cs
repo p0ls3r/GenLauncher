@@ -457,16 +457,22 @@ namespace GenLauncherNet
             if (mods.Where(m => m.ModificationType == ModificationType.Advertising).Count() == 0 && mods.Count >= 3 && EntryPoint.SessionInfo.Connected)
             {
                 var advertising = DataHandler.GetAdvertising();
-                DataHandler.AddModModification(advertising);
-                var advInData = DataHandler.GetMods().Where(m => String.Equals(m.Name, advertising.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-                var tempModBox = new ModificationContainer(advInData);
-                ModsListSource.Add(tempModBox);
+                if (advertising != null)
+                {
+                    DataHandler.AddModModification(advertising);
+                    var advInData = DataHandler.GetMods().Where(m => String.Equals(m.Name, advertising.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                    var tempModBox = new ModificationContainer(advInData);
+                    ModsListSource.Add(tempModBox);
+                }
             }
             else
             if (mods.Where(m => m.ModificationType == ModificationType.Advertising).Count() != 0 && EntryPoint.SessionInfo.Connected)
             {
                 var advertising = DataHandler.GetAdvertising();
-                DataHandler.AddModModification(advertising);
+                if (advertising != null)
+                {
+                    DataHandler.AddModModification(advertising);
+                }
             }
 
             if (mods.Count > 0)

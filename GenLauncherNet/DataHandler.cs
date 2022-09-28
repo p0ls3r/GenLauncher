@@ -526,7 +526,10 @@ namespace GenLauncherNet
             AdvData = reposData.AdvData;
             gitHubMainDataReader = new GitHubMainDataReader(reposData);
 
-            await DownloadAdvertisingData(gitHubMainDataReader);
+            if (AdvData.Count > 0)
+            {
+                await DownloadAdvertisingData(gitHubMainDataReader);
+            }
         }
 
         private static async Task DownloadAdvertisingData(GitHubMainDataReader gitHubMainDataReader)
@@ -536,21 +539,25 @@ namespace GenLauncherNet
             Advertising = await gitHubMainDataReader.DownloadAdvertisingInfo(advData.ModLink);
 
             var folderName = advData.ModName.Trim(Path.GetInvalidFileNameChars());
-            var dirInfo = new DirectoryInfo(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName));
-            var filesCount = dirInfo.GetFiles().Length;
 
-            if (filesCount != advData.ImagesData.Count)
-                foreach(var image in dirInfo.GetFiles())
-                {
-                    try
+            if (Directory.Exists(folderName))
+            {
+                var dirInfo = new DirectoryInfo(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName));
+                var filesCount = dirInfo.GetFiles().Length;
+
+                if (filesCount != advData.ImagesData.Count)
+                    foreach (var image in dirInfo.GetFiles())
                     {
-                        File.Delete(image.FullName);
+                        try
+                        {
+                            File.Delete(image.FullName);
+                        }
+                        catch
+                        {
+                            //TODO logger
+                        }
                     }
-                    catch
-                    {
-                        //TODO logger
-                    }
-                }
+            }
 
             var i = 0;
             foreach (var imageLink in advData.ImagesData)
