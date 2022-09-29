@@ -115,7 +115,7 @@ namespace GenLauncherNet
             }
             catch (Exception e)
             {
-                MessageBox.Show(String.Format("GenLauncher version: {2} \r\n  Error: {0} \r\n StackTrace: {1} ", e.Message, e.StackTrace, Version));
+                MessageBox.Show(String.Format("GenLauncher version: {2} \r\n GenLauncher tech in support in discord: {3} \r\n Error: {0} \r\n StackTrace: {1} ", e.Message, e.StackTrace, Version, @"https://discord.gg/fFGpudz5hV"));
             }
         }
 
@@ -181,16 +181,15 @@ namespace GenLauncherNet
         {
             SessionInfo = new SessionInformation();
 
-            if (File.Exists("W3DZH.big"))
+            if (File.Exists("WindowZH.big"))
             {
                 SessionInfo.GameMode = Game.ZeroHour;
-                //ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataMk3.yaml";
-                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataTest.yaml";
+                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH.yaml";
                 FillZHFiles();
                 return;
             }
 
-            if (File.Exists("W3D.big"))
+            if (File.Exists("Window.big"))
             {
                 SessionInfo.GameMode = Game.Generals;
                 ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals.yaml";
@@ -323,6 +322,13 @@ namespace GenLauncherNet
             GameFiles.Add("TerrainZH.big".ToLower());
             GameFiles.Add("TexturesZH.big".ToLower());
             GameFiles.Add("W3DEnglishZH.big".ToLower());
+            GameFiles.Add("W3DGermanZH.big".ToLower());
+            GameFiles.Add("W3DChineseZH.big".ToLower());
+            GameFiles.Add("W3DGerman2ZH.big".ToLower());
+            GameFiles.Add("W3DItalianZH.big".ToLower());
+            GameFiles.Add("W3DKoreanZH.big".ToLower());
+            GameFiles.Add("W3DPolishZH.big".ToLower());
+            GameFiles.Add("W3DSpanishZH.big".ToLower());
             GameFiles.Add("W3DZH.big".ToLower());
             GameFiles.Add("WindowZH.big".ToLower());
         }
@@ -367,6 +373,12 @@ namespace GenLauncherNet
             GameFiles.Add("SpeechKorean.big".ToLower());
             GameFiles.Add("SpeechPolish.big".ToLower());
             GameFiles.Add("SpeechSpanish.big".ToLower());
+            GameFiles.Add("W3DChinese.big".ToLower());
+            GameFiles.Add("W3DGerman2.big".ToLower());
+            GameFiles.Add("W3DItalian.big".ToLower());
+            GameFiles.Add("W3DKorean.big".ToLower());
+            GameFiles.Add("W3DPolish.big".ToLower());
+            GameFiles.Add("W3DSpanish.big".ToLower());
             GameFiles.Add("Terrain.big".ToLower());
             GameFiles.Add("Textures.big".ToLower());
             GameFiles.Add("W3D.big".ToLower());
@@ -376,7 +388,7 @@ namespace GenLauncherNet
         private static bool IsLauncherInGameFolder()
         {
             //TODO improve checking
-            if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") && (File.Exists("W3DZH.big") || File.Exists("W3D.big")))
+            if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") && (File.Exists("WindowZH.big") || File.Exists("Window.big")))
             {
                 return true;
             }
@@ -390,31 +402,28 @@ namespace GenLauncherNet
         {
             foreach (var file in directoryInfo.GetFiles())
             {
-                if (file.FullName.Contains(EntryPoint.GenLauncherReplaceSuffix))
-                {
-                    if (!File.Exists(file.FullName.Replace(EntryPoint.GenLauncherReplaceSuffix, string.Empty)))
-                        File.Move(file.FullName, file.FullName.Replace(EntryPoint.GenLauncherReplaceSuffix, string.Empty));
-                    else
-                        File.Delete(file.FullName);
-                    continue;
-                }
-
-                if (file.FullName.Contains(EntryPoint.GenLauncherOriginalFileSuffix))
-                {
-                    if (!File.Exists(file.FullName.Replace(EntryPoint.GenLauncherReplaceSuffix, string.Empty)))
-                        File.Move(file.FullName, file.FullName.Replace(EntryPoint.GenLauncherReplaceSuffix, string.Empty));
-                    else
-                    {
-                        File.Delete(file.FullName.Replace(EntryPoint.GenLauncherReplaceSuffix, string.Empty));
-                        File.Move(file.FullName, file.FullName.Replace(EntryPoint.GenLauncherReplaceSuffix, string.Empty));
-                    }
-                }
+                RemoveFileSuffix(file, EntryPoint.GenLauncherReplaceSuffix);
+                RemoveFileSuffix(file, EntryPoint.GenLauncherOriginalFileSuffix);
             }
 
             foreach (var dirInfo in directoryInfo.GetDirectories())
             {
                 if (!dirInfo.Name.Contains(GenLauncherModsFolder))
                     RenameReplacedFilesBack(dirInfo);
+            }
+        }
+
+        private static void RemoveFileSuffix(FileInfo file, string suffix)
+        {
+            if (file.FullName.Contains(suffix))
+            {
+                if (!File.Exists(file.FullName.Replace(suffix, string.Empty)))
+                    File.Move(file.FullName, file.FullName.Replace(suffix, string.Empty));
+                else
+                {
+                    File.Delete(file.FullName.Replace(suffix, string.Empty));
+                    File.Move(file.FullName, file.FullName.Replace(suffix, string.Empty));
+                }
             }
         }
 

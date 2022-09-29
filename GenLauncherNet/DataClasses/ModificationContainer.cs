@@ -96,7 +96,7 @@ namespace GenLauncherNet
                 {
                     var rand = new Random();
 
-                    var k = rand.Next(0, 50);
+                    var k = rand.Next(0, 30);
 
                     if (k == 0)
                         imageIndex = rand.Next(filesCount / 2, filesCount);
@@ -287,7 +287,7 @@ namespace GenLauncherNet
                 {
                     this._GridControls._UpdateButton.Content = "Donation Alerts";
                     this._GridControls._ChangeLogButton.Content = "Boosty.to";
-                    this._GridControls._NetworkInfo.Content = "Donate more $";
+                    this._GridControls._NetworkInfo.Content = "My Youtube (Ru)";
                     this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
                 }
 
@@ -309,6 +309,9 @@ namespace GenLauncherNet
 
             if (String.IsNullOrEmpty(ContainerModification.NetworkInfo))
                 _GridControls._NetworkInfo.Visibility = Visibility.Hidden;
+
+            if (String.IsNullOrEmpty(ContainerModification.SupportLink) && _GridControls._SupportButton != null)
+                _GridControls._SupportButton.Visibility = Visibility.Hidden;
         }
 
         public void UpdateComboBox()

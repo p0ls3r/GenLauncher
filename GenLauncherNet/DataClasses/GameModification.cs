@@ -49,6 +49,7 @@ namespace GenLauncherNet
             this.NetworkInfo = version.NetworkInfo;
             this.DiscordLink = version.DiscordLink;
             this.SimpleDownloadLink = version.SimpleDownloadLink;
+            this.SupportLink = version.SupportLink;
         }
 
         public override bool Equals(object obj)

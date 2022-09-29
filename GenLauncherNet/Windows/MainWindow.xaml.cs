@@ -1527,7 +1527,12 @@ namespace GenLauncherNet
                 var activeVersions = GetVersionOfActiveVersions();
                 _isGameRunning = true;
                 EnableUI();
-                await GameLauncher.PrepareAndRunGame(activeVersions);
+
+                var modContainer = ModsList.SelectedItems[0] as ModificationContainer;
+
+                if (await GameLauncher.PrepareAndRunGame(activeVersions))
+                    modContainer._GridControls._SupportButton.IsBlinking = true;
+
                 _isGameRunning = false;
             }
 
@@ -1806,6 +1811,23 @@ namespace GenLauncherNet
             {
                 networkUrl = networkUrl.Replace("&", "^&");
                 Process.Start(new ProcessStartInfo("cmd", $"/c start {networkUrl}") { CreateNoWindow = true });
+            }
+        }
+
+        private void Support_Click(object sender, RoutedEventArgs e)
+        {
+            var modGrid = (Grid)(((Button)sender).Parent);
+            var modData = (ModificationContainer)modGrid.DataContext;
+
+            var supportkUrl = modData.ContainerModification.SupportLink;
+
+            modData._GridControls._InfoTextBlock.Text = "Thank you!";
+
+
+            if (!string.IsNullOrEmpty(supportkUrl))
+            {
+                supportkUrl = supportkUrl.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {supportkUrl}") { CreateNoWindow = true });
             }
         }
 

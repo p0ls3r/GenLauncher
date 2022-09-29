@@ -12,12 +12,14 @@ namespace GenLauncherNet
 {
     public static class GameLauncher
     {
-        public async static Task PrepareAndRunGame(List<ModificationVersion> versions)
+        public async static Task<bool> PrepareAndRunGame(List<ModificationVersion> versions)
         {
             PrepareGameFiles(versions);
 
-            await Task.Run(() => RunGame());
+            var result = await Task.Run(() => RunGame());
             DeactivateGameFiles();
+
+            return result;
         }
 
         public async static Task PrepareAndLaunchWorldBuilder(List<ModificationVersion> versions)
@@ -155,7 +157,7 @@ namespace GenLauncherNet
             return result;
         }
 
-        private static void RunGame()
+        private static bool RunGame()
         {
             Process process;
             if (DataHandler.IsModdedExe() && File.Exists("modded.exe"))
@@ -170,10 +172,21 @@ namespace GenLauncherNet
                 exeRunning = false;
             };
 
+            var result = false;
+            var secondsPassed = 0;
+
             while (exeRunning)
             {
                 Thread.Sleep(5000);
+
+                if (secondsPassed < 120000 && !result)
+                    secondsPassed += 5000;
             }
+
+            if (secondsPassed >= 12000)
+                result = true;
+
+            return result;
         }
 
         private static void RunWorldBuilder()

@@ -61,6 +61,9 @@ namespace GenLauncherNet
             if (!String.IsNullOrEmpty(otherModificationVersion.NetworkInfo) && String.IsNullOrEmpty(this.NetworkInfo))
                 this.NetworkInfo = otherModificationVersion.NetworkInfo;
 
+            if (!String.IsNullOrEmpty(otherModificationVersion.SupportLink) && String.IsNullOrEmpty(this.SupportLink))
+                this.NetworkInfo = otherModificationVersion.SupportLink;
+
             if (!String.IsNullOrEmpty(otherModificationVersion.S3BucketName) && String.IsNullOrEmpty(this.S3BucketName))
                 this.S3BucketName = otherModificationVersion.S3BucketName;
 
@@ -127,6 +130,7 @@ namespace GenLauncherNet
             this.Deprecated = modification.Deprecated;
 
             this.ColorsInformation = modification.ColorsInformation;
+            this.SupportLink = modification.SupportLink;
         }
 
         public string GetFolderName()
