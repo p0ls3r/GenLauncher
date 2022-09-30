@@ -80,9 +80,9 @@ namespace GenLauncherNet
                     {
                         CreateMirrorForBig(sourceFile, targetFile);
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        throw new Exception("Cannot replace file: " + targetFile);
+                        throw new Exception("Cannot replace file " + targetFile + " ErrorMsg: " + e.Message);
                     }
                 }
                 else
@@ -91,9 +91,9 @@ namespace GenLauncherNet
                     {
                         CreateMirrorForNonBig(sourceFile, targetFile);
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        throw new Exception("Cannot replace file: " + targetFile);
+                        throw new Exception("Cannot replace file " + targetFile + " ErrorMsg: " + e.Message);
                     }
                 }
             }
@@ -130,9 +130,9 @@ namespace GenLauncherNet
 
                     File.Move(targetFile, targetFile + EntryPoint.GenLauncherReplaceSuffix);
                 }
-                catch
+                catch (Exception e)
                 {
-                    throw new Exception("Cannot replace file " + targetFile);
+                    throw new Exception("Cannot replace file " + targetFile + " ErrorMsg: " + e.Message);
                 }
             }
             CreateSymbolicLink(targetFile, sourceFile, SymbolicLink.File);

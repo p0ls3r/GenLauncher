@@ -62,6 +62,9 @@ namespace GenLauncherNet
                 this.NetworkInfo = otherModificationVersion.NetworkInfo;
 
             if (!String.IsNullOrEmpty(otherModificationVersion.SupportLink) && String.IsNullOrEmpty(this.SupportLink))
+                this.SupportLink = otherModificationVersion.SupportLink;
+
+            if (!String.IsNullOrEmpty(otherModificationVersion.SupportLink) && String.IsNullOrEmpty(this.SupportLink))
                 this.NetworkInfo = otherModificationVersion.SupportLink;
 
             if (!String.IsNullOrEmpty(otherModificationVersion.S3BucketName) && String.IsNullOrEmpty(this.S3BucketName))

@@ -71,7 +71,13 @@ namespace GenLauncherNet
 
             SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
 
-            SetDefaultVisual();
+            if (DataHandler.GetSelectedMod() != null)
+            {
+                UpdateVisualResourcesForMod(new ModificationContainer(DataHandler.GetSelectedMod()));
+            }
+            else
+                SetDefaultVisual();
+
             UpdateVisuals();
         }
 
