@@ -53,6 +53,9 @@ namespace GenLauncherNet
 
             await DataHandler.InitData(connected);
 
+            if (DataHandler.ReposModsNames == null)
+                connected = false;
+
             if (connected)
             {
                 var lastActivatedMod = DataHandler.GetSelectedMod();
