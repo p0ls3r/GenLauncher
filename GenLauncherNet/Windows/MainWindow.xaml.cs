@@ -1063,12 +1063,38 @@ namespace GenLauncherNet
                 string tempFolderName;
                 List<ModificationFileInfo> filesToDownload;
 
+                var tempVersionHandler = new TempVersionHandler();
                 try
                 {
-                    var tempVersionHandler = new TempVersionHandler();
-                    tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
+                    try
+                    {
+                        await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
+                    }
+                    catch (Minio.Exceptions.UnexpectedMinioException)
+                    {
+                        var mainMessage = "System clock out of sync!";
+                        var secondaryMessage = "In order to update, your system time needs to be synchronized";
 
-                    await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
+                        var infoWindow = new InfoWindow(mainMessage, secondaryMessage) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                        infoWindow.Ok.Visibility = Visibility.Hidden;
+                        infoWindow.Continue.Content = "Synchronize now!";
+
+                        infoWindow.ShowDialog();
+                        if (infoWindow.GetResult())
+                        {
+                            Utility.Utilities.SyncSystemDateTimeWithWorldTime();
+                            await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
+                        }
+                        else
+                        {
+                            downloadingCount -= 1;
+                            DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                            modData._GridControls._UpdateButton.IsEnabled = true;
+                            return;
+                        }
+                    }
+
+                    tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
                     filesToDownload = tempVersionHandler.GetFilesToDownload();
                 }
                 catch (Exception e)
@@ -1127,8 +1153,7 @@ namespace GenLauncherNet
         ///    Name of temp folder.
         /// </returns>
         private async Task<string> GetTempFolderName(TempVersionHandler handler, ModificationContainer modData)
-        {
-            await handler.DownloadFilesInfoFromS3Storage(modData);
+        {            
             var tempDirectoryName = await Task.Run(() => handler.CreateTempCopyOfFolder());
 
             return tempDirectoryName;

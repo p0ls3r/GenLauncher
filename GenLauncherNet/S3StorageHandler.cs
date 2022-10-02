@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,12 +25,15 @@ namespace GenLauncherNet
             var current = new CultureInfo("en-US");
             current.DateTimeFormat = new DateTimeFormatInfo();
             current.DateTimeFormat.Calendar = new GregorianCalendar();
+
             Thread.CurrentThread.CurrentCulture = current;
 
             if (string.IsNullOrEmpty(version.S3HostPublicKey) || String.IsNullOrEmpty(version.S3HostSecretKey))
                 minioClient = new MinioClient(version.S3HostLink, GenInsavePKey, GenInsaveSKey);
             else
                 minioClient = new MinioClient(version.S3HostLink, version.S3HostPublicKey, version.S3HostSecretKey);
+
+            
 
             return await GetFilesFromBucket(version);
         }
