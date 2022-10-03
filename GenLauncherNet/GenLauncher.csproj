@@ -148,7 +148,8 @@
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
     <Compile Include="SessionInformation.cs" />
-    <Compile Include="Utility\Utilities.cs" />
+    <Compile Include="Utility\GeneralUtilities.cs" />
+    <Compile Include="Utility\TimeUtility.cs" />
     <Compile Include="WPFElements\UpdateButton.cs" />
     <Compile Include="Windows\ManualAddMidificationWindow.xaml.cs">
       <DependentUpon>ManualAddMidificationWindow.xaml</DependentUpon>
