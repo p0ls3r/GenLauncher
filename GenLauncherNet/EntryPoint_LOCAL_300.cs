@@ -20,18 +20,12 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
         public const string Version = "0.0.7.7 Pre Release";
-
         //public const string Version = "0.0.0.1 Test";
-        public const string ModdedExeDownloadLink =
-            @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
-
+        public const string ModdedExeDownloadLink = @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
         public const string AddonsFolderName = "Addons";
         public const string PatchesFolderName = "Patches";
         public const string WorldBuilderExeName = "WorldBuilderNT27.exe";
-
-        public const string WorldBuilderDownloadLink =
-            "https://onedrive.live.com/download?cid=64F1D914DDB8A931&resid=64F1D914DDB8A931%21135&authkey=AJ64UqrGWgfwGm8";
-
+        public const string WorldBuilderDownloadLink = "https://onedrive.live.com/download?cid=64F1D914DDB8A931&resid=64F1D914DDB8A931%21135&authkey=AJ64UqrGWgfwGm8";
         public const string GenLauncherReplaceSuffix = ".GenLauncherReplaced";
         public const string GenLauncherVersionFolderCopySuffix = ".GenLauncherTempCopy";
         public const string GenLauncherOriginalFileSuffix = ".GenLauncherOriginalFile";
@@ -47,13 +41,10 @@ namespace GenLauncherNet
 
         [DllImport("kernel32.dll")]
         static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
-
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
-
         [DllImport("user32.dll")]
         static extern bool ShowWindowAsync(HandleRef hWnd, int nCmdShow);
-
         private const int SW_RESTORE = 9;
 
         enum SymbolicLink
@@ -71,7 +62,7 @@ namespace GenLauncherNet
             {
                 var app = new App();
 
-                if (!GeneralUtilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
+                if (!Utilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
                 {
                     var result =
                         MessageBox.Show(
@@ -84,8 +75,7 @@ namespace GenLauncherNet
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        GeneralUtilities.OpenWebpageInBrowser(
-                            "https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer");
+                        Utilities.OpenWebpageInBrowser("https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer");
                     }
 
                     return;
@@ -102,8 +92,7 @@ namespace GenLauncherNet
 
                 if (!CanCreateSymbLink())
                 {
-                    MessageBox.Show(
-                        "Cannot create symbolic link in game folder, please check Security Policy Setting Create symbolic links field");
+                    MessageBox.Show("Cannot create symbolic link in game folder, please check Security Policy Setting Create symbolic links field");
                     return;
                 }
 
@@ -118,18 +107,15 @@ namespace GenLauncherNet
                 if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder)))
                     Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder));
 
-                var initWindow = new InitWindow()
-                    { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-
+                var initWindow = new InitWindow() { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                
                 app.Run(initWindow);
 
                 ReturGameFolderToOriginalState();
             }
             catch (Exception e)
             {
-                MessageBox.Show(String.Format(
-                    "GenLauncher version: {2} \r\n GenLauncher tech in support in discord: {3} \r\n Error: {0} \r\n StackTrace: {1} ",
-                    e.Message, e.StackTrace, Version, @"https://discord.gg/fFGpudz5hV"));
+                MessageBox.Show(String.Format("GenLauncher version: {2} \r\n GenLauncher tech in support in discord: {3} \r\n Error: {0} \r\n StackTrace: {1} ", e.Message, e.StackTrace, Version, @"https://discord.gg/fFGpudz5hV"));
             }
         }
 
@@ -153,18 +139,13 @@ namespace GenLauncherNet
         {
             if (SessionInfo.GameMode == Game.ZeroHour)
             {
-                DefaultColors = new ColorsInfo("#00e3ff", "DarkGray", "#7a7db0", "#baff0c", "#232977", "#090502",
-                    "#B3000000", "White", "#090502", "#F21d2057", "#F21d2057", "#2534ff");
-                DefaultColors.GenLauncherBackgroundImage = new ImageBrush(
-                    new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/Background.png")));
+                DefaultColors = new ColorsInfo("#00e3ff", "DarkGray", "#7a7db0", "#baff0c", "#232977", "#090502", "#B3000000", "White", "#090502", "#F21d2057", "#F21d2057", "#2534ff");
+                DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/Background.png")));
             }
             else
             {
-                DefaultColors = new ColorsInfo("#ffbb00", "DarkGray", "#ffbb00", "#ffbb00", "#e24c17", "#090502",
-                    "#B3000000", "White", "#090502", "#5a210d", "#8a2e0d", "#e24c17");
-                DefaultColors.GenLauncherBackgroundImage = new ImageBrush(
-                    new BitmapImage(
-                        new Uri("pack://application:,,,/GenLauncher;component/Images/BackgroundGenerals.png")));
+                DefaultColors = new ColorsInfo("#ffbb00", "DarkGray", "#ffbb00", "#ffbb00", "#e24c17", "#090502", "#B3000000", "White", "#090502", "#5a210d", "#8a2e0d", "#e24c17");
+                DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/GenLauncher;component/Images/BackgroundGenerals.png")));
             }
 
             Colors = DefaultColors;
@@ -175,8 +156,7 @@ namespace GenLauncherNet
             if (!File.Exists("GlBg.png"))
                 return;
 
-            DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(
-                new Uri(System.IO.Path.Combine(Directory.GetCurrentDirectory(), @"GlBg.png"), UriKind.Absolute)));
+            DefaultColors.GenLauncherBackgroundImage = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.Combine(Directory.GetCurrentDirectory(), @"GlBg.png"), UriKind.Absolute)));
         }
 
         private static void CheckForCustomVisualInfo()
@@ -204,8 +184,7 @@ namespace GenLauncherNet
             if (File.Exists("WindowZH.big"))
             {
                 SessionInfo.GameMode = Game.ZeroHour;
-                ModsRepos =
-                    @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH.yaml";
+                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH.yaml";
                 FillZHFiles();
                 return;
             }
@@ -213,8 +192,7 @@ namespace GenLauncherNet
             if (File.Exists("Window.big"))
             {
                 SessionInfo.GameMode = Game.Generals;
-                ModsRepos =
-                    @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals.yaml";
+                ModsRepos = @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals.yaml";
                 FillGeneralsFiles();
                 return;
             }
@@ -279,6 +257,7 @@ namespace GenLauncherNet
 
             using (FileStream fs = File.Create(pathOriginal))
             {
+
             }
 
             CreateSymbolicLink(pathSymb, pathOriginal, SymbolicLink.File);
@@ -409,8 +388,7 @@ namespace GenLauncherNet
         private static bool IsLauncherInGameFolder()
         {
             //TODO improve checking
-            if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") &&
-                (File.Exists("WindowZH.big") || File.Exists("Window.big")))
+            if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") && (File.Exists("WindowZH.big") || File.Exists("Window.big")))
             {
                 return true;
             }
@@ -458,13 +436,11 @@ namespace GenLauncherNet
                     if (file.FullName.Contains(EntryPoint.GenLauncherOriginalFileSuffix))
                     {
                         if (!File.Exists(file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty)))
-                            File.Move(file.FullName,
-                                file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
+                            File.Move(file.FullName, file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
                         else
                         {
                             File.Delete(file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
-                            File.Move(file.FullName,
-                                file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
+                            File.Move(file.FullName, file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
                         }
                     }
                 }

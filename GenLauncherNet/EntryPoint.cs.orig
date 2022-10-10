@@ -19,8 +19,13 @@ namespace GenLauncherNet
         public static string ModsRepos;
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
+<<<<<<< HEAD
         public const string Version = "0.0.7.7 Pre Release";
+=======
 
+        public const string Version = "0.0.7.6 Pre Release";
+
+>>>>>>> 2312b172e81c849d878fbad12cda6881994d7964
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink =
             @"https://raw.githubusercontent.com/p0ls3r/moddedExe/master/modded.exe";
