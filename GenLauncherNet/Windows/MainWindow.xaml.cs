@@ -691,15 +691,8 @@ namespace GenLauncherNet
                 }
                 else
                 {
-                    var mod = DataHandler.GetSelectedMod();
-                    var patch = ((ModificationContainer)e.RemovedItems[0]).ContainerModification;
-
-                    if (String.Equals(patch.DependenceName, mod.Name, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        patch.IsSelected = false;
-                        ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
-                        ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
-                    }
+                    ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
+                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;                    
                 }
 
                 UpdateAddonsList();
@@ -718,15 +711,8 @@ namespace GenLauncherNet
                 }
                 else
                 {
-                    var mod = DataHandler.GetSelectedMod();
-                    var addon = ((ModificationContainer)e.RemovedItems[0]).ContainerModification;
-
-                    if (String.Equals(addon.DependenceName, mod.Name, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        addon.IsSelected = false;
-                        ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
-                        ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
-                    }
+                    ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
+                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                 }
             }
         }
@@ -853,7 +839,10 @@ namespace GenLauncherNet
             AddonsButton.IsEnabled = true;
 
             ButtonOptions.IsEnabled = true;
-            ButtonQuickStart.IsEnabled = true;
+
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+                ButtonQuickStart.IsEnabled = true;
+
             ButtonWindowed.IsEnabled = true;
             ButtonStartGame.IsEnabled = true;
             ButtonWorldBuilder.IsEnabled = true;
