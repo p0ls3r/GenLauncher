@@ -192,7 +192,12 @@ namespace GenLauncherNet
 
         private void CheckGameOptionsFile()
         {
-            var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data";
+            var folderPath = string.Empty;
+
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+               folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data";
+            else
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Data";
 
             if (!OptionsFileExists(folderPath))
                 ExtractOptions(folderPath);
