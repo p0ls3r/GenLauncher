@@ -1585,10 +1585,15 @@ namespace GenLauncherNet.Windows
                 _isGameRunning = true;
                 EnableUI();
 
-                var modContainer = ModsList.SelectedItems[0] as ModificationContainer;
+                if (ModsList.SelectedItems.Count > 0)
+                {
+                    var modContainer = ModsList.SelectedItems[0] as ModificationContainer;
 
-                if (await GameLauncher.PrepareAndRunGame(activeVersions))
-                    modContainer._GridControls._SupportButton.IsBlinking = true;
+                    if (await GameLauncher.PrepareAndRunGame(activeVersions))
+                        modContainer._GridControls._SupportButton.IsBlinking = true;
+                }
+                else
+                    await GameLauncher.PrepareAndRunGame(activeVersions);
 
                 _isGameRunning = false;
             }
