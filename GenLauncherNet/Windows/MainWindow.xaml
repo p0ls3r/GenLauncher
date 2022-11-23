@@ -93,6 +93,7 @@
         <SolidColorBrush x:Key="SelectedBackgroundBrush" Color="#00000000" />
         <SolidColorBrush x:Key="SelectedForegroundBrush" Color="#00000000" />
         <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#00000000" />
+        
         <LinearGradientBrush x:Key="ListBoxBackgroundBrush"
             StartPoint="0,0" EndPoint="1,0.001">
             <LinearGradientBrush.GradientStops>
@@ -103,6 +104,7 @@
                 </GradientStopCollection>
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
+        
         <LinearGradientBrush x:Key="StandardBrush"
             StartPoint="0,0" EndPoint="0,1">
             <LinearGradientBrush.GradientStops>
@@ -112,6 +114,7 @@
                 </GradientStopCollection>
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
+        
         <SolidColorBrush x:Key="GlyphBrush" Color="#b2b6fd" />
 
         <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
@@ -158,6 +161,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -617,10 +621,41 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="AllowDrop" Value="True"/>
+
             <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBoxItem_PreviewMouseLeftButtonDown"/>
             <EventSetter Event="Drop" Handler="ListBoxItem_Drop" />
             <EventSetter Event="GiveFeedback" Handler="ModsList_GiveFeedback" />
         </Style>
+
+        <LinearGradientBrush x:Key="MenuItemSelectionFill" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="Red" Offset="0"/>
+            <GradientStop Color="Red" Offset="1"/>
+        </LinearGradientBrush>
+        <Geometry x:Key="Checkmark">M 0,5.1 L 1.7,5.2 L 3.4,7.1 L 8,0.4 L 9.2,0 L 3.3,10.8 Z</Geometry>
+        <ControlTemplate x:Key="{ComponentResourceKey ResourceId=SubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+            
+            <Grid SnapsToDevicePixels="true">
+                <Rectangle x:Name="Bg" Fill="{TemplateBinding Background}" RadiusY="2" RadiusX="2" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1"/>
+                <Rectangle x:Name="InnerBorder" Margin="1" RadiusY="2" RadiusX="2"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ContentPresenter Grid.Column="0" ContentSource="Header" Margin="10,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                </Grid>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsHighlighted" Value="true">
+                    <Setter Property="Fill" TargetName="Bg" Value="{StaticResource MenuItemSelectionFill}"/>
+                    <Setter Property="Stroke" TargetName="Bg" Value="#8071CBF1"/>
+                    <Setter Property="Stroke" TargetName="InnerBorder" Value="#40FFFFFF"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Foreground" Value="#FF9A9A9A"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
         <DataTemplate x:Key="VersionTemplate" >
             <Grid x:Name="GridItem">
@@ -636,6 +671,37 @@
 
         <DataTemplate x:Key="ModificationTemplate">
             <Grid x:Name="GridItem" Loaded="GridItem_Loaded" Width="550">
+
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Menu item 1" Click="MenuItem_Click" HorizontalAlignment="Left"/>
+
+                        <ContextMenu.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Background="White"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ContextMenu.ItemsPanel>
+                        <ContextMenu.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="Command" Value="{Binding Path=DataContext.XyzCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                <Setter Property="CommandParameter" Value="{Binding}"/>
+                            </Style>
+                        </ContextMenu.ItemContainerStyle>
+                        <ContextMenu.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-20,0,-40,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </DataTemplate>
+                        </ContextMenu.ItemTemplate>
+
+
+                    </ContextMenu >
+                </Grid.ContextMenu>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="310" />
                     <ColumnDefinition Width="1*" />
@@ -651,14 +717,21 @@
                     <RowDefinition Height="33"/>
                 </Grid.RowDefinitions>
 
-                <Rectangle x:Name="DragAndDropBackground" Fill="{DynamicResource ButtonPressedBackground}" Visibility="Hidden"  Grid.RowSpan="10" Grid.ColumnSpan="10" />
-                
+                <Rectangle x:Name="ContextMenuRectangle" Fill="White" Grid.RowSpan="10" Grid.ColumnSpan="10" Opacity="0">
+                    
+                </Rectangle>
+
+                <Rectangle x:Name="DragAndDropBackground" Fill="{DynamicResource ButtonPressedBackground}" Visibility="Hidden"  Grid.RowSpan="10" Grid.ColumnSpan="10">
+
+                </Rectangle>
+
                 <local:NameTextBox x:Name="Name" FontSize="15" Margin="10,0,10,0" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
                 <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />
                 <ComboBox MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" x:Name="VersionsList" Height="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemTemplate="{StaticResource VersionTemplate}" SelectionChanged="VersionsList_SelectionChanged" Margin="0,0,5,0" Visibility="Hidden">
                 </ComboBox>
 
                 <Border BorderThickness="2" BorderBrush="{DynamicResource GenLauncherInactiveBorder}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="8,-2,-2,-2">
+
                 </Border>
 
                 <Image Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2"  HorizontalAlignment="Left" Source="{Binding ImageSource}" Height="100" Width="500" Margin="10,0,0,0" />
@@ -766,7 +839,9 @@
         <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonWindowed" FontSize="17" Focusable="False" Content="CHANGE TO FULL SCREEN" HorizontalAlignment="Left" Margin="25,64,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWindowed_Click" Grid.Column="6" Grid.Row="3"/>
         <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonQuickStart" FontSize="17" Focusable="False" Content="CHANGE TO NORMAL START" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonQuickStart_Click" Grid.Column="6" Grid.Row="3"/>
         <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonOptions" FontSize="17" Focusable="False"  Content="OPTIONS"  HorizontalAlignment="Left" Margin="25,154,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonOptions_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonExit" FontSize="17" Focusable="False"  Content="EXIT" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Button_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonExit" FontSize="17" Focusable="False"  Content="EXIT" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Button_Click" Grid.Column="6" Grid.Row="3">
+
+        </Button>
 
         <TextBlock x:Name="LauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,6,0,0" Text="Current version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="22" Grid.Column="6" Grid.Row="4"/>
         <TextBlock x:Name="LatestLauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,33,0,0" Text="Latest version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="23" Grid.Column="6" Grid.Row="4"/>

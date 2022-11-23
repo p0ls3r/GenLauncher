@@ -614,6 +614,24 @@ namespace GenLauncherNet.Windows
 
         private async void ModsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed && e.OriginalSource is ListBox)
+            {
+                if (e.RemovedItems.Count == 0)
+                {
+                    ModsList.SelectedItems.Clear();
+                }
+                else
+                {
+                    _ignoreSelectionFlagMods = true;
+                    ModsList.SelectedItems.Clear();
+                    ModsList.SelectedItems.Add(e.RemovedItems[0]);
+                    _ignoreSelectionFlagMods = false;
+                }
+
+                e.Handled = true;
+                return;
+            }
+
             if (!_ignoreSelectionFlagMods && e.OriginalSource is ListBox)
             {
                 if (e.AddedItems.Count > 0)
@@ -2043,5 +2061,11 @@ namespace GenLauncherNet.Windows
         }
 
         #endregion
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var k = (ModificationContainer)menuItem.DataContext;
+        }
     }
 }
