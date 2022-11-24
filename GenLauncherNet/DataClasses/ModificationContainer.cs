@@ -45,13 +45,10 @@ namespace GenLauncherNet
             if (ContainerModification.ModificationVersions != null && ContainerModification.ModificationVersions.Count > 0)
             {
                 var ContainerVersions = ContainerModification.ModificationVersions;
-                ContainerVersions.Sort();
-                SelectedVersion = ContainerVersions.Where(t => t.IsSelected).FirstOrDefault();
 
-                if (SelectedVersion == null)
-                    SelectedVersion = ContainerVersions.OrderBy(m => m).LastOrDefault();
-
-                SelectedVersion.IsSelected = true;
+                SelectedVersion = GetSelectedVersion();
+                if (SelectedVersion != null)
+                  SelectedVersion.IsSelected = true;
 
                 LatestVersion = ContainerVersions.Last();
 
@@ -346,34 +343,29 @@ namespace GenLauncherNet
 
         public void SelectItemInComboBox()
         {
-            //Case no VersionsInstalled
+            //Case there is no repos version and no VersionsInstalled
             if (ContainerModification.ModificationVersions.Count == 0)
             {
                 _GridControls._ComboBox.IsEnabled = false;
                 return;
             }
 
-            //Case there is Repos version for mod
+            //Case there is Repos version for mod and no local versions installed
             if (ContainerModification.ModificationVersions.Count == 1 && !LatestVersion.Installed)
             {
                 SetUIToInstallMode();
                 return;
             }
 
-            //Case there is installed Version in data, select it
+            //Case there is installed and selected Version in data, select it, otherwise select latest installed version
             _GridControls._ComboBox.IsEnabled = true;
             if (ReadyToRun)
             {
-                if (SelectedVersion == null || !LatestVersion.Installed)
-                {
-                    SelectedVersion = ContainerModification.ModificationVersions.Where(m => m.Installed).Last();
-                }
                 var versionString = SelectedVersion.Version;
                 var ItemIndex = GetIndexOfItemByName(_GridControls._ComboBox, versionString);
                 if (ItemIndex != -1)
                     _GridControls._ComboBox.SelectedItem = _GridControls._ComboBox.Items[ItemIndex];
             }
-
             //Case there was installation, select last version
             else
             {
@@ -381,6 +373,7 @@ namespace GenLauncherNet
                     SelectedVersion.IsSelected = false;
 
                 SelectedVersion = ContainerModification.ModificationVersions.Where(m => m.Installed).Last();
+                SelectedVersion.IsSelected = true;
                 var versionString = SelectedVersion.Version;
                 var ItemIndex = GetIndexOfItemByName(_GridControls._ComboBox, versionString);
                 if (ItemIndex != -1)
@@ -388,6 +381,24 @@ namespace GenLauncherNet
 
                 ReadyToRun = true;
             }
+        }
+
+        private ModificationVersion GetSelectedVersion()
+        {
+            if (ContainerModification.ModificationVersions.Count > 0)
+            {
+                var sv = ContainerModification.ModificationVersions.Where(m => m.Installed).Where(m => m.IsSelected).FirstOrDefault();
+
+                if (sv != null)
+                    return sv;
+
+                sv = ContainerModification.ModificationVersions.Where(m => m.Installed).OrderBy(m => m).FirstOrDefault();
+
+                if (sv != null)
+                    return sv;
+            }
+
+            return null;
         }
 
         public void SetDownloader(ModificationDownloader downloader)

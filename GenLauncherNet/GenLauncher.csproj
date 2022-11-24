@@ -258,9 +258,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\discord.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Dlls\SymbolicLinkSupport.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -309,9 +306,6 @@
     <Resource Include="fd.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\moddb.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Dlls\Minio.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -328,9 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Options.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\discordBig.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\AddModBG.png" />
