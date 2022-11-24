@@ -213,7 +213,7 @@ namespace GenLauncherNet.Windows
 
                     if (result == DragDropEffects.Move && !ModsList.SelectedItems.Contains(container))
                         ModsList.SelectedItems.Add(container);
-                    else if (result == DragDropEffects.None)
+                    else 
                         container.SetSelectedStatus();
 
                     _DragAndDropDisable = false;
@@ -284,7 +284,8 @@ namespace GenLauncherNet.Windows
 
                 var sourceIndex = ModsList.Items.IndexOf(source);
                 var targetIndex = ModsList.Items.IndexOf(target);
-                MoveModInList(source, sourceIndex, targetIndex);
+                if (sourceIndex != targetIndex)
+                    MoveModInList(source, sourceIndex, targetIndex);
 
                 TerminateDragDropWindow();
             }
@@ -2068,16 +2069,46 @@ namespace GenLauncherNet.Windows
             }
         }
 
+        private void CreatePathErrorWindow(string path)
+        {
+            var infoWindow = new InfoWindow("Сannot find the folder along the path:", path)
+            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            infoWindow.Continue.Visibility = Visibility.Hidden;
+            infoWindow.Cancel.Visibility = Visibility.Hidden;
+            infoWindow.ErrorBG.Visibility = Visibility.Visible;
+            infoWindow.ModsMessage.FontSize = 12;
+
+            infoWindow.ShowDialog();
+        }
+
         private void OpenReplaysFolder(object sender, RoutedEventArgs e)
         {
-            var menuItem = (MenuItem)sender;
-            var k = (ModificationContainer)menuItem.DataContext;
+            var folderPath = "";
+
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data\\Replays";
+            else
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Data\\Replays";
+
+            if (Directory.Exists(folderPath))
+                Process.Start(folderPath);
+            else
+                CreatePathErrorWindow(folderPath);
         }
 
         private void OpenMapsFolder(object sender, RoutedEventArgs e)
         {
-            var menuItem = (MenuItem)sender;
-            var k = (ModificationContainer)menuItem.DataContext;
+            var folderPath = "";
+
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data\\Maps";
+            else
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Data\\Maps";
+
+            if (Directory.Exists(folderPath))
+                Process.Start(folderPath);
+            else
+                CreatePathErrorWindow(folderPath);
         }
 
         private void OpenModdbLink(object sender, RoutedEventArgs e)
@@ -2111,7 +2142,34 @@ namespace GenLauncherNet.Windows
 
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
+            var contextMenu = (ContextMenu)sender;
+            var mod = ((ModificationContainer)contextMenu.DataContext).ContainerModification;
 
+            if (String.IsNullOrEmpty(mod.ModDBLink))
+                RemoveMenuItemByName(contextMenu, "Visit ModdB page");
+
+            if (String.IsNullOrEmpty(mod.DiscordLink))
+                RemoveMenuItemByName(contextMenu, "Join Discord Server");
+
+            if (mod.ModificationType == ModificationType.Advertising)
+            {
+                RemoveMenuItemByName(contextMenu, "Open mod folder");
+            }
+        }
+
+        private void RemoveMenuItemByName(ContextMenu menu, string name)
+        {
+            var t = menu.Items;
+
+            foreach (var item in menu.Items)
+            {
+                var menuItem = item as MenuItem;
+                if (menuItem != null && String.Equals(menuItem.Header.ToString(), name, StringComparison.OrdinalIgnoreCase))
+                {
+                    menu.Items.Remove(item);
+                    return;
+                }
+            }
         }
 
         #endregion
