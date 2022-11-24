@@ -616,16 +616,26 @@ namespace GenLauncherNet.Windows
         {
             if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed && e.OriginalSource is ListBox)
             {
-                if (e.RemovedItems.Count == 0)
-                {
-                    ModsList.SelectedItems.Clear();
-                }
-                else
+                if (DataHandler.GetSelectedMod() == null)
                 {
                     _ignoreSelectionFlagMods = true;
                     ModsList.SelectedItems.Clear();
-                    ModsList.SelectedItems.Add(e.RemovedItems[0]);
                     _ignoreSelectionFlagMods = false;
+                }
+                else
+                {
+                    if (e.AddedItems.Count > 0)
+                    {
+                        _ignoreSelectionFlagMods = true;
+                        ModsList.SelectedItems.Remove(e.AddedItems[0]);
+                        _ignoreSelectionFlagMods = false;
+                    }
+                    else
+                    {
+                        _ignoreSelectionFlagMods = true;
+                        ModsList.SelectedItems.Add(e.RemovedItems[0]);
+                        _ignoreSelectionFlagMods = false;
+                    }
                 }
 
                 e.Handled = true;
@@ -1851,20 +1861,6 @@ namespace GenLauncherNet.Windows
             modData.SetUnactiveProgressBar();
         }
 
-        private void DiscordButton_Click(object sender, RoutedEventArgs e)
-        {
-            var modGrid = (Grid)(((Button)sender).Parent);
-            var modData = (ModificationContainer)modGrid.DataContext;
-
-            var discordUrl = modData.ContainerModification.DiscordLink;
-
-            if (!string.IsNullOrEmpty(discordUrl))
-            {
-                discordUrl = discordUrl.Replace("&", "^&");
-                Process.Start(new ProcessStartInfo("cmd", $"/c start {discordUrl}") { CreateNoWindow = true });
-            }
-        }
-
         private void Change_Click(object sender, RoutedEventArgs e)
         {
             var modGrid = (Grid)(((Button)sender).Parent);
@@ -1929,20 +1925,6 @@ namespace GenLauncherNet.Windows
             {
                 DataHandler.DeleteVersion(versionData);
                 versionData.ModBoxData.UpdateUIelements();
-            }
-        }
-
-        private void ModdbButton_Click(object sender, RoutedEventArgs e)
-        {
-            var modGrid = (Grid)(((Button)sender).Parent);
-            var modData = (ModificationContainer)modGrid.DataContext;
-
-            var moddbUrl = modData.ContainerModification.ModDBLink;
-
-            if (!string.IsNullOrEmpty(moddbUrl))
-            {
-                moddbUrl = moddbUrl.Replace("&", "^&");
-                Process.Start(new ProcessStartInfo("cmd", $"/c start {moddbUrl}") { CreateNoWindow = true });
             }
         }
 
@@ -2062,10 +2044,76 @@ namespace GenLauncherNet.Windows
 
         #endregion
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        #region ContextMenu Handlers
+
+        private void OpenGameFolder(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var k = (ModificationContainer)menuItem.DataContext;
+
+            Process.Start(Directory.GetCurrentDirectory());
+        }
+
+        private void OpenModFolder(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var k = (ModificationContainer)menuItem.DataContext;
+
+            var selectedVersion = k.ContainerModification.ModificationVersions.Where(m => m.IsSelected).FirstOrDefault();
+
+            if (selectedVersion != null)
+            {
+                var path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), selectedVersion.GetFolderName());
+                Process.Start(path);
+            }
+        }
+
+        private void OpenReplaysFolder(object sender, RoutedEventArgs e)
         {
             var menuItem = (MenuItem)sender;
             var k = (ModificationContainer)menuItem.DataContext;
         }
+
+        private void OpenMapsFolder(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var k = (ModificationContainer)menuItem.DataContext;
+        }
+
+        private void OpenModdbLink(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var k = (ModificationContainer)menuItem.DataContext;
+
+            var moddbUrl = k.ContainerModification.ModDBLink;
+
+            if (!string.IsNullOrEmpty(moddbUrl))
+            {
+                moddbUrl = moddbUrl.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {moddbUrl}") { CreateNoWindow = true });
+            }
+        }
+
+        private void OpenDiscordLink(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItem)sender;
+            var k = (ModificationContainer)menuItem.DataContext;
+
+            var discordUrl = k.ContainerModification.DiscordLink;
+
+            if (!string.IsNullOrEmpty(discordUrl))
+            {
+                discordUrl = discordUrl.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start {discordUrl}") { CreateNoWindow = true });
+            }
+        }
+
+
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 }
