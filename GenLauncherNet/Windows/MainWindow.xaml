@@ -758,6 +758,14 @@
 
         <DataTemplate x:Key="AddonsTemplate">
             <Grid x:Name="GridItem" Loaded="GridItem_Loaded"  Width="550">
+
+                <Grid.ContextMenu>
+                    <ContextMenu Opened="ContextMenu_Opened" >
+                        <MenuItem Header="Open addon folder" Click="OpenModFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="Open game folder" Click="OpenGameFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                    </ContextMenu >
+                </Grid.ContextMenu>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="310" />
                     <ColumnDefinition Width="1*" />
@@ -770,6 +778,10 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="33"/>
                 </Grid.RowDefinitions>
+
+                <Rectangle x:Name="ContextMenuRectangle" Fill="White" Grid.RowSpan="10" Grid.ColumnSpan="10" Opacity="0">
+
+                </Rectangle>
 
                 <local:NameTextBox x:Name="Name" FontSize="13" FontWeight="Bold" Margin="10,0,10,0" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" TextWrapping="Wrap" Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Text="{Binding NameInfo}" HorizontalAlignment="Left" />
                 <local:VersionTextBox x:Name="LastVersion" Margin="10,0,10,0" FontSize="15" Foreground="{DynamicResource GenLauncherInactiveBorder}" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding LatestVersionInfo}" HorizontalAlignment="Left" />

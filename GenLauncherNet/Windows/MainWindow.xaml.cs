@@ -696,6 +696,35 @@ namespace GenLauncherNet.Windows
 
         private void PatchesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed && e.OriginalSource is ListBox)
+            {
+                if (DataHandler.GetSelectedPatch() == null)
+                {
+                    _ignoreSelectionFlagMods = true;
+                    PatchesList.SelectedItems.Clear();
+                    _ignoreSelectionFlagMods = false;
+                }
+                else
+                {
+                    if (e.AddedItems.Count > 0)
+                    {
+                        _ignoreSelectionFlagMods = true;
+                        PatchesList.SelectedItems.Remove(e.AddedItems[0]);
+                        _ignoreSelectionFlagMods = false;
+                    }
+                    else
+                    {
+                        _ignoreSelectionFlagMods = true;
+                        PatchesList.SelectedItems.Add(e.RemovedItems[0]);
+                        _ignoreSelectionFlagMods = false;
+                    }
+                }
+
+                e.Handled = true;
+                return;
+            }
+
+
             if (!_ignoreSelectionFlagPatches && e.OriginalSource is ListBox && ((ListBox)sender).Items.Count != 0)
             {
                 if (e.AddedItems.Count > 0)
@@ -744,6 +773,37 @@ namespace GenLauncherNet.Windows
 
         private void AddonsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed && e.OriginalSource is ListBox)
+            {
+                if (DataHandler.GetSelectedAddonsForSelectedMod().Count == 0)
+                {
+                    _ignoreSelectionFlagMods = true;
+                    AddonsList.SelectedItems.Clear();
+                    _ignoreSelectionFlagMods = false;
+                }
+                else
+                {
+                    if (e.AddedItems.Count > 0)
+                    {
+                        _ignoreSelectionFlagMods = true;
+                        AddonsList.SelectedItems.Remove(e.AddedItems[0]);
+                        _ignoreSelectionFlagMods = false;
+                    }
+                    else
+                    {
+                        _ignoreSelectionFlagMods = true;
+                        AddonsList.SelectedItems.Add(e.RemovedItems[0]);
+                        _ignoreSelectionFlagMods = false;
+                    }
+                }
+
+                e.Handled = true;
+                return;
+            }
+
+
+
+
             if (e.OriginalSource is ListBox && ((ListBox)sender).Items.Count != 0)
             {
                 if (e.AddedItems.Count > 0)
