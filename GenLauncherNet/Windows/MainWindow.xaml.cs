@@ -2199,11 +2199,13 @@ namespace GenLauncherNet.Windows
             }
         }
 
-
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
+            _DragAndDropDisable = true;
             var contextMenu = (ContextMenu)sender;
             var mod = ((ModificationContainer)contextMenu.DataContext).ContainerModification;
+
+            contextMenu.Closed += ContextMenu_Closed;
 
             if (String.IsNullOrEmpty(mod.ModDBLink))
                 RemoveMenuItemByName(contextMenu, "Visit ModdB page");
@@ -2215,6 +2217,11 @@ namespace GenLauncherNet.Windows
             {
                 RemoveMenuItemByName(contextMenu, "Open mod folder");
             }
+        }
+
+        private void ContextMenu_Closed(object sender, RoutedEventArgs e)
+        {
+            _DragAndDropDisable = false;
         }
 
         private void RemoveMenuItemByName(ContextMenu menu, string name)

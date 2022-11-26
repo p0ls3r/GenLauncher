@@ -123,7 +123,7 @@ namespace GenLauncherNet
 
                 app.Run(initWindow);
 
-                ReturGameFolderToOriginalState();
+                ReturnGameFolderToOriginalState();
             }
             catch (Exception e)
             {
@@ -136,9 +136,9 @@ namespace GenLauncherNet
         private static void PrepareLauncher()
         {
             DllsUnpacker.ExtractDlls();
-            SymbolicLinkHandler.DeleteAllSymbolicLinksInGameFolders();
-            RenameReplacedFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            RenameOriginalFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
+
+            GameLauncher.RenameGameFilesToOriginalState();
+
             DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory()));
             DeleteOldGenLauncherFile();
 
@@ -220,14 +220,16 @@ namespace GenLauncherNet
             }
         }
 
-        private static void ReturGameFolderToOriginalState()
+        private static void ReturnGameFolderToOriginalState()
         {
             DataHandler.SaveLauncherData();
-            SymbolicLinkHandler.DeleteAllSymbolicLinksInGameFolders();
+
+            /*SymbolicLinkHandler.DeleteAllSymbolicLinksInGameFolders();
             RenameReplacedFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            RenameOriginalFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
+            RenameOriginalFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));*/
             DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            GameFilesHandler.ActivateGameFilesBack();
+            GameLauncher.RenameGameFilesToOriginalState();
+            //GameFilesHandler.ActivateGameFilesBack();
         }
 
         public static bool OtherInstancesExists()
@@ -420,7 +422,7 @@ namespace GenLauncherNet
             }
         }
 
-        public static void RenameReplacedFilesBack(DirectoryInfo directoryInfo)
+        /*public static void RenameReplacedFilesBack(DirectoryInfo directoryInfo)
         {
             foreach (var file in directoryInfo.GetFiles())
             {
@@ -433,9 +435,9 @@ namespace GenLauncherNet
                 if (!dirInfo.Name.Contains(GenLauncherModsFolder))
                     RenameReplacedFilesBack(dirInfo);
             }
-        }
+        }*/
 
-        private static void RemoveFileSuffix(FileInfo file, string suffix)
+        /*private static void RemoveFileSuffix(FileInfo file, string suffix)
         {
             if (file.FullName.Contains(suffix))
             {
@@ -478,7 +480,7 @@ namespace GenLauncherNet
             {
                 RenameOriginalFilesBack(dirInfo);
             }
-        }
+        }*/
 
         public static void DeleteTempFolders(DirectoryInfo directoryInfo)
         {

@@ -12,12 +12,14 @@ namespace GenLauncherNet
 {
     public static class GameLauncher
     {
+        private static HashSet<string> customFileExtensions = new HashSet<string> {".w3d", ".dds", ".tga", ".ini", ".scb" };
+
         public async static Task<bool> PrepareAndRunGame(List<ModificationVersion> versions)
         {
             PrepareGameFiles(versions);
 
             var result = await Task.Run(() => RunGame());
-            DeactivateGameFiles();
+            RenameGameFilesToOriginalState();
 
             return result;
         }
@@ -27,85 +29,88 @@ namespace GenLauncherNet
             PrepareGameFiles(versions);
 
             await Task.Run(() => RunWorldBuilder());
-            DeactivateGameFiles();
+            RenameGameFilesToOriginalState();
         }
 
-        private static void RemoveNoneGameBigs(DirectoryInfo directoryInfo)
+        #region File Handlers
+
+        public static void RenameGameFilesToOriginalState()
         {
-            foreach (var file in directoryInfo.GetFiles())
-            {
-                try
-                {
-                    if (Path.GetExtension(file.Name).Contains("big") && BigHandler.IsBigArchive(file.FullName) && !EntryPoint.GameFiles.Contains(file.Name.ToLower()))
-                    {
-                        if (File.Exists(file.FullName + EntryPoint.GenLauncherReplaceSuffix))
-                            File.Delete(file.FullName);
-                        else
-                            File.Move(file.FullName, file.FullName + EntryPoint.GenLauncherReplaceSuffix);
-                    }
-                }
-                catch
-                {
-                    //TODO logger
-                }
-            }
-
-            foreach (var directory in directoryInfo.GetDirectories())
-                RemoveNoneGameBigs(directory);
+            FilesHandler.ApplyActionsToGameFiles(SymbolicLinkHandler.RemoveSymbLinkFile, RemoveGenLauncherReplaceSuffixes);
         }
 
-        private static void DeactivateGameFiles()
-        {
-            SymbolicLinkHandler.DeleteAllSymbolicLinksInGameFolders();
-
-            GameFilesHandler.ActivateGameFilesBack();
-
-            EntryPoint.RenameReplacedFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            EntryPoint.RenameOriginalFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
-        }
-
-        //TODO refactoring, remove converting to tempModifications, remove checking in LocalModificationsHandler
         private static void PrepareGameFiles(List<ModificationVersion> versions)
         {
-            RemoveNoneGameBigs(new DirectoryInfo(Directory.GetCurrentDirectory()));
+            FilesHandler.ApplyActionsToGameFiles(RenameNonGameBigFile, RenameCustomFiles, SymbolicLinkHandler.RemoveSymbLinkFile);
 
             if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
                 SetCameraHeight(versions);
 
-            GameFilesHandler.DeactivateGameFiles();
-
-            SymbolicLinkHandler.DeleteAllSymbolicLinksInGameFolders();
-
             var noNullsVersions = versions;
 
-            foreach (var version in noNullsVersions)
+            noNullsVersions.ForEach(v => SymbolicLinkHandler.CreateMirrorsFromFolder(v.GetFolderName()));
+        }
+
+        private static void RemoveGenLauncherReplaceSuffixes(FileInfo file)
+        {
+            if (file.FullName.Contains(EntryPoint.GenLauncherReplaceSuffix))
             {
-                if (version.ModificationType == ModificationType.Mod)
-                {
-                    SymbolicLinkHandler.CreateMirrorsFromFolder(EntryPoint.GenLauncherModsFolder + "\\" + version.Name + "\\" + version.Version);
-                    continue;
-                }
+                RemoveFileSuffix(file.FullName, EntryPoint.GenLauncherReplaceSuffix);
+                return;
+            }
 
-                if (version.ModificationType == ModificationType.Patch)
-                {
-                    SymbolicLinkHandler.CreateMirrorsFromFolder(EntryPoint.GenLauncherModsFolder + "\\" + version.DependenceName + "\\" + EntryPoint.PatchesFolderName + "\\" + version.Name + "\\" + version.Version);
-                    continue;
-                }
-
-                if (version.ModificationType == ModificationType.Addon)
-                {
-                    if (string.IsNullOrEmpty(version.DependenceName))
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        SymbolicLinkHandler.CreateMirrorsFromFolder(EntryPoint.GenLauncherModsFolder + "\\" + version.DependenceName + "\\" + EntryPoint.AddonsFolderName + "\\" + version.Name + "\\" + version.Version);
-                        continue;
-                    }
-                }
+            if (file.FullName.Contains(EntryPoint.GenLauncherOriginalFileSuffix))
+            {
+                RemoveFileSuffix(file.FullName, EntryPoint.GenLauncherOriginalFileSuffix);
             }
         }
+
+        private static void RenameNonGameBigFile(FileInfo file)
+        {
+            if (Path.GetExtension(file.FullName).Contains("big") && BigHandler.IsBigArchive(file.FullName) && !EntryPoint.GameFiles.Contains(file.Name.ToLower()))
+            {
+                ReplaceFile(file.FullName);
+            }
+        }
+
+        private static void RenameCustomFiles(FileInfo file)
+        {
+            if (customFileExtensions.Contains(Path.GetExtension(file.FullName)) && !file.FullName.Contains(EntryPoint.GenLauncherModsFolder))
+            {
+                ReplaceFile(file.FullName);
+            }
+        }
+
+        private static void ReplaceFile(string fileName)
+        {
+            if (File.Exists(fileName + EntryPoint.GenLauncherReplaceSuffix))
+                File.Delete(fileName);
+            else
+                File.Move(fileName, fileName + EntryPoint.GenLauncherReplaceSuffix);
+        }
+
+        private static void RemoveFileSuffix(string fileName, string suffix)
+        {
+            try
+            {
+                if (!File.Exists(fileName.Replace(suffix, string.Empty)))
+                    File.Move(fileName,
+                        fileName.Replace(suffix, string.Empty));
+                else
+                {
+                    File.Delete(fileName.Replace(suffix, string.Empty));
+                    File.Move(fileName, fileName.Replace(suffix, string.Empty));
+                }
+            }
+            catch
+            {
+                //TODO logger
+            }
+        }
+
+        #endregion
+
+        #region Camera Height
 
         private static void SetCameraHeight(List<ModificationVersion> versions)
         {
@@ -122,6 +127,9 @@ namespace GenLauncherNet
             }
 
             var bigWithCameraHeight = GetFileWithCameraHeight(bigFiles.OrderBy(f => Path.GetFileName(f)));
+
+            if (String.IsNullOrEmpty(bigWithCameraHeight))
+                return;
 
             if (!File.Exists(bigWithCameraHeight + EntryPoint.GenLauncherOriginalFileSuffix))
                 File.Copy(bigWithCameraHeight, bigWithCameraHeight + EntryPoint.GenLauncherOriginalFileSuffix);
@@ -156,6 +164,10 @@ namespace GenLauncherNet
 
             return result;
         }
+
+        #endregion
+
+        #region Exe handlers
 
         private static bool RunGame()
         {
@@ -230,5 +242,7 @@ namespace GenLauncherNet
 
             return process;
         }
+
+        #endregion
     }
 }

@@ -135,11 +135,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BigHandler.cs" />
-    <Compile Include="CamelCaseExtension.cs" />
     <Compile Include="ColorsInfo.cs" />
     <Compile Include="DataClasses\GameModification.cs" />
     <Compile Include="DataClasses\ReposModificationsVersion.cs" />
-    <Compile Include="GameFilesHandler.cs" />
+    <Compile Include="Utility\FilesHandler.cs" />
     <Compile Include="GameLauncher.cs" />
     <Compile Include="GentoolHandler.cs" />
     <Compile Include="HttpHandlers\ContentDownloader.cs" />
@@ -147,7 +146,7 @@
     <Compile Include="HttpHandlers\ModificationDownloader.cs" />
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
-    <Compile Include="SessionInformation.cs" />
+    <Compile Include="DataClasses\SessionInformation.cs" />
     <Compile Include="Utility\GeneralUtilities.cs" />
     <Compile Include="Utility\TimeUtility.cs" />
     <Compile Include="WPFElements\UpdateButton.cs" />
@@ -167,7 +166,7 @@
     <Compile Include="Windows\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SymbolicLinkHandler.cs" />
+    <Compile Include="Utility\SymbolicLinkHandler.cs" />
     <Compile Include="DllsUnpacker.cs" />
     <Compile Include="Windows\AddModificationWindow.xaml.cs">
       <DependentUpon>AddModificationWindow.xaml</DependentUpon>

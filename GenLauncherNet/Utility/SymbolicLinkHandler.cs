@@ -22,29 +22,19 @@ namespace GenLauncherNet
             Directory = 1
         }
 
-        public static void DeleteAllSymbolicLinksInGameFolders()
+        public static void RemoveSymbLinkFile(FileInfo file)
         {
-            DeleteAllSymbolicLinksInGameFolders(new DirectoryInfo(startPath));
-        }
-
-        public static void DeleteAllSymbolicLinksInGameFolders(DirectoryInfo directoryInfo)
-        {
-            foreach (var file in directoryInfo.GetFiles())
+            try
             {
-                try
+                if (file.IsSymbolicLink() && !file.FullName.Contains("SymbolicLinkSupport.dll"))
                 {
-                    if (file.Name != "SymbolicLinkSupport.dll" && file.IsSymbolicLink())
-                    {
-                        File.Delete(file.FullName);
-                    }
-                }
-                catch
-                {
-                    //TODO logger
+                    File.Delete(file.FullName);
                 }
             }
-            foreach (var dirInfo in directoryInfo.GetDirectories())
-                DeleteAllSymbolicLinksInGameFolders(dirInfo);
+            catch
+            {
+                //TODO logger
+            }
         }
 
         public static void CreateMirrorsFromFolder(string path)
@@ -116,7 +106,15 @@ namespace GenLauncherNet
                 else
                     File.Move(Path.ChangeExtension(targetFile, "big"), Path.ChangeExtension(targetFile, "big") + EntryPoint.GenLauncherReplaceSuffix);
             }
-            CreateSymbolicLink(Path.ChangeExtension(targetFile, "big"), sourceFile, SymbolicLink.File);
+
+            if(String.Equals(Path.GetExtension(sourceFile), EntryPoint.GenLauncherReplaceSuffix))
+            {
+                targetFile = Path.ChangeExtension(targetFile, "");
+                targetFile = targetFile.Remove(targetFile.Length - 1);
+                CreateSymbolicLink(Path.ChangeExtension(targetFile, "big"), sourceFile, SymbolicLink.File);
+            }
+            else
+                CreateSymbolicLink(Path.ChangeExtension(targetFile, "big"), sourceFile, SymbolicLink.File);
         }
 
         public static void CreateMirrorForNonBig(string sourceFile, string targetFile)

@@ -26,6 +26,18 @@
         <Color x:Key="GenLauncherListBoxSelectionColor1">#E61d2057</Color>
         <Color x:Key="GenLauncherButtonSelectionColor">#2534ff</Color>
 
+        <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
+            <GradientStop Color="#B3000000" Offset="0"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
+            <GradientStop Color="#B3000000" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="DragAndDropBackground" EndPoint="1,0" StartPoint="0,0">
+            <GradientStop Color="{DynamicResource GenLauncherListBoxSelectionColor2}" Offset="0"/>
+            <GradientStop Color="{DynamicResource GenLauncherListBoxSelectionColor2}" Offset="1"/>
+        </LinearGradientBrush>
+
         <Style TargetType="{x:Type ProgressBar}">
             <Setter Property="Foreground" Value="{DynamicResource GenLauncherActiveColor}"/>
             <Setter Property="Background" Value="{DynamicResource GenLauncherDarkBackGround}"/>
@@ -500,13 +512,6 @@
             </Setter>
         </Style>
 
-        <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
-            <GradientStop Color="#B3000000" Offset="0"/>
-            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
-            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
-            <GradientStop Color="#B3000000" Offset="1"/>
-        </LinearGradientBrush>
-
         <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
             <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
@@ -711,7 +716,7 @@
                     
                 </Rectangle>
 
-                <Rectangle x:Name="DragAndDropBackground" Fill="{DynamicResource ButtonPressedBackground}" Visibility="Hidden"  Grid.RowSpan="10" Grid.ColumnSpan="10">
+                <Rectangle x:Name="DragAndDropBackground" Fill="{DynamicResource DragAndDropBackground}" Visibility="Hidden" Margin="-6,0,-6,0"  Grid.RowSpan="10" Grid.ColumnSpan="10">
 
                 </Rectangle>
 
