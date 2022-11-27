@@ -14,23 +14,83 @@ namespace GenLauncherNet
     {
         private static HashSet<string> customFileExtensions = new HashSet<string> {".w3d", ".dds", ".tga", ".ini", ".scb" };
 
+        public static event Action NotifyIfModInstalledIncorrectly;
+
         public async static Task<bool> PrepareAndRunGame(List<ModificationVersion> versions)
         {
             PrepareGameFiles(versions);
 
-            var result = await Task.Run(() => RunGame());
-            RenameGameFilesToOriginalState();
+            if (await ModFilesAreCorrect(versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault()))
+            {
+                var result = await Task.Run(() => RunGame());
 
-            return result;
+                return result;
+            }
+            RenameGameFilesToOriginalState();
+            return false;
         }
 
         public async static Task PrepareAndLaunchWorldBuilder(List<ModificationVersion> versions)
         {
             PrepareGameFiles(versions);
 
-            await Task.Run(() => RunWorldBuilder());
+            if (await ModFilesAreCorrect(versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault()))
+                await Task.Run(() => RunWorldBuilder());
             RenameGameFilesToOriginalState();
         }
+
+        #region File Checkings
+
+        private static async Task<bool> ModFilesAreCorrect(ModificationVersion version)
+        {
+            if (!DataHandler.GetCheckModFiles())
+                return true;
+
+            if (version == null)
+                return true;
+
+            var modVersion = DataHandler.GetSelectedModVersion();
+
+            //check only if launching latest version
+            if (modVersion != version)
+                return true;
+
+            if (string.IsNullOrEmpty(modVersion.S3HostLink) || string.IsNullOrEmpty(modVersion.S3BucketName))
+                return true;
+
+            try
+            {
+                var storage = new S3StorageHandler();
+                var modFilesList = await storage.GetModInfo(modVersion);
+
+                if (!AreModFilesCorrect(modFilesList))
+                {
+                    NotifyIfModInstalledIncorrectly();
+                    return false;
+                }
+                else
+                    return true;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        private static bool AreModFilesCorrect(List<ModificationFileInfo> filesInfo)
+        {
+            foreach (var info in filesInfo)
+            {
+                if (!File.Exists(info.FileName))
+                    return false;
+
+                if (!String.Equals(MD5ChecksumCalculator.ComputeMD5Checksum(info.FileName), info.Hash, StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
+            return true;
+        }
+
+        #endregion
 
         #region File Handlers
 

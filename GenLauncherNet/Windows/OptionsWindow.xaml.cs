@@ -60,6 +60,15 @@ namespace GenLauncherNet
                 generals.IsChecked = true;
             }
 
+            if (DataHandler.GetCheckModFiles())
+            {
+                CheckModFiles.IsChecked = true;
+            }
+            else
+            {
+                CheckModFiles.IsChecked = false;
+            }
+
             if (DataHandler.GetCameraHeight() == 0)
             {
                 defaultCamera.IsChecked = true;
@@ -340,6 +349,14 @@ namespace GenLauncherNet
 
             DataHandler.SetAutoDeleteOldVersionsOption(!check);
             DeleteOldVersion.IsChecked = !check;
+        }
+
+        private void CheckModFiles_Click(object sender, RoutedEventArgs e)
+        {
+            var check = DataHandler.GetCheckModFiles();
+
+            DataHandler.SetCheckModFiles(!check);
+            CheckModFiles.IsChecked = !check;
         }
 
         private void GenLauncherDiscord_Click(object sender, RoutedEventArgs e)

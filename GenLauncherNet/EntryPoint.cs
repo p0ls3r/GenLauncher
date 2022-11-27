@@ -20,6 +20,7 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
         public const string Version = "0.0.7.8 Pre Release";
+        public const int LaunchersCountForUpdateAdverising = 25;
 
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink =
@@ -224,12 +225,8 @@ namespace GenLauncherNet
         {
             DataHandler.SaveLauncherData();
 
-            /*SymbolicLinkHandler.DeleteAllSymbolicLinksInGameFolders();
-            RenameReplacedFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));
-            RenameOriginalFilesBack(new DirectoryInfo(Directory.GetCurrentDirectory()));*/
             DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory()));
             GameLauncher.RenameGameFilesToOriginalState();
-            //GameFilesHandler.ActivateGameFilesBack();
         }
 
         public static bool OtherInstancesExists()
@@ -421,66 +418,6 @@ namespace GenLauncherNet
                 return false;
             }
         }
-
-        /*public static void RenameReplacedFilesBack(DirectoryInfo directoryInfo)
-        {
-            foreach (var file in directoryInfo.GetFiles())
-            {
-                RemoveFileSuffix(file, EntryPoint.GenLauncherReplaceSuffix);
-                RemoveFileSuffix(file, EntryPoint.GenLauncherOriginalFileSuffix);
-            }
-
-            foreach (var dirInfo in directoryInfo.GetDirectories())
-            {
-                if (!dirInfo.Name.Contains(GenLauncherModsFolder))
-                    RenameReplacedFilesBack(dirInfo);
-            }
-        }*/
-
-        /*private static void RemoveFileSuffix(FileInfo file, string suffix)
-        {
-            if (file.FullName.Contains(suffix))
-            {
-                if (!File.Exists(file.FullName.Replace(suffix, string.Empty)))
-                    File.Move(file.FullName, file.FullName.Replace(suffix, string.Empty));
-                else
-                {
-                    File.Delete(file.FullName.Replace(suffix, string.Empty));
-                    File.Move(file.FullName, file.FullName.Replace(suffix, string.Empty));
-                }
-            }
-        }
-
-        public static void RenameOriginalFilesBack(DirectoryInfo directoryInfo)
-        {
-            foreach (var file in directoryInfo.GetFiles())
-            {
-                try
-                {
-                    if (file.FullName.Contains(EntryPoint.GenLauncherOriginalFileSuffix))
-                    {
-                        if (!File.Exists(file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty)))
-                            File.Move(file.FullName,
-                                file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
-                        else
-                        {
-                            File.Delete(file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
-                            File.Move(file.FullName,
-                                file.FullName.Replace(EntryPoint.GenLauncherOriginalFileSuffix, string.Empty));
-                        }
-                    }
-                }
-                catch
-                {
-                    //TODO Logger
-                }
-            }
-
-            foreach (var dirInfo in directoryInfo.GetDirectories())
-            {
-                RenameOriginalFilesBack(dirInfo);
-            }
-        }*/
 
         public static void DeleteTempFolders(DirectoryInfo directoryInfo)
         {

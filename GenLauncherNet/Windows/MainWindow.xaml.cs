@@ -51,6 +51,9 @@ namespace GenLauncherNet.Windows
 
             this.MouseDown += Window_MouseDown;
             this.Closing += MainWindow_Closing;
+            GameLauncher.NotifyIfModInstalledIncorrectly += ModIncorrectInstallationNotify;
+
+            UpdateLaunchesCount();
 
             ModsList.PreviewMouseMove += ListBox_PreviewMouseMove;
 
@@ -77,6 +80,24 @@ namespace GenLauncherNet.Windows
                 SetDefaultVisual();
 
             UpdateVisuals();
+        }
+
+        private void UpdateLaunchesCount()
+        {
+            if (DataHandler.GetLauncherCount() < 0)
+                DataHandler.SetLaunchesCount(EntryPoint.LaunchersCountForUpdateAdverising);
+
+            if (DataHandler.GetLauncherCount() > EntryPoint.LaunchersCountForUpdateAdverising)
+            {
+                DataHandler.SetLaunchesCount(0);
+
+                var advertising = DataHandler.GetAdvertising();
+
+                if (advertising != null)
+                    DataHandler.DeleteModificationVersion(advertising);
+            }
+
+            DataHandler.SetLaunchesCount(DataHandler.GetLauncherCount() + 1);
         }
 
         #region Changing Visuals
@@ -428,6 +449,7 @@ namespace GenLauncherNet.Windows
             {
                 UpdateProgressBar.Value = 0;
                 SetProgressBarInPassivelMode();
+                return;
             }
             catch (Exception e)
             {
@@ -435,7 +457,8 @@ namespace GenLauncherNet.Windows
                 UpdateProgress.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("White");
                 UpdateProgress.Text = "Error" + e.Message;
                 SetProgressBarInPassivelMode();
-            }
+                return;
+            }            
         }
 
         private void SetProgressBarInInstallMode()
@@ -574,6 +597,7 @@ namespace GenLauncherNet.Windows
 
         private void Exit()
         {
+            DataHandler.SetLaunchesCount(EntryPoint.LaunchersCountForUpdateAdverising);
             this.Close();
         }
 
@@ -879,6 +903,18 @@ namespace GenLauncherNet.Windows
 
         #region SupportMethods
 
+        private void ModIncorrectInstallationNotify()
+        {
+            var infoWindow = new InfoWindow("Some mod files are missing!", " It is recommended to reinstall the mod. \r You can turn off this checking in options.")
+            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            infoWindow.Continue.Visibility = Visibility.Hidden;
+            infoWindow.Cancel.Visibility = Visibility.Hidden;
+            infoWindow.ErrorBG.Visibility = Visibility.Visible;
+            infoWindow.ModsMessage.FontSize = 15;
+
+            infoWindow.ShowDialog();
+        }
+
         private void MoveModInList(ModificationContainer source, int sourceIndex, int targetIndex)
         {
             if (sourceIndex < targetIndex)
@@ -898,6 +934,7 @@ namespace GenLauncherNet.Windows
 
             SetIndexNumbersForMods();
         }
+
 
         private void SetIndexNumbersForMods()
         {
@@ -1343,7 +1380,6 @@ namespace GenLauncherNet.Windows
 
             var selectedModVersion = DataHandler.GetSelectedModVersion();
             var selectedPatchVersion = DataHandler.GetSelectedPatchVersion();
-
             var selectedAddonsVersions = DataHandler.GetSelectedAddonsVersions().Where(m => m != null);
 
             if (selectedModVersion == null)
@@ -1636,6 +1672,7 @@ namespace GenLauncherNet.Windows
                 }
 
                 _isWBRunning = true;
+
                 await GameLauncher.PrepareAndLaunchWorldBuilder(GetVersionOfActiveVersions());
                 _isWBRunning = false;
             }

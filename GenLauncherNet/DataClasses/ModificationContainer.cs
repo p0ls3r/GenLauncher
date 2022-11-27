@@ -396,6 +396,11 @@ namespace GenLauncherNet
 
                 if (sv != null)
                     return sv;
+
+                sv = ContainerModification.ModificationVersions.OrderBy(m => m).FirstOrDefault();
+
+                if (sv != null)
+                    return sv;
             }
 
             return null;

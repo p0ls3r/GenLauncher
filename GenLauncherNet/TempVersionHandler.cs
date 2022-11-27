@@ -89,7 +89,7 @@ namespace GenLauncherNet
 
             foreach (var file in directoryInfo.GetFiles())
             {
-                result.Add(new ModificationFileInfo(file.Name, ComputeMD5Checksum(file.FullName)));
+                result.Add(new ModificationFileInfo(file.Name, MD5ChecksumCalculator.ComputeMD5Checksum(file.FullName)));
             }
 
             foreach (var subDir in directoryInfo.GetDirectories())
@@ -107,30 +107,12 @@ namespace GenLauncherNet
 
             foreach (var file in directoryInfo.GetFiles())
             {
-                result.Add(new ModificationFileInfo(prefix + file.Name, ComputeMD5Checksum(file.FullName)));
+                result.Add(new ModificationFileInfo(prefix + file.Name, MD5ChecksumCalculator.ComputeMD5Checksum(file.FullName)));
             }
-
-            /*if (!String.Equals(directoryInfo.Name + '/', prefix, StringComparison.OrdinalIgnoreCase))
-                prefix += directoryInfo.Name + '/';*/
 
             foreach (var subDir in directoryInfo.GetDirectories())
             {
-                //prefix += subDir.Name + '/';
-
                 GetModFilesInfoFromTempFolder(prefix, subDir, result);
-            }
-        }
-
-        private static string ComputeMD5Checksum(string path)
-        {
-            using (FileStream fs = System.IO.File.OpenRead(path))
-            {
-                var md5 = new MD5CryptoServiceProvider();
-                byte[] fileData = new byte[fs.Length];
-                fs.Read(fileData, 0, (int)fs.Length);
-                byte[] checkSum = md5.ComputeHash(fileData);
-                string result = BitConverter.ToString(checkSum).Replace("-", String.Empty);
-                return result;
             }
         }
 

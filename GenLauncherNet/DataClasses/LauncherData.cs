@@ -14,9 +14,11 @@ namespace GenLauncherNet
         public bool Windowed { get; set; } = true;
         public bool QuickStart { get; set; } = true;
         public int CameraHeight { get; set; }
+        public int LaunchesCount { get; set; }
         public bool AutoUpdateGentool { get; set; } = true;
         public bool AutoDeleteOldVersions { get; set; } = false;
         public string GameParams { get; set; }
+        public bool CheckModFiles { get; set; } = true;
 
         public List<GameModification> Modifications = new List<GameModification>();
         public List<GameModification> Addons = new List<GameModification>();
@@ -60,6 +62,9 @@ namespace GenLauncherNet
                     break;
                 case ModificationType.Patch:
                     DeleteModification(Patches, modificationVersion);
+                    break;
+                case ModificationType.Advertising:
+                    DeleteModification(Modifications, modificationVersion);
                     break;
             }
         }

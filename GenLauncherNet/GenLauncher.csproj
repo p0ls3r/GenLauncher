@@ -138,6 +138,7 @@
     <Compile Include="ColorsInfo.cs" />
     <Compile Include="DataClasses\GameModification.cs" />
     <Compile Include="DataClasses\ReposModificationsVersion.cs" />
+    <Compile Include="Utility\MD5ChecksumCalculator.cs" />
     <Compile Include="Utility\FilesHandler.cs" />
     <Compile Include="GameLauncher.cs" />
     <Compile Include="GentoolHandler.cs" />
@@ -337,7 +338,9 @@
   <ItemGroup>
     <Resource Include="Images\BackgroundGenerals.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\discordBig.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets" Condition="Exists('..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

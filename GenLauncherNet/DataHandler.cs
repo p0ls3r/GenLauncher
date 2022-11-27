@@ -65,6 +65,16 @@ namespace GenLauncherNet
 
         #region SettingsData
 
+        internal static void SetCheckModFiles(bool check)
+        {
+            Data.CheckModFiles = check;
+        }
+
+        internal static void SetLaunchesCount(int count)
+        {
+            Data.LaunchesCount = count;
+        }
+
         public static void SetGameParams(string param)
         {
             Data.GameParams = param;
@@ -137,6 +147,16 @@ namespace GenLauncherNet
         #endregion
 
         #region DataGetters
+
+        internal static bool GetCheckModFiles()
+        {
+            return Data.CheckModFiles;
+        }
+
+        internal static int GetLauncherCount()
+        {
+            return Data.LaunchesCount;
+        }
 
         internal static ModificationVersion GetAdvertising()
         {
@@ -328,6 +348,9 @@ namespace GenLauncherNet
                     break;
                 case ModificationType.Patch:
                     Directory.Delete(EntryPoint.GenLauncherModsFolder + '/' + modificationVersion.DependenceName + '/' + EntryPoint.PatchesFolderName + '/' + modificationVersion.Name + '/' + modificationVersion.Version, true);
+                    break;
+                case ModificationType.Advertising:
+                    Data.Delete(modificationVersion);
                     break;
             }
         }

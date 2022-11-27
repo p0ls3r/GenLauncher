@@ -33,8 +33,6 @@ namespace GenLauncherNet
             else
                 minioClient = new MinioClient(version.S3HostLink, version.S3HostPublicKey, version.S3HostSecretKey);
 
-            
-
             return await GetFilesFromBucket(version);
         }
 
