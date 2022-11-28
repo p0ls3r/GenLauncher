@@ -44,7 +44,7 @@ namespace GenLauncherNet
 
             if (ContainerModification.ModificationVersions != null && ContainerModification.ModificationVersions.Count > 0)
             {
-                var ContainerVersions = ContainerModification.ModificationVersions;
+                var ContainerVersions = ContainerModification.ModificationVersions.OrderBy(m => m);
 
                 SelectedVersion = GetSelectedVersion();
                 if (SelectedVersion != null)
@@ -333,7 +333,7 @@ namespace GenLauncherNet
 
             var versionListSource = new ObservableCollection<ComboBoxData>();
 
-            foreach (var version in ContainerModification.ModificationVersions.Where(m => m.Installed))
+            foreach (var version in ContainerModification.ModificationVersions.Where(m => m.Installed).OrderBy(m => m))
             {
                 versionListSource.Add(new ComboBoxData(this.ContainerModification, version.Version, this));
             }

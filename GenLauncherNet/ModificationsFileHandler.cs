@@ -10,7 +10,7 @@ namespace GenLauncherNet
 {
     public static class ModificationsFileHandler
     {
-        public static void CreateModificationsFromFiles(List<string> files, string path)
+        public static void ExtractModificationFromFiles(List<string> files, string path)
         {
             foreach (var file in files)
             {

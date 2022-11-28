@@ -917,22 +917,27 @@ namespace GenLauncherNet.Windows
 
         private void MoveModInList(ModificationContainer source, int sourceIndex, int targetIndex)
         {
+            MoveModificationInList(ModsListSource, source, sourceIndex, targetIndex);
+
+            SetIndexNumbersForMods();
+        }
+
+        private void MoveModificationInList(ObservableCollection<ModificationContainer> list, ModificationContainer source, int sourceIndex, int targetIndex)
+        {
             if (sourceIndex < targetIndex)
             {
-                ModsListSource.Insert(targetIndex + 1, source);
-                ModsListSource.RemoveAt(sourceIndex);
+                list.Insert(targetIndex + 1, source);
+                list.RemoveAt(sourceIndex);
             }
             else
             {
                 int removeIndex = sourceIndex + 1;
-                if (ModsListSource.Count + 1 > removeIndex)
+                if (list.Count + 1 > removeIndex)
                 {
-                    ModsListSource.Insert(targetIndex, source);
-                    ModsListSource.RemoveAt(removeIndex);
+                    list.Insert(targetIndex, source);
+                    list.RemoveAt(removeIndex);
                 }
             }
-
-            SetIndexNumbersForMods();
         }
 
 
@@ -2092,12 +2097,18 @@ namespace GenLauncherNet.Windows
         {
             DisableUI();
             await Task.Run(() =>
-                ModificationsFileHandler.CreateModificationsFromFiles(files,
+                ModificationsFileHandler.ExtractModificationFromFiles(files,
                     EntryPoint.GenLauncherModsFolder + '/' + modName + '/' + version));
 
             DataHandler.UpdateModificationsData();
             var savedModification = DataHandler.GetMods()
                 .Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+            if (ModsListSource.Select(m => m.ContainerModification.Name.ToLower()).Contains(modName.ToLower()))
+            {
+                var savedMod = ModsListSource.Where(m => String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                ModsListSource.Remove(savedMod);
+            }
 
             var modData = new ModificationContainer(savedModification);
             ModsListSource.Add(modData);
@@ -2109,7 +2120,7 @@ namespace GenLauncherNet.Windows
         public async void CreateAddonFromFiles(List<string> files, string path, string modName, string version)
         {
             DisableUI();
-            await Task.Run(() => ModificationsFileHandler.CreateModificationsFromFiles(files,
+            await Task.Run(() => ModificationsFileHandler.ExtractModificationFromFiles(files,
                 EntryPoint.GenLauncherModsFolder + '/' + path + '/' + EntryPoint.AddonsFolderName + '/' + modName +
                 '/' + version));
 
@@ -2117,8 +2128,15 @@ namespace GenLauncherNet.Windows
             var savedModification = DataHandler.GetAddonsForSelectedMod()
                 .Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
+            if (AddonsListSource.Select(m => m.ContainerModification.Name.ToLower()).Contains(modName.ToLower()))
+            {
+                var savedMod = AddonsListSource.Where(m => String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                AddonsListSource.Remove(savedMod);
+            }
+
             var modData = new ModificationContainer(savedModification);
             AddonsListSource.Add(modData);
+            MoveModificationInList(AddonsListSource, modData, AddonsListSource.Count - 1, 0);
 
             EnableUI();
         }
@@ -2126,7 +2144,7 @@ namespace GenLauncherNet.Windows
         public async void CreatePatchFromFiles(List<string> files, string path, string modName, string version)
         {
             DisableUI();
-            await Task.Run(() => ModificationsFileHandler.CreateModificationsFromFiles(files,
+            await Task.Run(() => ModificationsFileHandler.ExtractModificationFromFiles(files,
                 EntryPoint.GenLauncherModsFolder + '/' + path + '/' + EntryPoint.PatchesFolderName + '/' + modName +
                 '/' + version));
 
@@ -2134,8 +2152,15 @@ namespace GenLauncherNet.Windows
             var savedModification = DataHandler.GetPatchesForSelectedMod()
                 .Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
+            if (PatchesListSource.Select(m => m.ContainerModification.Name.ToLower()).Contains(modName.ToLower()))
+            {
+                var savedMod = PatchesListSource.Where(m => String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                PatchesListSource.Remove(savedMod);
+            }
+
             var modData = new ModificationContainer(savedModification);
             PatchesListSource.Add(modData);
+            MoveModificationInList(PatchesListSource, modData, PatchesListSource.Count - 1, 0);
 
             EnableUI();
         }

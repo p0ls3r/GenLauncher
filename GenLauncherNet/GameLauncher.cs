@@ -13,6 +13,7 @@ namespace GenLauncherNet
     public static class GameLauncher
     {
         private static HashSet<string> customFileExtensions = new HashSet<string> {".w3d", ".dds", ".tga", ".ini", ".scb" };
+        private static HashSet<string> extensionsToCheck = new HashSet<string> {".w3d", "big", "bik", ".dds", ".tga", ".ini", ".scb" };
 
         public static event Action NotifyIfModInstalledIncorrectly;
 
@@ -81,10 +82,11 @@ namespace GenLauncherNet
         {
             foreach (var info in filesInfo)
             {
-                if (!File.Exists(info.FileName))
+                if (!File.Exists(info.FileName) && !File.Exists(Path.ChangeExtension(info.FileName, "big")))
                     return false;
 
-                if (!String.Equals(MD5ChecksumCalculator.ComputeMD5Checksum(info.FileName), info.Hash, StringComparison.OrdinalIgnoreCase))
+                if (extensionsToCheck.Contains(Path.GetExtension(info.FileName).ToLower()) &&
+                    !String.Equals(MD5ChecksumCalculator.ComputeMD5Checksum(info.FileName), info.Hash, StringComparison.OrdinalIgnoreCase))
                     return false;
             }
             return true;
