@@ -876,21 +876,23 @@
 
         <Label Content="Toggle Off to improve performance and stability" FontWeight="Bold" Margin="6,10,0,0" Grid.Column="3" Grid.Row="4" Foreground="White" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-        <RadioButton x:Name="VolumeShadows" Foreground="White" GroupName="none1" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="3D Shadows" Margin="15,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="VolumeShadows_Click"/>
-        <RadioButton x:Name="BehindBuilding" Foreground="White" GroupName="none2" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Display Units Through Buildings" Margin="205,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="BehindBuilding_Click"/>
+        <RadioButton x:Name="VolumeShadows" Foreground="White" GroupName="none1" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="3D Shadows" Margin="15,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="VolumeShadows_Click"/>
+        <RadioButton x:Name="BehindBuilding" Foreground="White" GroupName="none2" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Display Units Through Buildings" Margin="205,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="BehindBuilding_Click"/>
 
-        <RadioButton x:Name="Shadows" Foreground="White" GroupName="none3" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="2D Shadows" Margin="15,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Shadows_Click"/>
-        <RadioButton x:Name="ShowProps" Foreground="White" GroupName="none4" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Show Props" Margin="205,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ShowProps_Click"/>
+        <RadioButton x:Name="Shadows" Foreground="White" GroupName="none3" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="2D Shadows" Margin="15,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Shadows_Click"/>
+        <RadioButton x:Name="ShowProps" Foreground="White" GroupName="none4" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Show Props" Margin="205,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ShowProps_Click"/>
 
-        <RadioButton x:Name="CloudShadows" Foreground="White" GroupName="none5" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Cloud Shadows" Margin="15,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CloudShadows_Click"/>
-        <RadioButton x:Name="ExtraAnimation" Foreground="White" GroupName="none6" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Animation" Margin="205,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraAnimation_Click"/>
+        <RadioButton x:Name="CloudShadows" Foreground="White" GroupName="none5" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Cloud Shadows" Margin="15,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CloudShadows_Click"/>
+        <RadioButton x:Name="ExtraAnimation" Foreground="White" GroupName="none6" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Animation" Margin="205,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraAnimation_Click"/>
 
-        <RadioButton x:Name="ExtraGroundLighting" Foreground="White" GroupName="none7" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Ground Lighting" Margin="15,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraGroundLighting_Click"/>
-        <RadioButton x:Name="DisableDynamicLevelOfDetail" Foreground="White" GroupName="none8" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Disable Dynamic Level Of Detail" Margin="205,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DisableDynamicLevelOfDetail_Click"/>
+        <RadioButton x:Name="ExtraGroundLighting" Foreground="White" GroupName="none7" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Ground Lighting" Margin="15,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraGroundLighting_Click"/>
+        <RadioButton x:Name="DisableDynamicLevelOfDetail" Foreground="White" GroupName="none8" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Disable Dynamic Level Of Detail" Margin="205,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DisableDynamicLevelOfDetail_Click"/>
 
-        <RadioButton x:Name="SmoothWaterBorders" Foreground="White" GroupName="none9" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Smooth Water Borders" Margin="15,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="SmoothWaterBorders_Click"/>
-        <RadioButton x:Name="HeatEffects" Foreground="White" GroupName="none10" FontSize="16" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Heat Effects" Margin="205,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HeatEffects_Click"/>
+        <RadioButton x:Name="SmoothWaterBorders" Foreground="White" GroupName="none9" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Smooth Water Borders" Margin="15,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="SmoothWaterBorders_Click"/>
+        <RadioButton x:Name="HeatEffects" Foreground="White" GroupName="none10" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Heat Effects (recommended to turn off)" Margin="205,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HeatEffects_Click"/>
 
-        <RadioButton x:Name="CheckModFiles" Foreground="White" GroupName="none11" FontSize="16" Grid.Column="3" Grid.Row="8" Grid.RowSpan="3" Margin="15,5,0,0" Content="Check mod files integrity (works only for the latest version)"  HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CheckModFiles_Click"/>
+        <RadioButton x:Name="CheckModFiles" Foreground="White" GroupName="none11" FontSize="14" Grid.Column="3" Grid.Row="8" Grid.RowSpan="3" Margin="15,5,0,0" Content="Check mod files integrity (works only for the latest version)"  HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CheckModFiles_Click"/>
+
+        <RadioButton x:Name="AlternateMouseSetup" Foreground="White" GroupName="none12" FontSize="14" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Content="Alternative Mouse Setup" Margin="205,45,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AlternateMouseSetup_Click"/>
     </Grid>
 </Window>

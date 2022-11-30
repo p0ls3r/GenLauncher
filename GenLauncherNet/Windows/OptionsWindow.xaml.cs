@@ -127,6 +127,9 @@ namespace GenLauncherNet
 
             if (gameOptions["HeatEffects"] == " yes")
                 HeatEffects.IsChecked = true;
+
+            if (gameOptions["UseAlternateMouse"] == " yes")
+                AlternateMouseSetup.IsChecked = true;
         }
 
         private void SetParticleSliderValue()
@@ -420,120 +423,43 @@ namespace GenLauncherNet
         private void VolumeShadows_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseShadowVolumes";
-            if (gameOptions[key] == " yes")
-            {
-                VolumeShadows.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                VolumeShadows.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void BehindBuilding_Click(object sender, RoutedEventArgs e)
         {
             var key = "BuildingOcclusion";
-            if (gameOptions[key] == " yes")
-            {
-                BehindBuilding.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                BehindBuilding.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void Shadows_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseShadowDecals";
-            if (gameOptions[key] == " yes")
-            {
-                Shadows.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                Shadows.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void ShowProps_Click(object sender, RoutedEventArgs e)
         {
             var key = "ShowTrees";
-            if (gameOptions[key] == " yes")
-            {
-                ShowProps.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                ShowProps.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void CloudShadows_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseCloudMap";
-            if (gameOptions[key] == " yes")
-            {
-                CloudShadows.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                CloudShadows.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void ExtraAnimation_Click(object sender, RoutedEventArgs e)
         {
             var key = "ExtraAnimations";
-            if (gameOptions[key] == " yes")
-            {
-                ExtraAnimation.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                ExtraAnimation.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void ExtraGroundLighting_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseLightMap";
-            if (gameOptions[key] == " yes")
-            {
-                ExtraGroundLighting.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                ExtraGroundLighting.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void DisableDynamicLevelOfDetail_Click(object sender, RoutedEventArgs e)
@@ -556,32 +482,32 @@ namespace GenLauncherNet
         private void SmoothWaterBorders_Click(object sender, RoutedEventArgs e)
         {
             var key = "ShowSoftWaterEdge";
-            if (gameOptions[key] == " yes")
-            {
-                SmoothWaterBorders.IsChecked = false;
-                gameOptions[key] = " no";
-            }
-            else
-            {
-                SmoothWaterBorders.IsChecked = true;
-                gameOptions[key] = " yes";
-            }
-
-            gameOptionsChanged = true;
+            ChangeGameOptionByKey(key);
         }
 
         private void HeatEffects_Click(object sender, RoutedEventArgs e)
         {
             var key = "HeatEffects";
-            if (gameOptions[key] == " yes")
+            ChangeGameOptionByKey(key);
+        }
+
+        private void AlternateMouseSetup_Click(object sender, RoutedEventArgs e)
+        {
+            var key = "UseAlternateMouse";
+            ChangeGameOptionByKey(key);
+        }
+
+        private void ChangeGameOptionByKey(string gameOptionName)
+        {
+            if (gameOptions[gameOptionName] == " yes")
             {
                 HeatEffects.IsChecked = false;
-                gameOptions[key] = " no";
+                gameOptions[gameOptionName] = " no";
             }
             else
             {
                 HeatEffects.IsChecked = true;
-                gameOptions[key] = " yes";
+                gameOptions[gameOptionName] = " yes";
             }
 
             gameOptionsChanged = true;
