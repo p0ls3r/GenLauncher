@@ -2187,7 +2187,12 @@ namespace GenLauncherNet.Windows
             if (selectedVersion != null)
             {
                 var path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), selectedVersion.GetFolderName());
-                Process.Start(path);
+                if (Directory.Exists(path) && Directory.EnumerateFiles(path).Count() > 0)
+                    Process.Start(path);
+                else
+                {
+                    CreateErrorWindow("Uninstalled  mod", "You need to install the mod before opening its folder");
+                }
             }
         }
 
