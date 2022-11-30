@@ -102,6 +102,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.4.0.0\lib\net46\System.Reactive.dll</HintPath>
@@ -135,6 +136,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BigHandler.cs" />
+    <Compile Include="Utility\BlackWhiteImageGenerator.cs" />
     <Compile Include="ColorsInfo.cs" />
     <Compile Include="DataClasses\GameModification.cs" />
     <Compile Include="DataClasses\ReposModificationsVersion.cs" />

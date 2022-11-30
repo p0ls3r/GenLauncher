@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace GenLauncherNet
 {
@@ -73,19 +74,31 @@ namespace GenLauncherNet
             SetUnSelectedStatus();
         }
 
-        private void SetImage()
+        private void SetBlackWhiteImage()
         {
             if (ContainerModification.ModificationType == ModificationType.Mod)
             {
-                var imageFileName = Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
-                SetImage(imageFileName);
+                var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+
+                if (!File.Exists(imageFileName))
+                    return;
+
+                var imageFileNameBW = imageFileName + "BW";
+
+                if (!File.Exists(imageFileNameBW))
+                {
+                    var image = BlackWhiteImageGenerator.GenerateBlackWhiteBitMapImageFromPath(imageFileName);
+                    image.Save(imageFileNameBW);
+                }
+
+                SetImage(imageFileNameBW);
             }
 
             if (ContainerModification.ModificationType == ModificationType.Advertising)
             {
-                var folderName = ContainerModification.Name.Trim(Path.GetInvalidFileNameChars());
+                var folderName = ContainerModification.Name.Trim(System.IO.Path.GetInvalidFileNameChars());
 
-                var dirInfo = new DirectoryInfo(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName));
+                var dirInfo = new DirectoryInfo(System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName));
 
                 var filesCount = dirInfo.GetFiles().Length;
 
@@ -101,16 +114,27 @@ namespace GenLauncherNet
                         imageIndex = rand.Next(0, filesCount / 2);
                 }
 
-                var imageFileName = Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName, imageIndex.ToString());
+                var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, folderName, imageIndex.ToString());
+
+                SetImage(imageFileName);
+            }
+        }
+
+        private void SetColorfullImage()
+        {
+            if (ContainerModification.ModificationType == ModificationType.Mod)
+            {
+                var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+
+                if (!File.Exists(imageFileName))
+                    return;
+
                 SetImage(imageFileName);
             }
         }
 
         private void SetImage(string path)
         {
-            if (!File.Exists(path))
-                return;
-
             var stream = File.OpenRead(path);
 
             try
@@ -195,6 +219,8 @@ namespace GenLauncherNet
             if (_GridControls._SupportButton != null && !String.IsNullOrEmpty(ContainerModification.NetworkInfo))
                 _GridControls._SupportButton.Visibility = System.Windows.Visibility.Visible;
 
+            SetColorfullImage();
+
 
             if (ContainerModification.ModificationType == ModificationType.Advertising)
             {
@@ -224,6 +250,8 @@ namespace GenLauncherNet
             _GridControls._Name.FontWeight = FontWeights.Normal;
 
             _GridControls._ComboBox.Visibility = System.Windows.Visibility.Hidden;
+
+            SetBlackWhiteImage();
 
             if (ContainerModification.ModificationType != ModificationType.Advertising)
             {
@@ -279,7 +307,7 @@ namespace GenLauncherNet
             UpdateUIelements();
 
             if (LatestVersion != null && (LatestVersion.ModificationType == ModificationType.Mod || LatestVersion.ModificationType == ModificationType.Advertising))
-                SetImage();
+                SetBlackWhiteImage();
 
             if (ContainerModification.IsSelected)
                 SetSelectedStatus();
