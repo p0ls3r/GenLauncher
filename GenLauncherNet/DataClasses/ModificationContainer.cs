@@ -187,6 +187,15 @@ namespace GenLauncherNet
             _GridControls._Name.Foreground = EntryPoint.Colors.GenLauncherActiveColor;
             _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
             _GridControls._Name.FontWeight = FontWeights.Bold;
+
+            if (_GridControls._NetworkInfo != null && !String.IsNullOrEmpty(ContainerModification.NetworkInfo))
+                _GridControls._NetworkInfo.Visibility = System.Windows.Visibility.Visible;
+            if (_GridControls._ChangeLogButton != null && !String.IsNullOrEmpty(ContainerModification.NewsLink))
+                _GridControls._ChangeLogButton.Visibility = System.Windows.Visibility.Visible;
+            if (_GridControls._SupportButton != null && !String.IsNullOrEmpty(ContainerModification.NetworkInfo))
+                _GridControls._SupportButton.Visibility = System.Windows.Visibility.Visible;
+
+
             if (ContainerModification.ModificationType == ModificationType.Advertising)
             {
                 _GridControls._ComboBox.Visibility = Visibility.Hidden;
@@ -213,7 +222,18 @@ namespace GenLauncherNet
             _GridControls._Name.Foreground = EntryPoint.Colors.GenLauncherInactiveBorder;
             _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherInactiveBorder;
             _GridControls._Name.FontWeight = FontWeights.Normal;
+
             _GridControls._ComboBox.Visibility = System.Windows.Visibility.Hidden;
+
+            if (ContainerModification.ModificationType != ModificationType.Advertising)
+            {
+                if (_GridControls._NetworkInfo != null)
+                    _GridControls._NetworkInfo.Visibility = System.Windows.Visibility.Hidden;
+                if (_GridControls._ChangeLogButton != null)
+                    _GridControls._ChangeLogButton.Visibility = System.Windows.Visibility.Hidden;
+                if (_GridControls._SupportButton != null)
+                    _GridControls._SupportButton.Visibility = System.Windows.Visibility.Hidden;
+            }
 
             if (_GridControls._Image != null && _GridControls._ImageBorder != null)
             {
