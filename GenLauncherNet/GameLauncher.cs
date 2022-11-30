@@ -24,7 +24,7 @@ namespace GenLauncherNet
             if (await ModFilesAreCorrect(versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault()))
             {
                 var result = await Task.Run(() => RunGame());
-
+                RenameGameFilesToOriginalState();
                 return result;
             }
             RenameGameFilesToOriginalState();

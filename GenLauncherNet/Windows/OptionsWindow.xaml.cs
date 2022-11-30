@@ -423,43 +423,43 @@ namespace GenLauncherNet
         private void VolumeShadows_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseShadowVolumes";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void BehindBuilding_Click(object sender, RoutedEventArgs e)
         {
             var key = "BuildingOcclusion";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void Shadows_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseShadowDecals";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void ShowProps_Click(object sender, RoutedEventArgs e)
         {
             var key = "ShowTrees";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void CloudShadows_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseCloudMap";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void ExtraAnimation_Click(object sender, RoutedEventArgs e)
         {
             var key = "ExtraAnimations";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void ExtraGroundLighting_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseLightMap";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void DisableDynamicLevelOfDetail_Click(object sender, RoutedEventArgs e)
@@ -482,31 +482,33 @@ namespace GenLauncherNet
         private void SmoothWaterBorders_Click(object sender, RoutedEventArgs e)
         {
             var key = "ShowSoftWaterEdge";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void HeatEffects_Click(object sender, RoutedEventArgs e)
         {
             var key = "HeatEffects";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
         private void AlternateMouseSetup_Click(object sender, RoutedEventArgs e)
         {
             var key = "UseAlternateMouse";
-            ChangeGameOptionByKey(key);
+            ChangeGameOptionByKey(key, sender);
         }
 
-        private void ChangeGameOptionByKey(string gameOptionName)
+        private void ChangeGameOptionByKey(string gameOptionName, object sender)
         {
+            var radioButton = (System.Windows.Controls.RadioButton)sender;
+
             if (gameOptions[gameOptionName] == " yes")
             {
-                HeatEffects.IsChecked = false;
+                radioButton.IsChecked = false;
                 gameOptions[gameOptionName] = " no";
             }
             else
             {
-                HeatEffects.IsChecked = true;
+                radioButton.IsChecked = true;
                 gameOptions[gameOptionName] = " yes";
             }
 
