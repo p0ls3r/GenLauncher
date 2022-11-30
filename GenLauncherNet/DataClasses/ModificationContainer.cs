@@ -88,7 +88,8 @@ namespace GenLauncherNet
                 if (!File.Exists(imageFileNameBW))
                 {
                     var image = BlackWhiteImageGenerator.GenerateBlackWhiteBitMapImageFromPath(imageFileName);
-                    image.Save(imageFileNameBW);
+                    if (image != null)
+                        image.Save(imageFileNameBW);
                 }
 
                 SetImage(imageFileNameBW);
@@ -135,6 +136,9 @@ namespace GenLauncherNet
 
         private void SetImage(string path)
         {
+            if (string.IsNullOrEmpty(path))
+                return;
+
             var stream = File.OpenRead(path);
 
             try
