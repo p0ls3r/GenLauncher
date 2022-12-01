@@ -19,7 +19,7 @@ namespace GenLauncherNet
         public static string ModsRepos;
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.7.9 Pre Release";
+        public const string Version = "0.0.8.1 Pre Release";
         public const int LaunchersCountForUpdateAdverising = 25;
 
         //public const string Version = "0.0.0.1 Test";

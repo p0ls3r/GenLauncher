@@ -15,14 +15,17 @@ namespace GenLauncherNet
         private static HashSet<string> customFileExtensions = new HashSet<string> {".w3d", ".dds", ".tga", ".ini", ".scb", ".wnd", ".csf", ".str" };
         private static HashSet<string> extensionsToCheck = new HashSet<string> {".w3d", "big", "bik", ".dds", ".tga", ".ini", ".scb", ".wnd", ".csf", ".str" };
         public static HashSet<string> exceptExtensions = new HashSet<string> { ".exe", ".dll" };
+        private static string bigDataFile;
 
         public static event Action NotifyIfModInstalledIncorrectly;
 
         public async static Task<bool> PrepareAndRunGame(List<ModificationVersion> versions)
         {
+            bigDataFile = string.Empty;
+
             PrepareGameFiles(versions);
 
-            if (await ModFilesAreCorrect(versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault()))
+            if (DataHandler.GetCheckModFiles() && await ModFilesAreCorrect(versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault(), versions.Where(v => v.ModificationType == ModificationType.Addon || v.ModificationType == ModificationType.Patch)))
             {
                 var result = await Task.Run(() => RunGame());
                 RenameGameFilesToOriginalState();
@@ -36,19 +39,17 @@ namespace GenLauncherNet
         {
             PrepareGameFiles(versions);
 
-            if (await ModFilesAreCorrect(versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault()))
+            if (DataHandler.GetCheckModFiles() && await ModFilesAreCorrect(versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault(), versions.Where(v => v.ModificationType == ModificationType.Addon || v.ModificationType == ModificationType.Patch)))
                 await Task.Run(() => RunWorldBuilder());
             RenameGameFilesToOriginalState();
         }
 
         #region File Checkings
 
-        private static async Task<bool> ModFilesAreCorrect(ModificationVersion version)
+        private static async Task<bool> ModFilesAreCorrect(ModificationVersion version, IEnumerable<ModificationVersion> addonsVersions)
         {
-            if (!DataHandler.GetCheckModFiles())
-                return true;
-
-            if (version == null)
+            //TODO improve checking (if any patch or addon is active, check doesn't work)
+            if (version == null || addonsVersions.Any())
                 return true;
 
             var modVersion = DataHandler.GetSelectedModVersion();
@@ -86,7 +87,13 @@ namespace GenLauncherNet
                 if (!File.Exists(info.FileName) && !File.Exists(Path.ChangeExtension(info.FileName, "big")) && !exceptExtensions.Contains(Path.GetExtension(info.FileName).ToLower()))
                     return false;
 
-                if (extensionsToCheck.Contains(Path.GetExtension(info.FileName).ToLower()) &&
+                //TODO improve checking (launcher does not check data file if it was changed for camera height custom se)
+                if (String.Equals(Path.GetFileName(bigDataFile), Path.GetFileName(info.FileName), StringComparison.OrdinalIgnoreCase) ||
+                    String.Equals(Path.ChangeExtension(Path.GetFileName(bigDataFile), "big"), Path.GetFileName(info.FileName), StringComparison.OrdinalIgnoreCase) ||
+                    String.Equals(Path.GetFileName(bigDataFile), Path.ChangeExtension(Path.GetFileName(info.FileName), "big"), StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                if ((extensionsToCheck.Contains(Path.GetExtension(info.FileName).ToLower()) || BigHandler.IsBigArchive(info.FileName)) &&
                     !String.Equals(MD5ChecksumCalculator.ComputeMD5Checksum(info.FileName), info.Hash, StringComparison.OrdinalIgnoreCase))
                     return false;
             }
@@ -107,7 +114,7 @@ namespace GenLauncherNet
             FilesHandler.ApplyActionsToGameFiles(RenameNonGameBigFile, RenameCustomFiles, SymbolicLinkHandler.RemoveSymbLinkFile);
 
             if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
-                SetCameraHeight(versions);
+                bigDataFile = SetCameraHeight(versions);
 
             var noNullsVersions = versions;
 
@@ -175,12 +182,12 @@ namespace GenLauncherNet
 
         #region Camera Height
 
-        private static void SetCameraHeight(List<ModificationVersion> versions)
+        private static string SetCameraHeight(List<ModificationVersion> versions)
         {
             var cameraHeight = DataHandler.GetCameraHeight();
 
             if (cameraHeight == 0)
-                return;
+                return string.Empty;
 
             var bigFiles = new List<string>();
 
@@ -192,12 +199,13 @@ namespace GenLauncherNet
             var bigWithCameraHeight = GetFileWithCameraHeight(bigFiles.OrderBy(f => Path.GetFileName(f)));
 
             if (String.IsNullOrEmpty(bigWithCameraHeight))
-                return;
+                return bigWithCameraHeight;
 
             if (!File.Exists(bigWithCameraHeight + EntryPoint.GenLauncherOriginalFileSuffix))
                 File.Copy(bigWithCameraHeight, bigWithCameraHeight + EntryPoint.GenLauncherOriginalFileSuffix);
 
             BigHandler.SetCameraHeight(bigWithCameraHeight, cameraHeight);
+            return bigWithCameraHeight;
         }
 
         private static string GetFileWithCameraHeight(IOrderedEnumerable<string> files)
