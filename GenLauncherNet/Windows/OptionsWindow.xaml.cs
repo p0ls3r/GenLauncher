@@ -256,6 +256,7 @@ namespace GenLauncherNet
             gameOptions.TryAdd("DynamicLOD", " yes");
             gameOptions.TryAdd("ShowSoftWaterEdge", " no");
             gameOptions.TryAdd("HeatEffects", " no");
+            gameOptions.TryAdd("UseAlternateMouse", " no");
         }
 
         private void ReadOptions()
