@@ -220,7 +220,7 @@ namespace GenLauncherNet
                 _GridControls._NetworkInfo.Visibility = System.Windows.Visibility.Visible;
             if (_GridControls._ChangeLogButton != null && !String.IsNullOrEmpty(ContainerModification.NewsLink))
                 _GridControls._ChangeLogButton.Visibility = System.Windows.Visibility.Visible;
-            if (_GridControls._SupportButton != null && !String.IsNullOrEmpty(ContainerModification.NetworkInfo))
+            if (_GridControls._SupportButton != null && !String.IsNullOrEmpty(ContainerModification.SupportLink))
                 _GridControls._SupportButton.Visibility = System.Windows.Visibility.Visible;
 
             SetColorfullImage();
