@@ -14,6 +14,7 @@ namespace GenLauncherNet
     {
         private static HashSet<string> customFileExtensions = new HashSet<string> {".w3d", ".dds", ".tga", ".ini", ".scb", ".wnd", ".csf", ".str" };
         private static HashSet<string> extensionsToCheck = new HashSet<string> {".w3d", "big", "bik", ".dds", ".tga", ".ini", ".scb", ".wnd", ".csf", ".str" };
+        public static HashSet<string> exceptExtensions = new HashSet<string> { ".exe", ".dll" };
 
         public static event Action NotifyIfModInstalledIncorrectly;
 
@@ -82,7 +83,7 @@ namespace GenLauncherNet
         {
             foreach (var info in filesInfo)
             {
-                if (!File.Exists(info.FileName) && !File.Exists(Path.ChangeExtension(info.FileName, "big")))
+                if (!File.Exists(info.FileName) && !File.Exists(Path.ChangeExtension(info.FileName, "big")) && !exceptExtensions.Contains(Path.GetExtension(info.FileName).ToLower()))
                     return false;
 
                 if (extensionsToCheck.Contains(Path.GetExtension(info.FileName).ToLower()) &&
