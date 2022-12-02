@@ -19,6 +19,7 @@ namespace GenLauncherNet
         public bool AutoDeleteOldVersions { get; set; } = false;
         public string GameParams { get; set; }
         public bool CheckModFiles { get; set; } = true;
+        public bool HideLauncherAfterGameStart { get; set; } = false;
 
         public List<GameModification> Modifications = new List<GameModification>();
         public List<GameModification> Addons = new List<GameModification>();

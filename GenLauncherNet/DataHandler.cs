@@ -70,6 +70,11 @@ namespace GenLauncherNet
             Data.CheckModFiles = check;
         }
 
+        internal static void SetHideLauncher(bool hide)
+        {
+            Data.HideLauncherAfterGameStart = hide;
+        }
+
         internal static void SetLaunchesCount(int count)
         {
             Data.LaunchesCount = count;
@@ -147,6 +152,11 @@ namespace GenLauncherNet
         #endregion
 
         #region DataGetters
+
+        internal static bool GetHideLauncher()
+        {
+            return Data.HideLauncherAfterGameStart;
+        }
 
         internal static bool GetCheckModFiles()
         {

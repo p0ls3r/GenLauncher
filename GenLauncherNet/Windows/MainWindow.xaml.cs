@@ -1681,7 +1681,10 @@ namespace GenLauncherNet.Windows
 
                 if (gameCanBeStarted)
                 {
+                    if (DataHandler.GetHideLauncher())
+                        this.Hide();
                     await GameLauncher.RunWB();
+                    this.Show();
                 }
                 else
                 {
@@ -1730,7 +1733,10 @@ namespace GenLauncherNet.Windows
 
                 if (gameCanBeStarted)
                 {
+                    if (DataHandler.GetHideLauncher())
+                        this.Hide();
                     var result = await GameLauncher.RunGame();
+                    this.Show();
 
                     if (result && ModsList.SelectedItems.Count > 0)
                     {

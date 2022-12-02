@@ -60,6 +60,15 @@ namespace GenLauncherNet
                 generals.IsChecked = true;
             }
 
+            if (DataHandler.GetHideLauncher())
+            {
+                HideLauncher.IsChecked = true;
+            }
+            else
+            {
+                HideLauncher.IsChecked = false;
+            }
+
             if (DataHandler.GetCheckModFiles())
             {
                 CheckModFiles.IsChecked = true;
@@ -514,6 +523,14 @@ namespace GenLauncherNet
             }
 
             gameOptionsChanged = true;
+        }
+
+        private void HideLauncherSetup_Click(object sender, RoutedEventArgs e)
+        {
+            var check = DataHandler.GetHideLauncher();
+
+            DataHandler.SetHideLauncher(!check);
+            HideLauncher.IsChecked = !check;
         }
     }
 

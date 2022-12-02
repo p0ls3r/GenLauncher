@@ -856,9 +856,10 @@
         <Button Content="Authors and contributors" Grid.Column="1" Grid.Row="9" Margin="10,5,0,0" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="265" Height="35" Click="Authors_Click" />
         <Button Content="Sponsors" Grid.Column="1" Grid.Row="9" Margin="0,5,0,0" HorizontalAlignment="Right" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="120" Height="35" Click="Sponsors_Click" />
 
-        <Label Content="Support GenLauncher!" Margin="0,5,0,0" Grid.Column="1" Grid.Row="10" Foreground="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <Label Content="Support GenLauncher Development!" Margin="0,5,0,0" Grid.Column="1" Grid.Row="10" Foreground="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
         <Button Content="Donations Alert" Visibility="Hidden" Grid.Column="1" Grid.Row="10" Margin="30,50,0,0" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="220" Height="35" Click="DonationAlerts_Click" />
-        <Button Content="Boosty.to" Grid.Column="1" Grid.Row="10" Margin="0,50,0,0" HorizontalAlignment="Center" FontSize="27" FontWeight="Bold" VerticalAlignment="Top" Width="150" Height="44" Click="Boosty_Click" />
+        <Button Content="Boosty.to" Grid.Column="1" Grid.Row="10" Margin="20,50,0,0" HorizontalAlignment="Left" FontSize="27" FontWeight="Bold" VerticalAlignment="Top" Width="150" Height="44" Click="Boosty_Click" />
+        <Button Content="DonationAlerts" Grid.Column="1" Grid.Row="10" Margin="0,50,20,0" HorizontalAlignment="Right" FontSize="27" FontWeight="Bold" VerticalAlignment="Top" Width="210" Height="44" Click="DonationAlerts_Click" />
 
         <Label Content="Game resolution:" Margin="10,5,0,0" Grid.Column="3" Grid.Row="2" Foreground="White" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         <ComboBox x:Name="Resolution" Grid.Column="3" HorizontalAlignment="Left" Margin="150,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="80" />
@@ -896,5 +897,6 @@
         <Label Content="WARNING! This check may take a long time before starting the game!"  Margin="34,21,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
 
         <RadioButton x:Name="AlternateMouseSetup" Foreground="White" GroupName="none12" FontSize="14" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Content="Alternative Mouse Setup" Margin="205,45,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AlternateMouseSetup_Click"/>
+        <RadioButton x:Name="HideLauncher" Foreground="White" GroupName="none13" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Hide GenLauncher while the game is running" Margin="15,60,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HideLauncherSetup_Click"/>
     </Grid>
 </Window>
