@@ -892,8 +892,8 @@
         <RadioButton x:Name="HeatEffects" Foreground="White" GroupName="none10" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Heat Effects (recommended to turn off)" Margin="205,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HeatEffects_Click"/>
 
         <RadioButton x:Name="CheckModFiles" Foreground="White" GroupName="none11" FontSize="10" Grid.Column="3" Grid.Row="8" Margin="15,15,0,0" Content=""  HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CheckModFiles_Click" Height="19"/>
-        <Label Content="Check mod files integrity "  Margin="37,0,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
-        <Label Content="Works only for the latest version of mods without active addons and patches "  Margin="37,21,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="12"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
+        <Label Content="Check mod files integrity. Works only for the latest version of mods."  Margin="34,0,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
+        <Label Content="WARNING! This check may take a long time before starting the game!"  Margin="34,21,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
 
         <RadioButton x:Name="AlternateMouseSetup" Foreground="White" GroupName="none12" FontSize="14" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Content="Alternative Mouse Setup" Margin="205,45,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AlternateMouseSetup_Click"/>
     </Grid>

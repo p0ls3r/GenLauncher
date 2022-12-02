@@ -51,7 +51,6 @@ namespace GenLauncherNet.Windows
 
             this.MouseDown += Window_MouseDown;
             this.Closing += MainWindow_Closing;
-            GameLauncher.NotifyIfModInstalledIncorrectly += ModIncorrectInstallationNotify;
 
             UpdateLaunchesCount();
 
@@ -905,7 +904,7 @@ namespace GenLauncherNet.Windows
 
         private void ModIncorrectInstallationNotify()
         {
-            var infoWindow = new InfoWindow("Some mod files are missing!", " It is recommended to reinstall the mod. \r You can turn off this checking in options.")
+            var infoWindow = new InfoWindow("Some mod files are missing or corrupted!", " It is recommended to reinstall the mod. \r You can turn off this checking in options.")
             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
@@ -1669,7 +1668,6 @@ namespace GenLauncherNet.Windows
                     LauncherUpdate.IsEnabled = false;
                     DisableUI();
                     await CheckAndDowloadWB();
-                    EnableUI();
 
                     SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
                     UpdateProgress.Text = String.Empty;
@@ -1678,7 +1676,19 @@ namespace GenLauncherNet.Windows
 
                 _isWBRunning = true;
 
-                await GameLauncher.PrepareAndLaunchWorldBuilder(GetVersionOfActiveVersions());
+                var gameCanBeStarted = await Task.Run(() => GameLauncher.PrepareGame(GetVersionOfActiveVersions()));
+                EnableUI();
+
+                if (gameCanBeStarted)
+                {
+                    await GameLauncher.RunWB();
+                }
+                else
+                {
+                    ModIncorrectInstallationNotify();
+                    GameLauncher.RenameGameFilesToOriginalState();
+                }
+
                 _isWBRunning = false;
             }
 
@@ -1714,17 +1724,25 @@ namespace GenLauncherNet.Windows
                 await CheckModdedExe();
                 var activeVersions = GetVersionOfActiveVersions();
                 _isGameRunning = true;
+
+                var gameCanBeStarted = await Task.Run(() => GameLauncher.PrepareGame(activeVersions));
                 EnableUI();
 
-                if (ModsList.SelectedItems.Count > 0)
+                if (gameCanBeStarted)
                 {
-                    var modContainer = ModsList.SelectedItems[0] as ModificationContainer;
+                    var result = await GameLauncher.RunGame();
 
-                    if (await GameLauncher.PrepareAndRunGame(activeVersions))
+                    if (result && ModsList.SelectedItems.Count > 0)
+                    {
+                        var modContainer = ModsList.SelectedItems[0] as ModificationContainer;
                         modContainer._GridControls._SupportButton.IsBlinking = true;
+                    }
                 }
                 else
-                    await GameLauncher.PrepareAndRunGame(activeVersions);
+                {
+                    ModIncorrectInstallationNotify();
+                    GameLauncher.RenameGameFilesToOriginalState();
+                }
 
                 _isGameRunning = false;
             }
