@@ -46,7 +46,7 @@ namespace GenLauncherNet
             RenameGameFilesToOriginalState();
         }
 
-        #region File Checkings
+        #region Files Checkings
 
         private static async Task<bool> ModFilesAreCorrect(ModificationVersion version)
         {
@@ -84,7 +84,10 @@ namespace GenLauncherNet
         {
             foreach (var info in filesInfo)
             {
-                var createdFileName = String.Empty;
+                if (exceptExtensions.Contains(Path.GetExtension(info.FileName).ToLower()))
+                    continue;
+
+                var createdFileName = String.Empty;                
 
                 if (File.Exists(info.FileName))
                     createdFileName = info.FileName;
@@ -93,10 +96,7 @@ namespace GenLauncherNet
                     createdFileName = Path.ChangeExtension(info.FileName, "big");
 
                 if (string.IsNullOrEmpty(createdFileName))
-                    return false;
-
-                if (exceptExtensions.Contains(Path.GetExtension(createdFileName).ToLower()))
-                    continue;
+                    return false;                
 
                 if ((extensionsToCheckHash.Contains(Path.GetExtension(createdFileName).ToLower()) || BigHandler.IsBigArchive(createdFileName)) &&
                     !String.Equals(MD5ChecksumCalculator.ComputeMD5Checksum(createdFileName), info.Hash, StringComparison.OrdinalIgnoreCase))
