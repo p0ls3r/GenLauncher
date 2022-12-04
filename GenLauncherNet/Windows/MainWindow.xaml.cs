@@ -1723,7 +1723,6 @@ namespace GenLauncherNet.Windows
             if (ModificationsDontNeedUpdate() && ModificationsAreNotDeprecated())
             {
                 DisableUI();
-                await CheckAndUpdateGentool();
                 await CheckModdedExe();
                 var activeVersions = GetVersionOfActiveVersions();
                 _isGameRunning = true;
@@ -1735,6 +1734,7 @@ namespace GenLauncherNet.Windows
                 {
                     if (DataHandler.GetHideLauncher())
                         this.Hide();
+                    await CheckAndUpdateGentool();
                     var result = await GameLauncher.RunGame();
                     this.Show();
 
