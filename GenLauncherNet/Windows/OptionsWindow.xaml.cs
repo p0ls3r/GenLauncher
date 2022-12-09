@@ -76,6 +76,16 @@ namespace GenLauncherNet
             else
             {
                 CheckModFiles.IsChecked = false;
+                AskToCheck.Visibility = Visibility.Hidden;
+            }
+
+            if (DataHandler.GetAskBeforeCheck())
+            {
+                AskToCheck.IsChecked = true;
+            }
+            else
+            {
+                AskToCheck.IsChecked = false;
             }
 
             if (DataHandler.GetCameraHeight() == 0)
@@ -370,6 +380,11 @@ namespace GenLauncherNet
 
             DataHandler.SetCheckModFiles(!check);
             CheckModFiles.IsChecked = !check;
+
+            if (DataHandler.GetCheckModFiles())
+                AskToCheck.Visibility = Visibility.Visible;
+            else
+                AskToCheck.Visibility = Visibility.Hidden;
         }
 
         private void GenLauncherDiscord_Click(object sender, RoutedEventArgs e)
@@ -531,6 +546,14 @@ namespace GenLauncherNet
 
             DataHandler.SetHideLauncher(!check);
             HideLauncher.IsChecked = !check;
+        }
+
+        private void AskToCheck_Click(object sender, RoutedEventArgs e)
+        {
+            var check = DataHandler.GetAskBeforeCheck();
+
+            DataHandler.SetAskBeforeCheck(!check);
+            AskToCheck.IsChecked = !check;
         }
     }
 

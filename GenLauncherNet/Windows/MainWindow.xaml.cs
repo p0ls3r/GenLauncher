@@ -1361,7 +1361,7 @@ namespace GenLauncherNet.Windows
             }
         }
 
-        private List<ModificationVersion> GetVersionOfActiveVersions()
+        private List<ModificationVersion> GetSelectedVersionsOfAllSelectedModifications()
         {
             var versionsList = new List<ModificationVersion>();
 
@@ -1676,7 +1676,9 @@ namespace GenLauncherNet.Windows
 
                 _isWBRunning = true;
 
-                var gameCanBeStarted = await Task.Run(() => GameLauncher.PrepareGame(GetVersionOfActiveVersions()));
+                var activeVersions = GetSelectedVersionsOfAllSelectedModifications();
+                var doCheck = DoCheck(activeVersions);
+                var gameCanBeStarted = await Task.Run(() => GameLauncher.PrepareGame(activeVersions, doCheck));
                 EnableUI();
 
                 if (gameCanBeStarted)
@@ -1684,7 +1686,9 @@ namespace GenLauncherNet.Windows
                     if (DataHandler.GetHideLauncher())
                         this.Hide();
                     await GameLauncher.RunWB();
-                    this.Show();
+
+                    if (DataHandler.GetHideLauncher())
+                        this.Show();
                 }
                 else
                 {
@@ -1724,10 +1728,12 @@ namespace GenLauncherNet.Windows
             {
                 DisableUI();
                 await CheckModdedExe();
-                var activeVersions = GetVersionOfActiveVersions();
+                var activeVersions = GetSelectedVersionsOfAllSelectedModifications();
                 _isGameRunning = true;
 
-                var gameCanBeStarted = await Task.Run(() => GameLauncher.PrepareGame(activeVersions));
+                var doCheck = DoCheck(activeVersions);
+
+                var gameCanBeStarted = await Task.Run(() => GameLauncher.PrepareGame(activeVersions, doCheck));
                 EnableUI();
 
                 if (gameCanBeStarted)
@@ -1736,7 +1742,9 @@ namespace GenLauncherNet.Windows
                         this.Hide();
                     await CheckAndUpdateGentool();
                     var result = await GameLauncher.RunGame();
-                    this.Show();
+
+                    if (DataHandler.GetHideLauncher())
+                        this.Show();
 
                     if (result && ModsList.SelectedItems.Count > 0)
                     {
@@ -1754,6 +1762,30 @@ namespace GenLauncherNet.Windows
             }
 
             SetFocuses();
+        }
+
+        private bool DoCheck(List<ModificationVersion> versions)
+        {
+            if (!DataHandler.GetCheckModFiles())
+                return false;
+
+            var modVersion = versions.Where(m => m.ModificationType == ModificationType.Mod).FirstOrDefault();
+
+            if (!EntryPoint.SessionInfo.Connected || string.IsNullOrEmpty(modVersion.S3HostLink) || string.IsNullOrEmpty(modVersion.S3BucketName))
+                return false;
+
+            if (!DataHandler.GetAskBeforeCheck())
+                return true;
+
+            var infoWindow = new InfoWindow("Сheck the integrity of the mod files before start?", "WARNING! This operation may take a long time, you can turn it off in options")
+            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            infoWindow.ModsMessage.FontSize = 17;
+            infoWindow.Ok.Visibility = Visibility.Hidden;
+            infoWindow.Continue.Content = "Yes, check files";
+            infoWindow.Cancel.Content = "No";
+
+            infoWindow.ShowDialog();
+            return infoWindow.GetResult();
         }
 
         private void LauncherUpdate_Click(object sender, RoutedEventArgs e)

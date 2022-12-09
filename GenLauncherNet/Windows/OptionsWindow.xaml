@@ -897,6 +897,7 @@
         <Label Content="WARNING! This check may take a long time before starting the game!"  Margin="34,21,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
 
         <RadioButton x:Name="AlternateMouseSetup" Foreground="White" GroupName="none12" FontSize="14" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Content="Alternative Mouse Setup" Margin="205,45,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AlternateMouseSetup_Click"/>
-        <RadioButton x:Name="HideLauncher" Foreground="White" GroupName="none13" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Hide GenLauncher while the game is running" Margin="15,60,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HideLauncherSetup_Click"/>
+        <RadioButton x:Name="AskToCheck" Foreground="White" GroupName="none13" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Ask before checking mod files integrity" Margin="15,55,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AskToCheck_Click"/>
+        <RadioButton x:Name="HideLauncher" Foreground="White" GroupName="none14" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Hide GenLauncher while the game is running" Margin="15,80,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HideLauncherSetup_Click"/>
     </Grid>
 </Window>

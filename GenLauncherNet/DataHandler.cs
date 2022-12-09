@@ -65,6 +65,11 @@ namespace GenLauncherNet
 
         #region SettingsData
 
+        internal static void SetAskBeforeCheck(bool ask)
+        {
+            Data.AskBeforeCheck = ask;
+        }
+
         internal static void SetCheckModFiles(bool check)
         {
             Data.CheckModFiles = check;
@@ -152,6 +157,11 @@ namespace GenLauncherNet
         #endregion
 
         #region DataGetters
+
+        internal static bool GetAskBeforeCheck()
+        {
+            return Data.AskBeforeCheck;
+        }
 
         internal static bool GetHideLauncher()
         {

@@ -17,9 +17,9 @@ namespace GenLauncherNet
         private static HashSet<string> extensionsToCheckHash = new HashSet<string> {".w3d", "big", "bik", ".dds", ".tga", ".ini", ".scb", ".wnd", ".csf", ".str", ".bik" };
         public static HashSet<string> exceptExtensions = new HashSet<string> { ".exe", ".dll" };
 
-        public async static Task<bool> PrepareGame(List<ModificationVersion> versions)
+        public async static Task<bool> PrepareGame(List<ModificationVersion> versions, bool DoCheck)
         {
-            if (DataHandler.GetCheckModFiles() && EntryPoint.SessionInfo.Connected)
+            if (DoCheck && EntryPoint.SessionInfo.Connected)
             {
                 var modVersion = versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault();
                 await Task.Run(() => PrepareGameFile(modVersion));
