@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace GenLauncherNet
 {
-    public static class DllsUnpacker
+    public static class Unpacker
     {
         public static void ExtractDlls()
         {
@@ -21,6 +21,29 @@ namespace GenLauncherNet
             CheckAndExtractDll("System.Reactive.dll");
             CheckAndExtract7zDll("x64");
             CheckAndExtract7zDll("x86");
+        }
+
+        public static void ExctractImages()
+        {
+            string fileName = "";
+
+            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+                fileName = "uamZH.jpg";
+            else
+                fileName = "uamG.jpg";
+
+            var filePath = EntryPoint.LauncherFolder + "\\uam.jpg";
+
+            if (!File.Exists(filePath))
+            {
+                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("GenLauncherNet.Images." + fileName))
+                {
+                    using (var file = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                    {
+                        resource?.CopyTo(file);
+                    }
+                }
+            }
         }
 
         private static void CheckAndExtract7zDll(string folder)

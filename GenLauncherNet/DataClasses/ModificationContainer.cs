@@ -30,6 +30,8 @@ namespace GenLauncherNet
 
         public ColorsInfo Colors { get; set; }
 
+        public bool LocalMod { get; set; }
+
         private int imageIndex = -1;
 
         public ModificationContainer(GameModification modification)
@@ -46,6 +48,11 @@ namespace GenLauncherNet
             if (ContainerModification.ModificationVersions != null && ContainerModification.ModificationVersions.Count > 0)
             {
                 var ContainerVersions = ContainerModification.ModificationVersions.OrderBy(m => m);
+
+                if (ContainerModification.ModificationType == ModificationType.Mod)
+                {
+                    LocalMod = !ContainerModification.ModificationVersions.Where(v => !string.IsNullOrEmpty(v.S3BucketName) || !string.IsNullOrEmpty(v.SimpleDownloadLink) || !string.IsNullOrEmpty(v.S3FolderName)).Any();
+                }
 
                 SelectedVersion = GetSelectedVersion();
                 if (SelectedVersion != null)
@@ -78,7 +85,9 @@ namespace GenLauncherNet
         {
             if (ContainerModification.ModificationType == ModificationType.Mod)
             {
-                var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+                var imageFileName = EntryPoint.LauncherFolder + "\\uam.jpg";
+                if (!LocalMod)
+                    imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
 
                 if (!File.Exists(imageFileName))
                     return;
@@ -125,7 +134,9 @@ namespace GenLauncherNet
         {
             if (ContainerModification.ModificationType == ModificationType.Mod)
             {
-                var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+                var imageFileName = EntryPoint.LauncherFolder + "\\uam.jpg";
+                if (!LocalMod)
+                    imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
 
                 if (!File.Exists(imageFileName))
                     return;

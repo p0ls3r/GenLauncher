@@ -19,7 +19,7 @@ namespace GenLauncherNet
         public static string ModsRepos;
         public const string GenLauncherModsFolder = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.8.5 Pre Release";
+        public const string Version = "0.0.8.6 Pre Release";
         public const int LaunchersCountForUpdateAdverising = 25;
 
         //public const string Version = "0.0.0.1 Test";
@@ -116,9 +116,6 @@ namespace GenLauncherNet
 
                 PrepareLauncher();
 
-                if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder)))
-                    Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder));
-
                 var initWindow = new InitWindow()
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
@@ -136,7 +133,7 @@ namespace GenLauncherNet
 
         private static void PrepareLauncher()
         {
-            DllsUnpacker.ExtractDlls();
+            Unpacker.ExtractDlls();
 
             GameLauncher.RenameGameFilesToOriginalState();
 
@@ -148,6 +145,11 @@ namespace GenLauncherNet
 
             CheckForCustomVisualInfo();
             CheckForCustomBG();
+
+            if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder)))
+                Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder));
+
+            Unpacker.ExctractImages();
         }
 
         private static void SetColorsInfo()

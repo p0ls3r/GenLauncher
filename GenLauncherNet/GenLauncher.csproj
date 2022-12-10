@@ -170,7 +170,7 @@
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\SymbolicLinkHandler.cs" />
-    <Compile Include="DllsUnpacker.cs" />
+    <Compile Include="Utility\Unpacker.cs" />
     <Compile Include="Windows\AddModificationWindow.xaml.cs">
       <DependentUpon>AddModificationWindow.xaml</DependentUpon>
     </Compile>
@@ -342,6 +342,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\discordBig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\uamZH.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\uamG.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets" Condition="Exists('..\packages\SevenZipExtractor.1.0.15\build\SevenZipExtractor.targets')" />
