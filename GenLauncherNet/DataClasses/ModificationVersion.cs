@@ -102,6 +102,10 @@ namespace GenLauncherNet
                 while (thisVersionString.Length < otherVersionString.Length)
                     thisVersionString += '0';
 
+                if (String.IsNullOrEmpty(thisVersionString)) thisVersionString = "-1";
+                if (String.IsNullOrEmpty(otherVersionString)) otherVersionString = "-1";
+
+
                 var thisVersion = int.Parse(thisVersionString);
                 var otherVersion = int.Parse(otherVersionString);
 

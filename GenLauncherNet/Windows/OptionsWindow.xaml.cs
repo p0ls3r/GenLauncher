@@ -282,7 +282,16 @@ namespace GenLauncherNet
         {
             foreach (string line in File.ReadLines(optionsFilePath))
             {
-                gameOptions.Add(line.Split('=')[0].Replace(" ", String.Empty), line.Split('=')[1]);
+                if (!line.Contains('='))
+                    continue;
+
+                var key = line.Split('=')[0].Replace(" ", String.Empty);
+                var value = line.Split('=')[1];
+
+                if (String.IsNullOrEmpty(value))
+                    continue;
+
+                gameOptions.Add(key, value);
             }
         }
 
