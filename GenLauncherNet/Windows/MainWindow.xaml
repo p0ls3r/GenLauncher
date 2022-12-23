@@ -12,20 +12,6 @@
     <Window.Resources>
         <ImageBrush x:Key="GenLauncherBackGroundImage" ImageSource="/Images/Background.png"/>
         
-        <SolidColorBrush x:Key="GenLauncherBorderColor" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="GenLauncherInactiveBorder" Color="DarkGray"/>
-        <SolidColorBrush x:Key="GenLauncherInactiveBorder2" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="GenLauncherActiveColor" Color="#baff0c"/>
-        <SolidColorBrush x:Key="GenLauncherDarkFillColor" Color="#232977"/>
-        <SolidColorBrush x:Key="GenLauncherDarkBackGround" Color="#090502"/>
-        <SolidColorBrush x:Key="GenLauncherLightBackGround" Color="#B3000000"/>
-        <SolidColorBrush x:Key="GenLauncherDefaultTextColor" Color="White"/>
-        <SolidColorBrush x:Key="GenLauncherDownloadTextColor" Color="#090502"/>
-
-        <Color x:Key="GenLauncherListBoxSelectionColor2">#F21d2057</Color>
-        <Color x:Key="GenLauncherListBoxSelectionColor1">#E61d2057</Color>
-        <Color x:Key="GenLauncherButtonSelectionColor">#2534ff</Color>
-
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
             <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
@@ -522,7 +508,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
 
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">

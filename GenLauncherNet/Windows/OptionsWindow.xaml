@@ -8,16 +8,6 @@
         Title="OptionsWindow" Height="762" Width="986" ResizeMode="NoResize" WindowStyle="None">
     <Window.Resources>
 
-        <SolidColorBrush x:Key="GenLauncherBorderColor" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="GenLauncherInactiveBorder" Color="DarkGray"/>
-        <SolidColorBrush x:Key="GenLauncherInactiveBorder2" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="GenLauncherActiveColor" Color="#baff0c"/>
-        <SolidColorBrush x:Key="GenLauncherDarkFillColor" Color="#232977"/>
-        <SolidColorBrush x:Key="GenLauncherDarkBackGround" Color="#090502"/>
-        <SolidColorBrush x:Key="GenLauncherLightBackGround" Color="#B3000000"/>
-        <SolidColorBrush x:Key="GenLauncherDefaultTextColor" Color="White"/>
-        <SolidColorBrush x:Key="GenLauncherDownloadTextColor" Color="#090502"/>
-
         <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -41,7 +31,7 @@
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground"
-                                Value="{StaticResource DisabledForegroundBrush}"/>
+                                Value="{DynamicResource GenLauncherInactiveBorder2}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -129,6 +119,7 @@
       Content="M 0 0 L 4 4 L 8 0 Z"/>
             </Grid>
         </ControlTemplate>
+        
         <ControlTemplate x:Key="HorizontalScrollBar"
             TargetType="{x:Type ScrollBar}">
             <Grid >
@@ -177,6 +168,7 @@
       Content="M 0 0 L 4 4 L 0 8 Z"/>
             </Grid>
         </ControlTemplate>
+        
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -243,21 +235,21 @@
                   x:Name="Border" 
                   Grid.ColumnSpan="2"
                   CornerRadius="0"
-                  Background="#232977"
-                  BorderBrush="#02e2fc"
+                  Background="{DynamicResource GenLauncherDarkFillColor}"
+                  BorderBrush="{DynamicResource GenLauncherBorderColor}"
                   BorderThickness="1" />
                 <Border
                   x:Name="TextBoxBorder"
                   Grid.Column="0"
                   CornerRadius="0" 
                   Margin="1" 
-                  Background="#232977" 
-                  BorderBrush="#02e2fc"
+                  Background="{DynamicResource GenLauncherDarkFillColor}"
+                  BorderBrush="{DynamicResource GenLauncherBorderColor}"
                   BorderThickness="0,0,1,0" />
                 <Path 
                   x:Name="Arrow"
                   Grid.Column="1"     
-                  Fill="#02e2fc"
+                  Fill="{DynamicResource GenLauncherBorderColor}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center"
                   Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
@@ -272,7 +264,7 @@
                     <Setter TargetName="TextBoxBorder" Property="Background" Value="#040301" />
                     <Setter TargetName="TextBoxBorder" Property="BorderBrush" Value="#7a7cad" />
                     <Setter Property="Foreground" Value="#888888"/>
-                    <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+                    <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource GenLauncherInactiveBorder}" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -292,7 +284,7 @@
             <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
             <Setter Property="MinWidth" Value="120"/>
             <Setter Property="MinHeight" Value="20"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -336,10 +328,10 @@
                               MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border 
                                 x:Name="DropDownBorder"
-                                Background="#232977"
+                                Background="{DynamicResource GenLauncherDarkFillColor}"
 
                                 BorderThickness="1"
-                                BorderBrush="#02e2fc"/>
+                                BorderBrush="{DynamicResource GenLauncherBorderColor}"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                     </ScrollViewer>
@@ -373,7 +365,7 @@
 
         <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
             <Setter Property="SnapsToDevicePixels" Value="true"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -385,18 +377,16 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsHighlighted" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="#b2b6fd"/>
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#888888"/>
+                                <Setter Property="Foreground" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
-
 
         <Style TargetType="{x:Type RadioButton}">
             <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -408,18 +398,8 @@
                         <BulletDecorator Background="Transparent">
                             <BulletDecorator.Bullet>
                                 <Grid Width="18" Height="18">
-                                    <Rectangle
-                                x:Name="Border"
-                                StrokeThickness="2"
-                                Stroke="#7a7db0"
-                                Fill="Black"
-                                />
-                                    <Rectangle
-                                x:Name="CheckMark"
-                                Fill="#00e3ff"
-                                Visibility="Collapsed"
-                                Margin="3"
-                                />
+                                    <Rectangle x:Name="Border" StrokeThickness="2" Stroke="{DynamicResource GenLauncherInactiveBorder2}" Fill="Black" />
+                                    <Rectangle x:Name="CheckMark" Fill="{DynamicResource GenLauncherBorderColor}" Visibility="Collapsed" Margin="3"/>
                                 </Grid>
                             </BulletDecorator.Bullet>
                             <VisualStateManager.VisualStateGroups>
@@ -471,20 +451,10 @@
             </Setter>
         </Style>
 
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#B3000000"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#2534ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Pressed.Foreground1" Color="#baff0c"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Black"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="DarkGray"/>
-
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
-            <GradientStop Color="#2534ff" Offset="0.1"/>
-            <GradientStop Color="#2534ff" Offset="0.9"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
             <GradientStop Color="#B3000000" Offset="1"/>
         </LinearGradientBrush>
 
@@ -498,17 +468,27 @@
             </Setter>
         </Style>
 
+        <Style x:Key="FocusVisual2">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
 
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -520,18 +500,17 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -539,55 +518,46 @@
             </Setter>
         </Style>
 
-        <SolidColorBrush x:Key="SliderThumb.Static.Foreground" Color="#FFE5E5E5"/>
-        <SolidColorBrush x:Key="SliderThumb.MouseOver.Background" Color="#baff0c"/>
-        <SolidColorBrush x:Key="SliderThumb.MouseOver.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="SliderThumb.Pressed.Background" Color="#baff0c"/>
-        <SolidColorBrush x:Key="SliderThumb.Pressed.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="SliderThumb.Disabled.Background" Color="DarkGray"/>
-        <SolidColorBrush x:Key="SliderThumb.Disabled.Border" Color="#FFD9D9D9"/>
-        <SolidColorBrush x:Key="SliderThumb.Static.Background" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="SliderThumb.Static.Border" Color="#7a7db0"/>
         <ControlTemplate x:Key="SliderThumbHorizontalTop" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-                <Path x:Name="grip" Data="M 0,6 C0,6 5.5,0 5.5,0 5.5,0 11,6 11,6 11,6 11,18 11,18 11,18 0,18 0,18 0,18 0,6 0,6 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{StaticResource SliderThumb.Static.Border}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
+                <Path x:Name="grip" Data="M 0,6 C0,6 5.5,0 5.5,0 5.5,0 11,6 11,6 11,6 11,18 11,18 11,18 0,18 0,18 0,18 0,6 0,6 z" Fill="{DynamicResource GenLauncherBorderColor}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{DynamicResource GenLauncherInactiveBorder2}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsDragging" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="SliderThumbHorizontalBottom" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-                <Path x:Name="grip" Data="M 0,12 C0,12 5.5,18 5.5,18 5.5,18 11,12 11,12 11,12 11,0 11,0 11,0 0,0 0,0 0,0 0,12 0,12 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{StaticResource SliderThumb.Static.Border}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
+                <Path x:Name="grip" Data="M 0,12 C0,12 5.5,18 5.5,18 5.5,18 11,12 11,12 11,12 11,0 11,0 11,0 0,0 0,0 0,0 0,12 0,12 z" Fill="{DynamicResource GenLauncherBorderColor}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{DynamicResource GenLauncherInactiveBorder2}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsDragging" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="#00e3ff"/>
+        <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="{DynamicResource GenLauncherListBoxSelectionColor2}"/>
+        <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="{DynamicResource GenLauncherListBoxSelectionColor1}"/>
         <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -603,20 +573,20 @@
         </Style>
         <ControlTemplate x:Key="SliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-                <Path x:Name="grip" Data="M 0,0 C0,0 11,0 11,0 11,0 11,18 11,18 11,18 0,18 0,18 0,18 0,0 0,0 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{StaticResource SliderThumb.Static.Border}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
+                <Path x:Name="grip" Data="M 0,0 C0,0 11,0 11,0 11,0 11,18 11,18 11,18 0,18 0,18 0,18 0,0 0,0 z" Fill="{DynamicResource GenLauncherBorderColor}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{DynamicResource GenLauncherInactiveBorder2}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsDragging" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -631,7 +601,7 @@
                     </Grid.RowDefinitions>
                     <TickBar x:Name="TopTick" Fill="{TemplateBinding Foreground}" Height="4" Margin="0,0,0,2" Placement="Top" Grid.Row="0" Visibility="Collapsed"/>
                     <TickBar x:Name="BottomTick" Fill="{TemplateBinding Foreground}" Height="4" Margin="0,2,0,0" Placement="Bottom" Grid.Row="2" Visibility="Collapsed"/>
-                    <Border x:Name="TrackBackground" BorderBrush="{StaticResource SliderThumb.Track.Border}" BorderThickness="1" Background="{StaticResource SliderThumb.Track.Background}" Height="4.0" Margin="5,0" Grid.Row="1" VerticalAlignment="center">
+                    <Border x:Name="TrackBackground" BorderBrush="{DynamicResource GenLauncherDarkFillColor}" BorderThickness="1" Background="{DynamicResource GenLauncherDarkFillColor}" Height="4.0" Margin="5,0" Grid.Row="1" VerticalAlignment="center">
                         <Canvas Margin="-6,-1">
                             <Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Height="4.0" Visibility="Hidden"/>
                         </Canvas>
@@ -668,64 +638,64 @@
                     <Setter Property="Visibility" TargetName="PART_SelectionRange" Value="Visible"/>
                 </Trigger>
                 <Trigger Property="IsKeyboardFocused" Value="true">
-                    <Setter Property="Foreground" TargetName="Thumb" Value="Blue"/>
+                    <Setter Property="Foreground" TargetName="Thumb" Value="{DynamicResource GenLauncherDarkFillColor}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="SliderThumbVerticalLeft" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-                <Path x:Name="grip" Data="M 6,11 C6,11 0,5.5 0,5.5 0,5.5 6,0 6,0 6,0 18,0 18,0 18,0 18,11 18,11 18,11 6,11 6,11 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" Stroke="{StaticResource SliderThumb.Static.Border}"/>
+                <Path x:Name="grip" Data="M 6,11 C6,11 0,5.5 0,5.5 0,5.5 6,0 6,0 6,0 18,0 18,0 18,0 18,11 18,11 18,11 6,11 6,11 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" Stroke="{DynamicResource GenLauncherInactiveBorder2}"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsDragging" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="SliderThumbVerticalRight" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-                <Path x:Name="grip" Data="M 12,11 C12,11 18,5.5 18,5.5 18,5.5 12,0 12,0 12,0 0,0 0,0 0,0 0,11 0,11 0,11 12,11 12,11 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" Stroke="{StaticResource SliderThumb.Static.Border}"/>
+                <Path x:Name="grip" Data="M 12,11 C12,11 18,5.5 18,5.5 18,5.5 12,0 12,0 12,0 0,0 0,0 0,0 0,11 0,11 0,11 12,11 12,11 z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" Stroke="{DynamicResource GenLauncherInactiveBorder2}"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsDragging" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="SliderThumbVerticalDefault" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-                <Path x:Name="grip" Data="M0.5,0.5 L18.5,0.5 18.5,11.5 0.5,11.5z" Fill="{StaticResource SliderThumb.Static.Background}" Stretch="Fill" Stroke="{StaticResource SliderThumb.Static.Border}"/>
+                <Path x:Name="grip" Data="M0.5,0.5 L18.5,0.5 18.5,11.5 0.5,11.5z" Fill="{DynamicResource GenLauncherBorderColor}" Stretch="Fill" Stroke="{DynamicResource GenLauncherInactiveBorder2}"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.MouseOver.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsDragging" Value="true">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Pressed.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherActiveColor}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherBorderColor}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Fill" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Background}"/>
-                    <Setter Property="Stroke" TargetName="grip" Value="{StaticResource SliderThumb.Disabled.Border}"/>
+                    <Setter Property="Fill" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
+                    <Setter Property="Stroke" TargetName="grip" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -776,7 +746,7 @@
                     <Setter Property="Visibility" TargetName="PART_SelectionRange" Value="Visible"/>
                 </Trigger>
                 <Trigger Property="IsKeyboardFocused" Value="true">
-                    <Setter Property="Foreground" TargetName="Thumb" Value="Blue"/>
+                    <Setter Property="Foreground" TargetName="Thumb" Value="{DynamicResource GenLauncherDarkFillColor}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -784,7 +754,7 @@
             <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource SliderThumb.Static.Foreground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherInactiveBorder}"/>
             <Setter Property="Template" Value="{StaticResource SliderHorizontal}"/>
             <Style.Triggers>
                 <Trigger Property="Orientation" Value="Vertical">

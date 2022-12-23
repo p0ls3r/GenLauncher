@@ -186,6 +186,10 @@
     <Compile Include="WPFElements\NetworkInfoButton.cs" />
     <Compile Include="WPFElements\NameTextBox.cs" />
     <Compile Include="WPFElements\VersionTextBox.cs" />
+    <Page Include="Windows\ColorsDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ManualAddMidificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

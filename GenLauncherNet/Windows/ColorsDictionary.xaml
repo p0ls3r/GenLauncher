@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="GenLauncherBorderColor" Color="#00e3ff"/>
+    <SolidColorBrush x:Key="GenLauncherInactiveBorder" Color="DarkGray"/>
+    <SolidColorBrush x:Key="GenLauncherInactiveBorder2" Color="#7a7db0"/>
+    <SolidColorBrush x:Key="GenLauncherActiveColor" Color="#baff0c"/>
+    <SolidColorBrush x:Key="GenLauncherDarkFillColor" Color="#232977"/>
+    <SolidColorBrush x:Key="GenLauncherDarkBackGround" Color="#090502"/>
+    <SolidColorBrush x:Key="GenLauncherLightBackGround" Color="#B3000000"/>
+    <SolidColorBrush x:Key="GenLauncherDefaultTextColor" Color="White"/>
+    <SolidColorBrush x:Key="GenLauncherDownloadTextColor" Color="#090502"/>
+
+    <Color x:Key="GenLauncherListBoxSelectionColor2">#F21d2057</Color>
+    <Color x:Key="GenLauncherListBoxSelectionColor1">#E61d2057</Color>
+    <Color x:Key="GenLauncherButtonSelectionColor">#2534ff</Color>
+
+</ResourceDictionary>
