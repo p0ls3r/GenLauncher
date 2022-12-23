@@ -10,8 +10,6 @@
         Title="GenLauncher" Height="762" Width="986" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
-        <ImageBrush x:Key="GenLauncherBackGroundImage" ImageSource="/Images/Background.png"/>
-        
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
             <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>

@@ -15,4 +15,6 @@
     <Color x:Key="GenLauncherListBoxSelectionColor1">#E61d2057</Color>
     <Color x:Key="GenLauncherButtonSelectionColor">#2534ff</Color>
 
+    <ImageBrush x:Key="GenLauncherBackGroundImage" ImageSource="/Images/Background.png"/>
+
 </ResourceDictionary>

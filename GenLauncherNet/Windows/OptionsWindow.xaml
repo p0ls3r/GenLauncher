@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GenLauncherNet"
         mc:Ignorable="d"
+        Background="{DynamicResource GenLauncherBackGroundImage}"
         Title="OptionsWindow" Height="762" Width="986" ResizeMode="NoResize" WindowStyle="None">
     <Window.Resources>
 
@@ -119,7 +120,7 @@
       Content="M 0 0 L 4 4 L 8 0 Z"/>
             </Grid>
         </ControlTemplate>
-        
+
         <ControlTemplate x:Key="HorizontalScrollBar"
             TargetType="{x:Type ScrollBar}">
             <Grid >
@@ -168,7 +169,7 @@
       Content="M 0 0 L 4 4 L 0 8 Z"/>
             </Grid>
         </ControlTemplate>
-        
+
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -259,10 +260,10 @@
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="Border" Property="Background" Value="#040301" />
-                    <Setter TargetName="Border" Property="BorderBrush" Value="#7a7cad" />
-                    <Setter TargetName="TextBoxBorder" Property="Background" Value="#040301" />
-                    <Setter TargetName="TextBoxBorder" Property="BorderBrush" Value="#7a7cad" />
+                    <Setter TargetName="Border" Property="Background" Value="{DynamicResource GenLauncherDarkBackGround}" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource GenLauncherInactiveBorder2}" />
+                    <Setter TargetName="TextBoxBorder" Property="Background" Value="{DynamicResource GenLauncherDarkBackGround}" />
+                    <Setter TargetName="TextBoxBorder" Property="BorderBrush" Value="{DynamicResource GenLauncherInactiveBorder2}" />
                     <Setter Property="Foreground" Value="#888888"/>
                     <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource GenLauncherInactiveBorder}" />
                 </Trigger>
@@ -270,10 +271,7 @@
         </ControlTemplate>
 
         <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
-
-            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
-
-
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{DynamicResource GenLauncherInactiveBorder2}" />
         </ControlTemplate>
 
         <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
@@ -763,14 +761,33 @@
             </Style.Triggers>
         </Style>
 
-
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherActiveColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherActiveColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Window.Resources>
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/Options.png"/>
-        </Grid.Background>
+
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -795,79 +812,93 @@
             <ColumnDefinition Width="45"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Button Content="Apply" Grid.Column="1" Grid.Row="11" Margin="0,5,0,0" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" VerticalAlignment="Top" Width="157" Height="40" Click="Apply_Click" />
+        <Rectangle HorizontalAlignment="Left" Height="688" Width="925" Fill="{DynamicResource GenLauncherDarkBackGround}" Margin="31,38,0,0" Grid.RowSpan="13" StrokeThickness="4" Stroke="{DynamicResource GenLauncherDarkFillColor}" VerticalAlignment="Top" Grid.ColumnSpan="5"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="50" Margin="31,38,0,0" VerticalAlignment="Top" Width="925" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="64" Margin="31,0,0,0" VerticalAlignment="Top" Width="925" Grid.ColumnSpan="5" Grid.Row="11" Grid.RowSpan="2"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="576" VerticalAlignment="Center" Width="490" Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="3" Grid.RowSpan="9" Margin="-2,0,0,0"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="-10,84,0,0" VerticalAlignment="Top" Width="434" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
 
-        <Label Content="OPTIONS" Grid.Column="1" Grid.Row="1" Foreground="White" FontSize="22" FontWeight="Bold" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="108"/>
-        <RadioButton x:Name="modded" GroupName="ModdedExe" Foreground="White" Margin="15,3,0,0" FontSize="16" Content="Use modded exe files (recommended)" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="modded_Click" Height="20"/>
-        <RadioButton x:Name="generals" GroupName="ModdedExe" Foreground="White" Margin="15,26,0,0" FontSize="16" Grid.Column="1" Grid.Row="3" Content="Use original exe files" HorizontalAlignment="Left" VerticalAlignment="Top"  Click="generals_Click" Height="24" />
-        <RadioButton x:Name="defaultCamera" Content="Use default camera height (recommended)" GroupName="CameraHeight"  HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Foreground="White" FontSize="16" Margin="15,3,0,0" VerticalAlignment="Top" Click="RadioButton_Click"/>
-        <RadioButton x:Name="customCamera" Content="Use custom camera height" GroupName="CameraHeight"  HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Foreground="White" FontSize="16" Margin="15,26,0,0" VerticalAlignment="Top" Click="RadioButton_Click_1"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="33,53,0,0" VerticalAlignment="Top" Width="434" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="33,112,0,0" VerticalAlignment="Top" Width="434" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="33,158,0,0" VerticalAlignment="Top" Width="434" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="33,234,0,0" VerticalAlignment="Top" Width="434" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="33,338,0,0" VerticalAlignment="Top" Width="434" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="33,384,0,0" VerticalAlignment="Top" Width="434" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="466,234,0,0" VerticalAlignment="Top" Width="490" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="466,338,0,0" VerticalAlignment="Top" Width="490" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+
+        <Button Content="Apply"  Grid.Column="1" Grid.Row="11" Margin="0,10,0,0" Grid.RowSpan="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" VerticalAlignment="Top" Width="157" Height="40" Click="Apply_Click" />
+
+        <Label Content="OPTIONS" Grid.Column="1" Grid.Row="1" Margin="0,-8,0,0" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="22" FontWeight="Bold" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="108"/>
+        <RadioButton x:Name="modded" GroupName="ModdedExe" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Margin="15,3,0,0" FontSize="16" Content="Use modded exe files (recommended)" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="modded_Click" Height="20"/>
+        <RadioButton x:Name="generals" GroupName="ModdedExe" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Margin="15,26,0,0" FontSize="16" Grid.Column="1" Grid.Row="3" Content="Use original exe files" HorizontalAlignment="Left" VerticalAlignment="Top"  Click="generals_Click" Height="24" />
+        <RadioButton x:Name="defaultCamera" Content="Use default camera height (recommended)" GroupName="CameraHeight"  HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16" Margin="15,3,0,0" VerticalAlignment="Top" Click="RadioButton_Click"/>
+        <RadioButton x:Name="customCamera" Content="Use custom camera height" GroupName="CameraHeight"  HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16" Margin="15,26,0,0" VerticalAlignment="Top" Click="RadioButton_Click_1"/>
         <Slider x:Name="CameraHeightSlider" HorizontalAlignment="Left" Margin="15,58,0,0" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Width="285" Minimum="310" Maximum="850" IsSnapToTickEnabled="True" TickFrequency="10" ValueChanged="Slider_ValueChanged"/>
-        <Label  x:Name="CameraHeightLabel" Foreground="White" Grid.Column="1" Grid.Row="2" FontSize="16" Margin="310,50,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+        <Label  x:Name="CameraHeightLabel" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="1" Grid.Row="2" FontSize="16" Margin="310,50,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
 
-        <RadioButton x:Name="InstallGentool" Foreground="White"  FontSize="16" GroupName="Gentool" Grid.Column="1" Grid.Row="4" Content="Install and autoupdate Gentool (recommended)" Margin="15,3,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="InstallGentool_Click"/>
-        <RadioButton x:Name="DisableGentool" Foreground="White"  FontSize="16" GroupName="Gentool" Grid.Column="1" Grid.Row="4" Content="Disable Gentool" Margin="15,30,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DisableGentool_Click"/>
+        <RadioButton x:Name="InstallGentool" Foreground="{DynamicResource GenLauncherDefaultTextColor}"  FontSize="16" GroupName="Gentool" Grid.Column="1" Grid.Row="4" Content="Install and autoupdate Gentool (recommended)" Margin="15,3,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="InstallGentool_Click"/>
+        <RadioButton x:Name="DisableGentool" Foreground="{DynamicResource GenLauncherDefaultTextColor}"  FontSize="16" GroupName="Gentool" Grid.Column="1" Grid.Row="4" Content="Disable Gentool" Margin="15,30,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DisableGentool_Click"/>
 
-        <RadioButton x:Name="DeleteOldVersion" Foreground="White"  FontSize="16" Grid.Column="1" Grid.Row="5" Content="Auto delete outdated modification versions" Margin="15,10,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DeleteOldVersion_Click"/>
+        <RadioButton x:Name="DeleteOldVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}"  FontSize="16" Grid.Column="1" Grid.Row="5" Content="Auto delete outdated modification versions" Margin="15,10,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DeleteOldVersion_Click"/>
 
+        <Label Content="Additional params for game to start:" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="GameParams" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Background="{DynamicResource GenLauncherDarkBackGround}" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherBorderColor}" FontSize="16" Grid.Column="1" Grid.Row="6" Height="27" Margin="15,36,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="380"/>
 
+        <Button Content="Join GenLauncher Discord!" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="1" Grid.Row="8" Margin="10,50,0,10" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Click="GenLauncherDiscord_Click" Width="300" />
 
-        <Label Content="Additional params for game to start:" Foreground="White" FontSize="16" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="GameParams" HorizontalAlignment="Left" Foreground="White" Background="Black" BorderThickness="2" BorderBrush="#02e2fc" FontSize="16" Grid.Column="1" Grid.Row="6" Height="27" Margin="15,36,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="380"/>
+        <Label Content="Support, news and... nothing more ¯\_(ツ)_/¯" Margin="10,10,0,0" Grid.Column="1" Grid.Row="8" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="19" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
 
-        <Button BorderThickness="0" Grid.Column="1" Grid.Row="8" Margin="10,2,0,2" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" VerticalAlignment="Stretch" Click="GenLauncherDiscord_Click" >
-            <Image Margin="5,5,5,5" Source="/Images/discordBig.png"></Image>
-        </Button>
+        <Button Content="Authors and contributors" Grid.Column="1" Grid.Row="9" Margin="10,5,0,0" HorizontalAlignment="Left" FontSize="20" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" VerticalAlignment="Top" Width="265" Height="35" Click="Authors_Click" />
+        <Button Content="Sponsors" Grid.Column="1" Grid.Row="9" Margin="0,5,0,0" HorizontalAlignment="Right" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" VerticalAlignment="Top" Width="120" Height="35" Click="Sponsors_Click" />
 
-        <Label Content="Tech support" Margin="90,0,0,0" Grid.Column="1" Grid.Row="8" Foreground="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
-        <Label Content="News" Margin="90,30,0,0" Grid.Column="1" Grid.Row="8" Foreground="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
-        <Label Content="Join GenLauncher Discord!" Margin="90,60,0,0" Grid.Column="1" Grid.Row="8" Foreground="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <Label Content="Support GenLauncher Development!" Margin="0,5,0,0" Grid.Column="1" Grid.Row="10" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <Button Content="Donations Alert" Visibility="Hidden" Grid.Column="1" Grid.Row="10" Margin="30,50,0,0" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="220" Height="35" Click="DonationAlerts_Click" />
+        <Button Content="Boosty.to" Grid.Column="1" Grid.Row="10" Margin="20,50,0,0" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="27" FontWeight="Bold" VerticalAlignment="Top" Width="150" Height="44" Click="Boosty_Click" />
+        <Button Content="DonationAlerts" Grid.Column="1" Grid.Row="10" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Margin="0,50,20,0" HorizontalAlignment="Right" FontSize="27" FontWeight="Bold" VerticalAlignment="Top" Width="210" Height="44" Click="DonationAlerts_Click" />
 
-        <Button Content="Authors and contributors" Grid.Column="1" Grid.Row="9" Margin="10,5,0,0" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="265" Height="35" Click="Authors_Click" />
-        <Button Content="Sponsors" Grid.Column="1" Grid.Row="9" Margin="0,5,0,0" HorizontalAlignment="Right" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="120" Height="35" Click="Sponsors_Click" />
-
-        <Label Content="Support GenLauncher Development!" Margin="0,5,0,0" Grid.Column="1" Grid.Row="10" Foreground="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" VerticalAlignment="Top" />
-        <Button Content="Donations Alert" Visibility="Hidden" Grid.Column="1" Grid.Row="10" Margin="30,50,0,0" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" VerticalAlignment="Top" Width="220" Height="35" Click="DonationAlerts_Click" />
-        <Button Content="Boosty.to" Grid.Column="1" Grid.Row="10" Margin="20,50,0,0" HorizontalAlignment="Left" FontSize="27" FontWeight="Bold" VerticalAlignment="Top" Width="150" Height="44" Click="Boosty_Click" />
-        <Button Content="DonationAlerts" Grid.Column="1" Grid.Row="10" Margin="0,50,20,0" HorizontalAlignment="Right" FontSize="27" FontWeight="Bold" VerticalAlignment="Top" Width="210" Height="44" Click="DonationAlerts_Click" />
-
-        <Label Content="Game resolution:" Margin="10,5,0,0" Grid.Column="3" Grid.Row="2" Foreground="White" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="Game resolution:" Margin="10,5,0,0" Grid.Column="3" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         <ComboBox x:Name="Resolution" Grid.Column="3" HorizontalAlignment="Left" Margin="150,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="80" />
-        <Label Content="(Gentool recommended)" Margin="10,5,10,0" Grid.Column="3" Grid.Row="2" Foreground="White" FontSize="16"  HorizontalAlignment="Right" VerticalAlignment="Top" />
+        <Label Content="(Gentool recommended)" Margin="10,5,10,0" Grid.Column="3" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Right" VerticalAlignment="Top" />
 
-        <Label Content="Lower - better performance, higher - better graphics quality" FontWeight="Bold" Margin="6,35,0,0" Grid.Column="3" Grid.Row="2" Foreground="White" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="Lower - better performance, higher - better graphics quality" FontWeight="Bold" Margin="6,35,0,0" Grid.Column="3" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-        <Label Content="Maximum particle count :" Margin="6,58,0,0" Grid.RowSpan="5" Grid.Column="3" Grid.Row="2" Foreground="White" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="Maximum particle count :" Margin="6,58,0,0" Grid.RowSpan="5" Grid.Column="3" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         <Slider x:Name="MaxParticleCountSlider" HorizontalAlignment="Left" Margin="10,85,0,0" Grid.Column="3" Grid.RowSpan="5" Grid.Row="2" VerticalAlignment="Top" Width="400" Minimum="100" Maximum="5000" IsSnapToTickEnabled="True" TickFrequency="20" ValueChanged="MaxParticleCountSlider_ValueChanged"/>
-        <Label  x:Name="MaxParticleCountLabel" Margin="0,88,10,0" Content="" Grid.RowSpan="5" Foreground="White" Grid.Column="3" Grid.Row="2" FontSize="16"  HorizontalAlignment="Right"  VerticalAlignment="Top"/>
+        <Label  x:Name="MaxParticleCountLabel" Margin="0,88,10,0" Content="" Grid.RowSpan="5" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="3" Grid.Row="2" FontSize="16"  HorizontalAlignment="Right"  VerticalAlignment="Top"/>
 
-        <Label Content="Texture quality level:" Margin="6,105,0,0" Grid.Column="3" Grid.RowSpan="5" Grid.Row="2" Foreground="White" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="Texture quality level:" Margin="6,105,0,0" Grid.Column="3" Grid.RowSpan="5" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         <Slider x:Name="TextureReductionSlider" HorizontalAlignment="Left" Margin="10,46,0,0" Grid.RowSpan="2" Grid.Column="3" Grid.Row="3" VerticalAlignment="Top" Width="149" Minimum="0" Maximum="2" IsSnapToTickEnabled="True" TickFrequency="1" ValueChanged="TextureReductionSlider_ValueChanged" />
-        <Label  x:Name="TextureReductionLabel" Content="" Grid.RowSpan="5" Foreground="White" Grid.Column="3" Grid.Row="2" FontSize="16" Margin="0,125,300,0" HorizontalAlignment="Right"  VerticalAlignment="Top"/>
+        <Label  x:Name="TextureReductionLabel" Content="" Grid.RowSpan="5" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="3" Grid.Row="2" FontSize="16" Margin="0,125,300,0" HorizontalAlignment="Right"  VerticalAlignment="Top"/>
 
-        <Label Content="Toggle Off to improve performance and stability" FontWeight="Bold" Margin="6,10,0,0" Grid.Column="3" Grid.Row="4" Foreground="White" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="Toggle Off to improve performance and stability" FontWeight="Bold" Margin="6,10,0,0" Grid.Column="3" Grid.Row="4" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-        <RadioButton x:Name="VolumeShadows" Foreground="White" GroupName="none1" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="3D Shadows" Margin="15,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="VolumeShadows_Click"/>
-        <RadioButton x:Name="BehindBuilding" Foreground="White" GroupName="none2" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Display Units Through Buildings" Margin="205,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="BehindBuilding_Click"/>
+        <RadioButton x:Name="VolumeShadows" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none1" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="3D Shadows" Margin="15,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="VolumeShadows_Click"/>
+        <RadioButton x:Name="BehindBuilding" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none2" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Display Units Through Buildings" Margin="205,40,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="BehindBuilding_Click"/>
 
-        <RadioButton x:Name="Shadows" Foreground="White" GroupName="none3" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="2D Shadows" Margin="15,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Shadows_Click"/>
-        <RadioButton x:Name="ShowProps" Foreground="White" GroupName="none4" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Show Props" Margin="205,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ShowProps_Click"/>
+        <RadioButton x:Name="Shadows" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none3" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="2D Shadows" Margin="15,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="Shadows_Click"/>
+        <RadioButton x:Name="ShowProps" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none4" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="2" Content="Show Props" Margin="205,65,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ShowProps_Click"/>
 
-        <RadioButton x:Name="CloudShadows" Foreground="White" GroupName="none5" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Cloud Shadows" Margin="15,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CloudShadows_Click"/>
-        <RadioButton x:Name="ExtraAnimation" Foreground="White" GroupName="none6" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Animation" Margin="205,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraAnimation_Click"/>
+        <RadioButton x:Name="CloudShadows" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none5" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Cloud Shadows" Margin="15,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CloudShadows_Click"/>
+        <RadioButton x:Name="ExtraAnimation" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none6" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Animation" Margin="205,90,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraAnimation_Click"/>
 
-        <RadioButton x:Name="ExtraGroundLighting" Foreground="White" GroupName="none7" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Ground Lighting" Margin="15,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraGroundLighting_Click"/>
-        <RadioButton x:Name="DisableDynamicLevelOfDetail" Foreground="White" GroupName="none8" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Disable Dynamic Level Of Detail" Margin="205,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DisableDynamicLevelOfDetail_Click"/>
+        <RadioButton x:Name="ExtraGroundLighting" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none7" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Extra Ground Lighting" Margin="15,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="ExtraGroundLighting_Click"/>
+        <RadioButton x:Name="DisableDynamicLevelOfDetail" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none8" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Disable Dynamic Level Of Detail" Margin="205,115,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="DisableDynamicLevelOfDetail_Click"/>
 
-        <RadioButton x:Name="SmoothWaterBorders" Foreground="White" GroupName="none9" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Smooth Water Borders" Margin="15,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="SmoothWaterBorders_Click"/>
-        <RadioButton x:Name="HeatEffects" Foreground="White" GroupName="none10" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Heat Effects (recommended to turn off)" Margin="205,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HeatEffects_Click"/>
+        <RadioButton x:Name="SmoothWaterBorders" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none9" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Smooth Water Borders" Margin="15,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="SmoothWaterBorders_Click"/>
+        <RadioButton x:Name="HeatEffects" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none10" FontSize="14" Grid.Column="3" Grid.Row="4" Grid.RowSpan="3" Content="Heat Effects (recommended to turn off)" Margin="205,140,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HeatEffects_Click"/>
 
-        <RadioButton x:Name="CheckModFiles" Foreground="White" GroupName="none11" FontSize="10" Grid.Column="3" Grid.Row="8" Margin="15,15,0,0" Content=""  HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CheckModFiles_Click" Height="19"/>
-        <Label Content="Check mod files integrity. Works only for the latest version of mods."  Margin="34,0,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
-        <Label Content="WARNING! This check may take a long time before starting the game!"  Margin="34,21,0,0" Grid.Column="3" Grid.Row="8" Foreground="White" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
+        <RadioButton x:Name="CheckModFiles" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none11" FontSize="10" Grid.Column="3" Grid.Row="8" Margin="15,15,0,0" Content=""  HorizontalAlignment="Left"  VerticalAlignment="Top" Click="CheckModFiles_Click" Height="19"/>
+        <Label Content="Check mod files integrity. Works only for the latest version of mods."  Margin="34,0,0,0" Grid.Column="3" Grid.Row="8" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
+        <Label Content="WARNING! This check may take a long time before starting the game!"  Margin="34,21,0,0" Grid.Column="3" Grid.Row="8" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="14"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" />
 
-        <RadioButton x:Name="AlternateMouseSetup" Foreground="White" GroupName="none12" FontSize="14" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Content="Alternative Mouse Setup" Margin="205,45,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AlternateMouseSetup_Click"/>
-        <RadioButton x:Name="AskToCheck" Foreground="White" GroupName="none13" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Ask before checking mod files integrity" Margin="15,55,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AskToCheck_Click"/>
-        <RadioButton x:Name="HideLauncher" Foreground="White" GroupName="none14" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Hide GenLauncher while the game is running" Margin="15,80,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HideLauncherSetup_Click"/>
+        <RadioButton x:Name="AlternateMouseSetup" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none12" FontSize="14" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Content="Alternative Mouse Setup" Margin="205,45,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AlternateMouseSetup_Click"/>
+        <RadioButton x:Name="AskToCheck" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none13" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Ask before checking mod files integrity" Margin="15,55,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AskToCheck_Click"/>
+        <RadioButton x:Name="HideLauncher" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none14" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Hide GenLauncher while the game is running" Margin="15,80,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HideLauncherSetup_Click"/>
+
+
+
     </Grid>
 </Window>

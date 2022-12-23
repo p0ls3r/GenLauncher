@@ -327,9 +327,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Options.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\AddModBG.png" />
   </ItemGroup>
   <ItemGroup>
