@@ -30,6 +30,24 @@ namespace GenLauncherNet
             FilesList = files;
             AddonPath = addonPath;
             InitializeComponent();
+            SetColors();
+        }
+
+        private void SetColors()
+        {
+            this.Resources["GenLauncherBorderColor"] = EntryPoint.Colors.GenLauncherBorderColor;
+            this.Resources["GenLauncherActiveColor"] = EntryPoint.Colors.GenLauncherActiveColor;
+            this.Resources["GenLauncherDarkFillColor"] = EntryPoint.Colors.GenLauncherDarkFillColor;
+            this.Resources["GenLauncherInactiveBorder"] = EntryPoint.Colors.GenLauncherInactiveBorder;
+            this.Resources["GenLauncherInactiveBorder2"] = EntryPoint.Colors.GenLauncherInactiveBorder2;
+            this.Resources["GenLauncherDefaultTextColor"] = EntryPoint.Colors.GenLauncherDefaultTextColor;
+            this.Resources["GenLauncherLightBackGround"] = EntryPoint.Colors.GenLauncherLightBackGround;
+            this.Resources["GenLauncherDarkBackGround"] = EntryPoint.Colors.GenLauncherDarkBackGround;
+            this.Resources["GenLauncherDefaultTextColor"] = EntryPoint.Colors.GenLauncherDefaultTextColor;
+
+            this.Resources["GenLauncherListBoxSelectionColor2"] = EntryPoint.Colors.GenLauncherListBoxSelectionColor2;
+            this.Resources["GenLauncherListBoxSelectionColor1"] = EntryPoint.Colors.GenLauncherListBoxSelectionColor1;
+            this.Resources["GenLauncherButtonSelectionColor"] = EntryPoint.Colors.GenLauncherButtonSelectionColor;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -99,7 +117,8 @@ namespace GenLauncherNet
             var infoWindow = new InfoWindow(mainMessage, modMessage) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
-            infoWindow.ErrorBG.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon1.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon2.Visibility = Visibility.Visible;
 
             infoWindow.ShowDialog();
         }

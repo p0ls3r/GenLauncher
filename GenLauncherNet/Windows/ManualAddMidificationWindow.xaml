@@ -17,34 +17,25 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#B3000000"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#2534ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Pressed.Foreground1" Color="#baff0c"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Black"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="DarkGray"/>
 
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
-            <GradientStop Color="#2534ff" Offset="0.1"/>
-            <GradientStop Color="#2534ff" Offset="0.9"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
             <GradientStop Color="#B3000000" Offset="1"/>
         </LinearGradientBrush>
 
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
 
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -56,18 +47,40 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource GenLauncherInactiveBorder}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherActiveColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherActiveColor}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -77,21 +90,19 @@
 
     </Window.Resources>
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/ManualAddMod.png"/>
-        </Grid.Background>
+    <Grid Background="{DynamicResource GenLauncherDarkBackGround}">
 
-        <Label Foreground="White" FontWeight="Bold" FontSize="22" Content="Input modification data" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="286" Height="38"/>
+        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="22" Content="Input modification data" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="286" Height="38"/>
 
-        <Button Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="100,166,253,0" Click="Button_Click"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="0,166,100,0" Click="Button_Click_1"/>
-        <Label Foreground="White" FontWeight="Bold" FontSize="16" Content="Modification Name:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="162" Height="33"/>
-        <TextBox Background="Black" BorderThickness="2" BorderBrush="#02e2fc" Foreground="White" x:Name="ModificationName" HorizontalAlignment="Left" Height="23" Margin="170,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
-        <Label Foreground="White" FontWeight="Bold" FontSize="16" Content="Version:" HorizontalAlignment="Left" Margin="100,98,0,0" VerticalAlignment="Top" Width="70" Height="32"/>
-        <TextBox Background="Black" BorderThickness="2" BorderBrush="#02e2fc" Foreground="White" x:Name="Version"  HorizontalAlignment="Left" Height="23" Margin="170,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
+        <Button Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="100,166,253,0" Click="Button_Click" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="0,166,100,0" Click="Button_Click_1" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="16" Content="Modification Name:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="162" Height="33"/>
+        <TextBox Background="Black" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherBorderColor}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ModificationName" HorizontalAlignment="Left" Height="23" Margin="170,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
+        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="16" Content="Version:" HorizontalAlignment="Left" Margin="100,98,0,0" VerticalAlignment="Top" Width="70" Height="32"/>
+        <TextBox Background="Black" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherBorderColor}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="Version"  HorizontalAlignment="Left" Height="23" Margin="170,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
 
         <Button Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="100,166,253,0" Click="Button_Click"/>
         <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="0,166,100,0" Click="Button_Click_1"/>
+        <Rectangle HorizontalAlignment="Center" Height="220" Stroke="{DynamicResource GenLauncherDarkFillColor}" StrokeThickness="2" VerticalAlignment="Center" Width="600"/>
     </Grid>
 </Window>

@@ -8,6 +8,7 @@
         Title="InfoWindow" Height="180" Width="400" ResizeMode="NoResize" WindowStyle="None" Topmost="True">
 
     <Window.Resources>
+
         <Style x:Key="FocusVisual2">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -17,34 +18,25 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#B3000000"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#2534ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Pressed.Foreground1" Color="#baff0c"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Black"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="DarkGray"/>
 
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
-            <GradientStop Color="#2534ff" Offset="0.1"/>
-            <GradientStop Color="#2534ff" Offset="0.9"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
             <GradientStop Color="#B3000000" Offset="1"/>
         </LinearGradientBrush>
 
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
 
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -56,39 +48,39 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
     </Window.Resources>
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/UpdateBG.png"/>
-        </Grid.Background>
+    <Grid Background="{DynamicResource GenLauncherDarkBackGround}">
 
-        <Image x:Name="ErrorBG" Visibility="Hidden" Source="/Images/ErrorBG.png" HorizontalAlignment="Left" Height="180" VerticalAlignment="Top" Width="400"/>
+        <Polygon x:Name="WarningPolygon1" Points="10, 110, 45, 40, 80, 110" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="7" Stroke="{DynamicResource GenLauncherActiveColor}" Visibility="Hidden"/>
+        <Polygon x:Name="WarningPolygon2" Points="44, 100, 46, 100, 46, 99, 44, 99" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="6" Stroke="{DynamicResource GenLauncherActiveColor}" Visibility="Hidden"/>
+        <Polygon x:Name="WarningPolygon3" Points="45, 65, 45, 65, 44, 90, 46, 90" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="5" Stroke="{DynamicResource GenLauncherActiveColor}" Visibility="Hidden"/>
 
-        <TextBlock x:Name="MainMessage" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" Margin="83,10,20,0" Text="TextBlock" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="297"/>
-        <TextBlock x:Name="ModsMessage" Foreground="White" HorizontalAlignment="Center" Margin="93,67,10,0" FontSize="18" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Height="68"/>
-        <Button x:Name="Continue" FontSize="18" FontWeight="Bold" Content="Continue anyway" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" Width="169" Click="Continue_Click"/>
-        <Button x:Name="Cancel" FontSize="18" FontWeight="Bold" Content="Cancel" HorizontalAlignment="Right" Margin="0,140,30,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click"/>
-        <Button x:Name="Ok" Content="OK" Margin="152,141,152,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="96" Click="Ok_Click" Height="30"/>
+        <Ellipse x:Name="ErrorPolygon1" Fill="Red" Width="70" Height="70" Margin="10,47,320,63" Visibility="Hidden"/>
+        <Rectangle x:Name="ErrorPolygon2" Fill="{DynamicResource GenLauncherDarkBackGround}" RadiusX="3" RadiusY="3" Margin="22,75,332,91" Visibility="Hidden"/>
 
+        <TextBlock x:Name="MainMessage" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" Margin="83,10,20,0" Text="TextBlock" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="297"/>
+        <TextBlock x:Name="ModsMessage" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" Margin="93,67,10,0" FontSize="18" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Height="68"/>
+        <Button x:Name="Continue" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Content="Continue anyway" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" Width="169" Click="Continue_Click"/>
+        <Button x:Name="Cancel" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Content="Cancel" HorizontalAlignment="Right" Margin="0,140,30,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click"/>
+        <Button x:Name="Ok" Content="OK" Margin="152,141,152,0" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="96" Click="Ok_Click" Height="30"/>
+        <Rectangle HorizontalAlignment="Center" Height="180" Stroke="{DynamicResource GenLauncherDarkFillColor}" StrokeThickness="2" VerticalAlignment="Center" Width="400"/>
     </Grid>
 </Window>

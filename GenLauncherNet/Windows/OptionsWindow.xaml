@@ -535,6 +535,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        
         <ControlTemplate x:Key="SliderThumbHorizontalBottom" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
                 <Path x:Name="grip" Data="M 0,12 C0,12 5.5,18 5.5,18 5.5,18 11,12 11,12 11,12 11,0 11,0 11,0 0,0 0,0 0,0 0,12 0,12 z" Fill="{DynamicResource GenLauncherBorderColor}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{DynamicResource GenLauncherInactiveBorder2}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
@@ -554,7 +555,9 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        
         <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="{DynamicResource GenLauncherListBoxSelectionColor2}"/>
+        
         <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="{DynamicResource GenLauncherListBoxSelectionColor1}"/>
         <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>

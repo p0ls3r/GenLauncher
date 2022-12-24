@@ -327,22 +327,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\AddModBG.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\UpdateBG.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ErrorBG.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ManualAddMod.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\BackgroundGenerals.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\discordBig.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\uamZH.jpg" />

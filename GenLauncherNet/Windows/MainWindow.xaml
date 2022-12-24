@@ -222,6 +222,7 @@
       Content="M 0 0 L 4 4 L 8 0 Z"/>
             </Grid>
         </ControlTemplate>
+        
         <ControlTemplate x:Key="HorizontalScrollBar"
             TargetType="{x:Type ScrollBar}">
             <Grid >
@@ -270,6 +271,7 @@
       Content="M 0 0 L 4 4 L 0 8 Z"/>
             </Grid>
         </ControlTemplate>
+        
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -588,7 +590,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border x:Name="border" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherInactiveBorder}">
-                            <ContentPresenter></ContentPresenter>
+                            <ContentPresenter>
+                                
+                            </ContentPresenter>
                         </Border>
                         <ControlTemplate.Triggers>
 

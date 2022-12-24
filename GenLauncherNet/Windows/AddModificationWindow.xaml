@@ -92,6 +92,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -158,6 +159,7 @@
       Content="M 0 0 L 4 4 L 8 0 Z"/>
             </Grid>
         </ControlTemplate>
+
         <ControlTemplate x:Key="HorizontalScrollBar"
             TargetType="{x:Type ScrollBar}">
             <Grid >
@@ -206,6 +208,7 @@
       Content="M 0 0 L 4 4 L 0 8 Z"/>
             </Grid>
         </ControlTemplate>
+
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -271,34 +274,25 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#B3000000"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#2534ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Pressed.Foreground1" Color="#baff0c"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Black"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="DarkGray"/>
 
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
-            <GradientStop Color="#2534ff" Offset="0.1"/>
-            <GradientStop Color="#2534ff" Offset="0.9"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
             <GradientStop Color="#B3000000" Offset="1"/>
         </LinearGradientBrush>
 
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
 
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -310,35 +304,70 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <LinearGradientBrush x:Key="ListBoxSelectedItemBackground" EndPoint="1,0" StartPoint="0,0">
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.0"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="1"/>
+
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ListBoxMouseOverItemBackground" EndPoint="1,0" StartPoint="0,0">
+            <GradientStop Color="{DynamicResource GenLauncherListBoxSelectionColor1}" Offset="0.0"/>
+            <GradientStop Color="{DynamicResource GenLauncherListBoxSelectionColor2}" Offset="0.7"/>
+            <GradientStop Color="#00000000" Offset="1.0"/>
+        </LinearGradientBrush>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="Border"
+                                BorderThickness="2"
+                                Padding="2"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource ListBoxMouseOverItemBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="{DynamicResource ListBoxSelectedItemBackground}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
-    
-    <Grid >
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/AddModBG.png"/>
-        </Grid.Background>
-        <Label Content="Select Mod to add" FontWeight="Bold" Margin="12,6,0,0" Grid.Column="3" Grid.Row="4" Foreground="White" FontSize="18"  HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <ListBox x:Name="ModificationsList" Margin="12,44,12,31" FontSize="16" Background="Transparent" BorderThickness="0" Foreground="White"/>
-        <Button Content="Add!" Margin="70,443,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102" Click="Button_Click"/>
-        <Button Content="Cancel" Margin="0,443,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="102" Click="Button_Click_1"/>
+
+    <Grid Background="{DynamicResource GenLauncherDarkBackGround}">
+        <Label Content="Select Mod to add" FontWeight="Bold" Margin="12,6,0,0" Grid.Column="3" Grid.Row="4" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="18"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <ListBox x:Name="ModificationsList" Margin="12,44,12,31" FontSize="16" Background="Transparent" BorderThickness="1" Foreground="{DynamicResource GenLauncherDefaultTextColor}" BorderBrush="{DynamicResource GenLauncherBorderColor}">
+
+        </ListBox>
+        <Button Content="Add!" Margin="70,443,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102" Click="Button_Click" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+        <Button Content="Cancel" Margin="0,443,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="102" Click="Button_Click_1" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+        <Rectangle HorizontalAlignment="Center" Height="469" Stroke="{DynamicResource GenLauncherDarkFillColor}" StrokeThickness="2" VerticalAlignment="Center" Width="368"/>
 
     </Grid>
 </Window>

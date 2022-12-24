@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="UpdateAvailable" Height="249" Width="600" ResizeMode="NoResize" WindowStyle="None" Topmost="True">
     <Window.Resources>
+
         <Style x:Key="FocusVisual2">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -16,34 +17,25 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#B3000000"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#2534ff"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Pressed.Foreground1" Color="#baff0c"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#00e3ff"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Black"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#7a7db0"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="DarkGray"/>
 
         <LinearGradientBrush x:Key="ButtonPressedBackground" EndPoint="1,0" StartPoint="0,0">
             <GradientStop Color="#B3000000" Offset="0"/>
-            <GradientStop Color="#2534ff" Offset="0.1"/>
-            <GradientStop Color="#2534ff" Offset="0.9"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.1"/>
+            <GradientStop Color="{DynamicResource GenLauncherButtonSelectionColor}" Offset="0.9"/>
             <GradientStop Color="#B3000000" Offset="1"/>
         </LinearGradientBrush>
 
         <Style TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource GenLauncherBorderColor}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="1"/>
 
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource GenLauncherDefaultTextColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -55,18 +47,17 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" Value="{StaticResource ButtonPressedBackground}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Button.Pressed.Foreground1}"/>
+                                <Setter Property="Background" Value="{DynamicResource ButtonPressedBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                                <Setter Property="Background" Value="{DynamicResource GenLauncherLightBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherBorderColor}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                                <Setter Property="Background" TargetName="border" Value="{DynamicResource GenLauncherDarkBackGround}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource GenLauncherInactiveBorder2}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource GenLauncherInactiveBorder}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -76,14 +67,20 @@
 
     </Window.Resources>
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Images/UpdateBG.png"/>
-        </Grid.Background>
+    <Grid Background="{DynamicResource GenLauncherDarkBackGround}">
 
-        <TextBlock x:Name="InfoTextBox" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Height="80" VerticalAlignment="Center" Width="413" Margin="145,76,42,93"/>
+
+
+        <TextBlock x:Name="InfoTextBox" TextWrapping="Wrap" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Height="80" VerticalAlignment="Top" Width="380" Margin="150,76,0,0"/>
 
         <Button Content="OK" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Click="Button_Click" Margin="0,190,0,0"/>
+        <Rectangle Stroke="{DynamicResource GenLauncherDarkFillColor}" StrokeThickness="3"/>
+
+        <Polygon Points="30, 175, 100, 50, 170, 175" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="12" Stroke="{DynamicResource GenLauncherActiveColor}"/>
+        <Polygon Points="99, 155, 101, 155, 101, 154, 99, 154" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="12" Stroke="{DynamicResource GenLauncherActiveColor}"/>
+        <Polygon Points="100, 135, 100, 135, 97, 94, 103, 94" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="10" Stroke="{DynamicResource GenLauncherActiveColor}"/>
+
+
 
     </Grid>
 </Window>

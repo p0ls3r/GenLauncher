@@ -67,9 +67,7 @@ namespace GenLauncherNet.Windows
             UpdateWindowedStatus();
             UpdateQuickStartStatus();
             UpdateModsList();
-            UpdateTabs();
-
-            SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
+            UpdateTabs();            
 
             if (DataHandler.GetSelectedMod() != null)
             {
@@ -79,6 +77,8 @@ namespace GenLauncherNet.Windows
                 SetDefaultVisual();
 
             UpdateVisuals();
+
+            SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
         }
 
         private void UpdateLaunchesCount()
@@ -908,7 +908,8 @@ namespace GenLauncherNet.Windows
             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
-            infoWindow.ErrorBG.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon1.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon2.Visibility = Visibility.Visible;
             infoWindow.ModsMessage.FontSize = 15;
 
             infoWindow.ShowDialog();
@@ -1220,6 +1221,9 @@ namespace GenLauncherNet.Windows
                             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                         infoWindow.Ok.Visibility = Visibility.Hidden;
                         infoWindow.Continue.Content = "Synchronize now!";
+                        infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+                        infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+                        infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
 
                         infoWindow.ShowDialog();
                         if (infoWindow.GetResult())
@@ -1498,7 +1502,8 @@ namespace GenLauncherNet.Windows
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
-            infoWindow.ErrorBG.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon1.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon2.Visibility = Visibility.Visible;
 
             infoWindow.ShowDialog();
         }
@@ -1555,6 +1560,10 @@ namespace GenLauncherNet.Windows
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 infoWindow.Ok.Visibility = Visibility.Hidden;
 
+                infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+                infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+                infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
+
                 infoWindow.ShowDialog();
                 return infoWindow.GetResult();
             }
@@ -1597,6 +1606,10 @@ namespace GenLauncherNet.Windows
                 var infoWindow = new InfoWindow(mainMessage, modsMessage)
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 infoWindow.Ok.Visibility = Visibility.Hidden;
+
+                infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+                infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+                infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
 
                 infoWindow.ShowDialog();
                 return infoWindow.GetResult();
@@ -1783,6 +1796,9 @@ namespace GenLauncherNet.Windows
             infoWindow.Ok.Visibility = Visibility.Hidden;
             infoWindow.Continue.Content = "Yes, check files";
             infoWindow.Cancel.Content = "No";
+            infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
 
             infoWindow.ShowDialog();
             return infoWindow.GetResult();
@@ -1924,6 +1940,10 @@ namespace GenLauncherNet.Windows
             var infoWindow = new InfoWindow(mainMessage, modsMessage)
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Ok.Visibility = Visibility.Hidden;
+
+            infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
 
             infoWindow.ShowDialog();
             return infoWindow.GetResult();
@@ -2258,7 +2278,8 @@ namespace GenLauncherNet.Windows
             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
-            infoWindow.ErrorBG.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon1.Visibility = Visibility.Visible;
+            infoWindow.ErrorPolygon2.Visibility = Visibility.Visible;
             infoWindow.ModsMessage.FontSize = 12;
 
             infoWindow.ShowDialog();
