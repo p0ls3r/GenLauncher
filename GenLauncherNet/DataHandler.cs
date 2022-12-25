@@ -29,6 +29,12 @@ namespace GenLauncherNet
 
         private static ModificationReposVersion Advertising;
 
+        public static bool FirstRun 
+        {
+            get { return Data.FirstStart; } 
+            set { Data.FirstStart = value; } 
+        }
+
         private static HttpClient LogoDownloader = new HttpClient();
 
         public static async Task InitData(bool connectionToGithub)

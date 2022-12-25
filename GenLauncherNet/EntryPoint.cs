@@ -17,7 +17,8 @@ namespace GenLauncherNet
         public const string LauncherFolder = @".GenLauncherFolder/";
         public const string ConfigName = @".GenLauncherFolder/GenLauncherCfg.yaml";
         public static string ModsRepos;
-        public const string GenLauncherModsFolder = "GenLauncherModifications";
+        public const string GenLauncherModsFolder = "GLM";
+        public const string GenLauncherModsFolderOld = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
         public const string Version = "0.0.8.7 Pre Release";
         public const int LaunchersCountForUpdateAdverising = 25;
@@ -33,9 +34,9 @@ namespace GenLauncherNet
         public const string WorldBuilderDownloadLink =
             "https://onedrive.live.com/download?cid=64F1D914DDB8A931&resid=64F1D914DDB8A931%21135&authkey=AJ64UqrGWgfwGm8";
 
-        public const string GenLauncherReplaceSuffix = ".GenLauncherReplaced";
-        public const string GenLauncherVersionFolderCopySuffix = ".GenLauncherTempCopy";
-        public const string GenLauncherOriginalFileSuffix = ".GenLauncherOriginalFile";
+        public const string GenLauncherReplaceSuffix = ".GLR";
+        public const string GenLauncherVersionFolderCopySuffix = ".GLTC";
+        public const string GenLauncherOriginalFileSuffix = ".GOF";
 
         public static SessionInformation SessionInfo;
         public static ColorsInfo Colors;

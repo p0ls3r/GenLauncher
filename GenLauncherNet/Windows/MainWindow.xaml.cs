@@ -902,6 +902,18 @@ namespace GenLauncherNet.Windows
 
         #region SupportMethods
 
+        private void ApplyDefaultOptions()
+        {
+            var gameOptionsHandler = new GameOptionsHandler();
+            gameOptionsHandler.ApplyDefaultGameOptions();
+
+            DataHandler.SetModdedExeStatus(true);
+            DataHandler.SetCameraHeight(0);
+            DataHandler.SetGentoolAutoUpdateStatus(true);
+            DataHandler.SetCheckModFiles(true);
+            DataHandler.SetAskBeforeCheck(true);
+        }
+
         private void ModIncorrectInstallationNotify()
         {
             var infoWindow = new InfoWindow("Some mod files are missing or corrupted!", " It is recommended to reinstall the mod. \r You can turn off this checking in options.")
@@ -1380,6 +1392,31 @@ namespace GenLauncherNet.Windows
 
         #region CheckingsBeforeGameRun
 
+        private bool NeedToApplyDefaultOptions()
+        {
+            var firstRun = DataHandler.FirstRun;
+
+            if (firstRun)
+            {
+                var mainMessage = "Looks like you are running the game for the first time";
+
+                var infoWindow = new InfoWindow(mainMessage, "Would you like to apply the default recommended settings?")
+                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                infoWindow.Ok.Visibility = Visibility.Hidden;
+
+                infoWindow.Continue.Content = "Set default options";
+
+                infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+                infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+                infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
+
+                infoWindow.ShowDialog();
+                return infoWindow.GetResult();
+            }
+
+            return false;
+        }
+
         private bool ModificationsAreInstalled()
         {
             string modMessage;
@@ -1620,37 +1657,7 @@ namespace GenLauncherNet.Windows
 
         #endregion
 
-        #region MainButtonsEvents
-
-        private void UpdateButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            _DragAndDropDisable = true;
-            var updateButton = sender as UpdateButton;
-            if (updateButton != null)
-                updateButton.IsBlinking = false;
-        }
-
-        private void ModsButton_Click(object sender, RoutedEventArgs e)
-        {
-            HideAllLists();
-            ManualAddMod.Visibility = Visibility.Visible;
-            ModsList.Visibility = Visibility.Visible;
-            AddModButton.Visibility = Visibility.Visible;
-        }
-
-        private void PatchesButton_Click(object sender, RoutedEventArgs e)
-        {
-            HideAllLists();
-            PatchesList.Visibility = Visibility.Visible;
-            ManualAddPatch.Visibility = Visibility.Visible;
-        }
-
-        private void AddonsButton_Click(object sender, RoutedEventArgs e)
-        {
-            HideAllLists();
-            AddonsList.Visibility = Visibility.Visible;
-            ManualAddAddon.Visibility = Visibility.Visible;
-        }
+        #region ExeLaunchHandlers
 
         private async void ButtonWorldBuilder_Click(object sender, RoutedEventArgs e)
         {
@@ -1737,6 +1744,11 @@ namespace GenLauncherNet.Windows
                 return;
             }
 
+            if (NeedToApplyDefaultOptions())
+            {
+                ApplyDefaultOptions();
+            }
+
             if (ModificationsDontNeedUpdate() && ModificationsAreNotDeprecated())
             {
                 DisableUI();
@@ -1775,6 +1787,40 @@ namespace GenLauncherNet.Windows
             }
 
             SetFocuses();
+        }
+
+        #endregion
+
+        #region MainButtonsEvents
+
+        private void UpdateButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            _DragAndDropDisable = true;
+            var updateButton = sender as UpdateButton;
+            if (updateButton != null)
+                updateButton.IsBlinking = false;
+        }
+
+        private void ModsButton_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllLists();
+            ManualAddMod.Visibility = Visibility.Visible;
+            ModsList.Visibility = Visibility.Visible;
+            AddModButton.Visibility = Visibility.Visible;
+        }
+
+        private void PatchesButton_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllLists();
+            PatchesList.Visibility = Visibility.Visible;
+            ManualAddPatch.Visibility = Visibility.Visible;
+        }
+
+        private void AddonsButton_Click(object sender, RoutedEventArgs e)
+        {
+            HideAllLists();
+            AddonsList.Visibility = Visibility.Visible;
+            ManualAddAddon.Visibility = Visibility.Visible;
         }
 
         private bool DoCheck(List<ModificationVersion> versions)
@@ -1834,6 +1880,7 @@ namespace GenLauncherNet.Windows
             this.Hide();
             var optionsWindow = new OptionsWindow()
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            DataHandler.FirstRun = false;
             optionsWindow.ShowDialog();
             this.Show();
         }

@@ -37,9 +37,14 @@ namespace GenLauncherNet
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CreateLauncherFolders();
+            var firstRun = true;
+            if (Directory.Exists(EntryPoint.GenLauncherModsFolder) || Directory.Exists(EntryPoint.GenLauncherModsFolderOld))
+                firstRun = false;
+
+            await Task.Run(() => CreateLauncherFolders());
 
             EntryPoint.SessionInfo.Connected = await PrepareLauncher();
+            DataHandler.FirstRun = firstRun;
 
             this.Hide();
             MainWindow mainWindow = new MainWindow();
@@ -95,6 +100,28 @@ namespace GenLauncherNet
         {
             if (!Directory.Exists(folderName))
                 Directory.CreateDirectory(folderName);
+
+            if (Directory.Exists(EntryPoint.GenLauncherModsFolderOld))
+            {
+                MoveContentsOfDirectory(EntryPoint.GenLauncherModsFolderOld, folderName);
+            }
+        }
+
+        private static void MoveContentsOfDirectory(string source, string target)
+        {
+            foreach (var file in Directory.EnumerateFiles(source))
+            {
+                var dest = Path.Combine(target, Path.GetFileName(file));
+                File.Move(file, dest);
+            }
+
+            foreach (var dir in Directory.EnumerateDirectories(source))
+            {
+                var dest = Path.Combine(target, Path.GetFileName(dir));
+                Directory.Move(dir, dest);
+            }
+
+            Directory.Delete(source);
         }
     }
 }
