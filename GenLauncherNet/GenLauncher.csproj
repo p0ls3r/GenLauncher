@@ -135,7 +135,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BigHandler.cs" />
+    <Compile Include="Utility\BigHandler.cs" />
     <Compile Include="Utility\GameOptionsHandler.cs" />
     <Compile Include="Utility\BlackWhiteImageGenerator.cs" />
     <Compile Include="ColorsInfo.cs" />
@@ -255,6 +255,7 @@
     </EmbeddedResource>
     <None Include="app1.manifest" />
     <EmbeddedResource Include="Options\options.ini" />
+    <EmbeddedResource Include="d3d8.cfg" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

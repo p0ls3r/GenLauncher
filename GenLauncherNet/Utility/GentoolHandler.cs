@@ -136,7 +136,10 @@ namespace GenLauncherNet
             var fileName = "d3d8.cfg";
 
             if (!File.Exists(fileName))
+            {
+                Unpacker.ExctractGentoolOptionsFile();
                 return;
+            }
 
             var gentoolOptions = new List<string>();
 

@@ -46,6 +46,22 @@ namespace GenLauncherNet
             }
         }
 
+        public static void ExctractGentoolOptionsFile()
+        {
+            var fileName = "d3d8.cfg";
+
+            if (!File.Exists(fileName))
+            {
+                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("GenLauncherNet." + fileName))
+                {
+                    using (var file = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                    {
+                        resource?.CopyTo(file);
+                    }
+                }
+            }
+        }
+
         private static void CheckAndExtract7zDll(string folder)
         {
             if (!Directory.Exists(folder))
