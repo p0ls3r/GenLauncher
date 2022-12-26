@@ -43,7 +43,7 @@ namespace GenLauncherNet.Utility
         ///     Retrieves the time from the default windows time server.
         /// </summary>
         /// <returns>The time from the default windows time server in locale format.</returns>
-        private static DateTime GetNetworkTime()
+        public static DateTime GetNetworkTime()
         {
             // Default Windows time server
             const string ntpServer = "time.windows.com";

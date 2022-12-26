@@ -912,6 +912,10 @@ namespace GenLauncherNet.Windows
             DataHandler.SetGentoolAutoUpdateStatus(true);
             DataHandler.SetCheckModFiles(true);
             DataHandler.SetAskBeforeCheck(true);
+
+            DataHandler.SetWindowedStatus(true);
+
+            UpdateWindowedStatus();
         }
 
         private void ModIncorrectInstallationNotify()
@@ -1277,6 +1281,13 @@ namespace GenLauncherNet.Windows
                     DownloadCrashed(modData, errorMsg);
                 }
             }
+        }
+
+        private bool IsSysTimeOutOfSync()
+        {
+            var dateTime = TimeUtility.GetNetworkTime();
+            var offset = DateTimeOffset.Now;
+            var dateTimeWithOffset = dateTime.Subtract(offset.Offset);
         }
 
         private async Task DownloadModBySimpleLink(ModificationContainer modData)
@@ -1883,6 +1894,7 @@ namespace GenLauncherNet.Windows
             DataHandler.FirstRun = false;
             optionsWindow.ShowDialog();
             this.Show();
+            UpdateWindowedStatus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

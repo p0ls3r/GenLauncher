@@ -514,6 +514,8 @@ namespace GenLauncherNet
             DataHandler.SetCheckModFiles(true);
             DataHandler.SetAskBeforeCheck(true);
 
+            DataHandler.SetWindowedStatus(true);
+
             InitUIStatus();
         }
     }
