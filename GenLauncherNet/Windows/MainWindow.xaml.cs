@@ -914,6 +914,7 @@ namespace GenLauncherNet.Windows
             DataHandler.SetAskBeforeCheck(true);
 
             DataHandler.SetWindowedStatus(true);
+            GentoolHandler.SetRecommendedWindoweOptions();
 
             UpdateWindowedStatus();
         }
@@ -1224,17 +1225,13 @@ namespace GenLauncherNet.Windows
                 var tempVersionHandler = new TempVersionHandler();
                 try
                 {
-                    try
-                    {
-                        await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
-                    }
-                    catch (Minio.Exceptions.UnexpectedMinioException)
+                    if (IsSysTimeOutOfSync())
                     {
                         var mainMessage = "System clock out of sync!";
                         var secondaryMessage = "In order to update, your system time needs to be synchronized";
 
                         var infoWindow = new InfoWindow(mainMessage, secondaryMessage)
-                            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                        { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                         infoWindow.Ok.Visibility = Visibility.Hidden;
                         infoWindow.Continue.Content = "Synchronize now!";
                         infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
@@ -1242,19 +1239,35 @@ namespace GenLauncherNet.Windows
                         infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
 
                         infoWindow.ShowDialog();
-                        if (infoWindow.GetResult())
-                        {
-                            TimeUtility.SyncSystemDateTimeWithWorldTime();
-                            await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
-                        }
-                        else
+                        if (!infoWindow.GetResult())
                         {
                             downloadingCount -= 1;
                             DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
                             modData._GridControls._UpdateButton.IsEnabled = true;
                             return;
                         }
+
+                        TimeUtility.SyncSystemDateTimeWithWorldTime();
+
+                        if (IsSysTimeOutOfSync())
+                        {
+                            var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
+                            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+
+                            errorWindow.ErrorPolygon1.Visibility = Visibility.Visible;
+                            errorWindow.ErrorPolygon2.Visibility = Visibility.Visible;
+                            errorWindow.Continue.Visibility = Visibility.Hidden;
+                            errorWindow.Cancel.Visibility = Visibility.Hidden;
+
+                            errorWindow.ShowDialog();
+                            downloadingCount -= 1;
+                            DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                            modData._GridControls._UpdateButton.IsEnabled = true;
+                            return;
+                        }
                     }
+
+                    await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
 
                     tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
                     filesToDownload = tempVersionHandler.GetFilesToDownload();
@@ -1285,9 +1298,17 @@ namespace GenLauncherNet.Windows
 
         private bool IsSysTimeOutOfSync()
         {
-            var dateTime = TimeUtility.GetNetworkTime();
+            var worldDateTime = TimeUtility.GetNetworkTime();
             var offset = DateTimeOffset.Now;
-            var dateTimeWithOffset = dateTime.Subtract(offset.Offset);
+            var dateTimeWithOffset = worldDateTime.Subtract(offset.Offset);
+            var sysDateTime = DateTime.Now;
+
+            var span = dateTimeWithOffset - sysDateTime;
+
+            if (span.Minutes >= 15 || span.Minutes <= -15)
+                return true;
+            else
+                return false;
         }
 
         private async Task DownloadModBySimpleLink(ModificationContainer modData)

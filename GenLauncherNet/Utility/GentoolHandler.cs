@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GenLauncherNet
 {
@@ -127,6 +129,26 @@ namespace GenLauncherNet
                 return false;
                 //TODO logger
             }
+        }
+
+        public static void SetRecommendedWindoweOptions()
+        {
+            var fileName = "d3d8.cfg";
+
+            if (!File.Exists(fileName))
+                return;
+
+            var gentoolOptions = new List<string>();
+
+            foreach (var line in File.ReadLines("d3d8.cfg"))
+            {
+                if (line.Contains("window ="))
+                    gentoolOptions.Add("window=3");
+                else
+                    gentoolOptions.Add(line);
+            }
+
+            File.WriteAllLines(fileName, gentoolOptions);
         }
     }
 }

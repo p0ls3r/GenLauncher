@@ -516,6 +516,8 @@ namespace GenLauncherNet
 
             DataHandler.SetWindowedStatus(true);
 
+            GentoolHandler.SetRecommendedWindoweOptions();
+
             InitUIStatus();
         }
     }

@@ -136,7 +136,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BigHandler.cs" />
-    <Compile Include="GameOptionsHandler.cs" />
+    <Compile Include="Utility\GameOptionsHandler.cs" />
     <Compile Include="Utility\BlackWhiteImageGenerator.cs" />
     <Compile Include="ColorsInfo.cs" />
     <Compile Include="DataClasses\GameModification.cs" />
@@ -144,7 +144,7 @@
     <Compile Include="Utility\MD5ChecksumCalculator.cs" />
     <Compile Include="Utility\FilesHandler.cs" />
     <Compile Include="GameLauncher.cs" />
-    <Compile Include="GentoolHandler.cs" />
+    <Compile Include="Utility\GentoolHandler.cs" />
     <Compile Include="HttpHandlers\ContentDownloader.cs" />
     <Compile Include="DownloadLinkParser.cs" />
     <Compile Include="HttpHandlers\ModificationDownloader.cs" />
