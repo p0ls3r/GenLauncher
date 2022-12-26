@@ -912,6 +912,7 @@ namespace GenLauncherNet.Windows
             DataHandler.SetGentoolAutoUpdateStatus(true);
             DataHandler.SetCheckModFiles(true);
             DataHandler.SetAskBeforeCheck(true);
+            DataHandler.SetModdedExeStatus(true);
 
             DataHandler.SetWindowedStatus(true);
             GentoolHandler.SetRecommendedWindoweOptions();
@@ -1912,7 +1913,6 @@ namespace GenLauncherNet.Windows
             this.Hide();
             var optionsWindow = new OptionsWindow()
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-            DataHandler.FirstRun = false;
             optionsWindow.ShowDialog();
             this.Show();
             UpdateWindowedStatus();

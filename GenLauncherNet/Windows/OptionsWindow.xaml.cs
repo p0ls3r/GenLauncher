@@ -86,6 +86,7 @@ namespace GenLauncherNet
             if (DataHandler.GetCheckModFiles())
             {
                 CheckModFiles.IsChecked = true;
+                AskToCheck.Visibility = Visibility.Visible;
             }
             else
             {
@@ -513,8 +514,8 @@ namespace GenLauncherNet
             DataHandler.SetGentoolAutoUpdateStatus(true);
             DataHandler.SetCheckModFiles(true);
             DataHandler.SetAskBeforeCheck(true);
-
             DataHandler.SetWindowedStatus(true);
+            DataHandler.SetModdedExeStatus(true);
 
             GentoolHandler.SetRecommendedWindoweOptions();
 
