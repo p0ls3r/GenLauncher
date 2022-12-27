@@ -2325,11 +2325,48 @@ namespace GenLauncherNet.Windows
 
         #region ContextMenu Handlers
 
+        private async void ChangeVersionImage(object sender, RoutedEventArgs e)
+        {
+            var dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".big";
+            dlg.Filter = "Image 500x100 (png, jpg)|*png;*jpg;";
+
+            var result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                DisableUI();
+                var menuItem = (MenuItem)sender;
+                var container = ((ModificationContainer)menuItem.DataContext);
+
+                var filePath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name, container.LatestVersion.Version);
+                var folderPath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name);
+                await Task.Run(() => CopyNewModImages(folderPath, filePath, dlg.FileName));
+                container.Refresh();
+                EnableUI();
+            }
+        }
+
+        private void CopyNewModImages(string folderPath, string filePath, string filename)
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+
+            if (File.Exists(filePath + "BW"))
+                File.Delete(filePath + "BW");
+
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            File.Copy(filename, filePath);
+
+            var image = BlackWhiteImageGenerator.GenerateBlackWhiteBitMapImageFromPath(filePath);
+            if (image != null)
+                image.Save(filePath + "BW");
+        }
+
         private void OpenGameFolder(object sender, RoutedEventArgs e)
         {
-            var menuItem = (MenuItem)sender;
-            var k = (ModificationContainer)menuItem.DataContext;
-
             Process.Start(Directory.GetCurrentDirectory());
         }
 
@@ -2347,7 +2384,15 @@ namespace GenLauncherNet.Windows
                     Process.Start(path);
                 else
                 {
-                    CreateErrorWindow("Uninstalled  mod", "You need to install the mod before opening its folder");
+                    if (k.ContainerModification.ModificationType == ModificationType.Mod)
+                       CreateErrorWindow("Uninstalled  mod", "You need to install the mod before opening its folder");
+
+                    if (k.ContainerModification.ModificationType == ModificationType.Addon)
+                        CreateErrorWindow("Uninstalled  addon", "You need to install the addon before opening its folder");
+
+                    if (k.ContainerModification.ModificationType == ModificationType.Patch)
+                        CreateErrorWindow("Uninstalled  patch", "You need to install the patch before opening its folder");
+
                 }
             }
         }
@@ -2440,6 +2485,7 @@ namespace GenLauncherNet.Windows
             if (mod.ModificationType == ModificationType.Advertising)
             {
                 RemoveMenuItemByName(contextMenu, "Open mod folder");
+                RemoveMenuItemByName(contextMenu, "Set image (500x100)");
             }
         }
 

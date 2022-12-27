@@ -679,6 +679,7 @@
                         <MenuItem Header="Open game folder" Click="OpenGameFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                         <MenuItem Header="Open maps folder" Click="OpenMapsFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                         <MenuItem Header="Open replays folder" Click="OpenReplaysFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="Set image (500x100)" Click="ChangeVersionImage" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                         <Separator Margin="-30,5,25,5"></Separator>
                         <MenuItem Header="Visit ModdB page" Click="OpenModdbLink" FontSize="18" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                         <MenuItem Header="Join Discord Server" Click="OpenDiscordLink" FontSize="18" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>

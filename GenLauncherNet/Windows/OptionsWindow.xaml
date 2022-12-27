@@ -813,6 +813,7 @@
             <ColumnDefinition Width="45"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <Rectangle HorizontalAlignment="Left" Height="688" Width="925" Fill="Black" Margin="31,38,0,0" Grid.RowSpan="13" StrokeThickness="4" VerticalAlignment="Top" Grid.ColumnSpan="5"></Rectangle>
         <Rectangle HorizontalAlignment="Left" Height="688" Width="925" Fill="{DynamicResource GenLauncherDarkBackGround}" Margin="31,38,0,0" Grid.RowSpan="13" StrokeThickness="4" Stroke="{DynamicResource GenLauncherDarkFillColor}" VerticalAlignment="Top" Grid.ColumnSpan="5"/>
         <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="50" Margin="31,38,0,0" VerticalAlignment="Top" Width="925" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
         <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="64" Margin="31,0,0,0" VerticalAlignment="Top" Width="925" Grid.ColumnSpan="5" Grid.Row="11" Grid.RowSpan="2"/>

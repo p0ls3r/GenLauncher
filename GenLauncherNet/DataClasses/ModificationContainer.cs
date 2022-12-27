@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -86,8 +87,15 @@ namespace GenLauncherNet
             if (ContainerModification.ModificationType == ModificationType.Mod)
             {
                 var imageFileName = EntryPoint.LauncherFolder + "\\uam.jpg";
-                if (!LocalMod)
+                if (LocalMod)
+                {
+                    if (File.Exists(System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version)))
+                        imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+                }
+                else
+                {
                     imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+                }
 
                 if (!File.Exists(imageFileName))
                     return;
@@ -135,8 +143,15 @@ namespace GenLauncherNet
             if (ContainerModification.ModificationType == ModificationType.Mod)
             {
                 var imageFileName = EntryPoint.LauncherFolder + "\\uam.jpg";
-                if (!LocalMod)
+                if (LocalMod)
+                {
+                    if (File.Exists(System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version)))
+                        imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+                }
+                else
+                {
                     imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version);
+                }
 
                 if (!File.Exists(imageFileName))
                     return;
@@ -176,7 +191,6 @@ namespace GenLauncherNet
                 }
             }
         }
-
         public void CancelDownload()
         {
             if (Downloader != null)
