@@ -868,7 +868,7 @@
         <Label Content="Lower - better performance, higher - better graphics quality" FontWeight="Bold" Margin="6,35,0,0" Grid.Column="3" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
 
         <Label Content="Maximum particle count :" Margin="6,58,0,0" Grid.RowSpan="5" Grid.Column="3" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <Slider x:Name="MaxParticleCountSlider" HorizontalAlignment="Left" Margin="10,85,0,0" Grid.Column="3" Grid.RowSpan="5" Grid.Row="2" VerticalAlignment="Top" Width="400" Minimum="100" Maximum="5000" IsSnapToTickEnabled="True" TickFrequency="20" ValueChanged="MaxParticleCountSlider_ValueChanged"/>
+        <Slider x:Name="MaxParticleCountSlider" HorizontalAlignment="Left" Margin="10,85,0,0" Grid.Column="3" Grid.RowSpan="5" Grid.Row="2" VerticalAlignment="Top" Width="400" Minimum="100" Maximum="50000" IsSnapToTickEnabled="True" TickFrequency="20" ValueChanged="MaxParticleCountSlider_ValueChanged"/>
         <Label  x:Name="MaxParticleCountLabel" Margin="0,88,10,0" Content="" Grid.RowSpan="5" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="3" Grid.Row="2" FontSize="16"  HorizontalAlignment="Right"  VerticalAlignment="Top"/>
 
         <Label Content="Texture quality level:" Margin="6,105,0,0" Grid.Column="3" Grid.RowSpan="5" Grid.Row="2" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Top" />

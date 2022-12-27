@@ -44,6 +44,7 @@ namespace GenLauncherNet
             gameOptions["UseCloudMap"] = " no";
             gameOptions["UseShadowVolumes"] = " no";
             gameOptions["MaxParticleCount"] = " 2500";
+            gameOptions["UseShadowDecals"] = " yes";
 
             SaveOptions();
         }
