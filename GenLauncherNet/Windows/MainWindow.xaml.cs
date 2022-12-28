@@ -1910,12 +1910,19 @@ namespace GenLauncherNet.Windows
 
         private void ButtonOptions_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            var optionsWindow = new OptionsWindow()
+            if (!_isGameRunning)
+            {
+                this.Hide();
+                var optionsWindow = new OptionsWindow()
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-            optionsWindow.ShowDialog();
-            this.Show();
-            UpdateWindowedStatus();
+                optionsWindow.ShowDialog();
+                this.Show();
+                UpdateWindowedStatus();
+            }
+            else
+            {
+                CreateErrorWindow("Game is still running!", "Finish the game process before opening the options");
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -2496,8 +2503,6 @@ namespace GenLauncherNet.Windows
 
         private void RemoveMenuItemByName(ContextMenu menu, string name)
         {
-            var t = menu.Items;
-
             foreach (var item in menu.Items)
             {
                 var menuItem = item as MenuItem;

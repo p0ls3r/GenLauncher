@@ -105,7 +105,7 @@ namespace GenLauncherNet
                 if (!CanCreateSymbLink())
                 {
                     MessageBox.Show(
-                        "Cannot create symbolic link in game folder, please check Security Policy Setting Create symbolic links field");
+                        "Failed to create a test symbolic link. Without the ability to create symbolic links, GenLauncher will not work. \r\rMost often, the inability to create a symbolic link is related to the type of file system where GenLauncher is installed, symbolic links are supported on the NTFS file system, please make sure that GenLauncher is installed on drive with this particular file system. \r\rAlso make sure that the creation of symbolic links does not interfere with the lack of any rights and the work of the anti-virus.");
                     return;
                 }
 
@@ -127,7 +127,7 @@ namespace GenLauncherNet
             catch (Exception e)
             {
                 MessageBox.Show(String.Format(
-                    "GenLauncher version: {2} \r\n GenLauncher tech in support in discord: {3} \r\n Error: {0} \r\n StackTrace: {1} ",
+                    "GenLauncher version: {2} \r\n GenLauncher tech support in discord: {3} \r\n Error: {0} \r\n StackTrace: {1} ",
                     e.Message, e.StackTrace, Version, @"https://discord.gg/fFGpudz5hV"));
             }
         }
