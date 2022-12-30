@@ -1307,11 +1307,13 @@ namespace GenLauncherNet.Windows
         private bool IsSysTimeOutOfSync()
         {
             var worldDateTime = TimeUtility.GetNetworkTime();
-            var offset = DateTimeOffset.Now;
-            var dateTimeWithOffset = worldDateTime.Subtract(offset.Offset);
+
+            if (worldDateTime == new DateTime())
+                return false;
+
             var sysDateTime = DateTime.Now;
 
-            var span = dateTimeWithOffset - sysDateTime;
+            var span = worldDateTime - sysDateTime;
 
             if (span.Minutes >= 15 || span.Minutes <= -15)
                 return true;
@@ -1445,6 +1447,7 @@ namespace GenLauncherNet.Windows
                 infoWindow.Ok.Visibility = Visibility.Hidden;
 
                 infoWindow.Continue.Content = "Set default options";
+                infoWindow.Cancel.Content = "No";
 
                 infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
                 infoWindow.WarningPolygon2.Visibility = Visibility.Visible;

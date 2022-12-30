@@ -83,11 +83,15 @@ namespace GenLauncherNet.Utility
 
             var milliseconds = intPart * 1000 + fractionPart * 1000 / 0x100000000L;
 
+            if (milliseconds == 0)
+                return new DateTime();
+
             // **UTC** time
             var networkDateTime =
                 new DateTime(1900, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds((long)milliseconds);
 
-            return networkDateTime.ToLocalTime();
+            
+           return networkDateTime.ToLocalTime();
         }
 
         private static uint SwapEndianness(ulong x)

@@ -67,6 +67,9 @@ namespace GenLauncherNet
                     await ReadPatchesAndAddonsForMod(GetSelectedMod());
                 }
             }
+
+            if (GetMods().Count > 0)
+                FirstRun = false;
         }
 
         #region SettingsData
@@ -652,12 +655,16 @@ namespace GenLauncherNet
         #region Save/Load
         public static void ReadData()
         {
+            if (!File.Exists(EntryPoint.ConfigName))
+            {
+                Data = CreateNewData();
+                return;
+            }
+
+
             try
             {
                 CreateLauncherFolder();
-
-                if (!File.Exists(EntryPoint.ConfigName))
-                    CreateNewOptionsFile();
 
                 var deSerializer = new YamlDotNet.Serialization.Deserializer();
 
@@ -680,11 +687,6 @@ namespace GenLauncherNet
         private static LauncherData CreateNewData()
         {
             return new LauncherData();
-        }
-
-        private static void CreateNewOptionsFile()
-        {
-            var data = CreateNewData();            
         }
 
         public static void CreateLauncherFolder()
