@@ -226,8 +226,6 @@ namespace GenLauncherNet
 
         private static void ReturnGameFolderToOriginalState()
         {
-            DataHandler.SaveLauncherData();
-
             DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory()));
             GameLauncher.RenameGameFilesToOriginalState();
         }

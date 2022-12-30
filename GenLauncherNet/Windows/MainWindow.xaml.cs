@@ -619,6 +619,11 @@ namespace GenLauncherNet.Windows
                 var data = (ModificationContainer)modData;
                 data.BruteCancelDownload();
             }
+
+            if (ModsList.Items.Count > 0)
+            {
+                DataHandler.SaveLauncherData();
+            }
         }
 
         private void CancelAllAddonsDownloads()
@@ -918,6 +923,8 @@ namespace GenLauncherNet.Windows
             GentoolHandler.SetRecommendedWindoweOptions();
 
             UpdateWindowedStatus();
+
+            DataHandler.FirstRun = false;
         }
 
         private void ModIncorrectInstallationNotify()
@@ -1799,6 +1806,7 @@ namespace GenLauncherNet.Windows
                     if (DataHandler.GetHideLauncher())
                         this.Hide();
                     await CheckAndUpdateGentool();
+                    DataHandler.FirstRun = false;
                     var result = await GameLauncher.RunGame();
 
                     if (DataHandler.GetHideLauncher())

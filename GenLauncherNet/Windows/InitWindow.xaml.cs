@@ -37,14 +37,10 @@ namespace GenLauncherNet
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var firstRun = true;
-            if (Directory.Exists(EntryPoint.GenLauncherModsFolder) || Directory.Exists(EntryPoint.GenLauncherModsFolderOld))
-                firstRun = false;
-
             await Task.Run(() => CreateLauncherFolders());
 
             EntryPoint.SessionInfo.Connected = await PrepareLauncher();
-            DataHandler.FirstRun = firstRun;
+            
 
             this.Hide();
             MainWindow mainWindow = new MainWindow();
