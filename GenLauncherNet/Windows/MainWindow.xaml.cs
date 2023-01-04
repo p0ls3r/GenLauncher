@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GenLauncherNet.Utility;
+using Minio.Exceptions;
 
 namespace GenLauncherNet.Windows
 {
@@ -1224,101 +1225,128 @@ namespace GenLauncherNet.Windows
             }
             else
             {
-                modData.PrepareControlsToDownloadMode();
-                modData.SetUIMessages("Creating temporary copy and checking changes...");
+                await DownloadModFromS3Storage(modData);
+            }
+        }
 
-                string tempFolderName;
-                List<ModificationFileInfo> filesToDownload;
+        private async Task DownloadModFromS3Storage(ModificationContainer modData)
+        {
+            modData.PrepareControlsToDownloadMode();
+            modData.SetUIMessages("Creating temporary copy and checking changes...");
 
-                var tempVersionHandler = new TempVersionHandler();
-                try
-                {
-                    if (IsSysTimeOutOfSync())
-                    {
-                        var mainMessage = "System clock out of sync!";
-                        var secondaryMessage = "In order to update, your system time needs to be synchronized";
+            string tempFolderName;
+            List<ModificationFileInfo> filesToDownload;
 
-                        var infoWindow = new InfoWindow(mainMessage, secondaryMessage)
-                        { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-                        infoWindow.Ok.Visibility = Visibility.Hidden;
-                        infoWindow.Continue.Content = "Synchronize now!";
-                        infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
-                        infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
-                        infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
+            var tempVersionHandler = new TempVersionHandler();
 
-                        infoWindow.ShowDialog();
-                        if (!infoWindow.GetResult())
-                        {
-                            downloadingCount -= 1;
-                            DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
-                            modData._GridControls._UpdateButton.IsEnabled = true;
-                            return;
-                        }
+            if (IsSysTimeOutOfSync() && !IsTimeSynchronized(modData))
+            {
+                return;
+            }
 
-                        TimeUtility.SyncSystemDateTimeWithWorldTime();
+            try
+            {
+                await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
 
-                        if (IsSysTimeOutOfSync())
-                        {
-                            var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
-                            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-
-                            errorWindow.ErrorPolygon1.Visibility = Visibility.Visible;
-                            errorWindow.ErrorPolygon2.Visibility = Visibility.Visible;
-                            errorWindow.Continue.Visibility = Visibility.Hidden;
-                            errorWindow.Cancel.Visibility = Visibility.Hidden;
-
-                            errorWindow.ShowDialog();
-                            downloadingCount -= 1;
-                            DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
-                            modData._GridControls._UpdateButton.IsEnabled = true;
-                            return;
-                        }
-                    }
-
-                    await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
-
-                    tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
-                    filesToDownload = tempVersionHandler.GetFilesToDownload();
-                }
-                catch (Exception e)
-                {
-                    downloadingCount -= 1;
-                    DownloadCrashed(modData, e.Message);
-                    modData._GridControls._UpdateButton.IsEnabled = true;
-                    return;
-                }
-
+                tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
+                filesToDownload = tempVersionHandler.GetFilesToDownload();
+            }
+            catch (UnexpectedMinioException)
+            {
+                downloadingCount -= 1;
+                DownloadCrashed(modData, "Unexpected Minio API Exception. Try to sync your system time");
                 modData._GridControls._UpdateButton.IsEnabled = true;
-                var succes = await DownloadModFilesFromS3Storage(modData, filesToDownload, tempFolderName);
+                return;
+            }
+            catch (Exception e)
+            {
+                downloadingCount -= 1;
+                DownloadCrashed(modData, e.Message);
+                modData._GridControls._UpdateButton.IsEnabled = true;
+                return;
+            }
 
-                if (succes)
-                    return;
+            modData._GridControls._UpdateButton.IsEnabled = true;
+            var succes = await DownloadModFilesFromS3Storage(modData, filesToDownload, tempFolderName);
 
-                if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
-                    await DownloadModBySimpleLink(modData);
-                else
-                {
-                    var errorMsg = modData._GridControls._InfoTextBlock.Text;
-                    DownloadCrashed(modData, errorMsg);
-                }
+            if (succes)
+                return;
+
+            if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
+                await DownloadModBySimpleLink(modData);
+            else
+            {
+                var errorMsg = modData._GridControls._InfoTextBlock.Text;
+                DownloadCrashed(modData, errorMsg);
             }
         }
 
         private bool IsSysTimeOutOfSync()
         {
-            var worldDateTime = TimeUtility.GetNetworkTime();
+            try
+            {
+                var worldDateTime = TimeUtility.GetNetworkTime();
 
-            if (worldDateTime == new DateTime())
+                if (worldDateTime == new DateTime())
+                    return false;
+
+                var sysDateTime = DateTime.Now;
+
+                var span = worldDateTime - sysDateTime;
+
+                if (span.Minutes >= 15 || span.Minutes <= -15)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
                 return false;
+            }
+        }
 
-            var sysDateTime = DateTime.Now;
+        private bool IsTimeSynchronized(ModificationContainer modData)
+        {
+            var mainMessage = "System clock out of sync!";
+            var secondaryMessage = "In order to update, your system time needs to be synchronized";
 
-            var span = worldDateTime - sysDateTime;
+            var infoWindow = new InfoWindow(mainMessage, secondaryMessage)
+            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            infoWindow.Ok.Visibility = Visibility.Hidden;
+            infoWindow.Continue.Content = "Synchronize now!";
+            infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
 
-            if (span.Minutes >= 15 || span.Minutes <= -15)
-                return true;
-            else
+            infoWindow.ShowDialog();
+            if (!infoWindow.GetResult())
+            {
+                downloadingCount -= 1;
+                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                modData._GridControls._UpdateButton.IsEnabled = true;
                 return false;
+            }
+
+            TimeUtility.SyncSystemDateTimeWithWorldTime();
+
+            if (IsSysTimeOutOfSync())
+            {
+                var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
+                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+
+                errorWindow.ErrorPolygon1.Visibility = Visibility.Visible;
+                errorWindow.ErrorPolygon2.Visibility = Visibility.Visible;
+                errorWindow.Continue.Visibility = Visibility.Hidden;
+                errorWindow.Cancel.Visibility = Visibility.Hidden;
+
+                errorWindow.ShowDialog();
+                downloadingCount -= 1;
+                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                modData._GridControls._UpdateButton.IsEnabled = true;
+                return false;
+            }
+
+            return true;
         }
 
         private async Task DownloadModBySimpleLink(ModificationContainer modData)

@@ -182,7 +182,7 @@
     <Compile Include="HttpHandlers\GitHubCoreYamlReader.cs" />
     <Compile Include="HttpHandlers\GitHubMainDataReader.cs" />
     <Compile Include="DataClasses\ReposModsData.cs" />
-    <Compile Include="InfoTextBlock.cs" />
+    <Compile Include="WPFElements\InfoTextBlock.cs" />
     <Compile Include="WPFElements\InfoButton.cs" />
     <Compile Include="WPFElements\NetworkInfoButton.cs" />
     <Compile Include="WPFElements\NameTextBox.cs" />
