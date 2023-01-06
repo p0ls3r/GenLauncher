@@ -20,6 +20,7 @@ namespace GenLauncherNet
         private readonly CancellationToken? _cancellationToken;
         private string _tempFilePrefix = "";
         private bool _extractionRequers;
+        private string _downloadPath;
 
         private HttpClient _httpClient;
         public event Action<long?, long, int> ProgressChanged;
@@ -27,13 +28,14 @@ namespace GenLauncherNet
 
         private Action<string> _endingAction;
 
-        public ContentDownloader(string downloadUrl, Action<string> action, string tempPrefix, CancellationToken? cancellationToken = null, bool extractionRequers = true)
+        public ContentDownloader(string downloadUrl, Action<string> action, string tempPrefix, CancellationToken? cancellationToken = null, bool extractionRequers = true, string path = null)
         {
             _downloadUrl = downloadUrl;
             _cancellationToken = cancellationToken;
             _endingAction = action;
             _tempFilePrefix = tempPrefix;
             _extractionRequers = extractionRequers;
+            _downloadPath = path;
         }
 
         public async Task StartDownload()
@@ -58,7 +60,12 @@ namespace GenLauncherNet
             {
                 fileName = "GenLauncherDownloadingFile";
             }
+
+
             _destinationFilePath = fileName + _tempFilePrefix;
+
+            if (!String.IsNullOrEmpty(_downloadPath))
+                _destinationFilePath = EntryPoint.VulkanDllsFolderName + "/" + _destinationFilePath;
 
             var totalBytes = response.Content.Headers.ContentLength;
 
@@ -125,8 +132,16 @@ namespace GenLauncherNet
             {
                 foreach (Entry entry in archiveFile.Entries)
                 {
-                    entry.Extract(entry.FileName + _tempFilePrefix);
-                    tempFileName = entry.FileName + _tempFilePrefix;
+                    if (String.IsNullOrEmpty(_downloadPath))
+                    {
+                        entry.Extract(entry.FileName + _tempFilePrefix);
+                        tempFileName = entry.FileName + _tempFilePrefix;
+                    }
+                    else
+                    {
+                        entry.Extract(_downloadPath + "/" + entry.FileName + _tempFilePrefix);
+                        tempFileName = _downloadPath + "/" + entry.FileName + _tempFilePrefix;
+                    }
                 }
             }
 

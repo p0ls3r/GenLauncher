@@ -23,6 +23,7 @@ namespace GenLauncherNet
         public bool AskBeforeCheck { get; set; } = true;
         public bool HideLauncherAfterGameStart { get; set; } = false;
         public bool FirstStart = true;
+        public bool UseVulkan = false;
 
         public List<GameModification> Modifications = new List<GameModification>();
         public List<GameModification> Addons = new List<GameModification>();

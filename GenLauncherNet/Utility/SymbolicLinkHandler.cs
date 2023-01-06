@@ -37,12 +37,12 @@ namespace GenLauncherNet
             }
         }
 
-        public static void CreateMirrorsFromFolder(string path)
+        public static void CreateMirrorsFromFolder(string path, bool exceptExeAndDllsFiles = true)
         {
-            CreateMirrorsFromFolder(path, string.Empty);
+            CreateMirrorsFromFolder(path, string.Empty, exceptExeAndDllsFiles);
         }
 
-        public static void CreateMirrorsFromFolder(string sourceFolder, string targetFolder)
+        public static void CreateMirrorsFromFolder(string sourceFolder, string targetFolder, bool exceptExeAndDllsFiles = true)
         {
             if (!string.IsNullOrEmpty(targetFolder) && !Directory.Exists(targetFolder))
             {
@@ -51,7 +51,14 @@ namespace GenLauncherNet
 
             var modDirectoryInfo = new DirectoryInfo(sourceFolder);
 
-            foreach (var file in modDirectoryInfo.GetFiles().Where(f => !GameLauncher.exceptExtensions.Contains(Path.GetExtension(f.Name))))
+            var exceptExtensions = new HashSet<string>();
+
+            if (exceptExeAndDllsFiles)
+            {
+                exceptExtensions = GameLauncher.exceptExtensions;
+            }    
+
+            foreach (var file in modDirectoryInfo.GetFiles().Where(f => !exceptExtensions.Contains(Path.GetExtension(f.Name))))
             {
                 var sourceFile = file.FullName;
                 var targetFile = String.Empty;
@@ -132,6 +139,7 @@ namespace GenLauncherNet
                     throw new Exception("Cannot replace file " + targetFile + " ErrorMsg: " + e.Message);
                 }
             }
+
             CreateSymbolicLink(targetFile, sourceFile, SymbolicLink.File);
         }
     }

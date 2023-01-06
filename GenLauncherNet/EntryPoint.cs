@@ -20,7 +20,7 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GLM";
         public const string GenLauncherModsFolderOld = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "0.0.8.8 Pre Release";
+        public const string Version = "0.0.8.9 Pre Release";
         public const int LaunchersCountForUpdateAdverising = 25;
 
         //public const string Version = "0.0.0.1 Test";
@@ -30,6 +30,7 @@ namespace GenLauncherNet
         public const string AddonsFolderName = "Addons";
         public const string PatchesFolderName = "Patches";
         public const string WorldBuilderExeName = "WorldBuilderNT27.exe";
+        public const string VulkanDllsFolderName = "Vulkan";
 
         public const string WorldBuilderDownloadLink =
             "https://onedrive.live.com/download?cid=64F1D914DDB8A931&resid=64F1D914DDB8A931%21135&authkey=AJ64UqrGWgfwGm8";
@@ -99,7 +100,6 @@ namespace GenLauncherNet
                     return;
                 }
 
-
                 CheckDbgCrash();
 
                 if (!CanCreateSymbLink())
@@ -146,6 +146,7 @@ namespace GenLauncherNet
 
             CheckForCustomVisualInfo();
             CheckForCustomBG();
+            ReplaceDlls();
 
             if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder)))
                 Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, LauncherImageSubFolder));
@@ -209,7 +210,7 @@ namespace GenLauncherNet
             {
                 SessionInfo.GameMode = Game.ZeroHour;
                 ModsRepos =
-                    @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH.yaml";
+                    @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH2.yaml";
                 FillZHFiles();
                 return;
             }
@@ -218,7 +219,7 @@ namespace GenLauncherNet
             {
                 SessionInfo.GameMode = Game.Generals;
                 ModsRepos =
-                    @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals.yaml";
+                    @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals2.yaml";
                 FillGeneralsFiles();
                 return;
             }
@@ -300,6 +301,20 @@ namespace GenLauncherNet
         {
             if (File.Exists("dbghelp.dll"))
                 File.Delete("dbghelp.dll");
+        }
+
+        public static void ReplaceDlls()
+        {
+            ReplaceFileIfItExists("d3d8x.dll");
+            ReplaceFileIfItExists("d3d9.dll");
+            ReplaceFileIfItExists("d3d10core.dll");
+            ReplaceFileIfItExists("d3d11.dll");
+        }
+
+        private static void ReplaceFileIfItExists(string filename)
+        {
+            if (File.Exists(filename))
+                File.Move(filename, filename + GenLauncherReplaceSuffix);
         }
 
         private static void FillZHFiles()

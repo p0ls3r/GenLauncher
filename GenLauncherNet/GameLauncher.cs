@@ -126,6 +126,11 @@ namespace GenLauncherNet
             noNullsVersions.ForEach(v => SymbolicLinkHandler.CreateMirrorsFromFolder(v.GetFolderName()));
         }
 
+        private static void CreateVulkanDllsLinks()
+        {
+            SymbolicLinkHandler.CreateMirrorsFromFolder(EntryPoint.VulkanDllsFolderName, false);
+        }
+
         private static void PrepareGameFile(ModificationVersion version)
         {
             FilesHandler.ApplyActionsToGameFiles(RenameNonGameBigFile, RenameCustomFiles, SymbolicLinkHandler.RemoveSymbLinkFile);

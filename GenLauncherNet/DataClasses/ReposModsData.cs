@@ -10,6 +10,7 @@ namespace GenLauncherNet
     {
         public string LauncherVersion { get; set; }
         public string DownloadLink { get; set; }
+        public string VulkanReposData { get; set; }
 
         public List<ModAddonsAndPatches> modDatas = new List<ModAddonsAndPatches>();
 

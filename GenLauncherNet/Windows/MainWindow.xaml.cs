@@ -925,6 +925,7 @@ namespace GenLauncherNet.Windows
 
             UpdateWindowedStatus();
 
+            DataHandler.UseVulkan = false;
             DataHandler.FirstRun = false;
         }
 
@@ -1062,6 +1063,44 @@ namespace GenLauncherNet.Windows
             if (GentoolHandler.IsGentoolOutDated())
             {
                 await DownloadGentool();
+            }
+        }
+
+        private async Task CheckAndUpdateVulkan()
+        {
+            if (!DataHandler.UseVulkan || !EntryPoint.SessionInfo.Connected)
+            {
+                return;
+            }
+
+            if (Directory.Exists(EntryPoint.VulkanDllsFolderName))
+                Directory.CreateDirectory(EntryPoint.VulkanDllsFolderName);
+
+            if (VulkanDllsHandler.IsCurrentVersionOutDated())
+            {
+                await DownloadVulkan();
+            }
+
+            VulkanDllsHandler.CreateVulkanSymbLinks();
+        }
+
+        private async Task DownloadVulkan()
+        {
+            try
+            {
+                using (var client = new ContentDownloader(DataHandler.VulkanData.DownloadLink, null, null, null, true, EntryPoint.VulkanDllsFolderName))
+                {
+                    client.ProgressChanged += LauncherUpdateProgressChanged;
+                    SetProgressBarInInstallMode();
+                    await client.StartDownload();
+
+                    SetProgressBarInPassivelMode();
+                }
+            }
+            catch
+            {
+                UpdateProgressBar.Value = 0;
+                UpdateProgress.Text = "Unable to check gentool";
             }
         }
 
@@ -1836,7 +1875,10 @@ namespace GenLauncherNet.Windows
                 {
                     if (DataHandler.GetHideLauncher())
                         this.Hide();
+
                     await CheckAndUpdateGentool();
+                    await CheckAndUpdateVulkan();
+
                     DataHandler.FirstRun = false;
                     var result = await GameLauncher.RunGame();
 

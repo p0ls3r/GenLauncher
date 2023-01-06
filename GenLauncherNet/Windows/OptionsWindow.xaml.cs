@@ -124,6 +124,15 @@ namespace GenLauncherNet
                 DisableGentool.IsChecked = true;
             }
 
+            if (DataHandler.UseVulkan)
+            {
+                Vulkan.IsChecked = true;
+            }
+            else
+            {
+                Vulkan.IsChecked = false;
+            }
+
             GameParams.Text = DataHandler.GetGameParams();
 
             if (DataHandler.GetAutoDeleteOldVersionsOption())
@@ -519,7 +528,23 @@ namespace GenLauncherNet
 
             GentoolHandler.SetRecommendedWindoweOptions();
 
+            DataHandler.UseVulkan = false;
+
             InitUIStatus();
+        }
+
+        private void Vulkan_Click(object sender, RoutedEventArgs e)
+        {
+            var check = DataHandler.UseVulkan;
+
+            DataHandler.UseVulkan = !check;
+            Vulkan.IsChecked = !check;
+
+            if (DataHandler.UseVulkan)
+            {
+                HeatEffects.IsChecked = false;
+                gameOptions["HeatEffects"] = " no";
+            }
         }
     }
 }

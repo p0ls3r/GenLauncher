@@ -535,7 +535,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
+
         <ControlTemplate x:Key="SliderThumbHorizontalBottom" TargetType="{x:Type Thumb}">
             <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
                 <Path x:Name="grip" Data="M 0,12 C0,12 5.5,18 5.5,18 5.5,18 11,12 11,12 11,12 11,0 11,0 11,0 0,0 0,0 0,0 0,12 0,12 z" Fill="{DynamicResource GenLauncherBorderColor}" Stretch="Fill" SnapsToDevicePixels="True" Stroke="{DynamicResource GenLauncherInactiveBorder2}" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center"/>
@@ -555,9 +555,9 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
+
         <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="{DynamicResource GenLauncherListBoxSelectionColor2}"/>
-        
+
         <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="{DynamicResource GenLauncherListBoxSelectionColor1}"/>
         <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -830,6 +830,7 @@
 
         <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="466,234,0,0" VerticalAlignment="Top" Width="490" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
         <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="466,338,0,0" VerticalAlignment="Top" Width="490" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Stroke="{DynamicResource GenLauncherDarkFillColor}" Height="2" Margin="466,435,0,0" VerticalAlignment="Top" Width="490" Grid.Row="3" Grid.ColumnSpan="10" Grid.RowSpan="10"/>
 
         <Button Content="Apply"  Grid.Column="1" Grid.Row="11" Margin="-270,10,0,0" Grid.RowSpan="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" VerticalAlignment="Top" Width="157" Height="40" Click="Apply_Click" />
         <Button Content="Set recommended settings"  Grid.Column="1" Grid.Row="11" Margin="290,10,0,0" Grid.RowSpan="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" VerticalAlignment="Top" Width="290" Height="40" Click="SetDefaultOptions" />
@@ -900,8 +901,10 @@
         <RadioButton x:Name="AlternateMouseSetup" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none12" FontSize="14" Grid.Column="3" Grid.Row="3" Grid.RowSpan="3" Content="Alternative Mouse Setup" Margin="205,45,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AlternateMouseSetup_Click"/>
         <RadioButton x:Name="AskToCheck" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none13" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Ask before checking mod files integrity" Margin="15,55,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="AskToCheck_Click"/>
         <RadioButton x:Name="HideLauncher" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none14" FontSize="14" Grid.Column="3" Grid.Row="7" Grid.RowSpan="3" Content="Hide GenLauncher while the game is running" Margin="15,80,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="HideLauncherSetup_Click"/>
+        <RadioButton x:Name="Vulkan" Foreground="{DynamicResource GenLauncherDefaultTextColor}" GroupName="none15" FontSize="15" Grid.Column="3" Grid.Row="9" Content="Use Vulkan API for improved performance" FontWeight="Bold" Margin="0,15,0,0" HorizontalAlignment="Center"  VerticalAlignment="Top" Click="Vulkan_Click" Width="446"/>
+        <Image Grid.Column="3" Source="/Images/vulkan.png" HorizontalAlignment="Left" Height="35" Margin="347,0,0,0" Grid.Row="9" VerticalAlignment="Center" Width="152" Grid.ColumnSpan="2"/>
 
-
+        <TextBlock Text="WARNING! This feature is experimental, there may be bugs, about all the shortcomings found, please contact the discord in the tech support channel or to the integration author /r1d#7366" TextWrapping="WrapWithOverflow" Margin="15,41,0,0" Grid.Column="3" Grid.Row="9" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="13"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="459" Height="54" Grid.RowSpan="2" />
 
     </Grid>
 </Window>

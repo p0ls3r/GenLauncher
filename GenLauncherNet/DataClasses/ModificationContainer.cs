@@ -222,6 +222,7 @@ namespace GenLauncherNet
             if (_GridControls != null)
             {
                 _GridControls._UpdateButton.Refresh();
+                _GridControls._SupportButton.Refresh();
 
                 if (Downloader == null)
                     SetUnactiveProgressBar();

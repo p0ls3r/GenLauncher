@@ -11,39 +11,39 @@ using YamlDotNet.Serialization;
 
 namespace GenLauncherNet
 {
-    public class GitHubCoreYamlReader : IDisposable
+    public class GitHubYamlReader : IDisposable
     {
-        private readonly string _xmlUrl;
+        private readonly string _yamlURL;
 
         private HttpClient _httpClient;
 
-        public GitHubCoreYamlReader(string xmlUrl)
+        public GitHubYamlReader(string xmlUrl)
         {
-            _xmlUrl = xmlUrl;
+            _yamlURL = xmlUrl;
         }
 
-        public async Task<ReposModsData> ReadCoreManifestYaml()
+        public async Task<T> ReadYaml<T>()
         {
             _httpClient = new HttpClient { Timeout = TimeSpan.FromDays(1) };
 
             _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("GenLauncher", "1"));
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
 
-            using (var response = await _httpClient.GetAsync(_xmlUrl, HttpCompletionOption.ResponseHeadersRead))
-                return await DownloadFileFromHttpResponseMessage(response);
+            using (var response = await _httpClient.GetAsync(_yamlURL, HttpCompletionOption.ResponseHeadersRead))
+                return await DownloadFileFromHttpResponseMessage<T>(response);
         }
 
-        private async Task<ReposModsData> DownloadFileFromHttpResponseMessage(HttpResponseMessage response)
+        private async Task<T> DownloadFileFromHttpResponseMessage<T>(HttpResponseMessage response)
         {
             response.EnsureSuccessStatusCode();
 
             var totalBytes = response.Content.Headers.ContentLength;
 
             using (var contentStream = await response.Content.ReadAsStreamAsync())
-                return await ProcessContentStream(totalBytes, contentStream);
+                return await ProcessContentStream<T>(totalBytes, contentStream);
         }
 
-        private async Task<ReposModsData> ProcessContentStream(long? totalDownloadSize, Stream contentStream)
+        private async Task<T> ProcessContentStream<T>(long? totalDownloadSize, Stream contentStream)
         {
             var totalBytesRead = 0L;
             var readCount = 0L;
@@ -74,7 +74,7 @@ namespace GenLauncherNet
 
                 var deSerializer = new Deserializer();
 
-                var reposData = deSerializer.Deserialize<ReposModsData>(new StreamReader(memStream));
+                var reposData = deSerializer.Deserialize<T>(new StreamReader(memStream));
 
                 return reposData;
             }

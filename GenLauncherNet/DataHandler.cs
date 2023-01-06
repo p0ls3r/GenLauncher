@@ -15,6 +15,7 @@ namespace GenLauncherNet
         //TODO regions
 
         public static List<string> ReposModsNames { get; private set; }
+        public static VulkanData VulkanData { get; private set; }
 
         private static bool connected;
         private static LauncherData Data;
@@ -25,15 +26,9 @@ namespace GenLauncherNet
         private static string startPath = Directory.GetCurrentDirectory();
         private static HashSet<ModificationReposVersion> downloadedModsInfo = new HashSet<ModificationReposVersion>();
         private static HashSet<ModificationVersion> downloadedReposContent = new HashSet<ModificationVersion>();
-        private static List<AdvertisingData> AdvData = new List<AdvertisingData>();
+        private static List<AdvertisingData> AdvData = new List<AdvertisingData>();        
 
         private static ModificationReposVersion Advertising;
-
-        public static bool FirstRun 
-        {
-            get { return Data.FirstStart; } 
-            set { Data.FirstStart = value; } 
-        }
 
         private static HttpClient LogoDownloader = new HttpClient();
 
@@ -166,6 +161,18 @@ namespace GenLauncherNet
         #endregion
 
         #region DataGetters
+
+        public static bool FirstRun
+        {
+            get { return Data.FirstStart; }
+            set { Data.FirstStart = value; }
+        }
+
+        public static bool UseVulkan
+        {
+            get { return Data.UseVulkan; }
+            set { Data.UseVulkan = value; }
+        }
 
         internal static bool GetAskBeforeCheck()
         {
@@ -567,9 +574,9 @@ namespace GenLauncherNet
         {
             var reposData = new ReposModsData();
 
-            using (var client = new GitHubCoreYamlReader(EntryPoint.ModsRepos))
+            using (var client = new GitHubYamlReader(EntryPoint.ModsRepos))
             {
-                reposData = await client.ReadCoreManifestYaml();
+                reposData = await client.ReadYaml<ReposModsData>();
             }
 
             Version = reposData.LauncherVersion;
@@ -581,6 +588,26 @@ namespace GenLauncherNet
             if (AdvData.Count > 0)
             {
                 await DownloadAdvertisingData(gitHubMainDataReader);
+            }
+
+            if (!String.IsNullOrEmpty(reposData.VulkanReposData))
+            {
+                await DownloadVulkanData(reposData.VulkanReposData);
+            }
+        }
+
+        private static async Task DownloadVulkanData(string vulkanLink)
+        {
+            try
+            {
+                using (var client = new GitHubYamlReader(vulkanLink))
+                {
+                    VulkanData = await client.ReadYaml<VulkanData>();
+                }
+            } 
+            catch
+            {
+
             }
         }
 
@@ -660,7 +687,6 @@ namespace GenLauncherNet
                 Data = CreateNewData();
                 return;
             }
-
 
             try
             {
