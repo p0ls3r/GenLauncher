@@ -20,7 +20,7 @@ namespace GenLauncherNet
             gameOptions = gameOptionsHandler.gameOptions;
 
             InitializeComponent();
-            InitUIStatus();
+            UpdateUIStatus();
             SetColors();
             this.MouseDown += Window_MouseDown;
             Resolution.SelectionChanged += Resolution_SelectionChanged;
@@ -46,7 +46,7 @@ namespace GenLauncherNet
                 this.Resources["GenLauncherBackGroundImage"] = EntryPoint.Colors.GenLauncherBackgroundImage;
         }
 
-        private void InitUIStatus()
+        private void UpdateUIStatus()
         {
             if (EntryPoint.SessionInfo.GameMode == Game.Generals)
             {
@@ -530,7 +530,7 @@ namespace GenLauncherNet
 
             DataHandler.UseVulkan = false;
 
-            InitUIStatus();
+            UpdateUIStatus();
         }
 
         private void Vulkan_Click(object sender, RoutedEventArgs e)

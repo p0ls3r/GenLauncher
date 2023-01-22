@@ -37,12 +37,12 @@ namespace GenLauncherNet
             }
         }
 
-        public static void CreateMirrorsFromFolder(string path, bool exceptExeAndDllsFiles = true)
+        public static void CreateMirrorsFromFolder(string path, bool createLinksOnEmptyBigs, bool exceptExeAndDllsFiles = true)
         {
-            CreateMirrorsFromFolder(path, string.Empty, exceptExeAndDllsFiles);
+            CreateMirrorsFromFolder(path, string.Empty, createLinksOnEmptyBigs, exceptExeAndDllsFiles);
         }
 
-        public static void CreateMirrorsFromFolder(string sourceFolder, string targetFolder, bool exceptExeAndDllsFiles = true)
+        public static void CreateMirrorsFromFolder(string sourceFolder, string targetFolder, bool createLinksOnEmptyBigs, bool exceptExeAndDllsFiles = true)
         {
             if (!string.IsNullOrEmpty(targetFolder) && !Directory.Exists(targetFolder))
             {
@@ -74,7 +74,7 @@ namespace GenLauncherNet
                 {
                     try
                     {
-                        CreateMirrorForBig(sourceFile, targetFile);
+                        CreateMirrorForBig(sourceFile, targetFile, createLinksOnEmptyBigs);
                     }
                     catch (Exception e)
                     {
@@ -97,30 +97,41 @@ namespace GenLauncherNet
             foreach (var folder in modDirectoryInfo.GetDirectories())
             {
                 if (string.IsNullOrEmpty(targetFolder))
-                    CreateMirrorsFromFolder(folder.FullName, folder.Name);
+                    CreateMirrorsFromFolder(folder.FullName, folder.Name, false);
                 else
-                    CreateMirrorsFromFolder(folder.FullName, targetFolder + "\\" + folder.Name);
+                    CreateMirrorsFromFolder(folder.FullName, targetFolder + "\\" + folder.Name, false);
             }
         }
 
-        public static void CreateMirrorForBig(string sourceFile, string targetFile)
+        public static void CreateMirrorForBig(string sourceFile, string targetFile, bool createLinksOnEmptyBigs)
         {
+            var createLink = true;
+
             if (File.Exists(Path.ChangeExtension(targetFile, "big")))
             {
                 if (File.Exists(Path.ChangeExtension(targetFile, "big") + EntryPoint.GenLauncherReplaceSuffix) || (new FileInfo(Path.ChangeExtension(targetFile, "big"))).IsSymbolicLink())
                     File.Delete(Path.ChangeExtension(targetFile, "big"));
                 else
                     File.Move(Path.ChangeExtension(targetFile, "big"), Path.ChangeExtension(targetFile, "big") + EntryPoint.GenLauncherReplaceSuffix);
+
+                var info = new FileInfo(sourceFile);
+
+                if (info.Length == 24 && !createLinksOnEmptyBigs)
+                    createLink = false;
             }
 
-            if(String.Equals(Path.GetExtension(sourceFile), EntryPoint.GenLauncherReplaceSuffix))
+            if (String.Equals(Path.GetExtension(sourceFile), EntryPoint.GenLauncherReplaceSuffix) && createLink)
             {
                 targetFile = Path.ChangeExtension(targetFile, "");
                 targetFile = targetFile.Remove(targetFile.Length - 1);
                 CreateSymbolicLink(Path.ChangeExtension(targetFile, "big"), sourceFile, SymbolicLink.File);
             }
             else
-                CreateSymbolicLink(Path.ChangeExtension(targetFile, "big"), sourceFile, SymbolicLink.File);
+            {
+                if (createLink)
+                    CreateSymbolicLink(Path.ChangeExtension(targetFile, "big"), sourceFile, SymbolicLink.File);
+            }
+                
         }
 
         public static void CreateMirrorForNonBig(string sourceFile, string targetFile)

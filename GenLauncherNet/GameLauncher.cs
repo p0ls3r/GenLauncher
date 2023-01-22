@@ -21,15 +21,15 @@ namespace GenLauncherNet
         {
             if (DoCheck && EntryPoint.SessionInfo.Connected)
             {
-                var modVersion = versions.Where(v => v.ModificationType == ModificationType.Mod).FirstOrDefault();
-                await Task.Run(() => PrepareGameFile(modVersion));
-                var r = await ModFilesAreCorrect(modVersion);
+                var modVersion = versions.Where(v => v.ModificationType == ModificationType.Mod).ToList();
+                await Task.Run(() => PrepareGameFiles(modVersion, false , true));
+                var r = await ModFilesAreCorrect(modVersion[0]);
                 await Task.Run(() => RenameGameFilesToOriginalState());
                 if (!r)
                     return false;
             }
 
-            await Task.Run(() => PrepareGameFiles(versions));
+            await Task.Run(() => PrepareGameFiles(versions, true, false));
             return true;
         }
 
@@ -114,28 +114,14 @@ namespace GenLauncherNet
             FilesHandler.ApplyActionsToGameFiles(SymbolicLinkHandler.RemoveSymbLinkFile, RemoveGenLauncherReplaceSuffixes);
         }
 
-        private static void PrepareGameFiles(List<ModificationVersion> versions)
+        private static void PrepareGameFiles(List<ModificationVersion> versions, bool setCameraHeight , bool createLinksOnEmptyBigs = false)
         {
             FilesHandler.ApplyActionsToGameFiles(RenameNonGameBigFile, RenameCustomFiles, SymbolicLinkHandler.RemoveSymbLinkFile);
 
-            if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
+            if (setCameraHeight && EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
                 SetCameraHeight(versions);
 
-            var noNullsVersions = versions;
-
-            noNullsVersions.ForEach(v => SymbolicLinkHandler.CreateMirrorsFromFolder(v.GetFolderName()));
-        }
-
-        private static void CreateVulkanDllsLinks()
-        {
-            SymbolicLinkHandler.CreateMirrorsFromFolder(EntryPoint.VulkanDllsFolderName, false);
-        }
-
-        private static void PrepareGameFile(ModificationVersion version)
-        {
-            FilesHandler.ApplyActionsToGameFiles(RenameNonGameBigFile, RenameCustomFiles, SymbolicLinkHandler.RemoveSymbLinkFile);
-
-            SymbolicLinkHandler.CreateMirrorsFromFolder(version.GetFolderName());
+            versions.ForEach(v => SymbolicLinkHandler.CreateMirrorsFromFolder(v.GetFolderName(), createLinksOnEmptyBigs));
         }
 
         private static void RemoveGenLauncherReplaceSuffixes(FileInfo file)
@@ -267,6 +253,9 @@ namespace GenLauncherNet
 
             var exeRunning = true;
 
+            if (DataHandler.UseVulkan)
+                process.PriorityClass = ProcessPriorityClass.High;
+
             process.Exited += (sender, e1) =>
             {
                 exeRunning = false;
@@ -292,13 +281,14 @@ namespace GenLauncherNet
         private static void StartWBExe()
         {
             Process process;
+            
 
             if (File.Exists(EntryPoint.WorldBuilderExeName))
                 process = StartExe(EntryPoint.WorldBuilderExeName);
             else
                 process = StartExe("WorldBuilder.exe");
 
-            var exeRunning = true;
+            var exeRunning = true;            
 
             process.Exited += (sender, e1) =>
             {
@@ -314,6 +304,7 @@ namespace GenLauncherNet
         private static Process StartExe(string exeName)
         {
             Process process;
+            
 
             var parameters = "";
 

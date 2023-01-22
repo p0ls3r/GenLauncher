@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +14,7 @@ namespace GenLauncherNet
     {
         public static void ExtractDlls()
         {
+            Delete7zDllsIfItsOutDated();
             CheckAndExtractDll("SevenZipExtractor.dll");
             CheckAndExtractDll("SymbolicLinkSupport.dll");
             CheckAndExtractDll("YamlDotNet.dll");
@@ -58,6 +60,21 @@ namespace GenLauncherNet
                     {
                         resource?.CopyTo(file);
                     }
+                }
+            }
+        }
+
+        private static void Delete7zDllsIfItsOutDated()
+        {
+            if (File.Exists("SevenZipExtractor.dll"))
+            {
+                var fileInfo = FileVersionInfo.GetVersionInfo("SevenZipExtractor.dll");
+
+                if (fileInfo.FileVersion == "1.0.15.0")
+                {
+                    File.Delete("SevenZipExtractor.dll");
+                    File.Delete(Path.Combine("x86", "7z.dll"));
+                    File.Delete(Path.Combine("x64", "7z.dll"));
                 }
             }
         }

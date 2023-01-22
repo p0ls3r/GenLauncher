@@ -132,13 +132,13 @@ namespace GenLauncherNet.Windows
                 return;
             }
 
-            container.Colors = new ColorsInfo(container.ContainerModification.ColorsInformation);
-
             var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder,
                 container.ContainerModification.Name, container.LatestVersion.Version + "bg");
 
             if (!File.Exists(imageFileName))
                 return;
+
+            container.Colors = new ColorsInfo(container.ContainerModification.ColorsInformation);            
 
             var stream = File.OpenRead(imageFileName);
 
@@ -725,7 +725,15 @@ namespace GenLauncherNet.Windows
 
         private void PatchesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed && e.OriginalSource is ListBox)
+            if (!(e.OriginalSource is ListBox))
+                return;
+
+            var listBox = e.OriginalSource as ListBox;
+
+            if (!string.Equals(listBox.Name, "PatchesList"))
+                return;
+
+            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed)
             {
                 if (DataHandler.GetSelectedPatch() == null)
                 {
@@ -754,11 +762,10 @@ namespace GenLauncherNet.Windows
             }
 
 
-            if (!_ignoreSelectionFlagPatches && e.OriginalSource is ListBox && ((ListBox)sender).Items.Count != 0)
+            if (!_ignoreSelectionFlagPatches && ((ListBox)sender).Items.Count != 0)
             {
                 if (e.AddedItems.Count > 0)
                 {
-                    ListBox listBox = sender as ListBox;
                     _ignoreSelectionFlagPatches = true;
 
                     if (DataHandler.GetSelectedPatch() == null)
@@ -796,13 +803,22 @@ namespace GenLauncherNet.Windows
                     ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;                    
                 }
 
-                UpdateAddonsList();
+                if (System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed)
+                    UpdateAddonsList();
             }
         }
 
         private void AddonsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed && e.OriginalSource is ListBox)
+            if (!(e.OriginalSource is ListBox))
+                return;
+
+            var listBox = e.OriginalSource as ListBox;
+
+            if (!string.Equals(listBox.Name, "AddonsList"))
+                return;
+
+            if (!_ignoreSelectionFlagMods && Mouse.RightButton == MouseButtonState.Pressed)
             {
                 if (DataHandler.GetSelectedAddonsForSelectedMod().Count == 0)
                 {
@@ -831,9 +847,7 @@ namespace GenLauncherNet.Windows
             }
 
 
-
-
-            if (e.OriginalSource is ListBox && ((ListBox)sender).Items.Count != 0)
+            if (((ListBox)sender).Items.Count != 0)
             {
                 if (e.AddedItems.Count > 0)
                 {
@@ -1999,6 +2013,7 @@ namespace GenLauncherNet.Windows
                 optionsWindow.ShowDialog();
                 this.Show();
                 UpdateWindowedStatus();
+                DataHandler.SaveLauncherData();
             }
             else
             {

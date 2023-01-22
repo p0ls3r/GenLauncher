@@ -86,7 +86,7 @@ namespace GenLauncherNet
         {
             if (ContainerModification.ModificationType == ModificationType.Mod)
             {
-                var imageFileName = EntryPoint.LauncherFolder + "\\uam.jpg";
+                var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, "uam.jpg");
                 if (LocalMod)
                 {
                     if (File.Exists(System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version)))
@@ -98,7 +98,7 @@ namespace GenLauncherNet
                 }
 
                 if (!File.Exists(imageFileName))
-                    return;
+                    imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, "uam.jpg");
 
                 var imageFileNameBW = imageFileName + "BW";
 
@@ -142,7 +142,7 @@ namespace GenLauncherNet
         {
             if (ContainerModification.ModificationType == ModificationType.Mod)
             {
-                var imageFileName = EntryPoint.LauncherFolder + "\\uam.jpg";
+                var imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, "uam.jpg");
                 if (LocalMod)
                 {
                     if (File.Exists(System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, ContainerModification.Name, LatestVersion.Version)))
@@ -154,7 +154,7 @@ namespace GenLauncherNet
                 }
 
                 if (!File.Exists(imageFileName))
-                    return;
+                    imageFileName = System.IO.Path.Combine(EntryPoint.LauncherFolder, "uam.jpg");
 
                 SetImage(imageFileName);
             }

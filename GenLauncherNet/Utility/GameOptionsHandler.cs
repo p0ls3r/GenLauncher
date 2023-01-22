@@ -45,6 +45,7 @@ namespace GenLauncherNet
             gameOptions["UseShadowVolumes"] = " no";
             gameOptions["MaxParticleCount"] = " 2500";
             gameOptions["UseShadowDecals"] = " yes";
+            gameOptions["DynamicLOD"] = " yes";
 
             SaveOptions();
         }
@@ -126,7 +127,8 @@ namespace GenLauncherNet
                 if (String.IsNullOrEmpty(value))
                     continue;
 
-                gameOptions.Add(key, value);
+                if (!gameOptions.ContainsKey(key))
+                    gameOptions.Add(key, value);
             }
         }
     }

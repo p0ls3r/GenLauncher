@@ -181,15 +181,16 @@ namespace GenLauncherNet
         {
             using (var archiveFile = new ArchiveFile(_destinationFilePath))
             {
-                foreach (Entry entry in archiveFile.Entries)
-                {
+                archiveFile.Extract(entry => {
                     if (Path.GetExtension(entry.FileName).Replace(".", "") == "big")
                     {
-                        entry.Extract(_downloadPath + "\\" + Path.ChangeExtension(entry.FileName, "gib"));
+                        return Path.Combine(_downloadPath + "\\" + Path.ChangeExtension(entry.FileName, "gib"));
                     }
                     else
-                        entry.Extract(_downloadPath + "\\" + entry.FileName);
-                }
+                    {
+                        return _downloadPath + "\\" + entry.FileName;
+                    }
+                });
             }
         }
 

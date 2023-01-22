@@ -33,22 +33,14 @@ namespace GenLauncherNet
                 {
                     using (var archiveFile = new ArchiveFile(fileWithTargetPath))
                     {
-                        foreach (Entry entry in archiveFile.Entries)
-                        {
-                            if (Path.GetExtension(entry.FileName).Replace(".", "") == "big")
-                            {
-                                entry.Extract(path + "\\" + Path.ChangeExtension(entry.FileName, "gib"));
-                            }
-                            else
-                                entry.Extract(path + "\\" + entry.FileName);
-                        }
+                        archiveFile.Extract(path);
                     }
 
                     File.Delete(fileWithTargetPath);
                 }
                 else
                     if (string.Equals(ext, "big"))
-                    File.Move(fileWithTargetPath, Path.ChangeExtension(fileWithTargetPath, ".gib"));
+                        File.Move(fileWithTargetPath, Path.ChangeExtension(fileWithTargetPath, ".gib"));
             }
         }
     }

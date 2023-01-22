@@ -757,7 +757,7 @@
                     <ContextMenu Opened="ContextMenu_Opened" >
                         <MenuItem Header="Open addon folder" Click="OpenModFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                         <MenuItem Header="Open game folder" Click="OpenGameFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-                    </ContextMenu >
+                    </ContextMenu>
                 </Grid.ContextMenu>
 
                 <Grid.ColumnDefinitions>
