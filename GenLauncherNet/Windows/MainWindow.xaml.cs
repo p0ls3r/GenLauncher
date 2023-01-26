@@ -2057,7 +2057,13 @@ namespace GenLauncherNet.Windows
         private void AddMod_Click(object sender, RoutedEventArgs e)
         {
             var addedModificationsNames = DataHandler.GetMods();
-            var notAddedModificationsNames = DataHandler.ReposModsNames
+
+            var reposMods = new List<string>();
+
+            if (DataHandler.ReposModsNames != null)
+                reposMods = DataHandler.ReposModsNames;
+
+            var notAddedModificationsNames = reposMods
                 .Where(t => !addedModificationsNames.Select(m => m.Name.ToLower()).Contains(t.ToLower())).ToList();
 
             var addNewModWindow = new AddModificationWindow(notAddedModificationsNames)
