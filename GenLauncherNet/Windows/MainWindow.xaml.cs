@@ -684,6 +684,7 @@ namespace GenLauncherNet.Windows
                         CancelAllAddonsDownloads();
 
                         ((ModificationContainer)ModsList.SelectedItem).SetUnSelectedStatus();
+                        ((ModificationContainer)ModsList.SelectedItem).ContainerModification.IsSelected = false;
                         DataHandler.UnselectAllModifications();
 
                         ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
@@ -2292,7 +2293,7 @@ namespace GenLauncherNet.Windows
             if (versionData != null)
             {
                 DataHandler.DeleteVersion(versionData);
-                versionData.ModBoxData.UpdateUIelements();
+                versionData.ModBoxData.UpdateUIelements();                
             }
         }
 
