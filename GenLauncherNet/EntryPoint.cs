@@ -43,8 +43,8 @@ namespace GenLauncherNet
         public static ColorsInfo Colors;
         public static ColorsInfo DefaultColors;
 
-        private const uint RequiredNetFrameworkVersionReleaseKey = 393295; // Version 4.6
-        private const string RequiredNetFrameworkVersion = "4.6"; // Release key = 393295
+        private const uint RequiredNetFrameworkVersionReleaseKey = 528040; // Version 4.8
+        private const string RequiredNetFrameworkVersion = "4.8"; // Release key = 528040
 
         private static Mutex _mutex1;
 
@@ -67,7 +67,7 @@ namespace GenLauncherNet
 
         public static HashSet<string> GameFiles = new HashSet<string>();
 
-        [System.STAThreadAttribute()]
+        [STAThreadAttribute]
         public static void Main()
         {
             try
@@ -79,7 +79,7 @@ namespace GenLauncherNet
                     var result =
                         MessageBox.Show(
                             $".NET Framework {RequiredNetFrameworkVersion} or later is required for GenLauncher. " +
-                            $"Would you like to download a compatible version?",
+                            "Would you like to download a compatible version?",
                             $".NET Framework {RequiredNetFrameworkVersion} or later required",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning
@@ -117,7 +117,7 @@ namespace GenLauncherNet
 
                 PrepareLauncher();
 
-                var initWindow = new InitWindow()
+                var initWindow = new InitWindow
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
                 app.Run(initWindow);
@@ -425,7 +425,9 @@ namespace GenLauncherNet
         {
             //TODO improve checking
             if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") &&
-                (File.Exists("WindowZH.big") || File.Exists("Window.big") || File.Exists("WindowZH.big" + GenLauncherReplaceSuffix) || File.Exists("Window.big" + GenLauncherReplaceSuffix)))
+                (File.Exists("WindowZH.big") || File.Exists("Window.big") ||
+                 File.Exists("WindowZH.big" + GenLauncherReplaceSuffix) ||
+                 File.Exists("Window.big" + GenLauncherReplaceSuffix)))
             {
                 return true;
             }
