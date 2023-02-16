@@ -68,7 +68,7 @@ namespace GenLauncherNet.Windows
             UpdateWindowedStatus();
             UpdateQuickStartStatus();
             UpdateModsList();
-            UpdateTabs();            
+            UpdateTabs();
 
             if (DataHandler.GetSelectedMod() != null)
             {
@@ -106,11 +106,11 @@ namespace GenLauncherNet.Windows
         {
             if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
             {
-                this.Title += " - Command & Conquer: Generals - Zero Hour";
+                this.Title += " - Zero Hour";
                 return;
             }
 
-            this.Title += " - Command & Conquer: Generals";
+            this.Title += " - Generals";
         }
 
         private void SetDefaultVisual()
@@ -138,7 +138,7 @@ namespace GenLauncherNet.Windows
             if (!File.Exists(imageFileName))
                 return;
 
-            container.Colors = new ColorsInfo(container.ContainerModification.ColorsInformation);            
+            container.Colors = new ColorsInfo(container.ContainerModification.ColorsInformation);
 
             var stream = File.OpenRead(imageFileName);
 
@@ -234,7 +234,7 @@ namespace GenLauncherNet.Windows
 
                     if (result == DragDropEffects.Move && !ModsList.SelectedItems.Contains(container))
                         ModsList.SelectedItems.Add(container);
-                    else 
+                    else
                         container.SetSelectedStatus();
 
                     _DragAndDropDisable = false;
@@ -458,7 +458,7 @@ namespace GenLauncherNet.Windows
                 UpdateProgress.Text = "Error" + e.Message;
                 SetProgressBarInPassivelMode();
                 return;
-            }            
+            }
         }
 
         private void SetProgressBarInInstallMode()
@@ -644,7 +644,8 @@ namespace GenLauncherNet.Windows
 
         private async void ModsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed && e.OriginalSource is ListBox)
+            if (!_ignoreSelectionFlagMods && System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed &&
+                e.OriginalSource is ListBox)
             {
                 if (DataHandler.GetSelectedMod() == null)
                 {
@@ -801,7 +802,7 @@ namespace GenLauncherNet.Windows
                 else
                 {
                     ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
-                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;                    
+                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                 }
 
                 if (System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed)
@@ -946,8 +947,9 @@ namespace GenLauncherNet.Windows
 
         private void ModIncorrectInstallationNotify()
         {
-            var infoWindow = new InfoWindow("Some mod files are missing or corrupted!", " It is recommended to reinstall the mod. \r You can turn off this checking in options.")
-            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            var infoWindow = new InfoWindow("Some mod files are missing or corrupted!",
+                    " It is recommended to reinstall the mod. \r You can turn off this checking in options.")
+                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
             infoWindow.ErrorPolygon1.Visibility = Visibility.Visible;
@@ -964,7 +966,8 @@ namespace GenLauncherNet.Windows
             SetIndexNumbersForMods();
         }
 
-        private void MoveModificationInList(ObservableCollection<ModificationContainer> list, ModificationContainer source, int sourceIndex, int targetIndex)
+        private void MoveModificationInList(ObservableCollection<ModificationContainer> list,
+            ModificationContainer source, int sourceIndex, int targetIndex)
         {
             if (sourceIndex < targetIndex)
             {
@@ -1103,7 +1106,8 @@ namespace GenLauncherNet.Windows
         {
             try
             {
-                using (var client = new ContentDownloader(DataHandler.VulkanData.DownloadLink, null, null, null, true, EntryPoint.VulkanDllsFolderName))
+                using (var client = new ContentDownloader(DataHandler.VulkanData.DownloadLink, null, null, null, true,
+                           EntryPoint.VulkanDllsFolderName))
                 {
                     client.ProgressChanged += LauncherUpdateProgressChanged;
                     SetProgressBarInInstallMode();
@@ -1365,7 +1369,7 @@ namespace GenLauncherNet.Windows
             var secondaryMessage = "In order to update, your system time needs to be synchronized";
 
             var infoWindow = new InfoWindow(mainMessage, secondaryMessage)
-            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Ok.Visibility = Visibility.Hidden;
             infoWindow.Continue.Content = "Synchronize now!";
             infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
@@ -1385,8 +1389,9 @@ namespace GenLauncherNet.Windows
 
             if (IsSysTimeOutOfSync())
             {
-                var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
-                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                var errorWindow = new InfoWindow("Unable to synchronize your system time!",
+                        "Please do it manually in date time options.")
+                    { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
                 errorWindow.ErrorPolygon1.Visibility = Visibility.Visible;
                 errorWindow.ErrorPolygon2.Visibility = Visibility.Visible;
@@ -1524,8 +1529,9 @@ namespace GenLauncherNet.Windows
             {
                 var mainMessage = "Looks like you are running the game for the first time";
 
-                var infoWindow = new InfoWindow(mainMessage, "Would you like to apply the default recommended settings?")
-                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                var infoWindow =
+                    new InfoWindow(mainMessage, "Would you like to apply the default recommended settings?")
+                        { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 infoWindow.Ok.Visibility = Visibility.Hidden;
 
                 infoWindow.Continue.Content = "Set default options";
@@ -1959,14 +1965,16 @@ namespace GenLauncherNet.Windows
 
             var modVersion = versions.Where(m => m.ModificationType == ModificationType.Mod).FirstOrDefault();
 
-            if (!EntryPoint.SessionInfo.Connected || string.IsNullOrEmpty(modVersion.S3HostLink) || string.IsNullOrEmpty(modVersion.S3BucketName))
+            if (!EntryPoint.SessionInfo.Connected || string.IsNullOrEmpty(modVersion.S3HostLink) ||
+                string.IsNullOrEmpty(modVersion.S3BucketName))
                 return false;
 
             if (!DataHandler.GetAskBeforeCheck())
                 return true;
 
-            var infoWindow = new InfoWindow("Сheck the integrity of the mod files before start?", "WARNING! This operation may take a long time, you can turn it off in options")
-            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            var infoWindow = new InfoWindow("Сheck the integrity of the mod files before start?",
+                    "WARNING! This operation may take a long time, you can turn it off in options")
+                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.ModsMessage.FontSize = 17;
             infoWindow.Ok.Visibility = Visibility.Hidden;
             infoWindow.Continue.Content = "Yes, check files";
@@ -2010,7 +2018,7 @@ namespace GenLauncherNet.Windows
             {
                 this.Hide();
                 var optionsWindow = new OptionsWindow()
-                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                    { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 optionsWindow.ShowDialog();
                 this.Show();
                 UpdateWindowedStatus();
@@ -2293,7 +2301,7 @@ namespace GenLauncherNet.Windows
             if (versionData != null)
             {
                 DataHandler.DeleteVersion(versionData);
-                versionData.ModBoxData.UpdateUIelements();                
+                versionData.ModBoxData.UpdateUIelements();
             }
         }
 
@@ -2372,7 +2380,9 @@ namespace GenLauncherNet.Windows
 
             if (ModsListSource.Select(m => m.ContainerModification.Name.ToLower()).Contains(modName.ToLower()))
             {
-                var savedMod = ModsListSource.Where(m => String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                var savedMod = ModsListSource.Where(m =>
+                        String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault();
                 ModsListSource.Remove(savedMod);
             }
 
@@ -2396,7 +2406,9 @@ namespace GenLauncherNet.Windows
 
             if (AddonsListSource.Select(m => m.ContainerModification.Name.ToLower()).Contains(modName.ToLower()))
             {
-                var savedMod = AddonsListSource.Where(m => String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                var savedMod = AddonsListSource.Where(m =>
+                        String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault();
                 AddonsListSource.Remove(savedMod);
             }
 
@@ -2420,7 +2432,9 @@ namespace GenLauncherNet.Windows
 
             if (PatchesListSource.Select(m => m.ContainerModification.Name.ToLower()).Contains(modName.ToLower()))
             {
-                var savedMod = PatchesListSource.Where(m => String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                var savedMod = PatchesListSource.Where(m =>
+                        String.Equals(m.ContainerModification.Name, modName, StringComparison.OrdinalIgnoreCase))
+                    .FirstOrDefault();
                 PatchesListSource.Remove(savedMod);
             }
 
@@ -2449,8 +2463,10 @@ namespace GenLauncherNet.Windows
                 var menuItem = (MenuItem)sender;
                 var container = ((ModificationContainer)menuItem.DataContext);
 
-                var filePath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name, container.LatestVersion.Version);
-                var folderPath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name);
+                var filePath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder,
+                    container.ContainerModification.Name, container.LatestVersion.Version);
+                var folderPath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder,
+                    container.ContainerModification.Name);
                 await Task.Run(() => CopyNewModImages(folderPath, filePath, dlg.FileName));
                 container.Refresh();
                 EnableUI();
@@ -2485,7 +2501,8 @@ namespace GenLauncherNet.Windows
             var menuItem = (MenuItem)sender;
             var k = (ModificationContainer)menuItem.DataContext;
 
-            var selectedVersion = k.ContainerModification.ModificationVersions.Where(m => m.IsSelected).FirstOrDefault();
+            var selectedVersion =
+                k.ContainerModification.ModificationVersions.Where(m => m.IsSelected).FirstOrDefault();
 
             if (selectedVersion != null)
             {
@@ -2495,14 +2512,15 @@ namespace GenLauncherNet.Windows
                 else
                 {
                     if (k.ContainerModification.ModificationType == ModificationType.Mod)
-                       CreateErrorWindow("Uninstalled  mod", "You need to install the mod before opening its folder");
+                        CreateErrorWindow("Uninstalled  mod", "You need to install the mod before opening its folder");
 
                     if (k.ContainerModification.ModificationType == ModificationType.Addon)
-                        CreateErrorWindow("Uninstalled  addon", "You need to install the addon before opening its folder");
+                        CreateErrorWindow("Uninstalled  addon",
+                            "You need to install the addon before opening its folder");
 
                     if (k.ContainerModification.ModificationType == ModificationType.Patch)
-                        CreateErrorWindow("Uninstalled  patch", "You need to install the patch before opening its folder");
-
+                        CreateErrorWindow("Uninstalled  patch",
+                            "You need to install the patch before opening its folder");
                 }
             }
         }
@@ -2510,7 +2528,7 @@ namespace GenLauncherNet.Windows
         private void CreatePathErrorWindow(string path)
         {
             var infoWindow = new InfoWindow("Сannot find the folder along the path:", path)
-            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
             infoWindow.ErrorPolygon1.Visibility = Visibility.Visible;
@@ -2525,9 +2543,11 @@ namespace GenLauncherNet.Windows
             var folderPath = "";
 
             if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
-                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data\\Replays";
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                             "\\Command and Conquer Generals Zero Hour Data\\Replays";
             else
-                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Data\\Replays";
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                             "\\Command and Conquer Generals Data\\Replays";
 
             if (Directory.Exists(folderPath))
                 Process.Start(folderPath);
@@ -2540,9 +2560,11 @@ namespace GenLauncherNet.Windows
             var folderPath = "";
 
             if (EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
-                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Zero Hour Data\\Maps";
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                             "\\Command and Conquer Generals Zero Hour Data\\Maps";
             else
-                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Command and Conquer Generals Data\\Maps";
+                folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                             "\\Command and Conquer Generals Data\\Maps";
 
             if (Directory.Exists(folderPath))
                 Process.Start(folderPath);
@@ -2609,7 +2631,8 @@ namespace GenLauncherNet.Windows
             foreach (var item in menu.Items)
             {
                 var menuItem = item as MenuItem;
-                if (menuItem != null && String.Equals(menuItem.Header.ToString(), name, StringComparison.OrdinalIgnoreCase))
+                if (menuItem != null &&
+                    String.Equals(menuItem.Header.ToString(), name, StringComparison.OrdinalIgnoreCase))
                 {
                     menu.Items.Remove(item);
                     return;
