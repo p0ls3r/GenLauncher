@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 
 namespace GenLauncherNet
 {
-    class EntryPoint
+    internal class EntryPoint
     {
         public const string LauncherFolder = @".GenLauncherFolder/";
         public const string ConfigName = @".GenLauncherFolder/GenLauncherCfg.yaml";
@@ -21,7 +21,7 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolderOld = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
         public const string Version = "1.0.0.1 Release";
-        public const int LaunchersCountForUpdateAdverising = 25;
+        public const int LaunchersCountForUpdateAdvertising = 25;
 
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink =
@@ -43,8 +43,12 @@ namespace GenLauncherNet
         public static ColorsInfo Colors;
         public static ColorsInfo DefaultColors;
 
-        private const uint RequiredNetFrameworkVersionReleaseKey = 393295; // Version 4.6
-        private const string RequiredNetFrameworkVersion = "4.6"; // Release key = 393295
+        private const uint RequiredNetFrameworkVersionReleaseKey = 528040; // Version 4.8
+        private const string RequiredNetFrameworkVersion = "4.8"; // Release key = 528040
+
+        // Download URL for version 4.8
+        private const string RequiredNetFrameworkVersionDownloadUrl =
+            "https://download.visualstudio.microsoft.com/download/pr/2d6bb6b2-226a-4baa-bdec-798822606ff1/9b7b8746971ed51a1770ae4293618187/ndp48-web.exe";
 
         private static Mutex _mutex1;
 
@@ -67,7 +71,7 @@ namespace GenLauncherNet
 
         public static HashSet<string> GameFiles = new HashSet<string>();
 
-        [System.STAThreadAttribute()]
+        [STAThreadAttribute]
         public static void Main()
         {
             try
@@ -76,22 +80,42 @@ namespace GenLauncherNet
 
                 if (!GeneralUtilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
                 {
-                    var result =
+                    var setupPromptResult =
                         MessageBox.Show(
                             $".NET Framework {RequiredNetFrameworkVersion} or later is required for GenLauncher. " +
-                            $"Would you like to download a compatible version?",
-                            $".NET Framework {RequiredNetFrameworkVersion} or later required",
+                            "Would you like to download and install a compatible version?",
+                            $".NET Framework {RequiredNetFrameworkVersion} or later required.",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning
                         );
 
-                    if (result == MessageBoxResult.Yes)
+                    if (setupPromptResult == MessageBoxResult.Yes)
                     {
-                        GeneralUtilities.OpenWebpageInBrowser(
-                            "https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer");
+                        var proceedPromptResult =
+                            MessageBox.Show(
+                                $".NET Framework {RequiredNetFrameworkVersion} will be downloaded from the following URL: " +
+                                $"{RequiredNetFrameworkVersionDownloadUrl}",
+                                "Proceed with download and installation?",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question
+                            );
+                        if (proceedPromptResult == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+
+                        GeneralUtilities.DownloadAndInstallNetFrameworkRuntime(RequiredNetFrameworkVersionDownloadUrl);
                     }
 
-                    return;
+                    /* Check if the user has the required .NET Framework runtime version installed on there system
+                     * in the instance they clicked yes to download and install it when prompted.
+                     * If they still don't due to either the download/install failing
+                     * or if they click no on the prompt, then don't continue launching the application.
+                     */
+                    if (!GeneralUtilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
+                    {
+                        return;
+                    }
                 }
 
                 if (!IsLauncherInGameFolder())
@@ -117,7 +141,7 @@ namespace GenLauncherNet
 
                 PrepareLauncher();
 
-                var initWindow = new InitWindow()
+                var initWindow = new InitWindow
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
                 app.Run(initWindow);
@@ -425,7 +449,9 @@ namespace GenLauncherNet
         {
             //TODO improve checking
             if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") &&
-                (File.Exists("WindowZH.big") || File.Exists("Window.big") || File.Exists("WindowZH.big" + GenLauncherReplaceSuffix) || File.Exists("Window.big" + GenLauncherReplaceSuffix)))
+                (File.Exists("WindowZH.big") || File.Exists("Window.big") ||
+                 File.Exists("WindowZH.big" + GenLauncherReplaceSuffix) ||
+                 File.Exists("Window.big" + GenLauncherReplaceSuffix)))
             {
                 return true;
             }
