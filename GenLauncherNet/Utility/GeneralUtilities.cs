@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Net;
 using Microsoft.Win32;
 
 namespace GenLauncherNet.Utility
@@ -33,24 +32,28 @@ namespace GenLauncherNet.Utility
         }
 
         /// <summary>
-        ///     Opens a specific webpage in the user's default browser based on a given URL.
+        /// Downloads and silently Installs a specified .NET Framework runtime on the user's computer from a given download URL.
         /// </summary>
-        /// <param name="webpageUrl">URL of the webpage to open.</param>
-        internal static void OpenWebpageInBrowser(string webpageUrl)
+        /// <param name="downloadUrl">The download URL of the .NET Framework runtime version to download and install.</param>
+        internal static void DownloadAndInstallNetFrameworkRuntime(string downloadUrl)
         {
-            try
+            string tempFilePath = Path.ChangeExtension(Path.GetTempFileName(), ".exe");
+
+            /*
+             * Download the specified .NET Framework runtime installer and save it as a temporary file on the user's filesystem
+             * which is then run silently and deleted when the installer finishes.
+             */
+            using (var webClient = new WebClient())
             {
-                Process.Start(webpageUrl);
+                webClient.DownloadFile(downloadUrl, tempFilePath);
             }
-            catch (Win32Exception noBrowser)
-            {
-                if (noBrowser.ErrorCode == -2147467259)
-                    MessageBox.Show(noBrowser.Message);
-            }
-            catch (Exception other)
-            {
-                MessageBox.Show(other.Message);
-            }
+
+            var installerProcess = new Process();
+            installerProcess.StartInfo.FileName = tempFilePath;
+            installerProcess.StartInfo.Arguments = "/quiet /norestart";
+            installerProcess.Start();
+            installerProcess.WaitForExit();
+            File.Delete(tempFilePath);
         }
     }
 }
