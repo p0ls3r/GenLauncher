@@ -80,17 +80,30 @@ namespace GenLauncherNet
 
                 if (!GeneralUtilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
                 {
-                    var result =
+                    var setupPromptResult =
                         MessageBox.Show(
                             $".NET Framework {RequiredNetFrameworkVersion} or later is required for GenLauncher. " +
                             "Would you like to download and install a compatible version?",
-                            $".NET Framework {RequiredNetFrameworkVersion} or later required",
+                            $".NET Framework {RequiredNetFrameworkVersion} or later required.",
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning
                         );
 
-                    if (result == MessageBoxResult.Yes)
+                    if (setupPromptResult == MessageBoxResult.Yes)
                     {
+                        var proceedPromptResult =
+                            MessageBox.Show(
+                                $".NET Framework {RequiredNetFrameworkVersion} will be downloaded from the following URL: " +
+                                $"{RequiredNetFrameworkVersionDownloadUrl}",
+                                "Proceed with download and installation?",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question
+                            );
+                        if (proceedPromptResult == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+
                         GeneralUtilities.DownloadAndInstallNetFrameworkRuntime(RequiredNetFrameworkVersionDownloadUrl);
                     }
 
