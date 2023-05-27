@@ -135,6 +135,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Updaters\DownloadResult.cs" />
+    <Compile Include="Updaters\FTPUpdater.cs" />
+    <Compile Include="Updaters\HttpSingleFileUpdater.cs" />
+    <Compile Include="Updaters\IUpdater.cs" />
+    <Compile Include="Updaters\IUpdaterFactory.cs" />
+    <Compile Include="Updaters\S3Updater.cs" />
+    <Compile Include="Updaters\UpdaterFactory.cs" />
     <Compile Include="Utility\BigHandler.cs" />
     <Compile Include="Utility\GameOptionsHandler.cs" />
     <Compile Include="Utility\BlackWhiteImageGenerator.cs" />
@@ -336,6 +343,7 @@
     <EmbeddedResource Include="Dlls\x64\7z.dll" />
     <EmbeddedResource Include="Dlls\x86\7z.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SevenZipExtractor.1.0.17\build\SevenZipExtractor.targets" Condition="Exists('..\packages\SevenZipExtractor.1.0.17\build\SevenZipExtractor.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

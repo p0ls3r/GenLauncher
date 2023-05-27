@@ -14,14 +14,6 @@ using SevenZipExtractor;
 
 namespace GenLauncherNet
 {
-    public struct DownloadResult
-    {
-        public bool Crashed;
-        public bool Canceled;
-        public bool TimedOut;
-        public string Message;
-    }
-
     public class ModificationDownloader : IDisposable
     {
         public DownloadResult Result;

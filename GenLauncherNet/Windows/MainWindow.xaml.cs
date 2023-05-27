@@ -85,9 +85,9 @@ namespace GenLauncherNet.Windows
         private void UpdateLaunchesCount()
         {
             if (DataHandler.GetLauncherCount() < 0)
-                DataHandler.SetLaunchesCount(EntryPoint.LaunchersCountForUpdateAdverising);
+                DataHandler.SetLaunchesCount(EntryPoint.LaunchesCountForUpdateAdverising);
 
-            if (DataHandler.GetLauncherCount() > EntryPoint.LaunchersCountForUpdateAdverising)
+            if (DataHandler.GetLauncherCount() > EntryPoint.LaunchesCountForUpdateAdverising)
             {
                 DataHandler.SetLaunchesCount(0);
 
@@ -597,7 +597,7 @@ namespace GenLauncherNet.Windows
 
         private void Exit()
         {
-            DataHandler.SetLaunchesCount(EntryPoint.LaunchersCountForUpdateAdverising);
+            DataHandler.SetLaunchesCount(EntryPoint.LaunchesCountForUpdateAdverising);
             this.Close();
         }
 
@@ -918,6 +918,238 @@ namespace GenLauncherNet.Windows
 
             SetFocuses();
         }
+
+        #endregion
+
+        #region DownloadModification
+
+        private async void DownloadMod(ModificationContainer modData)
+        {
+            downloadingCount += 1;
+            modData.SetActiveProgressBar();
+
+            /*if (string.IsNullOrEmpty(modData.LatestVersion.S3HostLink) ||
+                string.IsNullOrEmpty(modData.LatestVersion.S3BucketName))
+            {
+                await DownloadModBySimpleLink(modData);
+            }
+            else
+            {
+                await DownloadModFromS3Storage(modData);
+            }*/
+
+            var factory = new UpdaterFactory();
+            var updater = factory.CreateUpdater(modData);
+            modData.PrepareControlsToDownloadMode();
+            modData.SetUIMessages("Preparing, please wait...");
+            modData.SetDownloader(updater);
+            updater.ProgressChanged += DownloadProgressChanged;
+            updater.Done += ModificationDownloadDone;
+            modData._GridControls._UpdateButton.IsEnabled = true;
+
+
+            try
+            {
+                await updater.StartDownloadModification();
+            }
+            catch (Exception e)
+            {
+                downloadingCount -= 1;
+                modData.ClearDownloader();
+                modData.SetUIMessages(e.Message);
+                modData._GridControls._UpdateButton.IsEnabled = true;
+            }
+        }
+
+        private async Task DownloadModFromS3Storage(ModificationContainer modData)
+        {
+            /*modData.PrepareControlsToDownloadMode();
+            modData.SetUIMessages("Creating temporary copy and checking changes...");
+
+            string tempFolderName;
+            List<ModificationFileInfo> filesToDownload;
+
+            var tempVersionHandler = new TempVersionHandler();
+
+            if (IsSysTimeOutOfSync() && !IsTimeSynchronized(modData))
+            {
+                return;
+            }
+
+            try
+            {
+                await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
+
+                tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
+                filesToDownload = tempVersionHandler.GetFilesToDownload();
+            }
+            catch (UnexpectedMinioException)
+            {
+                downloadingCount -= 1;
+                DownloadCrashed(modData, "Unexpected Minio API Exception. Try to sync your system time");
+                modData._GridControls._UpdateButton.IsEnabled = true;
+                return;
+            }
+            catch (Exception e)
+            {
+                downloadingCount -= 1;
+                DownloadCrashed(modData, e.Message);
+                modData._GridControls._UpdateButton.IsEnabled = true;
+                return;
+            }
+
+            modData._GridControls._UpdateButton.IsEnabled = true;
+            var succes = await DownloadModFilesFromS3Storage(modData, filesToDownload, tempFolderName);
+
+            if (succes)
+                return;
+
+            if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
+                await DownloadModBySimpleLink(modData);
+            else
+            {
+                var errorMsg = modData._GridControls._InfoTextBlock.Text;
+                DownloadCrashed(modData, errorMsg);
+            }*/
+        }
+
+        private bool IsSysTimeOutOfSync()
+        {
+            try
+            {
+                var worldDateTime = TimeUtility.GetNetworkTime();
+
+                if (worldDateTime == new DateTime())
+                    return false;
+
+                var sysDateTime = DateTime.Now;
+
+                var span = worldDateTime - sysDateTime;
+
+                if (span.Minutes >= 15 || span.Minutes <= -15)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool IsTimeSynchronized(ModificationContainer modData)
+        {
+            var mainMessage = "System clock out of sync!";
+            var secondaryMessage = "In order to update, your system time needs to be synchronized";
+
+            var infoWindow = new InfoWindow(mainMessage, secondaryMessage)
+            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+            infoWindow.Ok.Visibility = Visibility.Hidden;
+            infoWindow.Continue.Content = "Synchronize now!";
+            infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
+            infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
+
+            infoWindow.ShowDialog();
+            if (!infoWindow.GetResult())
+            {
+                downloadingCount -= 1;
+                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                modData._GridControls._UpdateButton.IsEnabled = true;
+                return false;
+            }
+
+            TimeUtility.SyncSystemDateTimeWithWorldTime();
+
+            if (IsSysTimeOutOfSync())
+            {
+                var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
+                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
+
+                errorWindow.ErrorPolygon1.Visibility = Visibility.Visible;
+                errorWindow.ErrorPolygon2.Visibility = Visibility.Visible;
+                errorWindow.Continue.Visibility = Visibility.Hidden;
+                errorWindow.Cancel.Visibility = Visibility.Hidden;
+
+                errorWindow.ShowDialog();
+                downloadingCount -= 1;
+                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                modData._GridControls._UpdateButton.IsEnabled = true;
+                return false;
+            }
+
+            return true;
+        }
+
+        private async Task DownloadModBySimpleLink(ModificationContainer modData)
+        {
+            /*modData.PrepareControlsToDownloadMode();
+            var client = new ModificationDownloader(modData);
+
+            modData.SetDownloader(client);
+            client.ProgressChanged += DownloadProgressChanged;
+            client.Done += ModificationDownloadDone;
+            modData._GridControls._UpdateButton.IsEnabled = true;
+
+            try
+            {
+                await client.StartSimpleDownload();
+            }
+            catch (Exception e)
+            {
+                downloadingCount -= 1;
+                modData.ClearDownloader();
+                modData.SetUIMessages(e.Message);
+                modData._GridControls._UpdateButton.IsEnabled = true;
+            }*/
+        }
+
+        /// <summary>
+        ///     Creates temporary folder for downloaded files and returns its name.
+        /// </summary>
+        /// <param name="handler">List of files to download.</param>
+        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
+        /// <returns>
+        ///    Name of temp folder.
+        /// </returns>
+        private async Task<string> GetTempFolderName(TempVersionHandler handler, ModificationContainer modData)
+        {
+            var tempDirectoryName = await Task.Run(() => handler.CreateTempCopyOfFolder());
+
+            return tempDirectoryName;
+        }
+
+        /// <summary>
+        ///     Download modification files from S3 storage, that doesn't exists in temp folder.
+        /// </summary>
+        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
+        /// <param name="filesToDownload">List of files to download.</param>
+        /// <param name="tempDirectoryName">Temp directory, where files will be download.</param>
+        /// <returns>
+        ///     True files downloaded successfully, else false
+        /// </returns>
+        /*private async Task<bool> DownloadModFilesFromS3Storage(ModificationContainer modData,
+            List<ModificationFileInfo> filesToDownload, string tempDirectoryName)
+        {
+            try
+            {
+                var client = new ModificationDownloader(modData);
+                modData.SetDownloader(client);
+                client.ProgressChanged += DownloadProgressChanged;
+                client.Done += ModificationDownloadDone;
+
+                var result = await client.StartS3Download(filesToDownload, tempDirectoryName);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                downloadingCount -= 1;
+                modData.ClearDownloader();
+                modData.SetUIMessages(e.Message);
+                return false;
+            }
+        }*/
 
         #endregion
 
@@ -1264,216 +1496,6 @@ namespace GenLauncherNet.Windows
                 AddonsButton.Visibility = Visibility.Hidden;
             }
         }
-
-        #region DownloadModification
-
-        private async void DownloadMod(ModificationContainer modData)
-        {
-            downloadingCount += 1;
-            modData.SetActiveProgressBar();
-
-            if (string.IsNullOrEmpty(modData.LatestVersion.S3HostLink) ||
-                string.IsNullOrEmpty(modData.LatestVersion.S3BucketName))
-            {
-                await DownloadModBySimpleLink(modData);
-            }
-            else
-            {
-                await DownloadModFromS3Storage(modData);
-            }
-        }
-
-        private async Task DownloadModFromS3Storage(ModificationContainer modData)
-        {
-            modData.PrepareControlsToDownloadMode();
-            modData.SetUIMessages("Creating temporary copy and checking changes...");
-
-            string tempFolderName;
-            List<ModificationFileInfo> filesToDownload;
-
-            var tempVersionHandler = new TempVersionHandler();
-
-            if (IsSysTimeOutOfSync() && !IsTimeSynchronized(modData))
-            {
-                return;
-            }
-
-            try
-            {
-                await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
-
-                tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
-                filesToDownload = tempVersionHandler.GetFilesToDownload();
-            }
-            catch (UnexpectedMinioException)
-            {
-                downloadingCount -= 1;
-                DownloadCrashed(modData, "Unexpected Minio API Exception. Try to sync your system time");
-                modData._GridControls._UpdateButton.IsEnabled = true;
-                return;
-            }
-            catch (Exception e)
-            {
-                downloadingCount -= 1;
-                DownloadCrashed(modData, e.Message);
-                modData._GridControls._UpdateButton.IsEnabled = true;
-                return;
-            }
-
-            modData._GridControls._UpdateButton.IsEnabled = true;
-            var succes = await DownloadModFilesFromS3Storage(modData, filesToDownload, tempFolderName);
-
-            if (succes)
-                return;
-
-            if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
-                await DownloadModBySimpleLink(modData);
-            else
-            {
-                var errorMsg = modData._GridControls._InfoTextBlock.Text;
-                DownloadCrashed(modData, errorMsg);
-            }
-        }
-
-        private bool IsSysTimeOutOfSync()
-        {
-            try
-            {
-                var worldDateTime = TimeUtility.GetNetworkTime();
-
-                if (worldDateTime == new DateTime())
-                    return false;
-
-                var sysDateTime = DateTime.Now;
-
-                var span = worldDateTime - sysDateTime;
-
-                if (span.Minutes >= 15 || span.Minutes <= -15)
-                    return true;
-                else
-                    return false;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private bool IsTimeSynchronized(ModificationContainer modData)
-        {
-            var mainMessage = "System clock out of sync!";
-            var secondaryMessage = "In order to update, your system time needs to be synchronized";
-
-            var infoWindow = new InfoWindow(mainMessage, secondaryMessage)
-            { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-            infoWindow.Ok.Visibility = Visibility.Hidden;
-            infoWindow.Continue.Content = "Synchronize now!";
-            infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
-            infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
-            infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
-
-            infoWindow.ShowDialog();
-            if (!infoWindow.GetResult())
-            {
-                downloadingCount -= 1;
-                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
-                modData._GridControls._UpdateButton.IsEnabled = true;
-                return false;
-            }
-
-            TimeUtility.SyncSystemDateTimeWithWorldTime();
-
-            if (IsSysTimeOutOfSync())
-            {
-                var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
-                { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
-
-                errorWindow.ErrorPolygon1.Visibility = Visibility.Visible;
-                errorWindow.ErrorPolygon2.Visibility = Visibility.Visible;
-                errorWindow.Continue.Visibility = Visibility.Hidden;
-                errorWindow.Cancel.Visibility = Visibility.Hidden;
-
-                errorWindow.ShowDialog();
-                downloadingCount -= 1;
-                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
-                modData._GridControls._UpdateButton.IsEnabled = true;
-                return false;
-            }
-
-            return true;
-        }
-
-        private async Task DownloadModBySimpleLink(ModificationContainer modData)
-        {
-            modData.PrepareControlsToDownloadMode();
-            var client = new ModificationDownloader(modData);
-
-            modData.SetDownloader(client);
-            client.ProgressChanged += DownloadProgressChanged;
-            client.Done += ModificationDownloadDone;
-            modData._GridControls._UpdateButton.IsEnabled = true;
-
-            try
-            {
-                await client.StartSimpleDownload();
-            }
-            catch (Exception e)
-            {
-                downloadingCount -= 1;
-                modData.ClearDownloader();
-                modData.SetUIMessages(e.Message);
-                modData._GridControls._UpdateButton.IsEnabled = true;
-            }
-        }
-
-        /// <summary>
-        ///     Creates temporary folder for downloaded files and returns its name.
-        /// </summary>
-        /// <param name="handler">List of files to download.</param>
-        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
-        /// <returns>
-        ///    Name of temp folder.
-        /// </returns>
-        private async Task<string> GetTempFolderName(TempVersionHandler handler, ModificationContainer modData)
-        {
-            var tempDirectoryName = await Task.Run(() => handler.CreateTempCopyOfFolder());
-
-            return tempDirectoryName;
-        }
-
-        /// <summary>
-        ///     Download modification files from S3 storage, that doesn't exists in temp folder.
-        /// </summary>
-        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
-        /// <param name="filesToDownload">List of files to download.</param>
-        /// <param name="tempDirectoryName">Temp directory, where files will be download.</param>
-        /// <returns>
-        ///     True files downloaded successfully, else false
-        /// </returns>
-        private async Task<bool> DownloadModFilesFromS3Storage(ModificationContainer modData,
-            List<ModificationFileInfo> filesToDownload, string tempDirectoryName)
-        {
-            try
-            {
-                var client = new ModificationDownloader(modData);
-                modData.SetDownloader(client);
-                client.ProgressChanged += DownloadProgressChanged;
-                client.Done += ModificationDownloadDone;
-
-                var result = await client.StartS3Download(filesToDownload, tempDirectoryName);
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                downloadingCount -= 1;
-                modData.ClearDownloader();
-                modData.SetUIMessages(e.Message);
-                return false;
-            }
-        }
-
-        #endregion
 
         private void SetFocuses()
         {
