@@ -928,16 +928,6 @@ namespace GenLauncherNet.Windows
             downloadingCount += 1;
             modData.SetActiveProgressBar();
 
-            /*if (string.IsNullOrEmpty(modData.LatestVersion.S3HostLink) ||
-                string.IsNullOrEmpty(modData.LatestVersion.S3BucketName))
-            {
-                await DownloadModBySimpleLink(modData);
-            }
-            else
-            {
-                await DownloadModFromS3Storage(modData);
-            }*/
-
             var factory = new UpdaterFactory();
             var updater = factory.CreateUpdater(modData);
             modData.PrepareControlsToDownloadMode();

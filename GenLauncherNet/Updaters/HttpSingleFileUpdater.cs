@@ -5,6 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,37 +18,39 @@ namespace GenLauncherNet
     {
         public event Action<long?, long, double?, ModificationContainer, string> ProgressChanged;
         public event Action<ModificationContainer, DownloadResult> Done;
-        private DownloadResult DownloadResult;
         public ModificationContainer ModBoxData { get; private set; }
 
-        private string _downloadUrl;
-        private string _destinationFilePath;
-        private bool _extractionRequers = false;
-        private string _downloadPath;
-        private string _fileName;
+        string _downloadUrl;
+        string _destinationFilePath;
+        bool _extractionRequers;
+        string _downloadPath;
+        string _fileName;
 
-        private TimerCallback timerCallback;
-        private Timer timer;
+        TimerCallback timerCallback;
+        Timer _timer;
 
-        Int64 _totalBytesRead = 0L;
-        Int64 _totalBytesReadOld = 0L;
+        DownloadResult DownloadResult;
+
+        long _totalBytesRead = 0L;
         long _readCount = 0L;
+        long _timerReadCount = 0L;
         byte[] _buffer = new byte[innerBufferSize];
         bool _isMoreToRead = true;
-
+        bool _partDownload;
         HttpResponseMessage _response;
         Stream _contentStream;
         FileStream _fileStream;
+        long? _chunkDownloadSize;
         long? _totalDownloadSize;
-
-        private HttpClient _httpClient;
-
-        const int bufferSize = 8192 * 1024;
+        int _currentAttempt = 0;
+        HttpClient _httpClient;
+        
         const int innerBufferSize = 8192;
+        const int bufferSize = innerBufferSize * 1024 * 4;
+        const int connectionAttempts = 5;
 
         public HttpSingleFileUpdater()
-        {
-            _httpClient = new HttpClient();
+        {            
         }
 
         public void SetModificationInfo(ModificationContainer modification)
@@ -57,50 +62,39 @@ namespace GenLauncherNet
         {
             try
             {
-                _fileName = await GetFileName();
+                if (DownloadResult.Canceled)
+                {
+                    return;
+                }
+
+                _httpClient = new HttpClient();
+                await GetFileInfo();
                 _downloadPath = GetTempCopyOfFolder();
                 _destinationFilePath = _downloadPath + "\\" + _fileName;
-                SetStartByte();
-
-                DownloadResult.Canceled = false;             
-                do
+                SetStartInfo();
+               
+                if (_partDownload)
                 {
-                    var mes = new HttpRequestMessage(HttpMethod.Get, _downloadUrl);
-                   
+                    await PartDownload();
+                } else
+                {
+                    //the old downloading algorithm has been retained to avoid a large number of requests
+                    await FullDownload();
+                }
 
-                    mes.Headers.Add("Range", String.Format("bytes={0}-{1}", DownloadResult.BytesRead, DownloadResult.BytesRead + bufferSize));
-
-                    _response = await _httpClient.SendAsync(mes);
-
-                    _response.EnsureSuccessStatusCode();
-
-                    if (_fileStream == null) SetFileStream();
-
-                    if (DownloadResult.TotalSize == 0L)
+                if (!DownloadResult.Canceled && !DownloadResult.Crashed)
+                {
+                    if (_extractionRequers)
                     {
-                        foreach (var h in _response.Content.Headers)
-                            if (String.Equals(h.Key, "Content-Range"))
-                            {
-                                var rawString = h.Value.FirstOrDefault();
-                                DownloadResult.TotalSize = Int64.Parse(rawString.Split('/')[1]);
-                                break;
-                            }
+                        this.Dispose();
+                        await Task.Run(() => ExtractArchive());
+                        DeleteTempFile();
                     }
 
-                    await DownloadFileFromHttpResponseMessage();
-                    DownloadResult.BytesRead += bufferSize + 1;
+                    RemoveTempFolder();
+                    DownloadResult.Canceled = false;
+                    DownloadResult.Crashed = false;
                 }
-                while (DownloadResult.BytesRead < DownloadResult.TotalSize);
-
-                if (_extractionRequers)
-                {
-                    this.Dispose();
-                    await Task.Run(() => ExtractArchive());
-                    DeleteTempFile();
-                }
-
-                RemoveTempFolder();
-
                 Done(ModBoxData, DownloadResult);
             }
             catch (Exception e)
@@ -109,7 +103,15 @@ namespace GenLauncherNet
 
                 if (DownloadResult.TimedOut)
                 {
-                    Done(ModBoxData, DownloadResult);
+                    if (_currentAttempt >= connectionAttempts)
+                    {                        
+                        Done(ModBoxData, DownloadResult);
+                    } else
+                    {
+                        _currentAttempt++;
+                        ModBoxData.SetUIMessages("Connection timed out. Trying to reastablish connection... attempt: " + _currentAttempt);
+                        await StartDownloadModification();
+                    }
                 }                
                 else
                 {
@@ -124,6 +126,55 @@ namespace GenLauncherNet
                     Done(ModBoxData, DownloadResult);
                 }
             }
+        }
+
+        private async Task PartDownload()
+        {
+            do
+            {
+                if (DownloadResult.Canceled)
+                    break;
+
+                var mes = new HttpRequestMessage(HttpMethod.Get, _downloadUrl);
+
+                mes.Headers.Add("Range", String.Format("bytes={0}-{1}", DownloadResult.BytesRead, DownloadResult.BytesRead + bufferSize));
+
+                _response = await _httpClient.SendAsync(mes, HttpCompletionOption.ResponseHeadersRead);
+
+                _response.EnsureSuccessStatusCode();
+                DownloadResult.TimedOut = false;
+                _currentAttempt = 0;
+
+                if (_fileStream == null) SetFileStream();
+
+                if (DownloadResult.TotalSize == 0L)
+                {
+                    foreach (var h in _response.Content.Headers)
+                        if (String.Equals(h.Key, "Content-Range"))
+                        {
+                            var rawString = h.Value.FirstOrDefault();
+                            DownloadResult.TotalSize = Int64.Parse(rawString.Split('/')[1]);
+                            break;
+                        }
+                }
+
+                await DownloadFileFromHttpResponseMessage();
+                DownloadResult.BytesRead += bufferSize + 1;
+            }
+            while (DownloadResult.BytesRead < DownloadResult.TotalSize);
+        }
+
+        private async Task FullDownload()
+        {
+            _response = await _httpClient.GetAsync(_downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+
+            _response.EnsureSuccessStatusCode();
+            DownloadResult.TimedOut = false;
+            _currentAttempt = 0;
+
+            if (_fileStream == null) SetFileStream();
+
+            await DownloadFileFromHttpResponseMessage();
         }
 
         private void RemoveTempFolder()
@@ -144,28 +195,26 @@ namespace GenLauncherNet
             return tempFolderName;
         }
 
-        private async Task<string> GetFileName()
+        private async Task GetFileInfo()
         {
             _downloadUrl = DownloadsLinkParser.ParseDownloadLink(ModBoxData.ContainerModification.SimpleDownloadLink);
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
 
             var mes = new HttpRequestMessage(HttpMethod.Get, _downloadUrl);
 
-            _response = await _httpClient.SendAsync(mes);
+            _response = await _httpClient.SendAsync(mes, HttpCompletionOption.ResponseHeadersRead);
 
             _response.EnsureSuccessStatusCode();
-
-            string fileName;
 
             if (_response.Content.Headers.ContentDisposition == null)
                 throw new Exception("Download link is incorrect, please contact modification creator and try again later.");
 
             if (_response.Content.Headers.ContentDisposition.FileName != null)
-                fileName = _response.Content.Headers.ContentDisposition.FileName.Replace("\"", String.Empty).Replace("\\", String.Empty);
+                _fileName = _response.Content.Headers.ContentDisposition.FileName.Replace("\"", String.Empty).Replace("\\", String.Empty);
             else
-                fileName = _response.Content.Headers.ContentDisposition.FileNameStar;
+                _fileName = _response.Content.Headers.ContentDisposition.FileNameStar;
 
-            return fileName;
+            _totalDownloadSize = _response.Content.Headers.ContentLength;
         }
 
         private void SetFileStream()
@@ -178,43 +227,35 @@ namespace GenLauncherNet
             _fileStream = new FileStream(_destinationFilePath, FileMode.Append, FileAccess.Write, FileShare.None, innerBufferSize, true);
         }
 
-        private void SetStartByte()
+        private void SetStartInfo()
         {
             if (File.Exists(_destinationFilePath))
             {
+                _partDownload = true;
                 var fi = new FileInfo(_destinationFilePath);
                 DownloadResult.BytesRead = fi.Length;
+                _totalBytesRead = fi.Length;
             }
         }
 
         private async Task DownloadFileFromHttpResponseMessage()
         {
-            _response.EnsureSuccessStatusCode();
-
-            string fileName;
-
-            if (_response.Content.Headers.ContentDisposition == null)
-                throw new Exception("Download link is incorrect, please contact modification creator and try again later.");
-
-            if (_response.Content.Headers.ContentDisposition.FileName != null)
-                fileName = _response.Content.Headers.ContentDisposition.FileName.Replace("\"", String.Empty).Replace("\\", String.Empty);
-            else
-                fileName = _response.Content.Headers.ContentDisposition.FileNameStar;
+            _response.EnsureSuccessStatusCode();         
 
             if (!Directory.Exists(_downloadPath))
                 Directory.CreateDirectory(_downloadPath);
-            _destinationFilePath = _downloadPath + "\\" + fileName;
+            _destinationFilePath = _downloadPath + "\\" + _fileName;
 
             var extension = Path.GetExtension(_destinationFilePath).Replace(".", "");
 
             if (extension == "zip" || extension == "rar" || extension == "7z")
                 _extractionRequers = true;
 
-            _totalDownloadSize = _response.Content.Headers.ContentLength;
+            _chunkDownloadSize = _response.Content.Headers.ContentLength;
 
             _contentStream = await _response.Content.ReadAsStreamAsync();            
 
-            //await Task.Run(() => SetTimeoutTimer());
+            await Task.Run(() => SetTimeoutTimer());
             await ProcessContentStream();
         }
 
@@ -263,7 +304,7 @@ namespace GenLauncherNet
                 return;
 
             double? progressPercentage = null;
-            if (_totalDownloadSize.HasValue)
+            if (_chunkDownloadSize.HasValue)
                 progressPercentage = Math.Round((double)_totalBytesRead / _totalDownloadSize.Value * 100, 2);
 
             ProgressChanged(_totalDownloadSize, _totalBytesRead, progressPercentage, ModBoxData, fileName);
@@ -295,20 +336,22 @@ namespace GenLauncherNet
         private void SetTimeoutTimer()
         {
             var num = 0;
+            _timerReadCount = -1;
             timerCallback = new TimerCallback(Count);
-            timer = new Timer(timerCallback, num, 5000, 30000);
+            _timer = new Timer(timerCallback, num, 5000, 10000);
+            
         }
 
         public void Count(object obj)
         {
-            if (_totalBytesReadOld == _totalBytesRead)
+            if (_readCount == _timerReadCount)
             {
                 DownloadResult.TimedOut = true;
-                DownloadResult.Message = "Connection timed out";
+                DownloadResult.Message = "Connection timed out. Unable to establish a new connection";
                 this.Dispose();
             }
             else
-                _totalBytesReadOld = _totalBytesRead;
+                _timerReadCount = _readCount;
         }
 
         public void Dispose()
@@ -316,6 +359,9 @@ namespace GenLauncherNet
             _httpClient?.Dispose();
             _contentStream?.Dispose();
             _fileStream?.Dispose();
+            _fileStream = null;
+            _timer.Dispose();
+            _readCount = 0;
         }
 
         public void CancelDownload()

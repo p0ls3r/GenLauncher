@@ -197,7 +197,6 @@ namespace GenLauncherNet
             {
                 _GridControls._UpdateButton.IsEnabled = false;
                 Downloader.CancelDownload();
-                ClearDownloader();
 
                 UpdataContainerData();
 
