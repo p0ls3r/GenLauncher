@@ -47,5 +47,10 @@ namespace GenLauncherNet
         {
             throw new NotImplementedException();
         }
+
+        public DownloadReadiness GetDownloadReadiness()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -933,14 +933,24 @@ namespace GenLauncherNet.Windows
             modData.PrepareControlsToDownloadMode();
             modData.SetUIMessages("Preparing, please wait...");
             modData.SetDownloader(updater);
-            updater.ProgressChanged += DownloadProgressChanged;
-            updater.Done += ModificationDownloadDone;
-            modData._GridControls._UpdateButton.IsEnabled = true;
-
+            updater.ProgressChanged += DownloadProgressChanged;            
 
             try
             {
-                await updater.StartDownloadModification();
+                var rdy = updater.GetDownloadReadiness();
+
+                if (rdy.ReadyToDownload)
+                {
+                    updater.Done += ModificationDownloadDone;
+                    modData._GridControls._UpdateButton.IsEnabled = true;
+                    await updater.StartDownloadModification();
+                } else
+                {
+                    if (rdy.Error == ErrorType.TimeOutOfSync && !IsTimeSynchronized(modData))
+                    {
+                        return;
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -986,15 +996,15 @@ namespace GenLauncherNet.Windows
                 DownloadCrashed(modData, e.Message);
                 modData._GridControls._UpdateButton.IsEnabled = true;
                 return;
-            }
+            }*/
 
-            modData._GridControls._UpdateButton.IsEnabled = true;
+           /* modData._GridControls._UpdateButton.IsEnabled = true;
             var succes = await DownloadModFilesFromS3Storage(modData, filesToDownload, tempFolderName);
 
             if (succes)
-                return;
+                return;*/
 
-            if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
+            /*if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
                 await DownloadModBySimpleLink(modData);
             else
             {
@@ -1002,30 +1012,7 @@ namespace GenLauncherNet.Windows
                 DownloadCrashed(modData, errorMsg);
             }*/
         }
-
-        private bool IsSysTimeOutOfSync()
-        {
-            try
-            {
-                var worldDateTime = TimeUtility.GetNetworkTime();
-
-                if (worldDateTime == new DateTime())
-                    return false;
-
-                var sysDateTime = DateTime.Now;
-
-                var span = worldDateTime - sysDateTime;
-
-                if (span.Minutes >= 15 || span.Minutes <= -15)
-                    return true;
-                else
-                    return false;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        
 
         private bool IsTimeSynchronized(ModificationContainer modData)
         {
@@ -1051,7 +1038,7 @@ namespace GenLauncherNet.Windows
 
             TimeUtility.SyncSystemDateTimeWithWorldTime();
 
-            if (IsSysTimeOutOfSync())
+            if (TimeUtility.IsSysTimeOutOfSync())
             {
                 var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
@@ -1071,29 +1058,6 @@ namespace GenLauncherNet.Windows
             return true;
         }
 
-        private async Task DownloadModBySimpleLink(ModificationContainer modData)
-        {
-            /*modData.PrepareControlsToDownloadMode();
-            var client = new ModificationDownloader(modData);
-
-            modData.SetDownloader(client);
-            client.ProgressChanged += DownloadProgressChanged;
-            client.Done += ModificationDownloadDone;
-            modData._GridControls._UpdateButton.IsEnabled = true;
-
-            try
-            {
-                await client.StartSimpleDownload();
-            }
-            catch (Exception e)
-            {
-                downloadingCount -= 1;
-                modData.ClearDownloader();
-                modData.SetUIMessages(e.Message);
-                modData._GridControls._UpdateButton.IsEnabled = true;
-            }*/
-        }
-
         /// <summary>
         ///     Creates temporary folder for downloaded files and returns its name.
         /// </summary>
@@ -1102,12 +1066,12 @@ namespace GenLauncherNet.Windows
         /// <returns>
         ///    Name of temp folder.
         /// </returns>
-        private async Task<string> GetTempFolderName(TempVersionHandler handler, ModificationContainer modData)
+        /*private async Task<string> GetTempFolderName(TempVersionHandler handler, ModificationContainer modData)
         {
             var tempDirectoryName = await Task.Run(() => handler.CreateTempCopyOfFolder());
 
             return tempDirectoryName;
-        }
+        }*/
 
         /// <summary>
         ///     Download modification files from S3 storage, that doesn't exists in temp folder.

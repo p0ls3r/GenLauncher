@@ -39,6 +39,30 @@ namespace GenLauncherNet.Utility
             SetSystemTime(ref systemTime);
         }
 
+        internal static bool IsSysTimeOutOfSync()
+        {
+            try
+            {
+                var worldDateTime = TimeUtility.GetNetworkTime();
+
+                if (worldDateTime == new DateTime())
+                    return false;
+
+                var sysDateTime = DateTime.Now;
+
+                var span = worldDateTime - sysDateTime;
+
+                if (span.Minutes >= 15 || span.Minutes <= -15)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         ///     Retrieves the time from the default windows time server.
         /// </summary>

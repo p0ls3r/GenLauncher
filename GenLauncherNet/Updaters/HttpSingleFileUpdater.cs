@@ -34,7 +34,7 @@ namespace GenLauncherNet
         long _totalBytesRead = 0L;
         long _readCount = 0L;
         long _timerReadCount = 0L;
-        byte[] _buffer = new byte[innerBufferSize];
+        byte[] _buffer = new byte[bufferSize];
         bool _isMoreToRead = true;
         bool _partDownload;
         HttpResponseMessage _response;
@@ -45,12 +45,16 @@ namespace GenLauncherNet
         int _currentAttempt = 0;
         HttpClient _httpClient;
         
-        const int innerBufferSize = 8192;
-        const int bufferSize = innerBufferSize * 1024 * 4;
+        const int bufferSize = 8192;
         const int connectionAttempts = 5;
 
         public HttpSingleFileUpdater()
         {            
+        }
+
+        public DownloadReadiness GetDownloadReadiness()
+        {
+            return new DownloadReadiness { ReadyToDownload = true, Error = 0 };
         }
 
         public void SetModificationInfo(ModificationContainer modification)
@@ -78,7 +82,6 @@ namespace GenLauncherNet
                     await PartDownload();
                 } else
                 {
-                    //the old downloading algorithm has been retained to avoid a large number of requests
                     await FullDownload();
                 }
 
@@ -122,7 +125,6 @@ namespace GenLauncherNet
                     else
                         DownloadResult.Message = e.Message;
 
-                    Console.WriteLine("Crashed");
                     Done(ModBoxData, DownloadResult);
                 }
             }
@@ -130,38 +132,21 @@ namespace GenLauncherNet
 
         private async Task PartDownload()
         {
-            do
-            {
-                if (DownloadResult.Canceled)
-                    break;
+            var mes = new HttpRequestMessage(HttpMethod.Get, _downloadUrl);
 
-                var mes = new HttpRequestMessage(HttpMethod.Get, _downloadUrl);
+            var leftBytes = _totalDownloadSize - _totalBytesRead;
 
-                mes.Headers.Add("Range", String.Format("bytes={0}-{1}", DownloadResult.BytesRead, DownloadResult.BytesRead + bufferSize));
+            mes.Headers.Add("Range", String.Format("bytes={0}-{1}", _totalBytesRead, _totalDownloadSize + leftBytes));
 
-                _response = await _httpClient.SendAsync(mes, HttpCompletionOption.ResponseHeadersRead);
+            _response = await _httpClient.SendAsync(mes, HttpCompletionOption.ResponseHeadersRead);
 
-                _response.EnsureSuccessStatusCode();
-                DownloadResult.TimedOut = false;
-                _currentAttempt = 0;
+            _response.EnsureSuccessStatusCode();
+            DownloadResult.TimedOut = false;
+            _currentAttempt = 0;
 
-                if (_fileStream == null) SetFileStream();
+            if (_fileStream == null) SetFileStream();
 
-                if (DownloadResult.TotalSize == 0L)
-                {
-                    foreach (var h in _response.Content.Headers)
-                        if (String.Equals(h.Key, "Content-Range"))
-                        {
-                            var rawString = h.Value.FirstOrDefault();
-                            DownloadResult.TotalSize = Int64.Parse(rawString.Split('/')[1]);
-                            break;
-                        }
-                }
-
-                await DownloadFileFromHttpResponseMessage();
-                DownloadResult.BytesRead += bufferSize + 1;
-            }
-            while (DownloadResult.BytesRead < DownloadResult.TotalSize);
+            await DownloadFileFromHttpResponseMessage();
         }
 
         private async Task FullDownload()
@@ -224,7 +209,7 @@ namespace GenLauncherNet
             if (extension == "zip" || extension == "rar" || extension == "7z")
                 _extractionRequers = true;
 
-            _fileStream = new FileStream(_destinationFilePath, FileMode.Append, FileAccess.Write, FileShare.None, innerBufferSize, true);
+            _fileStream = new FileStream(_destinationFilePath, FileMode.Append, FileAccess.Write, FileShare.None, bufferSize, true);
         }
 
         private void SetStartInfo()
@@ -233,7 +218,6 @@ namespace GenLauncherNet
             {
                 _partDownload = true;
                 var fi = new FileInfo(_destinationFilePath);
-                DownloadResult.BytesRead = fi.Length;
                 _totalBytesRead = fi.Length;
             }
         }
@@ -360,7 +344,7 @@ namespace GenLauncherNet
             _contentStream?.Dispose();
             _fileStream?.Dispose();
             _fileStream = null;
-            _timer.Dispose();
+            _timer?.Dispose();
             _readCount = 0;
         }
 

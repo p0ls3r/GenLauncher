@@ -12,7 +12,5 @@ namespace GenLauncherNet
         public bool Canceled;
         public bool TimedOut;
         public string Message;
-        public long TotalSize;
-        public long BytesRead;
     }
 }

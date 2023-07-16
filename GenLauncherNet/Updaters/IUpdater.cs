@@ -11,6 +11,7 @@ namespace GenLauncherNet
         event Action<long?, long, double?, ModificationContainer, string> ProgressChanged;
         event Action<ModificationContainer, DownloadResult> Done;
         ModificationContainer ModBoxData { get; }
+        DownloadReadiness GetDownloadReadiness();
         Task StartDownloadModification();
         void CancelDownload();
         void SetModificationInfo(ModificationContainer modification);

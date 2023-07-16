@@ -135,6 +135,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Updaters\DownloadReadiness.cs" />
     <Compile Include="Updaters\DownloadResult.cs" />
     <Compile Include="Updaters\FTPUpdater.cs" />
     <Compile Include="Updaters\HttpSingleFileUpdater.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="ModificationsFileHandler.cs" />
     <Compile Include="S3StorageHandler.cs" />
     <Compile Include="DataClasses\StringConcurrentDictionary.cs" />
-    <Compile Include="TempVersionHandler.cs" />
     <Compile Include="Windows\UpdateAvailable.xaml.cs">
       <DependentUpon>UpdateAvailable.xaml</DependentUpon>
     </Compile>
