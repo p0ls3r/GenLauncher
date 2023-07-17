@@ -155,7 +155,6 @@
     <Compile Include="Utility\GentoolHandler.cs" />
     <Compile Include="HttpHandlers\ContentDownloader.cs" />
     <Compile Include="Utility\DownloadLinkParser.cs" />
-    <Compile Include="HttpHandlers\ModificationDownloader.cs" />
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
     <Compile Include="DataClasses\SessionInformation.cs" />

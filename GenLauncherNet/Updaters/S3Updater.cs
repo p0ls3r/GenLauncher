@@ -19,6 +19,8 @@ namespace GenLauncherNet
         public DownloadResult DownloadResult;
         public ModificationContainer ModBoxData { get; set; }
 
+        private static HashSet<string> extensionsToCheckHash = new HashSet<string> { ".w3d", ".big", ".bik", ".gib", ".dds", ".tga", ".ini", ".scb", ".wnd", ".csf", ".str", ".bik" };
+
         string _downloadUrl;
         string _destinationFilePath;
         string _downloadPath;
@@ -33,11 +35,9 @@ namespace GenLauncherNet
         long _timerReadCount = 0L;
         byte[] _buffer = new byte[innerBufferSize];
         bool _isMoreToRead = true;
-        bool _partDownload;
         HttpResponseMessage _response;
         Stream _contentStream;
         FileStream _fileStream;
-        long? _chunkDownloadSize;
         long? _totalDownloadSize;
         long? _downloadSize;
         int _currentAttempt = 0;
@@ -70,6 +70,9 @@ namespace GenLauncherNet
         {
             try
             {
+                _totalDownloadSize = null;
+                _totalBytesRead = 0;
+                _bytesRead = 0;
                 _httpClient = new HttpClient();
                 var reposFilesInfo = await GetFilesInfoFromS3Storage(ModBoxData);
                 var latestInstalledVersion = ModBoxData.ContainerModification.ModificationVersions.OrderBy(v => v).Where(v => v.Installed).LastOrDefault();
@@ -89,22 +92,30 @@ namespace GenLauncherNet
 
                 foreach (var fileInfo in reposFilesInfo)
                 {
-                    _fileName = fileInfo.FileName;
-                    _downloadSize = (long)fileInfo.Size;
-                    _downloadPath = folderName;
-                    _destinationFilePath = _downloadPath + "/" + _fileName;
-
-                    if (DownloadResult.Canceled || DownloadResult.Crashed || DownloadResult.TimedOut)
+                    var fileCheckSuccess = false;
+                    while (!fileCheckSuccess)
                     {
-                        this.Dispose();
-                        Done(ModBoxData, DownloadResult);
-                        return;
+                        _fileName = fileInfo.FileName;
+                        _downloadSize = (long)fileInfo.Size;
+                        _downloadPath = folderName;
+                        _destinationFilePath = _downloadPath + "/" + _fileName;
+
+                        if (DownloadResult.Canceled || DownloadResult.Crashed)
+                        {
+                            this.Dispose();
+                            Done(ModBoxData, DownloadResult);
+                            return;
+                        }
+
+                        _downloadUrl = string.Format("https://{0}/{1}/{2}/{3}", ModBoxData.LatestVersion.S3HostLink.Split(':')[0],
+                            ModBoxData.LatestVersion.S3BucketName, ModBoxData.LatestVersion.S3FolderName, fileInfo.FileName);
+
+                        await Download();
+                        if (!DownloadResult.Canceled && !DownloadResult.Crashed)
+                        {
+                            fileCheckSuccess = await CheckFileSuccessDownload(fileInfo);
+                        }
                     }
-
-                    _downloadUrl = string.Format("https://{0}/{1}/{2}/{3}", ModBoxData.LatestVersion.S3HostLink.Split(':')[0],
-                        ModBoxData.LatestVersion.S3BucketName, ModBoxData.LatestVersion.S3FolderName, fileInfo.FileName);
-
-                    await Download();
                 }
 
                 await Task.Run(() => RenameTempFolder(_downloadPath));
@@ -112,9 +123,26 @@ namespace GenLauncherNet
             }
             catch (UnexpectedMinioException)
             {
-                DownloadResult.Crashed = true;
-                DownloadResult.Message = "Unexpected Minio API Exception. Try to sync your system time";
-                return;
+                if (DownloadResult.TimedOut)
+                {
+                    if (_currentAttempt >= connectionAttempts)
+                    {
+                        Done(ModBoxData, DownloadResult);
+                    }
+                    else
+                    {
+                        _currentAttempt++;
+                        ModBoxData.SetUIMessages("Connection timed out. Trying to reastablish connection... attempt: " + _currentAttempt);
+                        await StartDownloadModification();
+                    }
+                }
+                else
+                {
+                    this.Dispose();
+                    DownloadResult.Crashed = true;
+                    DownloadResult.Message = "Unexpected Minio API Exception. Try to sync your system time";
+                    return;
+                }
             }
             catch (Exception e)
             {
@@ -147,6 +175,34 @@ namespace GenLauncherNet
             }
         }
 
+        private async Task<bool> CheckFileSuccessDownload(ModificationFileInfo fileInfo)
+        {
+            if (!extensionsToCheckHash.Contains(Path.GetExtension(_fileName).ToLower()))
+                return true;
+                
+            var fileGibName = Path.ChangeExtension(_destinationFilePath, "gib");
+            if (File.Exists(_destinationFilePath))
+            {
+                var hashSum = await Task.Run(() => MD5ChecksumCalculator.ComputeMD5Checksum(_destinationFilePath));
+                if (String.Equals(hashSum, fileInfo.Hash, StringComparison.OrdinalIgnoreCase))
+                    return true;
+                else File.Delete(_destinationFilePath);
+            }
+            else
+            if (File.Exists(fileGibName))
+            {
+                var hashSum = await Task.Run(() => MD5ChecksumCalculator.ComputeMD5Checksum(fileGibName));
+                if (String.Equals(hashSum, fileInfo.Hash, StringComparison.OrdinalIgnoreCase))
+                    return true; 
+                else File.Delete(fileGibName);
+            }
+            
+            ModBoxData.SetUIMessages("Hash sum mismatch detected, restart file download");
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            _totalBytesRead = _totalBytesRead - (long)fileInfo.Size;
+            return false;
+        }
+
         private async Task Download()
         {
             if (File.Exists(_destinationFilePath))
@@ -155,23 +211,27 @@ namespace GenLauncherNet
                 _bytesRead = fi.Length;
             }
             else
+            if (File.Exists(Path.ChangeExtension(_destinationFilePath, "gib")))
+            {
+                var fi = new FileInfo(Path.ChangeExtension(_destinationFilePath, "gib"));
+                _bytesRead = fi.Length;
+            }
+            else
             {
                 _bytesRead = 0;
             }
 
-            //await GetFileInfo();
-
             var mes = new HttpRequestMessage(HttpMethod.Get, _downloadUrl);
 
             var leftBytes = _downloadSize - _bytesRead;
+            _totalBytesRead += _bytesRead;
 
             if (leftBytes == 0)
-            {
-                _totalBytesRead += _bytesRead;
-                    return;
+            {                
+               return;
             }
 
-            mes.Headers.Add("Range", String.Format("bytes={0}-{1}", _bytesRead, _downloadSize + leftBytes));
+            mes.Headers.Add("Range", String.Format("bytes={0}-{1}", _bytesRead, _downloadSize));
 
             _response = await _httpClient.SendAsync(mes, HttpCompletionOption.ResponseHeadersRead);
 
@@ -193,7 +253,7 @@ namespace GenLauncherNet
 
         private async Task ProcessS3ContentStream()
         {
-            //await Task.Run(() => SetTimeoutTimer());
+            await Task.Run(() => SetTimeoutTimer());
 
             _isMoreToRead = true;
             do
@@ -216,6 +276,7 @@ namespace GenLauncherNet
                 _totalBytesRead += bytesRead;
                 _readCount += 1;
 
+
                 if (_readCount % 10 == 0)
                     TriggerProgressChanged(_fileName);
             }
@@ -227,13 +288,34 @@ namespace GenLauncherNet
             _fileStream = null;
             _contentStream?.Dispose();
 
-            if (String.Equals(Path.GetExtension(_fileName).Replace(".", ""), "big"))
+            if (String.Equals(Path.GetExtension(_fileName).Replace(".", ""), "big") && !DownloadResult.Canceled)
             {
                 if (File.Exists(Path.ChangeExtension(_downloadPath + '/' + _fileName, ".gib")))
                     File.Delete(Path.ChangeExtension(_downloadPath + '/' + _fileName, ".gib"));
 
                 File.Move(_downloadPath + '/' + _fileName, Path.ChangeExtension(_downloadPath + '/' + _fileName, ".gib"));
             }
+        }
+
+        private void SetTimeoutTimer()
+        {
+            var num = 0;
+            _timerReadCount = -1;
+            timerCallback = new TimerCallback(Count);
+            _timer = new Timer(timerCallback, num, 5000, 10000);
+
+        }
+
+        public void Count(object obj)
+        {
+            if (_readCount == _timerReadCount)
+            {
+                DownloadResult.TimedOut = true;
+                DownloadResult.Message = "Connection timed out. Unable to establish a new connection";
+                this.Dispose();
+            }
+            else
+                _timerReadCount = _readCount;
         }
 
         private void TriggerProgressChanged(string fileName = null)
@@ -270,24 +352,6 @@ namespace GenLauncherNet
             }
         }
 
-        private async Task GetFileInfo()
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls | SecurityProtocolType.Ssl3;
-
-            var mes = new HttpRequestMessage(HttpMethod.Get, _downloadUrl);
-
-            _response = await _httpClient.SendAsync(mes, HttpCompletionOption.ResponseHeadersRead);
-
-            _response.EnsureSuccessStatusCode();
-
-            if (_response.Content.Headers.ContentDisposition == null)
-                throw new Exception("Download link is incorrect, please contact modification creator and try again later.");
-
-            _downloadSize = _response.Content.Headers.ContentLength;
-
-            _httpClient.CancelPendingRequests();
-        }
-
         private void SetFileStream()
         {
             _fileStream = new FileStream(_destinationFilePath, FileMode.Append, FileAccess.Write, FileShare.None, bufferSize, true);
@@ -295,13 +359,13 @@ namespace GenLauncherNet
 
         public void CancelDownload()
         {
-            throw new NotImplementedException();
+            DownloadResult.Canceled = true;
         }
         
 
         public DownloadResult GetResult()
         {
-            throw new NotImplementedException();
+            return DownloadResult;
         }
 
         public void Dispose()

@@ -769,6 +769,9 @@ namespace GenLauncherNet.Windows
                 {
                     _ignoreSelectionFlagPatches = true;
 
+                    var selectedPatch = ((ModificationContainer)listBox.SelectedItems[0]);
+                    var newPatch = ((ModificationContainer)e.AddedItems[0]);
+
                     if (DataHandler.GetSelectedPatch() == null)
                     {
                         PatchesList.SelectedItems.Add(e.AddedItems[0]);
@@ -776,22 +779,19 @@ namespace GenLauncherNet.Windows
                         patch.IsSelected = true;
                     }
                     else
-                    {
-                        var selectedPatch = ((ModificationContainer)listBox.SelectedItems[0]).ContainerModification;
-                        var newPatch = ((ModificationContainer)e.AddedItems[0]).ContainerModification;
-
-                        if (!String.Equals(selectedPatch.Name, newPatch.Name, StringComparison.OrdinalIgnoreCase))
-                        {
-                            selectedPatch.IsSelected = false;
+                    {                        
+                        if (!String.Equals(selectedPatch.ContainerModification.Name, newPatch.ContainerModification.Name, StringComparison.OrdinalIgnoreCase))
+                        { 
                             ((ModificationContainer)listBox.SelectedItems[0]).SetUnSelectedStatus();
                             ((ModificationContainer)listBox.SelectedItems[0]).ContainerModification.IsSelected = false;
-
-                            newPatch.IsSelected = true;
+                            ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
                         }
                     }
 
-                    PatchesList.UnselectAll();
+                    PatchesList.SelectedItems.Clear();
+
                     PatchesList.SelectedItems.Add(e.AddedItems[0]);
+
                     ((ModificationContainer)listBox.SelectedItems[0]).SetSelectedStatus();
                     ((ModificationContainer)listBox.SelectedItems[0]).ContainerModification.IsSelected = true;
 
@@ -961,59 +961,6 @@ namespace GenLauncherNet.Windows
             }
         }
 
-        private async Task DownloadModFromS3Storage(ModificationContainer modData)
-        {
-            /*modData.PrepareControlsToDownloadMode();
-            modData.SetUIMessages("Creating temporary copy and checking changes...");
-
-            string tempFolderName;
-            List<ModificationFileInfo> filesToDownload;
-
-            var tempVersionHandler = new TempVersionHandler();
-
-            if (IsSysTimeOutOfSync() && !IsTimeSynchronized(modData))
-            {
-                return;
-            }
-
-            try
-            {
-                await tempVersionHandler.DownloadFilesInfoFromS3Storage(modData);
-
-                tempFolderName = await GetTempFolderName(tempVersionHandler, modData);
-                filesToDownload = tempVersionHandler.GetFilesToDownload();
-            }
-            catch (UnexpectedMinioException)
-            {
-                downloadingCount -= 1;
-                DownloadCrashed(modData, "Unexpected Minio API Exception. Try to sync your system time");
-                modData._GridControls._UpdateButton.IsEnabled = true;
-                return;
-            }
-            catch (Exception e)
-            {
-                downloadingCount -= 1;
-                DownloadCrashed(modData, e.Message);
-                modData._GridControls._UpdateButton.IsEnabled = true;
-                return;
-            }*/
-
-           /* modData._GridControls._UpdateButton.IsEnabled = true;
-            var succes = await DownloadModFilesFromS3Storage(modData, filesToDownload, tempFolderName);
-
-            if (succes)
-                return;*/
-
-            /*if (!String.IsNullOrEmpty(modData.LatestVersion.SimpleDownloadLink))
-                await DownloadModBySimpleLink(modData);
-            else
-            {
-                var errorMsg = modData._GridControls._InfoTextBlock.Text;
-                DownloadCrashed(modData, errorMsg);
-            }*/
-        }
-        
-
         private bool IsTimeSynchronized(ModificationContainer modData)
         {
             var mainMessage = "System clock out of sync!";
@@ -1031,6 +978,7 @@ namespace GenLauncherNet.Windows
             if (!infoWindow.GetResult())
             {
                 downloadingCount -= 1;
+                modData.ClearDownloader();
                 DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
                 modData._GridControls._UpdateButton.IsEnabled = true;
                 return false;
@@ -1050,6 +998,7 @@ namespace GenLauncherNet.Windows
 
                 errorWindow.ShowDialog();
                 downloadingCount -= 1;
+                modData.ClearDownloader();
                 DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
                 modData._GridControls._UpdateButton.IsEnabled = true;
                 return false;
@@ -1057,53 +1006,6 @@ namespace GenLauncherNet.Windows
 
             return true;
         }
-
-        /// <summary>
-        ///     Creates temporary folder for downloaded files and returns its name.
-        /// </summary>
-        /// <param name="handler">List of files to download.</param>
-        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
-        /// <returns>
-        ///    Name of temp folder.
-        /// </returns>
-        /*private async Task<string> GetTempFolderName(TempVersionHandler handler, ModificationContainer modData)
-        {
-            var tempDirectoryName = await Task.Run(() => handler.CreateTempCopyOfFolder());
-
-            return tempDirectoryName;
-        }*/
-
-        /// <summary>
-        ///     Download modification files from S3 storage, that doesn't exists in temp folder.
-        /// </summary>
-        /// <param name="modData">Modification container, that contains information about downloaded modification.</param>
-        /// <param name="filesToDownload">List of files to download.</param>
-        /// <param name="tempDirectoryName">Temp directory, where files will be download.</param>
-        /// <returns>
-        ///     True files downloaded successfully, else false
-        /// </returns>
-        /*private async Task<bool> DownloadModFilesFromS3Storage(ModificationContainer modData,
-            List<ModificationFileInfo> filesToDownload, string tempDirectoryName)
-        {
-            try
-            {
-                var client = new ModificationDownloader(modData);
-                modData.SetDownloader(client);
-                client.ProgressChanged += DownloadProgressChanged;
-                client.Done += ModificationDownloadDone;
-
-                var result = await client.StartS3Download(filesToDownload, tempDirectoryName);
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                downloadingCount -= 1;
-                modData.ClearDownloader();
-                modData.SetUIMessages(e.Message);
-                return false;
-            }
-        }*/
 
         #endregion
 

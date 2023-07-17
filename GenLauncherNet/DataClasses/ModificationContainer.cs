@@ -274,6 +274,9 @@ namespace GenLauncherNet
 
         public void SetUnSelectedStatus()
         {
+            if (_GridControls == null)
+                return;
+
             _GridControls._Name.Foreground = EntryPoint.Colors.GenLauncherInactiveBorder;
             _GridControls._VersionTextBlock.Foreground = EntryPoint.Colors.GenLauncherInactiveBorder;
             _GridControls._Name.FontWeight = FontWeights.Normal;
