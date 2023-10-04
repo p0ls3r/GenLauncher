@@ -20,7 +20,7 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GLM";
         public const string GenLauncherModsFolderOld = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "1.0.0.2 Release";
+        public const string Version = "1.0.0.3 HotFix";
         public const int LaunchesCountForUpdateAdverising = 25;
 
         //public const string Version = "0.0.0.1 Test";

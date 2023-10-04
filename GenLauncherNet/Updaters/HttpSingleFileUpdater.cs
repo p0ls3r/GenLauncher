@@ -87,9 +87,9 @@ namespace GenLauncherNet
 
                 if (!DownloadResult.Canceled && !DownloadResult.Crashed)
                 {
+                    this.Dispose();
                     if (_extractionRequers)
-                    {
-                        this.Dispose();
+                    {                        
                         await Task.Run(() => ExtractArchive());
                         DeleteTempFile();
                     }
