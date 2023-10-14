@@ -22,11 +22,14 @@ namespace GenLauncherNet
             if (DoCheck && EntryPoint.SessionInfo.Connected)
             {
                 var modVersion = versions.Where(v => v.ModificationType == ModificationType.Mod).ToList();
-                await Task.Run(() => PrepareGameFiles(modVersion, false , true));
-                var r = await ModFilesAreCorrect(modVersion[0]);
-                await Task.Run(() => RenameGameFilesToOriginalState());
-                if (!r)
-                    return false;
+                if (modVersion.Count > 0)
+                {
+                    await Task.Run(() => PrepareGameFiles(modVersion, false, true));
+                    var r = await ModFilesAreCorrect(modVersion[0]);
+                    await Task.Run(() => RenameGameFilesToOriginalState());
+                    if (!r)
+                        return false;
+                }
             }
 
             await Task.Run(() => PrepareGameFiles(versions, true, false));
@@ -114,9 +117,16 @@ namespace GenLauncherNet
             FilesHandler.ApplyActionsToGameFiles(SymbolicLinkHandler.RemoveSymbLinkFile, RemoveGenLauncherReplaceSuffixes);
         }
 
-        private static void PrepareGameFiles(List<ModificationVersion> versions, bool setCameraHeight , bool createLinksOnEmptyBigs = false)
+        private static void PrepareGameFiles(List<ModificationVersion> versions, bool setCameraHeight, bool createLinksOnEmptyBigs = false)
         {
             FilesHandler.ApplyActionsToGameFiles(RenameNonGameBigFile, RenameCustomFiles, SymbolicLinkHandler.RemoveSymbLinkFile);
+
+            if (DataHandler.GetSelectedMod() == null)
+            {
+                RemoveFileSuffix(Directory.GetCurrentDirectory() + "/Data/Scripts/MultiplayerScripts.scb.GLR", EntryPoint.GenLauncherReplaceSuffix);
+                RemoveFileSuffix(Directory.GetCurrentDirectory() + "/Data/Scripts/Scripts.ini.GLR", EntryPoint.GenLauncherReplaceSuffix);
+                RemoveFileSuffix(Directory.GetCurrentDirectory() + "/Data/Scripts/SkirmishScripts.scb.GLR", EntryPoint.GenLauncherReplaceSuffix);
+            }
 
             if (setCameraHeight && EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
                 SetCameraHeight(versions);
@@ -167,8 +177,7 @@ namespace GenLauncherNet
             try
             {
                 if (!File.Exists(fileName.Replace(suffix, string.Empty)))
-                    File.Move(fileName,
-                        fileName.Replace(suffix, string.Empty));
+                    File.Move(fileName, fileName.Replace(suffix, string.Empty));
                 else
                 {
                     File.Delete(fileName.Replace(suffix, string.Empty));

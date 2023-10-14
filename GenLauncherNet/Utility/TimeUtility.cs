@@ -52,7 +52,7 @@ namespace GenLauncherNet.Utility
 
                 var span = worldDateTime - sysDateTime;
 
-                if (span.Minutes >= 15 || span.Minutes <= -15)
+                if (span.TotalMinutes >= 15 || span.TotalMinutes <= -15)
                     return true;
                 else
                     return false;

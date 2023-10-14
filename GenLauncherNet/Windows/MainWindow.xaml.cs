@@ -593,54 +593,7 @@ namespace GenLauncherNet.Windows
 
         #endregion
 
-        #region MainWindowEvents
-
-        private void Exit()
-        {
-            DataHandler.SetLaunchesCount(EntryPoint.LaunchesCountForUpdateAdverising);
-            this.Close();
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            foreach (var patchData in PatchesList.Items)
-            {
-                var data = (ModificationContainer)patchData;
-                data.BruteCancelDownload();
-            }
-
-            foreach (var addonData in AddonsList.Items)
-            {
-                var data = (ModificationContainer)addonData;
-                data.BruteCancelDownload();
-            }
-
-            foreach (var modData in ModsList.Items)
-            {
-                var data = (ModificationContainer)modData;
-                data.BruteCancelDownload();
-            }
-
-            if (ModsList.Items.Count > 0)
-            {
-                DataHandler.SaveLauncherData();
-            }
-        }
-
-        private void CancelAllAddonsDownloads()
-        {
-            foreach (var patchData in PatchesList.Items)
-            {
-                var data = (ModificationContainer)patchData;
-                data.CancelDownload();
-            }
-
-            foreach (var addonData in AddonsList.Items)
-            {
-                var data = (ModificationContainer)addonData;
-                data.CancelDownload();
-            }
-        }
+        #region SelectionsChanges
 
         private async void ModsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -716,8 +669,7 @@ namespace GenLauncherNet.Windows
                 {
                     ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
                     DataHandler.UnselectAllModifications();
-                    PatchesButton.Visibility = Visibility.Hidden;
-                    AddonsButton.Visibility = Visibility.Hidden;
+                    UpdateTabs();
                 }
             }
 
@@ -779,9 +731,9 @@ namespace GenLauncherNet.Windows
                         patch.IsSelected = true;
                     }
                     else
-                    {                        
+                    {
                         if (!String.Equals(selectedPatch.ContainerModification.Name, newPatch.ContainerModification.Name, StringComparison.OrdinalIgnoreCase))
-                        { 
+                        {
                             ((ModificationContainer)listBox.SelectedItems[0]).SetUnSelectedStatus();
                             ((ModificationContainer)listBox.SelectedItems[0]).ContainerModification.IsSelected = false;
                             ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
@@ -801,7 +753,7 @@ namespace GenLauncherNet.Windows
                 else
                 {
                     ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
-                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;                    
+                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                 }
 
                 if (System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed)
@@ -880,6 +832,56 @@ namespace GenLauncherNet.Windows
                     else
                         version.IsSelected = true;
                 }
+            }
+        }
+        #endregion
+
+        #region MainWindowEvents
+
+        private void Exit()
+        {
+            DataHandler.SetLaunchesCount(EntryPoint.LaunchesCountForUpdateAdverising);
+            this.Close();
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (var patchData in PatchesList.Items)
+            {
+                var data = (ModificationContainer)patchData;
+                data.BruteCancelDownload();
+            }
+
+            foreach (var addonData in AddonsList.Items)
+            {
+                var data = (ModificationContainer)addonData;
+                data.BruteCancelDownload();
+            }
+
+            foreach (var modData in ModsList.Items)
+            {
+                var data = (ModificationContainer)modData;
+                data.BruteCancelDownload();
+            }
+
+            if (ModsList.Items.Count > 0)
+            {
+                DataHandler.SaveLauncherData();
+            }
+        }
+
+        private void CancelAllAddonsDownloads()
+        {
+            foreach (var patchData in PatchesList.Items)
+            {
+                var data = (ModificationContainer)patchData;
+                data.CancelDownload();
+            }
+
+            foreach (var addonData in AddonsList.Items)
+            {
+                var data = (ModificationContainer)addonData;
+                data.CancelDownload();
             }
         }
 
@@ -1332,8 +1334,15 @@ namespace GenLauncherNet.Windows
         {
             var currentMod = DataHandler.GetSelectedMod();
 
-            if (currentMod != null && currentMod.ModificationType != ModificationType.Advertising)
+            if (currentMod != null)
             {
+                if (currentMod.ModificationType == ModificationType.Advertising)
+                {
+                    PatchesButton.Visibility = Visibility.Hidden;
+                    AddonsButton.Visibility = Visibility.Hidden;
+                    return;
+                }
+
                 PatchesButton.Content = "Patches for " + currentMod.Name;
                 AddonsButton.Content = "Addons for " + currentMod.Name;
 
@@ -1348,8 +1357,22 @@ namespace GenLauncherNet.Windows
             }
             else
             {
-                PatchesButton.Visibility = Visibility.Hidden;
-                AddonsButton.Visibility = Visibility.Hidden;
+                var gameName = "Generals Zero Hour";
+                if (EntryPoint.SessionInfo.GameMode == Game.Generals)
+                    gameName = "Generals";
+
+                PatchesButton.Content = "Patches for " + gameName;
+                AddonsButton.Content = "Addons for " + gameName;
+
+                ManualAddPatch.Content = "Add patch for " + gameName + " from files";
+                ManualAddAddon.Content = "Add addon for " + gameName + " from files";
+
+                PatchesButton.Visibility = Visibility.Visible;
+                AddonsButton.Visibility = Visibility.Visible;
+
+                UpdatePatchesList();
+                UpdateAddonsList();
+
             }
         }
 
@@ -1430,13 +1453,13 @@ namespace GenLauncherNet.Windows
             var selectedPatchVersion = DataHandler.GetSelectedPatchVersion();
             var selectedAddonsVersions = DataHandler.GetSelectedAddonsVersions().Where(m => m != null);
 
-            if (selectedModVersion == null)
+            /*if (selectedModVersion == null)
             {
                 modMessage = "Please select installed mod, before run game!";
                 CreateErrorWindow(mainMessage, modMessage);
 
                 return false;
-            }
+            }*/
 
             if (selectedModVersion != null && !selectedModVersion.Installed)
             {
@@ -1489,12 +1512,12 @@ namespace GenLauncherNet.Windows
                 selectedAddonsData.Add((ModificationContainer)data);
             }
 
-            if (selectedModVersion == null)
+            /*if (selectedModVersion == null)
             {
                 modMessage = "Please select installed mod, before run game!";
                 CreateErrorWindow(mainMessage, modMessage);
                 return false;
-            }
+            }*/
 
             if (selectedModData != null && selectedModData.Downloader != null)
             {
@@ -1554,12 +1577,16 @@ namespace GenLauncherNet.Windows
 
             var succes = true;
 
-            var lastVersion = DataHandler.GetSelectedModVersions().OrderBy(m => m).Last();
-
-            if (!lastVersion.Installed)
+            if (DataHandler.GetSelectedMod() != null)
             {
-                succes = false;
-                modsMessage = String.Format("There is uninstalled update for {0} ", lastVersion.Name);
+
+                var lastVersion = DataHandler.GetSelectedModVersions().OrderBy(m => m).Last();
+
+                if (!lastVersion.Installed)
+                {
+                    succes = false;
+                    modsMessage = String.Format("There is uninstalled update for {0} ", lastVersion.Name);
+                }
             }
 
             var activePatch = DataHandler.GetSelectedPatch();
@@ -1832,7 +1859,7 @@ namespace GenLauncherNet.Windows
 
         private bool DoCheck(List<ModificationVersion> versions)
         {
-            if (!DataHandler.GetCheckModFiles())
+            if (!DataHandler.GetCheckModFiles() || DataHandler.GetSelectedMod() == null)
                 return false;
 
             var modVersion = versions.Where(m => m.ModificationType == ModificationType.Mod).FirstOrDefault();
@@ -2077,7 +2104,7 @@ namespace GenLauncherNet.Windows
                 DeleteOutDatedModifications(modData);
             }
 
-            DataHandler.UpdateModificationsData();
+            DataHandler.UpdateLocalModificationsData();
             modData.ContainerModification.Installed = true;
 
             modData.ClearDownloader();
@@ -2210,7 +2237,17 @@ namespace GenLauncherNet.Windows
             {
                 var activeMod = DataHandler.GetSelectedMod();
 
-                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList(), activeMod.Name
+                var name = "";
+
+                if (activeMod == null)
+                {
+                    name = "Original Game";
+                } else
+                {
+                    name = activeMod.Name;
+                }
+
+                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList(), name
                 ) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 setNameWindow.CreateAddonCallback += CreatePatchFromFiles;
                 setNameWindow.ShowDialog();
@@ -2230,7 +2267,18 @@ namespace GenLauncherNet.Windows
             {
                 var activeMod = DataHandler.GetSelectedMod();
 
-                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList(), activeMod.Name
+                var name = "";
+
+                if (activeMod == null)
+                {
+                    name = "Original Game";
+                }
+                else
+                {
+                    name = activeMod.Name;
+                }
+
+                var setNameWindow = new ManualAddMidificationWindow(dlg.FileNames.ToList(), name
                 ) { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 setNameWindow.CreateAddonCallback += CreateAddonFromFiles;
                 setNameWindow.ShowDialog();
@@ -2244,7 +2292,7 @@ namespace GenLauncherNet.Windows
                 ModificationsFileHandler.ExtractModificationFromFiles(files,
                     EntryPoint.GenLauncherModsFolder + '/' + modName + '/' + version));
 
-            DataHandler.UpdateModificationsData();
+            DataHandler.UpdateLocalModificationsData();
             var savedModification = DataHandler.GetMods()
                 .Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
@@ -2268,7 +2316,7 @@ namespace GenLauncherNet.Windows
                 EntryPoint.GenLauncherModsFolder + '/' + path + '/' + EntryPoint.AddonsFolderName + '/' + modName +
                 '/' + version));
 
-            DataHandler.UpdateModificationsData();
+            DataHandler.UpdateLocalModificationsData();
             var savedModification = DataHandler.GetAddonsForSelectedMod()
                 .Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
@@ -2292,7 +2340,7 @@ namespace GenLauncherNet.Windows
                 EntryPoint.GenLauncherModsFolder + '/' + path + '/' + EntryPoint.PatchesFolderName + '/' + modName +
                 '/' + version));
 
-            DataHandler.UpdateModificationsData();
+            DataHandler.UpdateLocalModificationsData();
             var savedModification = DataHandler.GetPatchesForSelectedMod()
                 .Where(m => String.Equals(m.Name, modName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 

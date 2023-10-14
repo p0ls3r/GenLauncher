@@ -29,7 +29,6 @@ namespace GenLauncherNet
         public List<string> GetReposModsNames()
         {
             return _data.modDatas.Select(t => t.ModName).ToList();
-            //return null;
         }
 
         public async Task<Dictionary<ModificationReposVersion, ModAddonsAndPatches>> UpdateDownloadedModsDataFromRepos(List<string> downloadedMods)

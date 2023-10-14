@@ -26,7 +26,10 @@ namespace GenLauncherNet
         private static string startPath = Directory.GetCurrentDirectory();
         private static HashSet<ModificationReposVersion> downloadedModsInfo = new HashSet<ModificationReposVersion>();
         private static HashSet<ModificationVersion> downloadedReposContent = new HashSet<ModificationVersion>();
-        private static List<AdvertisingData> AdvData = new List<AdvertisingData>();        
+        private static List<AdvertisingData> AdvData = new List<AdvertisingData>();
+
+        private static List<string> OGPatches = new List<string>();
+        private static List<string> OGAddons = new List<string>();
 
         private static ModificationReposVersion Advertising;
 
@@ -40,8 +43,8 @@ namespace GenLauncherNet
                 await ReadMainManifest();
             }
 
-            ReadData();
-            UpdateModificationsData();
+            ReadLocalModsData();
+            UpdateLocalModificationsData();
 
             if (connected)
             {
@@ -57,6 +60,9 @@ namespace GenLauncherNet
                     AddDownloadedModificationData(reposMod);
                 }
 
+                await ReadOriginalGameAddonsAndPatches();
+
+
                 if (GetSelectedMod() != null)
                 {
                     await ReadPatchesAndAddonsForMod(GetSelectedMod());
@@ -65,6 +71,75 @@ namespace GenLauncherNet
 
             if (GetMods().Count > 0)
                 FirstRun = false;
+        }
+
+        public static async Task ReadOriginalGameAddonsAndPatches()
+        {
+            if (connected)
+            {
+                var keyModification = new ModificationReposVersion("Original Game");
+
+                if (downloadedModsInfo.Contains(keyModification))
+                    return;
+                else
+                    downloadedModsInfo.Add(keyModification);
+
+                var reposPatches = await gitHubMainDataReader.ReadAddonsForMod(OGPatches);
+                var reposAddons = await gitHubMainDataReader.ReadAddonsForMod(OGAddons);
+
+                foreach (var patch in reposPatches)
+                {
+                    var add = new ModificationVersion(patch);
+                    add.DependenceName = "Original Game";
+                    Data.AddOrUpdate(add);
+                    downloadedReposContent.Add(new ModificationVersion(patch));
+                }
+
+                foreach (var addon in reposAddons)
+                {
+                    var add = new ModificationVersion(addon);
+                    add.DependenceName = "Original Game";
+                    Data.AddOrUpdate(add);
+                    downloadedReposContent.Add(new ModificationVersion(addon));
+                }
+            }
+        }
+
+        private static async Task ReadMainManifest()
+        {
+            var reposData = new ReposModsData();
+
+            using (var client = new GitHubYamlReader(EntryPoint.ModsRepos))
+            {
+                reposData = await client.ReadYaml<ReposModsData>();
+            }
+
+            Version = reposData.LauncherVersion;
+            DownloadLink = reposData.DownloadLink;
+
+            AdvData = reposData.AdvData;
+
+            gitHubMainDataReader = new GitHubMainDataReader(reposData);
+
+            if (AdvData.Count > 0)
+            {
+                await DownloadAdvertisingData(gitHubMainDataReader);
+            }
+
+            if (!String.IsNullOrEmpty(reposData.VulkanReposData))
+            {
+                await DownloadVulkanData(reposData.VulkanReposData);
+            }
+
+            if (reposData.originalGamePatches.Count > 0)
+            {
+                OGPatches = reposData.originalGamePatches;
+            }
+
+            if (reposData.originalGameAddons.Count > 0)
+            {
+                OGAddons = reposData.originalGameAddons;
+            }
         }
 
         #region SettingsData
@@ -219,16 +294,16 @@ namespace GenLauncherNet
 
         internal static ModificationVersion GetSelectedPatchVersion()
         {
-            if (GetSelectedMod() != null)
-            {
+            /*if (GetSelectedMod() != null)
+            {*/
                 return GetPatchesForSelectedMod()
                     .Where(m => m.IsSelected)
                     .SelectMany(m => m.ModificationVersions)
                     .Where(m => m.IsSelected)
                     .FirstOrDefault();
-            }
+            //}
 
-            return null;
+            //return null;
         }
 
         internal static List<GameModification> GetPatchesForSelectedMod()
@@ -241,7 +316,8 @@ namespace GenLauncherNet
                     .ToList();
             }
             else
-                return new List<GameModification>();
+                return Data.Patches.Where(m => String.Equals(m.DependenceName, "Original game", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
         }
 
         internal static List<GameModification> GetAddonsForSelectedMod()
@@ -253,7 +329,9 @@ namespace GenLauncherNet
                     .Union(Data.Addons.Where(m=> String.Equals(m.DependenceName, GetSelectedPatch()?.Name, StringComparison.OrdinalIgnoreCase)))
                     .ToList();
             else
-                return new List<GameModification>();
+                return Data.Addons.Where(m => String.Equals(m.DependenceName, "Original game", StringComparison.OrdinalIgnoreCase))
+                    .Union(Data.Addons.Where(m => String.Equals(m.DependenceName, GetSelectedPatch()?.Name, StringComparison.OrdinalIgnoreCase)))
+                    .ToList();
         }
 
         public static List<ModificationVersion> GetSelectedModVersions()
@@ -265,8 +343,8 @@ namespace GenLauncherNet
         {
             var result = new List<ModificationVersion>();
             var selectedMod = GetSelectedMod();
-            if (selectedMod != null)
-            {
+            /*if (selectedMod != null)
+            {*/
                 return GetAddonsForSelectedMod()
                     .Where(m => m.IsSelected)
                     .SelectMany(m => m.ModificationVersions.Where(t => t.IsSelected))
@@ -274,9 +352,9 @@ namespace GenLauncherNet
                       .Where(m => m.IsSelected)
                       .SelectMany(m => m.ModificationVersions.Where(t => t.IsSelected)))
                     .ToList();
-            }
+            /*}
 
-            return result;
+            return result;*/
         }
 
         internal static List<GameModification> GetSelectedAddonsForSelectedMod()
@@ -361,7 +439,7 @@ namespace GenLauncherNet
             modificationVersion.DependenceName = modification.DependenceName;
 
             DeleteVersion(modificationVersion);
-            UpdateModificationsData();
+            UpdateLocalModificationsData();
         }
 
         internal static void DeleteVersion(ModificationVersion version)
@@ -423,7 +501,7 @@ namespace GenLauncherNet
             }
         }
 
-        public static void UpdateModificationsData()
+        public static void UpdateLocalModificationsData()
         {
             AddUnregistredModifications();
             DeleteOutdatedModifications();
@@ -568,33 +646,7 @@ namespace GenLauncherNet
             }
 
             return false;
-        }
-
-        private static async Task ReadMainManifest()
-        {
-            var reposData = new ReposModsData();
-
-            using (var client = new GitHubYamlReader(EntryPoint.ModsRepos))
-            {
-                reposData = await client.ReadYaml<ReposModsData>();
-            }
-
-            Version = reposData.LauncherVersion;
-            DownloadLink = reposData.DownloadLink;
-
-            AdvData = reposData.AdvData;
-            gitHubMainDataReader = new GitHubMainDataReader(reposData);
-
-            if (AdvData.Count > 0)
-            {
-                await DownloadAdvertisingData(gitHubMainDataReader);
-            }
-
-            if (!String.IsNullOrEmpty(reposData.VulkanReposData))
-            {
-                await DownloadVulkanData(reposData.VulkanReposData);
-            }
-        }
+        }        
 
         private static async Task DownloadVulkanData(string vulkanLink)
         {
@@ -680,7 +732,7 @@ namespace GenLauncherNet
         }
 
         #region Save/Load
-        public static void ReadData()
+        public static void ReadLocalModsData()
         {
             if (!File.Exists(EntryPoint.ConfigName))
             {

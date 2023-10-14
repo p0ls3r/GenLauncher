@@ -141,6 +141,7 @@ namespace GenLauncherNet
                     this.Dispose();
                     DownloadResult.Crashed = true;
                     DownloadResult.Message = "Unexpected Minio API Exception. Try to sync your system time";
+                    Done(ModBoxData, DownloadResult);
                     return;
                 }
             }
