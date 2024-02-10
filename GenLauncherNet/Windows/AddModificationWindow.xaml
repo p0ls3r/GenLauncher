@@ -3,6 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="ru"
+        lex:ResxLocalizationProvider.DefaultAssembly="GenLauncher"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:local="clr-namespace:GenLauncherNet"
         mc:Ignorable="d"
         Title="Select mod to add" Height="468.861" Width="368" ResizeMode="NoResize" WindowStyle="None" Topmost="True">
@@ -361,12 +365,12 @@
     </Window.Resources>
 
     <Grid Background="{DynamicResource GenLauncherDarkBackGround}">
-        <Label Content="Select Mod to add" FontWeight="Bold" Margin="12,6,0,0" Grid.Column="3" Grid.Row="4" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="18"  HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="{lex:Loc SelectMod}" FontWeight="Bold" Margin="12,6,0,0" Grid.Column="3" Grid.Row="4" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="18"  HorizontalAlignment="Left" VerticalAlignment="Top" />
         <ListBox x:Name="ModificationsList" Margin="12,44,12,31" FontSize="16" Background="Transparent" BorderThickness="1" Foreground="{DynamicResource GenLauncherDefaultTextColor}" BorderBrush="{DynamicResource GenLauncherBorderColor}">
 
         </ListBox>
-        <Button Content="Add!" Margin="70,443,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102" Click="Button_Click" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-        <Button Content="Cancel" Margin="0,443,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="102" Click="Button_Click_1" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+        <Button Content="{lex:Loc Add}" Margin="70,443,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102" Click="Button_Click" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+        <Button Content="{lex:Loc Cancel}" Margin="0,443,70,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="102" Click="Button_Click_1" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
         <Rectangle HorizontalAlignment="Center" Height="469" Stroke="{DynamicResource GenLauncherDarkFillColor}" StrokeThickness="2" VerticalAlignment="Center" Width="368"/>
 
     </Grid>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -23,14 +24,14 @@ namespace GenLauncherNet.Windows
         [DllImport("kernel32.dll")]
         private static extern bool AllocConsole();
 
-        private ObservableCollection<ModificationContainer> ModsListSource =
-            new ObservableCollection<ModificationContainer>();
+        private ObservableCollection<ModificationViewModel> ModsListSource =
+            new ObservableCollection<ModificationViewModel>();
 
-        private ObservableCollection<ModificationContainer> PatchesListSource =
-            new ObservableCollection<ModificationContainer>();
+        private ObservableCollection<ModificationViewModel> PatchesListSource =
+            new ObservableCollection<ModificationViewModel>();
 
-        private ObservableCollection<ModificationContainer> AddonsListSource =
-            new ObservableCollection<ModificationContainer>();
+        private ObservableCollection<ModificationViewModel> AddonsListSource =
+            new ObservableCollection<ModificationViewModel>();
 
         private CancellationTokenSource tokenSource;
         private bool _updating = false;
@@ -72,7 +73,7 @@ namespace GenLauncherNet.Windows
 
             if (DataHandler.GetSelectedMod() != null)
             {
-                UpdateVisualResourcesForMod(new ModificationContainer(DataHandler.GetSelectedMod()));
+                UpdateVisualResourcesForMod(new ModificationViewModel(DataHandler.GetSelectedMod()));
             }
             else
                 SetDefaultVisual();
@@ -118,7 +119,7 @@ namespace GenLauncherNet.Windows
             EntryPoint.Colors = EntryPoint.DefaultColors;
         }
 
-        private void UpdateVisualResourcesForMod(ModificationContainer container)
+        private void UpdateVisualResourcesForMod(ModificationViewModel container)
         {
             if (container.Colors != null)
             {
@@ -197,7 +198,7 @@ namespace GenLauncherNet.Windows
 
             foreach (var modData in ModsList.Items)
             {
-                var data = (ModificationContainer)modData;
+                var data = (ModificationViewModel)modData;
                 data.Refresh();
             }
         }
@@ -219,7 +220,7 @@ namespace GenLauncherNet.Windows
                 if (lbi != null)
                 {
                     _DragAndDropDisable = true;
-                    var container = lbi.DataContext as ModificationContainer;
+                    var container = lbi.DataContext as ModificationViewModel;
 
                     if (!ModsList.SelectedItems.Contains(container))
                         ModsList.SelectedItems.Add(container);
@@ -300,8 +301,8 @@ namespace GenLauncherNet.Windows
         {
             if (sender is ListBoxItem)
             {
-                var source = e.Data.GetData(typeof(ModificationContainer)) as ModificationContainer;
-                var target = ((ListBoxItem)(sender)).DataContext as ModificationContainer;
+                var source = e.Data.GetData(typeof(ModificationViewModel)) as ModificationViewModel;
+                var target = ((ListBoxItem)(sender)).DataContext as ModificationViewModel;
 
                 var sourceIndex = ModsList.Items.IndexOf(source);
                 var targetIndex = ModsList.Items.IndexOf(target);
@@ -400,7 +401,7 @@ namespace GenLauncherNet.Windows
         private void LauncherUpdateProgressChanged(long? totalSize, long totalBytesRead, int progressPercentage)
         {
             if (progressPercentage == 100)
-                UpdateProgress.Text = "Unpacking...";
+                UpdateProgress.Text = LocalizedStrings.Instance["Unpacking"];
             else
             {
                 UpdateProgressBar.Value = progressPercentage;
@@ -411,12 +412,12 @@ namespace GenLauncherNet.Windows
 
         private void SetSelfUpdatingInfo(bool connected)
         {
-            LauncherVersion.Text = "Version: " + EntryPoint.Version;
-            LatestLauncherVersion.Text = "No connection to GitHub";
+            LauncherVersion.Text = LocalizedStrings.Instance["CurrentVersion"] + EntryPoint.Version;
+            LatestLauncherVersion.Text = LocalizedStrings.Instance["NoConnection"];
 
             if (connected)
             {
-                LatestLauncherVersion.Text = "Latest Version: " + DataHandler.Version;
+                LatestLauncherVersion.Text = LocalizedStrings.Instance["LatestVersion"] + DataHandler.Version;
                 if (IsCurrentVersionOutDated())
                 {
                     LauncherUpdate.IsEnabled = true;
@@ -455,7 +456,7 @@ namespace GenLauncherNet.Windows
             {
                 UpdateProgressBar.Value = 0;
                 UpdateProgress.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("White");
-                UpdateProgress.Text = "Error" + e.Message;
+                UpdateProgress.Text = LocalizedStrings.Instance["Error"] + e.Message;
                 SetProgressBarInPassivelMode();
                 return;
             }            
@@ -485,7 +486,7 @@ namespace GenLauncherNet.Windows
         private void UpdateModsList()
         {
             ModsList.ItemsSource = null;
-            ModsListSource = new ObservableCollection<ModificationContainer>();
+            ModsListSource = new ObservableCollection<ModificationViewModel>();
             ModsList.Items.Clear();
 
             var mods = DataHandler.GetMods().OrderBy(m => m.NumberInList).ToList();
@@ -500,7 +501,7 @@ namespace GenLauncherNet.Windows
                     var advInData = DataHandler.GetMods()
                         .Where(m => String.Equals(m.Name, advertising.Name, StringComparison.OrdinalIgnoreCase))
                         .FirstOrDefault();
-                    var tempModBox = new ModificationContainer(advInData);
+                    var tempModBox = new ModificationViewModel(advInData);
                     ModsListSource.Add(tempModBox);
                 }
             }
@@ -518,7 +519,7 @@ namespace GenLauncherNet.Windows
             {
                 foreach (var mod in mods)
                 {
-                    ModsListSource.Add(new ModificationContainer(mod));
+                    ModsListSource.Add(new ModificationViewModel(mod));
                 }
             }
             else
@@ -531,18 +532,18 @@ namespace GenLauncherNet.Windows
         private void UpdatePatchesList()
         {
             PatchesList.ItemsSource = null;
-            PatchesListSource = new ObservableCollection<ModificationContainer>();
+            PatchesListSource = new ObservableCollection<ModificationViewModel>();
             PatchesList.Items.Clear();
 
             var patches = DataHandler.GetPatchesForSelectedMod();
 
             if (patches.Count > 0)
             {
-                PatchesListSource = new ObservableCollection<ModificationContainer>();
+                PatchesListSource = new ObservableCollection<ModificationViewModel>();
 
                 foreach (var patch in patches)
                 {
-                    PatchesListSource.Add(new ModificationContainer(patch));
+                    PatchesListSource.Add(new ModificationViewModel(patch));
                 }
             }
 
@@ -552,18 +553,18 @@ namespace GenLauncherNet.Windows
         private void UpdateAddonsList()
         {
             AddonsList.ItemsSource = null;
-            AddonsListSource = new ObservableCollection<ModificationContainer>();
+            AddonsListSource = new ObservableCollection<ModificationViewModel>();
             AddonsList.Items.Clear();
 
             var addons = DataHandler.GetAddonsForSelectedMod();
 
             if (addons.Count > 0)
             {
-                AddonsListSource = new ObservableCollection<ModificationContainer>();
+                AddonsListSource = new ObservableCollection<ModificationViewModel>();
 
                 foreach (var addon in addons)
                 {
-                    AddonsListSource.Add(new ModificationContainer(addon));
+                    AddonsListSource.Add(new ModificationViewModel(addon));
                 }
             }
 
@@ -582,7 +583,7 @@ namespace GenLauncherNet.Windows
                 .Where(m => String.Equals(m.Name, modVersion.Name, StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefault();
 
-            var tempModBox = new ModificationContainer(mod);
+            var tempModBox = new ModificationViewModel(mod);
             ModsListSource.Add(tempModBox);
             MoveModInList(tempModBox, ModsListSource.Count - 1, 0);
 
@@ -630,44 +631,44 @@ namespace GenLauncherNet.Windows
                 if (e.AddedItems.Count > 0)
                 {
                     if ((DataHandler.GetSelectedMod() != null && !DataHandler.GetSelectedMod()
-                            .Equals(((ModificationContainer)e.AddedItems[0]).ContainerModification)) ||
+                            .Equals(((ModificationViewModel)e.AddedItems[0]).ContainerModification)) ||
                         DataHandler.GetSelectedMod() == null)
                     {
                         //TODO dont cancel downloads
                         CancelAllAddonsDownloads();
 
-                        ((ModificationContainer)ModsList.SelectedItem).SetUnSelectedStatus();
-                        ((ModificationContainer)ModsList.SelectedItem).ContainerModification.IsSelected = false;
+                        ((ModificationViewModel)ModsList.SelectedItem).SetUnSelectedStatus();
+                        ((ModificationViewModel)ModsList.SelectedItem).ContainerModification.IsSelected = false;
                         DataHandler.UnselectAllModifications();
 
-                        ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
-                        ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
+                        ((ModificationViewModel)e.AddedItems[0]).SetSelectedStatus();
+                        ((ModificationViewModel)e.AddedItems[0]).ContainerModification.IsSelected = true;
 
                         DisableUI();
-                        await UpdateAddonsAndPatches(((ModificationContainer)e.AddedItems[0]).ContainerModification);
+                        await UpdateAddonsAndPatches(((ModificationViewModel)e.AddedItems[0]).ContainerModification);
 
                         UpdateTabs();
                         EnableUI();
                     }
                     else
-                        (((ModificationContainer)e.AddedItems[0]).ContainerModification).IsSelected = true;
+                        (((ModificationViewModel)e.AddedItems[0]).ContainerModification).IsSelected = true;
 
                     _ignoreSelectionFlagMods = true;
                     ModsList.UnselectAll();
                     ModsList.SelectedItems.Add(e.AddedItems[0]);
 
-                    UpdateVisualResourcesForMod((ModificationContainer)ModsList.SelectedItem);
+                    UpdateVisualResourcesForMod((ModificationViewModel)ModsList.SelectedItem);
                     UpdateVisuals();
 
-                    ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
-                    ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
+                    ((ModificationViewModel)e.AddedItems[0]).SetSelectedStatus();
+                    ((ModificationViewModel)e.AddedItems[0]).ContainerModification.IsSelected = true;
 
                     e.Handled = true;
                     _ignoreSelectionFlagMods = false;
                 }
                 else
                 {
-                    ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
+                    ((ModificationViewModel)e.RemovedItems[0]).SetUnSelectedStatus();
                     DataHandler.UnselectAllModifications();
                     UpdateTabs();
                 }
@@ -721,22 +722,22 @@ namespace GenLauncherNet.Windows
                 {
                     _ignoreSelectionFlagPatches = true;
 
-                    var selectedPatch = ((ModificationContainer)listBox.SelectedItems[0]);
-                    var newPatch = ((ModificationContainer)e.AddedItems[0]);
+                    var selectedPatch = ((ModificationViewModel)listBox.SelectedItems[0]);
+                    var newPatch = ((ModificationViewModel)e.AddedItems[0]);
 
                     if (DataHandler.GetSelectedPatch() == null)
                     {
                         PatchesList.SelectedItems.Add(e.AddedItems[0]);
-                        var patch = ((ModificationContainer)PatchesList.SelectedItem).ContainerModification;
+                        var patch = ((ModificationViewModel)PatchesList.SelectedItem).ContainerModification;
                         patch.IsSelected = true;
                     }
                     else
                     {
                         if (!String.Equals(selectedPatch.ContainerModification.Name, newPatch.ContainerModification.Name, StringComparison.OrdinalIgnoreCase))
                         {
-                            ((ModificationContainer)listBox.SelectedItems[0]).SetUnSelectedStatus();
-                            ((ModificationContainer)listBox.SelectedItems[0]).ContainerModification.IsSelected = false;
-                            ((ModificationContainer)e.AddedItems[0]).ContainerModification.IsSelected = true;
+                            ((ModificationViewModel)listBox.SelectedItems[0]).SetUnSelectedStatus();
+                            ((ModificationViewModel)listBox.SelectedItems[0]).ContainerModification.IsSelected = false;
+                            ((ModificationViewModel)e.AddedItems[0]).ContainerModification.IsSelected = true;
                         }
                     }
 
@@ -744,16 +745,16 @@ namespace GenLauncherNet.Windows
 
                     PatchesList.SelectedItems.Add(e.AddedItems[0]);
 
-                    ((ModificationContainer)listBox.SelectedItems[0]).SetSelectedStatus();
-                    ((ModificationContainer)listBox.SelectedItems[0]).ContainerModification.IsSelected = true;
+                    ((ModificationViewModel)listBox.SelectedItems[0]).SetSelectedStatus();
+                    ((ModificationViewModel)listBox.SelectedItems[0]).ContainerModification.IsSelected = true;
 
                     e.Handled = true;
                     _ignoreSelectionFlagPatches = false;
                 }
                 else
                 {
-                    ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
-                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
+                    ((ModificationViewModel)e.RemovedItems[0]).SetUnSelectedStatus();
+                    ((ModificationViewModel)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                 }
 
                 if (System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed)
@@ -804,14 +805,14 @@ namespace GenLauncherNet.Windows
             {
                 if (e.AddedItems.Count > 0)
                 {
-                    var addon = ((ModificationContainer)e.AddedItems[0]).ContainerModification;
-                    ((ModificationContainer)e.AddedItems[0]).SetSelectedStatus();
+                    var addon = ((ModificationViewModel)e.AddedItems[0]).ContainerModification;
+                    ((ModificationViewModel)e.AddedItems[0]).SetSelectedStatus();
                     addon.IsSelected = true;
                 }
                 else
                 {
-                    ((ModificationContainer)e.RemovedItems[0]).SetUnSelectedStatus();
-                    ((ModificationContainer)e.RemovedItems[0]).ContainerModification.IsSelected = false;
+                    ((ModificationViewModel)e.RemovedItems[0]).SetUnSelectedStatus();
+                    ((ModificationViewModel)e.RemovedItems[0]).ContainerModification.IsSelected = false;
                 }
             }
         }
@@ -848,19 +849,19 @@ namespace GenLauncherNet.Windows
         {
             foreach (var patchData in PatchesList.Items)
             {
-                var data = (ModificationContainer)patchData;
+                var data = (ModificationViewModel)patchData;
                 data.BruteCancelDownload();
             }
 
             foreach (var addonData in AddonsList.Items)
             {
-                var data = (ModificationContainer)addonData;
+                var data = (ModificationViewModel)addonData;
                 data.BruteCancelDownload();
             }
 
             foreach (var modData in ModsList.Items)
             {
-                var data = (ModificationContainer)modData;
+                var data = (ModificationViewModel)modData;
                 data.BruteCancelDownload();
             }
 
@@ -874,13 +875,13 @@ namespace GenLauncherNet.Windows
         {
             foreach (var patchData in PatchesList.Items)
             {
-                var data = (ModificationContainer)patchData;
+                var data = (ModificationViewModel)patchData;
                 data.CancelDownload();
             }
 
             foreach (var addonData in AddonsList.Items)
             {
-                var data = (ModificationContainer)addonData;
+                var data = (ModificationViewModel)addonData;
                 data.CancelDownload();
             }
         }
@@ -891,7 +892,7 @@ namespace GenLauncherNet.Windows
 
             var gridControls = new GridControls(modGrid);
 
-            var modData = modGrid.DataContext as ModificationContainer;
+            var modData = modGrid.DataContext as ModificationViewModel;
 
             if (modData != null)
             {
@@ -925,7 +926,7 @@ namespace GenLauncherNet.Windows
 
         #region DownloadModification
 
-        private async void DownloadMod(ModificationContainer modData)
+        private async void DownloadMod(ModificationViewModel modData)
         {
             downloadingCount += 1;
             modData.SetActiveProgressBar();
@@ -933,7 +934,7 @@ namespace GenLauncherNet.Windows
             var factory = new UpdaterFactory();
             var updater = factory.CreateUpdater(modData);
             modData.PrepareControlsToDownloadMode();
-            modData.SetUIMessages("Preparing, please wait...");
+            modData.SetUIMessages(LocalizedStrings.Instance["Preparing"]);
             modData.SetDownloader(updater);
             updater.ProgressChanged += DownloadProgressChanged;            
 
@@ -963,15 +964,15 @@ namespace GenLauncherNet.Windows
             }
         }
 
-        private bool IsTimeSynchronized(ModificationContainer modData)
+        private bool IsTimeSynchronized(ModificationViewModel modData)
         {
-            var mainMessage = "System clock out of sync!";
-            var secondaryMessage = "In order to update, your system time needs to be synchronized";
+            var mainMessage = LocalizedStrings.Instance["OutOfSync"];
+            var secondaryMessage = LocalizedStrings.Instance["SyncTime"];
 
             var infoWindow = new InfoWindow(mainMessage, secondaryMessage)
             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Ok.Visibility = Visibility.Hidden;
-            infoWindow.Continue.Content = "Synchronize now!";
+            infoWindow.Continue.Content = LocalizedStrings.Instance["SyncNow"];
             infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
             infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
             infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
@@ -981,7 +982,7 @@ namespace GenLauncherNet.Windows
             {
                 downloadingCount -= 1;
                 modData.ClearDownloader();
-                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                DownloadCrashed(modData, LocalizedStrings.Instance["OutOfSyncCantUpdate"]); 
                 modData._GridControls._UpdateButton.IsEnabled = true;
                 return false;
             }
@@ -990,7 +991,7 @@ namespace GenLauncherNet.Windows
 
             if (TimeUtility.IsSysTimeOutOfSync())
             {
-                var errorWindow = new InfoWindow("Unable to synchronize your system time!", "Please do it manually in date time options.")
+                var errorWindow = new InfoWindow(LocalizedStrings.Instance["CantSync"], LocalizedStrings.Instance["SyncManually"])
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
 
                 errorWindow.ErrorPolygon1.Visibility = Visibility.Visible;
@@ -1001,7 +1002,7 @@ namespace GenLauncherNet.Windows
                 errorWindow.ShowDialog();
                 downloadingCount -= 1;
                 modData.ClearDownloader();
-                DownloadCrashed(modData, "System clock out of sync - mod cannot be updated");
+                DownloadCrashed(modData, LocalizedStrings.Instance["OutOfSyncCantUpdate"]);
                 modData._GridControls._UpdateButton.IsEnabled = true;
                 return false;
             }
@@ -1036,7 +1037,7 @@ namespace GenLauncherNet.Windows
 
         private void ModIncorrectInstallationNotify()
         {
-            var infoWindow = new InfoWindow("Some mod files are missing or corrupted!", " It is recommended to reinstall the mod. \r You can turn off this checking in options.")
+            var infoWindow = new InfoWindow(LocalizedStrings.Instance["FilesCorrupted"], LocalizedStrings.Instance["Reinstall"])
             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
@@ -1047,14 +1048,14 @@ namespace GenLauncherNet.Windows
             infoWindow.ShowDialog();
         }
 
-        private void MoveModInList(ModificationContainer source, int sourceIndex, int targetIndex)
+        private void MoveModInList(ModificationViewModel source, int sourceIndex, int targetIndex)
         {
             MoveModificationInList(ModsListSource, source, sourceIndex, targetIndex);
 
             SetIndexNumbersForMods();
         }
 
-        private void MoveModificationInList(ObservableCollection<ModificationContainer> list, ModificationContainer source, int sourceIndex, int targetIndex)
+        private void MoveModificationInList(ObservableCollection<ModificationViewModel> list, ModificationViewModel source, int sourceIndex, int targetIndex)
         {
             if (sourceIndex < targetIndex)
             {
@@ -1160,7 +1161,7 @@ namespace GenLauncherNet.Windows
 
             if (!await GentoolHandler.CanConnectToGentoolWebSite())
             {
-                UpdateProgress.Text = "Unable to check gentool";
+                UpdateProgress.Text = LocalizedStrings.Instance["CantCheckGentool"];
 
                 return;
             }
@@ -1205,7 +1206,7 @@ namespace GenLauncherNet.Windows
             catch
             {
                 UpdateProgressBar.Value = 0;
-                UpdateProgress.Text = "Unable to check gentool";
+                UpdateProgress.Text = LocalizedStrings.Instance["CantCheckGentool"];
             }
         }
 
@@ -1239,7 +1240,7 @@ namespace GenLauncherNet.Windows
             catch
             {
                 UpdateProgressBar.Value = 0;
-                UpdateProgress.Text = "Unable to download modded.exe";
+                UpdateProgress.Text = LocalizedStrings.Instance["CantCheckGentool"];
             }
         }
 
@@ -1264,7 +1265,7 @@ namespace GenLauncherNet.Windows
             catch
             {
                 UpdateProgressBar.Value = 0;
-                UpdateProgress.Text = "Unable to check gentool";
+                UpdateProgress.Text = LocalizedStrings.Instance["CantCheckGentool"];
             }
         }
 
@@ -1285,7 +1286,7 @@ namespace GenLauncherNet.Windows
                 catch
                 {
                     UpdateProgressBar.Value = 0;
-                    UpdateProgress.Text = "Cannot download WorldbuilderNT27";
+                    UpdateProgress.Text = LocalizedStrings.Instance["CantDownloadWB"];
                 }
             }
         }
@@ -1343,11 +1344,11 @@ namespace GenLauncherNet.Windows
                     return;
                 }
 
-                PatchesButton.Content = "Patches for " + currentMod.Name;
-                AddonsButton.Content = "Addons for " + currentMod.Name;
+                PatchesButton.Content = LocalizedStrings.Instance["Patches"] + currentMod.Name;
+                AddonsButton.Content = LocalizedStrings.Instance["Addons"] + currentMod.Name;
 
-                ManualAddPatch.Content = "Add patch for " + currentMod.Name + " from files";
-                ManualAddAddon.Content = "Add addon for " + currentMod.Name + " from files";
+                ManualAddPatch.Content = String.Format(LocalizedStrings.Instance["AddPatchFromFiles"], currentMod.Name);
+                ManualAddAddon.Content = String.Format(LocalizedStrings.Instance["AddAddonFromFiles"], currentMod.Name);
 
                 PatchesButton.Visibility = Visibility.Visible;
                 AddonsButton.Visibility = Visibility.Visible;
@@ -1361,18 +1362,17 @@ namespace GenLauncherNet.Windows
                 if (EntryPoint.SessionInfo.GameMode == Game.Generals)
                     gameName = "Generals";
 
-                PatchesButton.Content = "Patches for " + gameName;
-                AddonsButton.Content = "Addons for " + gameName;
+                PatchesButton.Content = LocalizedStrings.Instance["Patches"] + gameName;
+                AddonsButton.Content = LocalizedStrings.Instance["Addons"] + gameName;
 
-                ManualAddPatch.Content = "Add patch for " + gameName + " from files";
-                ManualAddAddon.Content = "Add addon for " + gameName + " from files";
+                ManualAddPatch.Content = String.Format(LocalizedStrings.Instance["AddPatchFromFiles"], gameName);
+                ManualAddAddon.Content = String.Format(LocalizedStrings.Instance["AddAddonFromFiles"], gameName);
 
                 PatchesButton.Visibility = Visibility.Visible;
                 AddonsButton.Visibility = Visibility.Visible;
 
                 UpdatePatchesList();
                 UpdateAddonsList();
-
             }
         }
 
@@ -1423,14 +1423,14 @@ namespace GenLauncherNet.Windows
 
             if (firstRun)
             {
-                var mainMessage = "Looks like you are running the game for the first time";
+                var mainMessage = LocalizedStrings.Instance["FirstRun"];
 
-                var infoWindow = new InfoWindow(mainMessage, "Would you like to apply the default recommended settings?")
+                var infoWindow = new InfoWindow(mainMessage, LocalizedStrings.Instance["ApplyDefaultSettings"])
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 infoWindow.Ok.Visibility = Visibility.Hidden;
 
-                infoWindow.Continue.Content = "Set default options";
-                infoWindow.Cancel.Content = "No";
+                infoWindow.Continue.Content = LocalizedStrings.Instance["Set default options"];
+                infoWindow.Cancel.Content = LocalizedStrings.Instance["No"];
 
                 infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
                 infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
@@ -1447,7 +1447,7 @@ namespace GenLauncherNet.Windows
         {
             string modMessage;
 
-            var mainMessage = "Launch aborted";
+            var mainMessage = LocalizedStrings.Instance["LaunchAborted"];
 
             var selectedModVersion = DataHandler.GetSelectedModVersion();
             var selectedPatchVersion = DataHandler.GetSelectedPatchVersion();
@@ -1463,7 +1463,7 @@ namespace GenLauncherNet.Windows
 
             if (selectedModVersion != null && !selectedModVersion.Installed)
             {
-                modMessage = String.Format("{0} was selected but not installed -  launch aborted!",
+                modMessage = String.Format(LocalizedStrings.Instance["NotInstalled"],
                     selectedModVersion.Name);
                 CreateErrorWindow(mainMessage, modMessage);
                 return false;
@@ -1471,7 +1471,7 @@ namespace GenLauncherNet.Windows
 
             if (selectedPatchVersion != null && !selectedPatchVersion.Installed)
             {
-                modMessage = String.Format("{0} was selected but not installed -  launch aborted!",
+                modMessage = String.Format(LocalizedStrings.Instance["NotInstalled"],
                     selectedPatchVersion.Name);
                 CreateErrorWindow(mainMessage, modMessage);
                 return false;
@@ -1481,7 +1481,7 @@ namespace GenLauncherNet.Windows
             {
                 if (!addon.Installed)
                 {
-                    modMessage = String.Format("{0} was selected but not installed -  launch aborted!", addon.Name);
+                    modMessage = String.Format(LocalizedStrings.Instance["NotInstalled"], addon.Name);
                     CreateErrorWindow(mainMessage, modMessage);
                     return false;
                 }
@@ -1494,22 +1494,22 @@ namespace GenLauncherNet.Windows
         {
             string modMessage;
 
-            var mainMessage = "Launch aborted";
+            var mainMessage = LocalizedStrings.Instance["LaunchAborted"];
 
             var selectedModVersion = DataHandler.GetSelectedModVersion();
 
-            var selectedModData = (ModificationContainer)ModsList.SelectedItem;
+            var selectedModData = (ModificationViewModel)ModsList.SelectedItem;
 
-            ModificationContainer selectedPatchData = null;
+            ModificationViewModel selectedPatchData = null;
             if (PatchesList.SelectedItems.Count > 0)
-                selectedPatchData = (ModificationContainer)PatchesList.SelectedItems[0];
+                selectedPatchData = (ModificationViewModel)PatchesList.SelectedItems[0];
 
-            List<ModificationContainer> selectedAddonsData = new List<ModificationContainer>();
-            List<ModificationContainer> selectedGAddonsData = new List<ModificationContainer>();
+            List<ModificationViewModel> selectedAddonsData = new List<ModificationViewModel>();
+            List<ModificationViewModel> selectedGAddonsData = new List<ModificationViewModel>();
 
             foreach (var data in AddonsList.SelectedItems)
             {
-                selectedAddonsData.Add((ModificationContainer)data);
+                selectedAddonsData.Add((ModificationViewModel)data);
             }
 
             /*if (selectedModVersion == null)
@@ -1521,14 +1521,15 @@ namespace GenLauncherNet.Windows
 
             if (selectedModData != null && selectedModData.Downloader != null)
             {
-                modMessage = String.Format("Cannot launch {0} - installation in progress!", selectedModVersion.Name);
+                modMessage = String.Format(LocalizedStrings.Instance["InstallInProgress"], 
+                    selectedModVersion.Name);
                 CreateErrorWindow(mainMessage, modMessage);
                 return false;
             }
 
             if (selectedPatchData != null && selectedPatchData.Downloader != null)
             {
-                modMessage = String.Format("Cannot launch {0} - installation in progress!",
+                modMessage = String.Format(LocalizedStrings.Instance["InstallInProgress"],
                     selectedPatchData.ContainerModification.Name);
                 CreateErrorWindow(mainMessage, modMessage);
                 return false;
@@ -1538,7 +1539,7 @@ namespace GenLauncherNet.Windows
             {
                 if (gAddon.Downloader != null)
                 {
-                    modMessage = String.Format("{0} was selected but not installed -  launch aborted!",
+                    modMessage = String.Format(LocalizedStrings.Instance["NotInstalled"],
                         gAddon.ContainerModification.Name);
                     CreateErrorWindow(mainMessage, modMessage);
                     return false;
@@ -1549,7 +1550,7 @@ namespace GenLauncherNet.Windows
             {
                 if (addon.Downloader != null)
                 {
-                    modMessage = String.Format("{0} was selected but not installed -  launch aborted!",
+                    modMessage = String.Format(LocalizedStrings.Instance["NotInstalled"],
                         addon.ContainerModification.Name);
                     CreateErrorWindow(mainMessage, modMessage);
                     return false;
@@ -1573,7 +1574,7 @@ namespace GenLauncherNet.Windows
 
         private bool ModificationsDontNeedUpdate()
         {
-            var modsMessage = "Selected mod is up-to-date";
+            var modsMessage = LocalizedStrings.Instance["ModIsUpToDate"];
 
             var succes = true;
 
@@ -1585,7 +1586,7 @@ namespace GenLauncherNet.Windows
                 if (!lastVersion.Installed)
                 {
                     succes = false;
-                    modsMessage = String.Format("There is uninstalled update for {0} ", lastVersion.Name);
+                    modsMessage = String.Format(LocalizedStrings.Instance["UninstalledUpdate"], lastVersion.Name);
                 }
             }
 
@@ -1597,7 +1598,7 @@ namespace GenLauncherNet.Windows
                 if (lastPatchVersion != null && !lastPatchVersion.Installed)
                 {
                     succes = false;
-                    modsMessage = String.Format("There is uninstalled update for {0} ", lastPatchVersion.Name);
+                    modsMessage = String.Format(LocalizedStrings.Instance["UninstalledUpdate"], lastPatchVersion.Name);
                 }
             }
 
@@ -1612,7 +1613,7 @@ namespace GenLauncherNet.Windows
                     if (selectedAddonLastVersion != null && !selectedAddonLastVersion.Installed)
                     {
                         succes = false;
-                        modsMessage = String.Format("There is uninstalled update for {0} ",
+                        modsMessage = String.Format(LocalizedStrings.Instance["UninstalledUpdate"],
                             selectedAddonLastVersion.Name);
                         break;
                     }
@@ -1621,7 +1622,7 @@ namespace GenLauncherNet.Windows
 
             if (!succes)
             {
-                var mainMessage = "There are modifications that can be updated: ";
+                var mainMessage = LocalizedStrings.Instance["ModificationsWithUpdate"];
 
                 var infoWindow = new InfoWindow(mainMessage, modsMessage)
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
@@ -1640,7 +1641,7 @@ namespace GenLauncherNet.Windows
 
         private bool ModificationsAreNotDeprecated()
         {
-            var modsMessage = "Selected mod is up-to-date";
+            var modsMessage = LocalizedStrings.Instance["ModIsUpToDate"];
 
             var succes = true;
 
@@ -1648,7 +1649,7 @@ namespace GenLauncherNet.Windows
             if (activePatch != null && activePatch.Deprecated)
             {
                 succes = false;
-                modsMessage = String.Format("{0} is Deprecated.", activePatch.Name);
+                modsMessage = String.Format(LocalizedStrings.Instance["Deprecated"], activePatch.Name);
             }
 
             var selectedAddons = DataHandler.GetSelectedAddonsForSelectedMod()?.Where(m => m != null);
@@ -1660,7 +1661,7 @@ namespace GenLauncherNet.Windows
                     if (selectedAddon != null && selectedAddon.Deprecated)
                     {
                         succes = false;
-                        modsMessage = String.Format("{0} is Deprecated.", selectedAddon.Name);
+                        modsMessage = String.Format(LocalizedStrings.Instance["Deprecated"], selectedAddon.Name);
                         break;
                     }
                 }
@@ -1668,7 +1669,7 @@ namespace GenLauncherNet.Windows
 
             if (!succes)
             {
-                var mainMessage = "Compatibility with the mod cannot be guaranteed!";
+                var mainMessage = LocalizedStrings.Instance["Compatibility"];
 
                 var infoWindow = new InfoWindow(mainMessage, modsMessage)
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
@@ -1697,7 +1698,7 @@ namespace GenLauncherNet.Windows
 
             if (_isWBRunning)
             {
-                CreateErrorWindow("Launch aborted", "World Builder is already running!");
+                CreateErrorWindow(LocalizedStrings.Instance["LaunchAborted"], LocalizedStrings.Instance["WorldBuilderRunning"]);
                 return;
             }
 
@@ -1760,7 +1761,7 @@ namespace GenLauncherNet.Windows
 
             if (_isGameRunning)
             {
-                CreateErrorWindow("Launch aborted", "Generals game is already running!");
+                CreateErrorWindow(LocalizedStrings.Instance["LaunchAborted"], LocalizedStrings.Instance["GameRunning"]);
                 return;
             }
 
@@ -1807,7 +1808,7 @@ namespace GenLauncherNet.Windows
 
                     if (result && ModsList.SelectedItems.Count > 0)
                     {
-                        var modContainer = ModsList.SelectedItems[0] as ModificationContainer;
+                        var modContainer = ModsList.SelectedItems[0] as ModificationViewModel;
                         modContainer._GridControls._SupportButton.IsBlinking = true;
                     }
                 }
@@ -1843,16 +1844,28 @@ namespace GenLauncherNet.Windows
             AddModButton.Visibility = Visibility.Visible;
         }
 
-        private void PatchesButton_Click(object sender, RoutedEventArgs e)
+        private async void PatchesButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllLists();
+            if (DataHandler.GetSelectedMod() == null)
+            {
+                DisableUI();
+                await DataHandler.ReadOriginalGameAddonsAndPatches();
+                EnableUI();
+            }
             PatchesList.Visibility = Visibility.Visible;
             ManualAddPatch.Visibility = Visibility.Visible;
         }
 
-        private void AddonsButton_Click(object sender, RoutedEventArgs e)
+        private async void AddonsButton_Click(object sender, RoutedEventArgs e)
         {
             HideAllLists();
+            if (DataHandler.GetSelectedMod() == null)
+            {
+                DisableUI();
+                await DataHandler.ReadOriginalGameAddonsAndPatches();
+                EnableUI();
+            }
             AddonsList.Visibility = Visibility.Visible;
             ManualAddAddon.Visibility = Visibility.Visible;
         }
@@ -1870,12 +1883,12 @@ namespace GenLauncherNet.Windows
             if (!DataHandler.GetAskBeforeCheck())
                 return true;
 
-            var infoWindow = new InfoWindow("Сheck the integrity of the mod files before start?", "WARNING! This operation may take a long time, you can turn it off in options")
+            var infoWindow = new InfoWindow(LocalizedStrings.Instance["CheckIntegrety"], LocalizedStrings.Instance["TakeLongTime"])
             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.ModsMessage.FontSize = 17;
             infoWindow.Ok.Visibility = Visibility.Hidden;
-            infoWindow.Continue.Content = "Yes, check files";
-            infoWindow.Cancel.Content = "No";
+            infoWindow.Continue.Content = LocalizedStrings.Instance["CheckFiles"];
+            infoWindow.Cancel.Content = LocalizedStrings.Instance["No"];
             infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
             infoWindow.WarningPolygon2.Visibility = Visibility.Visible;
             infoWindow.WarningPolygon3.Visibility = Visibility.Visible;
@@ -1888,7 +1901,7 @@ namespace GenLauncherNet.Windows
         {
             if (_updating)
             {
-                LauncherUpdate.Content = "Update";
+                LauncherUpdate.Content = LocalizedStrings.Instance["Update"];
                 UpdateProgress.Text = String.Empty;
                 UpdateProgressBar.Value = 0;
                 tokenSource.Cancel();
@@ -1898,11 +1911,11 @@ namespace GenLauncherNet.Windows
             else
             {
                 if (downloadingCount != 0)
-                    UpdateProgress.Text = "Please finish all installations";
+                    UpdateProgress.Text = LocalizedStrings.Instance["FinishInstall"];
                 else
                 {
                     UpdateLauncher();
-                    LauncherUpdate.Content = "Cancel";
+                    LauncherUpdate.Content = LocalizedStrings.Instance["Cancel"];
                     DisableUI();
                     _updating = true;
                 }
@@ -1923,7 +1936,7 @@ namespace GenLauncherNet.Windows
             }
             else
             {
-                CreateErrorWindow("Game is still running!", "Finish the game process before opening the options");
+                CreateErrorWindow(LocalizedStrings.Instance["GameIsStillRunning"], LocalizedStrings.Instance["FinishProccess"]);
             }
         }
 
@@ -1941,9 +1954,9 @@ namespace GenLauncherNet.Windows
         private void UpdateWindowedStatus()
         {
             if (DataHandler.IsWindowed())
-                ButtonWindowed.Content = "CHANGE TO FULL SCREEN";
+                ButtonWindowed.Content = LocalizedStrings.Instance["ChangeToFullScreen"];
             else
-                ButtonWindowed.Content = "CHANGE TO WINDOWED";
+                ButtonWindowed.Content = LocalizedStrings.Instance["ChangeToWindowed"];
         }
 
         private void ButtonQuickStart_Click(object sender, RoutedEventArgs e)
@@ -1955,9 +1968,9 @@ namespace GenLauncherNet.Windows
         private void UpdateQuickStartStatus()
         {
             if (DataHandler.IsQuickStart())
-                ButtonQuickStart.Content = "CHANGE TO NORMAL START";
+                ButtonQuickStart.Content = LocalizedStrings.Instance["ChangeToNormalStart"];
             else
-                ButtonQuickStart.Content = "CHANGE TO QUICK START";
+                ButtonQuickStart.Content = LocalizedStrings.Instance["ChangeToQuickStart"];
         }
 
         private void AddMod_Click(object sender, RoutedEventArgs e)
@@ -1989,7 +2002,7 @@ namespace GenLauncherNet.Windows
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             var modGrid = (Grid)(((Button)sender).Parent);
-            var modData = (ModificationContainer)modGrid.DataContext;
+            var modData = (ModificationViewModel)modGrid.DataContext;
 
 
             if (modData.ContainerModification.ModificationType == ModificationType.Advertising &&
@@ -1998,14 +2011,14 @@ namespace GenLauncherNet.Windows
                 var newsUrl = modData.ContainerModification.SimpleDownloadLink;
                 newsUrl = newsUrl.Replace("&", "^&");
                 Process.Start(new ProcessStartInfo("cmd", $"/c start {newsUrl}") { CreateNoWindow = true });
-                modData._GridControls._InfoTextBlock.Text = "Thank you!";
+                modData._GridControls._InfoTextBlock.Text = LocalizedStrings.Instance["ThankYou"];
                 return;
             }
 
             if (modData.Downloader == null)
             {
                 if ((modData.ContainerModification.Deprecated &&
-                     CreateInfoWindowForDeprecatedMod(String.Format("{0} is Deprecated.",
+                     CreateInfoWindowForDeprecatedMod(String.Format(LocalizedStrings.Instance["Deprecated"],
                          modData.ContainerModification.Name))) || !modData.ContainerModification.Deprecated)
                 {
                     if (modData.ContainerModification.ModificationType == ModificationType.Mod)
@@ -2030,7 +2043,7 @@ namespace GenLauncherNet.Windows
 
         private static bool CreateInfoWindowForDeprecatedMod(string modsMessage)
         {
-            var mainMessage = "Compatibility with the mod cannot be guaranteed!";
+            var mainMessage = LocalizedStrings.Instance["Compatibility"];
 
             var infoWindow = new InfoWindow(mainMessage, modsMessage)
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
@@ -2046,7 +2059,7 @@ namespace GenLauncherNet.Windows
 
 
         static void DownloadProgressChanged(long? totalDownloadSize, long totalBytesRead, double? progressPercentage,
-            ModificationContainer modData, string fileName)
+            ModificationViewModel modData, string fileName)
         {
             if (progressPercentage.HasValue)
             {
@@ -2055,22 +2068,22 @@ namespace GenLauncherNet.Windows
                 string message;
 
                 if (String.IsNullOrEmpty(fileName))
-                    message = String.Format("Download in progress {0}MB / {1}MB", (totalBytesRead / 1048576).ToString(),
+                    message = String.Format(LocalizedStrings.Instance["DownloadInProgress"], (totalBytesRead / 1048576).ToString(),
                         (totalDownloadSize.Value / 1048576).ToString());
                 else
-                    message = String.Format("Download {0}: {1}MB / {2}MB", fileName,
+                    message = String.Format(LocalizedStrings.Instance["Download"], fileName,
                         (totalBytesRead / 1048576).ToString(), (totalDownloadSize.Value / 1048576).ToString());
 
                 if (percentage == 100)
                 {
-                    message = "Unpacking/Preparing...";
+                    message = LocalizedStrings.Instance["UnpackingPreparing"];
                 }
 
                 modData.SetUIMessages(message, percentage);
             }
         }
 
-        private void ModificationDownloadDone(ModificationContainer modData, DownloadResult result)
+        private void ModificationDownloadDone(ModificationViewModel modData, DownloadResult result)
         {
             modData.ClearDownloader();
 
@@ -2097,7 +2110,7 @@ namespace GenLauncherNet.Windows
             SuccesModDownload(modData);
         }
 
-        private void SuccesModDownload(ModificationContainer modData)
+        private void SuccesModDownload(ModificationViewModel modData)
         {
             if (DataHandler.GetAutoDeleteOldVersionsOption())
             {
@@ -2112,7 +2125,7 @@ namespace GenLauncherNet.Windows
             modData.SetUnactiveProgressBar();
         }
 
-        private void DeleteOutDatedModifications(ModificationContainer modData)
+        private void DeleteOutDatedModifications(ModificationViewModel modData)
         {
             var versions = modData.ContainerModification.ModificationVersions;
 
@@ -2121,30 +2134,30 @@ namespace GenLauncherNet.Windows
                     DataHandler.DeleteVersion(versionData);
         }
 
-        private void DownloadCanceled(ModificationContainer modData)
+        private void DownloadCanceled(ModificationViewModel modData)
         {
             modData.UpdateUIelements();
-            modData.SetUIMessages("Download canceled");
+            modData.SetUIMessages(LocalizedStrings.Instance["Canceled"]);
             modData.SetUnactiveProgressBar();
         }
 
-        private void DownloadCrashed(ModificationContainer modData, string message)
+        private void DownloadCrashed(ModificationViewModel modData, string message)
         {
             modData.UpdateUIelements();
-            modData.SetUIMessages("Error: " + message);
+            modData.SetUIMessages(LocalizedStrings.Instance["Error"] + message);
             modData.SetUnactiveProgressBar();
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
             var modGrid = (Grid)(((Button)sender).Parent);
-            var modData = (ModificationContainer)modGrid.DataContext;
+            var modData = (ModificationViewModel)modGrid.DataContext;
 
             var newsUrl = modData.ContainerModification.NewsLink;
 
             if (modData.ContainerModification.ModificationType == ModificationType.Advertising)
             {
-                modData._GridControls._InfoTextBlock.Text = "Thank you!";
+                modData._GridControls._InfoTextBlock.Text = LocalizedStrings.Instance["ThankYou"];
             }
 
             if (!string.IsNullOrEmpty(newsUrl))
@@ -2157,13 +2170,13 @@ namespace GenLauncherNet.Windows
         private void NetworkInfo_Click(object sender, RoutedEventArgs e)
         {
             var modGrid = (Grid)(((Button)sender).Parent);
-            var modData = (ModificationContainer)modGrid.DataContext;
+            var modData = (ModificationViewModel)modGrid.DataContext;
 
             var networkUrl = modData.ContainerModification.NetworkInfo;
 
             if (modData.ContainerModification.ModificationType == ModificationType.Advertising)
             {
-                modData._GridControls._InfoTextBlock.Text = "Thank you!";
+                modData._GridControls._InfoTextBlock.Text = LocalizedStrings.Instance["ThankYou"];
             }
 
             if (!string.IsNullOrEmpty(networkUrl))
@@ -2176,11 +2189,11 @@ namespace GenLauncherNet.Windows
         private void Support_Click(object sender, RoutedEventArgs e)
         {
             var modGrid = (Grid)(((Button)sender).Parent);
-            var modData = (ModificationContainer)modGrid.DataContext;
+            var modData = (ModificationViewModel)modGrid.DataContext;
 
             var supportkUrl = modData.ContainerModification.SupportLink;
 
-            modData._GridControls._InfoTextBlock.Text = "Thank you!";
+            modData._GridControls._InfoTextBlock.Text = LocalizedStrings.Instance["ThankYou"];
 
 
             if (!string.IsNullOrEmpty(supportkUrl))
@@ -2302,7 +2315,7 @@ namespace GenLauncherNet.Windows
                 ModsListSource.Remove(savedMod);
             }
 
-            var modData = new ModificationContainer(savedModification);
+            var modData = new ModificationViewModel(savedModification);
             ModsListSource.Add(modData);
             MoveModInList(modData, ModsListSource.Count - 1, 0);
 
@@ -2326,7 +2339,7 @@ namespace GenLauncherNet.Windows
                 AddonsListSource.Remove(savedMod);
             }
 
-            var modData = new ModificationContainer(savedModification);
+            var modData = new ModificationViewModel(savedModification);
             AddonsListSource.Add(modData);
             MoveModificationInList(AddonsListSource, modData, AddonsListSource.Count - 1, 0);
 
@@ -2350,7 +2363,7 @@ namespace GenLauncherNet.Windows
                 PatchesListSource.Remove(savedMod);
             }
 
-            var modData = new ModificationContainer(savedModification);
+            var modData = new ModificationViewModel(savedModification);
             PatchesListSource.Add(modData);
             MoveModificationInList(PatchesListSource, modData, PatchesListSource.Count - 1, 0);
 
@@ -2365,7 +2378,7 @@ namespace GenLauncherNet.Windows
         {
             var dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".big";
-            dlg.Filter = "Image 500x100 (png, jpg)|*png;*jpg;";
+            dlg.Filter = LocalizedStrings.Instance["Image"] + " 500x100 (png, jpg)|*png;*jpg;";
 
             var result = dlg.ShowDialog();
 
@@ -2373,7 +2386,7 @@ namespace GenLauncherNet.Windows
             {
                 DisableUI();
                 var menuItem = (MenuItem)sender;
-                var container = ((ModificationContainer)menuItem.DataContext);
+                var container = ((ModificationViewModel)menuItem.DataContext);
 
                 var filePath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name, container.LatestVersion.Version);
                 var folderPath = System.IO.Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder, container.ContainerModification.Name);
@@ -2409,7 +2422,7 @@ namespace GenLauncherNet.Windows
         private void OpenModFolder(object sender, RoutedEventArgs e)
         {
             var menuItem = (MenuItem)sender;
-            var k = (ModificationContainer)menuItem.DataContext;
+            var k = (ModificationViewModel)menuItem.DataContext;
 
             var selectedVersion = k.ContainerModification.ModificationVersions.Where(m => m.IsSelected).FirstOrDefault();
 
@@ -2421,13 +2434,13 @@ namespace GenLauncherNet.Windows
                 else
                 {
                     if (k.ContainerModification.ModificationType == ModificationType.Mod)
-                       CreateErrorWindow("Uninstalled  mod", "You need to install the mod before opening its folder");
+                       CreateErrorWindow(LocalizedStrings.Instance["UnIsntalledMod"], LocalizedStrings.Instance["NeedToInstallMod"]);
 
                     if (k.ContainerModification.ModificationType == ModificationType.Addon)
-                        CreateErrorWindow("Uninstalled  addon", "You need to install the addon before opening its folder");
+                        CreateErrorWindow(LocalizedStrings.Instance["UnIsntalledAddon"], LocalizedStrings.Instance["NeedToInstallAddon"]);
 
                     if (k.ContainerModification.ModificationType == ModificationType.Patch)
-                        CreateErrorWindow("Uninstalled  patch", "You need to install the patch before opening its folder");
+                        CreateErrorWindow(LocalizedStrings.Instance["UnIsntalledPatch"], LocalizedStrings.Instance["NeedToInstallPatch"]);
 
                 }
             }
@@ -2435,7 +2448,7 @@ namespace GenLauncherNet.Windows
 
         private void CreatePathErrorWindow(string path)
         {
-            var infoWindow = new InfoWindow("Сannot find the folder along the path:", path)
+            var infoWindow = new InfoWindow(LocalizedStrings.Instance["CannotFindPath"], path)
             { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
             infoWindow.Continue.Visibility = Visibility.Hidden;
             infoWindow.Cancel.Visibility = Visibility.Hidden;
@@ -2479,7 +2492,7 @@ namespace GenLauncherNet.Windows
         private void OpenModdbLink(object sender, RoutedEventArgs e)
         {
             var menuItem = (MenuItem)sender;
-            var k = (ModificationContainer)menuItem.DataContext;
+            var k = (ModificationViewModel)menuItem.DataContext;
 
             var moddbUrl = k.ContainerModification.ModDBLink;
 
@@ -2493,7 +2506,7 @@ namespace GenLauncherNet.Windows
         private void OpenDiscordLink(object sender, RoutedEventArgs e)
         {
             var menuItem = (MenuItem)sender;
-            var k = (ModificationContainer)menuItem.DataContext;
+            var k = (ModificationViewModel)menuItem.DataContext;
 
             var discordUrl = k.ContainerModification.DiscordLink;
 
@@ -2508,7 +2521,7 @@ namespace GenLauncherNet.Windows
         {
             _DragAndDropDisable = true;
             var contextMenu = (ContextMenu)sender;
-            var mod = ((ModificationContainer)contextMenu.DataContext).ContainerModification;
+            var mod = ((ModificationViewModel)contextMenu.DataContext).ContainerModification;
 
             contextMenu.Closed += ContextMenu_Closed;
 

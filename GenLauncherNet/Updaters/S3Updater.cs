@@ -14,10 +14,10 @@ namespace GenLauncherNet
 {
     public class S3Updater : IUpdater
     {
-        public event Action<long?, long, double?, ModificationContainer, string> ProgressChanged;
-        public event Action<ModificationContainer, DownloadResult> Done;
+        public event Action<long?, long, double?, ModificationViewModel, string> ProgressChanged;
+        public event Action<ModificationViewModel, DownloadResult> Done;
         public DownloadResult DownloadResult;
-        public ModificationContainer ModBoxData { get; set; }
+        public ModificationViewModel ModBoxData { get; set; }
 
         private static HashSet<string> extensionsToCheckHash = new HashSet<string> { ".w3d", ".big", ".bik", ".gib", ".dds", ".tga", ".ini", ".scb", ".wnd", ".csf", ".str", ".bik" };
 
@@ -61,7 +61,7 @@ namespace GenLauncherNet
             return new DownloadReadiness { ReadyToDownload = true, Error = 0 };
         }
 
-        public void SetModificationInfo(ModificationContainer modification)
+        public void SetModificationInfo(ModificationViewModel modification)
         {
             ModBoxData = modification;            
         }
@@ -445,7 +445,7 @@ namespace GenLauncherNet
                 MoveDirectoryContent(latestInstalledVersion.GetFolderName(), folderName, true, reposFiles, String.Empty);           
         }
 
-        private async Task<List<ModificationFileInfo>> GetFilesInfoFromS3Storage(ModificationContainer modData)
+        private async Task<List<ModificationFileInfo>> GetFilesInfoFromS3Storage(ModificationViewModel modData)
         {
             var s3StorageHandler = new S3StorageHandler();
             var storageFilesInfo = await s3StorageHandler.GetModInfo(modData.LatestVersion);

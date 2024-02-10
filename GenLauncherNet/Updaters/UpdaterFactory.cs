@@ -13,7 +13,7 @@ namespace GenLauncherNet
                 
         }
 
-        public IUpdater CreateUpdater(ModificationContainer modification, bool httpSingleFileDownload = false)
+        public IUpdater CreateUpdater(ModificationViewModel modification, bool httpSingleFileDownload = false)
         {
             IUpdater updater = null;
             if (string.IsNullOrEmpty(modification.LatestVersion.S3HostLink) ||

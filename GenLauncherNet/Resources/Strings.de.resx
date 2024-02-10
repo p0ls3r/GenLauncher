@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="2DShadows" xml:space="preserve">
+    <value>2D Schatten</value>
+  </data>
+  <data name="3DShadows" xml:space="preserve">
+    <value>3D Schatten</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Hinzufügen!</value>
+  </data>
+  <data name="AddAddonFromFiles" xml:space="preserve">
+    <value>Addon hinzufügen für {0} von Dateien</value>
+  </data>
+  <data name="AdditionalParams" xml:space="preserve">
+    <value>Zusätzliche Paramenter zum Starten:</value>
+  </data>
+  <data name="AddMod" xml:space="preserve">
+    <value>MOD HINZUFÜGEN!</value>
+  </data>
+  <data name="AddModFrFiles" xml:space="preserve">
+    <value>Mod hinzufügen von Dateien</value>
+  </data>
+  <data name="Addons" xml:space="preserve">
+    <value>Addons für </value>
+  </data>
+  <data name="AddPatchFromFiles" xml:space="preserve">
+    <value>Patch hinzufügen für {0} von Dateien</value>
+  </data>
+  <data name="AlternateMouseSetup" xml:space="preserve">
+    <value>Alternative Maus Einstellung</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="ApplyDefaultSettings" xml:space="preserve">
+    <value>Wollen Sie die empfohlene Einstellungen übernehmen?Would you like to apply the default recommended settings?</value>
+  </data>
+  <data name="AskToCheck" xml:space="preserve">
+    <value>Fragen bevor die Integrität von Mod Dateien geprüft wird</value>
+  </data>
+  <data name="Authors" xml:space="preserve">
+    <value>Autoren und Mitwirkende</value>
+  </data>
+  <data name="AutoDelete" xml:space="preserve">
+    <value>Veraltete Versionen von Modifikationen automatisch löschen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Download abgrebrochen</value>
+  </data>
+  <data name="CannotConnect" xml:space="preserve">
+    <value>Es kann keine Verbindung zu https://github.com/ hergestellt werden, die Installation von Mods aus dem Internet ist nicht verfügbar!</value>
+  </data>
+  <data name="CannotFindPath" xml:space="preserve">
+    <value>Konnte Ordner unter folgendem Pfad nicht finden: </value>
+  </data>
+  <data name="CantCheckGentool" xml:space="preserve">
+    <value>Konnte gentool nicht prüfen</value>
+  </data>
+  <data name="CantDownloadWB" xml:space="preserve">
+    <value>WorldbuilderNT27 konnte nicht herunterladen werden</value>
+  </data>
+  <data name="CantSync" xml:space="preserve">
+    <value>Konnte nicht mit ihrer Systemzeit synchronisieren!</value>
+  </data>
+  <data name="Changelog" xml:space="preserve">
+    <value>ChangeLog / News</value>
+  </data>
+  <data name="ChangelogOnly" xml:space="preserve">
+    <value>Changelog</value>
+  </data>
+  <data name="ChangeToFullScreen" xml:space="preserve">
+    <value>WECHSELN IN VOLLBILD</value>
+  </data>
+  <data name="ChangeToNormalStart" xml:space="preserve">
+    <value>WECHSELN ZUM NORMALEN START</value>
+  </data>
+  <data name="ChangeToQuickStart" xml:space="preserve">
+    <value>WECHSELN ZUM SCHNELL START</value>
+  </data>
+  <data name="ChangeToWindowed" xml:space="preserve">
+    <value>WECHSELN IN FENSTERMODUS</value>
+  </data>
+  <data name="CheckFiles" xml:space="preserve">
+    <value>Ja, Dateien prüfen</value>
+  </data>
+  <data name="CheckIntegrety" xml:space="preserve">
+    <value>Vor dem Start Mod-Dateien auf Integrität prüfen?</value>
+  </data>
+  <data name="CheckIntegretyOption" xml:space="preserve">
+    <value>Überprüft die Integrität der Mod-Dateien. Funktioniert nur für die neueste Version der Mods.</value>
+  </data>
+  <data name="CloudShadows" xml:space="preserve">
+    <value>Wolken Schatten</value>
+  </data>
+  <data name="Compatibility" xml:space="preserve">
+    <value>Kompatibilität mit der Mod kann nicht garantiert werden!</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Trotzdem fortfahren</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Version: </value>
+  </data>
+  <data name="CustomCamera" xml:space="preserve">
+    <value>Benutzerdefinierte Kamera Höhe</value>
+  </data>
+  <data name="DefaultCamera" xml:space="preserve">
+    <value>Nutze Standard Kamera Höhe (Empfohlen)</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Deprecated" xml:space="preserve">
+    <value>{0} ist veraltet</value>
+  </data>
+  <data name="DisableGentool" xml:space="preserve">
+    <value>Deaktiviere Gentool</value>
+  </data>
+  <data name="DisableLOD" xml:space="preserve">
+    <value>Dynamic Level Of Detail deaktivieren</value>
+  </data>
+  <data name="Discord" xml:space="preserve">
+    <value>Discord Server beitreten</value>
+  </data>
+  <data name="DisplayUnits" xml:space="preserve">
+    <value>Einheiten durch Gebäude anzeigen</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>Spenden</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download {0}: {1}MB / {2}MB</value>
+  </data>
+  <data name="DownloadInProgress" xml:space="preserve">
+    <value>Download läuft {0}MB / {1}MB</value>
+  </data>
+  <data name="DownloadNet" xml:space="preserve">
+    <value>Wollen Sie eine kompatible Version herunterladen?</value>
+  </data>
+  <data name="EnterModName" xml:space="preserve">
+    <value>Geben Sie den Namen der Modifikation ein</value>
+  </data>
+  <data name="EnterModVersion" xml:space="preserve">
+    <value>Geben Sie die Version der Modifikation ein</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler: </value>
+  </data>
+  <data name="ErrorMsg" xml:space="preserve">
+    <value>GenLauncher-Version: {2} \r\n GenLauncher-Support auf Discord: {3} \r\n Fehler: {0} \r\n StackTrace: {1}"</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>SCHLIESSEN</value>
+  </data>
+  <data name="ExtraAnimation" xml:space="preserve">
+    <value>Extra Animationen</value>
+  </data>
+  <data name="ExtraGroundLighting" xml:space="preserve">
+    <value>Zusätzliche Bodenbeleuchtung</value>
+  </data>
+  <data name="FilesCorrupted" xml:space="preserve">
+    <value>Einige Mod-Dateien fehlen oder sind beschädigt!</value>
+  </data>
+  <data name="FinishInstall" xml:space="preserve">
+    <value>Bitte schließen Sie alle Installationen ab</value>
+  </data>
+  <data name="FinishProccess" xml:space="preserve">
+    <value>Beenden Sie den Spielprozess, bevor Sie die Optionen öffnen.</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>Es sieht aus, als würden Sie das Spiel zum ersten Mal starten</value>
+  </data>
+  <data name="GameIsStillRunning" xml:space="preserve">
+    <value>Spiel läuft noch!</value>
+  </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>Generals-Spiel läuft bereits!</value>
+  </data>
+  <data name="GentoolRecommended" xml:space="preserve">
+    <value>(Gentool empfohlen)</value>
+  </data>
+  <data name="HeatEffects" xml:space="preserve">
+    <value>Hitze Effekte (empfohlen auf aus)</value>
+  </data>
+  <data name="HideLauncher" xml:space="preserve">
+    <value>Verberge GenLauncher, während das Spiel läuft.</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Bild</value>
+  </data>
+  <data name="InMemoryOfAziz" xml:space="preserve">
+    <value>Im Gedenken an meinen Freund und Kameraden Aziz.</value>
+  </data>
+  <data name="InputModData" xml:space="preserve">
+    <value>Eingabe der Modifikationsdaten</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>INSTALLIEREN!</value>
+  </data>
+  <data name="InstallGentool" xml:space="preserve">
+    <value>Installiere und aktualisiere automatisch Gentool (empfohlen)</value>
+  </data>
+  <data name="InstallInProgress" xml:space="preserve">
+    <value>Konnte nicht starten {0} - Installation in Bearbeitung!</value>
+  </data>
+  <data name="JoinDiscord" xml:space="preserve">
+    <value>Tritt GenLauncher Discord bei!</value>
+  </data>
+  <data name="LatestVersion" xml:space="preserve">
+    <value>Neuste Version: </value>
+  </data>
+  <data name="Launch" xml:space="preserve">
+    <value>SPIEL STARTEN</value>
+  </data>
+  <data name="LaunchAborted" xml:space="preserve">
+    <value>Start abgebrochen</value>
+  </data>
+  <data name="LowAndHigh" xml:space="preserve">
+    <value>Niedriger - bessere Leistung, Höher - bessere Grafik Qualität</value>
+  </data>
+  <data name="MaximumPart" xml:space="preserve">
+    <value>Maximale Partikelanzahl:</value>
+  </data>
+  <data name="Moddb" xml:space="preserve">
+    <value>ModdB Seite besuchen</value>
+  </data>
+  <data name="ModdedExe" xml:space="preserve">
+    <value>Modifizierte exe Dateien benutzen (empfohlen)</value>
+  </data>
+  <data name="ModificationName" xml:space="preserve">
+    <value>Name der Modifikation: </value>
+  </data>
+  <data name="ModificationsWithUpdate" xml:space="preserve">
+    <value>Es gibt Modifikation die aktualisiert werden können:</value>
+  </data>
+  <data name="ModIsUpToDate" xml:space="preserve">
+    <value>Ausgewählte Mod ist aktuell</value>
+  </data>
+  <data name="Mods" xml:space="preserve">
+    <value>Mods</value>
+  </data>
+  <data name="MoveLauncher" xml:space="preserve">
+    <value>Bitte verschieben Sie den Launcher in den Ordner von Generals ZH oder Generals</value>
+  </data>
+  <data name="NameAndVersionValidSymbols" xml:space="preserve">
+    <value>Modifikationsname und Version sollten gültige Zeichen enthalten</value>
+  </data>
+  <data name="NeedToInstallAddon" xml:space="preserve">
+    <value>Sie müssen das Add-On installieren, bevor Sie den Ordner öffnen können</value>
+  </data>
+  <data name="NeedToInstallMod" xml:space="preserve">
+    <value>Sie müssen die Mod installieren, bevor Sie den Ordner öffnen können</value>
+  </data>
+  <data name="NeedToInstallPatch" xml:space="preserve">
+    <value>Sie müssen den Patch installieren, bevor Sie den Ordner öffnen können.</value>
+  </data>
+  <data name="NetRequired" xml:space="preserve">
+    <value>.NET Framework {0} oder neuer wird für GenLauncher benötigt.</value>
+  </data>
+  <data name="NetRequired2" xml:space="preserve">
+    <value>.NET Framework {0} oder neuer wird benötigt</value>
+  </data>
+  <data name="NewUpdateForGenLauncher" xml:space="preserve">
+    <value>Neue Update {0} für GenLauncher ist zum download verfügbar!</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="NoConnection" xml:space="preserve">
+    <value>Keine Verbindung zu GitHub</value>
+  </data>
+  <data name="NotInstalled" xml:space="preserve">
+    <value>{0} wurde ausgewählt aber nicht installiert - start abgebrochen!</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenGameFolder" xml:space="preserve">
+    <value>Spiele-Ordner öffnen</value>
+  </data>
+  <data name="OpenMapsFolder" xml:space="preserve">
+    <value>Karten-Ordner öffnen</value>
+  </data>
+  <data name="OpenModFolder" xml:space="preserve">
+    <value>Mod-Order öffnen</value>
+  </data>
+  <data name="OpenReplaysFolder" xml:space="preserve">
+    <value>Aufzeichnungs-Order öffnen</value>
+  </data>
+  <data name="OperationAborted" xml:space="preserve">
+    <value>Vorgang abgebrochen</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>OPTIONEN</value>
+  </data>
+  <data name="OriginalExe" xml:space="preserve">
+    <value>Original-Exe-Dateien verwenden</value>
+  </data>
+  <data name="OutOfSync" xml:space="preserve">
+    <value>Systemuhr nicht synchronisiert!</value>
+  </data>
+  <data name="OutOfSyncCantUpdate" xml:space="preserve">
+    <value>Systemuhr nicht synchronisiert - Mod konnte nicht aktualisiert werden</value>
+  </data>
+  <data name="Patches" xml:space="preserve">
+    <value>Patches für </value>
+  </data>
+  <data name="PlayOnline" xml:space="preserve">
+    <value>Wie spiele ich online?</value>
+  </data>
+  <data name="Preparing" xml:space="preserve">
+    <value>Vorbereiten, bitte warten...</value>
+  </data>
+  <data name="Reinstall" xml:space="preserve">
+    <value> Es ist empfohlen diese Mod zu deinstalliern. \r Sie können diese Abfrage in Optionen ausschalten</value>
+  </data>
+  <data name="Resolution" xml:space="preserve">
+    <value>Spiel Auflösung:</value>
+  </data>
+  <data name="SelectMod" xml:space="preserve">
+    <value>Mod auswählen zum hinzufügen</value>
+  </data>
+  <data name="SetDefaultOptions" xml:space="preserve">
+    <value>Standardoptionen festlegen</value>
+  </data>
+  <data name="SetImage" xml:space="preserve">
+    <value>Bild festlegen (500x100)</value>
+  </data>
+  <data name="SetRecommended" xml:space="preserve">
+    <value>Standardeinstellungen festlegen</value>
+  </data>
+  <data name="ShowProps" xml:space="preserve">
+    <value>Requisiten anzeigen</value>
+  </data>
+  <data name="SmoothWaterBorders" xml:space="preserve">
+    <value>Glatte Wasser Grenzen</value>
+  </data>
+  <data name="Sponsors" xml:space="preserve">
+    <value>Sponsoren</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>STOP</value>
+  </data>
+  <data name="SuportDevelopment" xml:space="preserve">
+    <value>Unterstütze die Entwicklung von GenLauncher!</value>
+  </data>
+  <data name="SupportNews" xml:space="preserve">
+    <value>Support, Neuigkeiten und... mehr nicht ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="SymbLink" xml:space="preserve">
+    <value>Fehler beim Erstellen eines Test-Symbolic-Links. Ohne die Möglichkeit, symbolische Links zu erstellen, funktioniert GenLauncher nicht.\r\rDer Fehler ist meistens mit dem Dateisystem verbunden, auf dem GenLauncher installiert ist. Symbolische Links werden auf dem NTFS-Dateisystem unterstützt. Bitte stellen Sie sicher, dass GenLauncher auf einem Laufwerk mit diesem bestimmten Dateisystem installiert ist.\r\rStellen Sie außerdem sicher, dass die Erstellung von symbolischen Links nicht durch fehlende Berechtigungen oder vom Antivirenprogramm beeinträchtigt wird.</value>
+  </data>
+  <data name="SyncManually" xml:space="preserve">
+    <value>Bitte führen Sie dies manuell in den Datums- und Uhrzeitoptionen durch</value>
+  </data>
+  <data name="SyncNow" xml:space="preserve">
+    <value>Jetzt synchronisieren!</value>
+  </data>
+  <data name="SyncTime" xml:space="preserve">
+    <value>Um ein Update durchzuführen, muss die Systemzeit synchronisiert sein.</value>
+  </data>
+  <data name="TakeLongTime" xml:space="preserve">
+    <value>ACHTUNG! Diese Operation kann lange dauern. Sie können sie in den Optionen ausschalten</value>
+  </data>
+  <data name="Texture" xml:space="preserve">
+    <value>Texturqualität Level:</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Danke Dir!</value>
+  </data>
+  <data name="ToggleOff" xml:space="preserve">
+    <value>Zum Verbessern von Leistung und Stabilität ausschalten</value>
+  </data>
+  <data name="UninstalledUpdate" xml:space="preserve">
+    <value>Es gibt ein nicht installiertes Update für {0} </value>
+  </data>
+  <data name="UnIsntalledAddon" xml:space="preserve">
+    <value>Deinstallierte Addon</value>
+  </data>
+  <data name="UnIsntalledMod" xml:space="preserve">
+    <value>Deinstallierte Mod</value>
+  </data>
+  <data name="UnIsntalledPatch" xml:space="preserve">
+    <value>Deinstalliertes Patch</value>
+  </data>
+  <data name="Unpacking" xml:space="preserve">
+    <value>Entpacken...</value>
+  </data>
+  <data name="UnpackingPreparing" xml:space="preserve">
+    <value>Entpacken/Vorbereiten...</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update!</value>
+  </data>
+  <data name="VersionMustContainNumbers" xml:space="preserve">
+    <value>Die Version muss Zahlen enthalten</value>
+  </data>
+  <data name="Vulkan" xml:space="preserve">
+    <value>Verwenden Sie die Vulkan-API für verbesserte Leistung</value>
+  </data>
+  <data name="VulkanWarning" xml:space="preserve">
+    <value>ACHTUNG! Diese Funktion ist experimentell. Es können Fehler auftreten. Bei allen festgestellten Mängeln wenden Sie sich bitte über Discord an den technischen Support-Kanal oder an den Autor der Integration./r1d#7366</value>
+  </data>
+  <data name="WarningOption" xml:space="preserve">
+    <value>ACHTUNG! Diese Überprüfung kann einige Zeit in Anspruch nehmen, bevor das Spiel startet!</value>
+  </data>
+  <data name="WorldBuilder" xml:space="preserve">
+    <value>WORLD BUILDER</value>
+  </data>
+  <data name="WorldBuilderRunning" xml:space="preserve">
+    <value>World Builder läuft bereits!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+</root>

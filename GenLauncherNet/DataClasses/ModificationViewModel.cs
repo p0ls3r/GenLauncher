@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace GenLauncherNet
 {
-    public class ModificationContainer : UserControl
+    public class ModificationViewModel : UserControl
     {
         public GameModification ContainerModification { get; private set; }
 
@@ -35,7 +35,7 @@ namespace GenLauncherNet
 
         private int imageIndex = -1;
 
-        public ModificationContainer(GameModification modification)
+        public ModificationViewModel(GameModification modification)
         {
             ContainerModification = modification;
 
@@ -66,7 +66,7 @@ namespace GenLauncherNet
                     LatestVersionInfo = LatestVersion.Version;
                 }
                 else
-                    LatestVersionInfo = "Latest version: " + LatestVersion.Version;
+                    LatestVersionInfo = LocalizedStrings.Instance["LatestVersion"] + LatestVersion.Version;
             }
         }
 
@@ -359,10 +359,13 @@ namespace GenLauncherNet
                 this._GridControls._InfoTextBlock.Text = String.Empty;
 
                 if (ContainerModification.ModificationType != ModificationType.Advertising)
-                    this._GridControls._UpdateButton.Content = "UPDATE!";
+                    this._GridControls._UpdateButton.Content = LocalizedStrings.Instance["Update"];
                 else
                 {
                     this._GridControls._UpdateButton.Content = "Donation Alerts";
+                    if (String.IsNullOrEmpty(ContainerModification.SimpleDownloadLink))
+                            this._GridControls._UpdateButton.Visibility = Visibility.Hidden;
+
                     this._GridControls._ChangeLogButton.Content = "Boosty.to";
                     this._GridControls._NetworkInfo.Content = "My Youtube (Ru)";
                     this._GridControls._InfoTextBlock.Foreground = EntryPoint.Colors.GenLauncherDefaultTextColor;
@@ -498,7 +501,7 @@ namespace GenLauncherNet
 
         public void PrepareControlsToDownloadMode()
         {
-            this._GridControls._UpdateButton.Content = "STOP";
+            this._GridControls._UpdateButton.Content = LocalizedStrings.Instance["Stop"];
             this._GridControls._ComboBox.IsEnabled = false;
             this.ReadyToRun = false;
 
@@ -519,7 +522,7 @@ namespace GenLauncherNet
         public void SetUIToInstallMode()
         {
             this._GridControls._ComboBox.IsEnabled = false;
-            this._GridControls._UpdateButton.Content = "INSTALL!";
+            this._GridControls._UpdateButton.Content = LocalizedStrings.Instance["Install"];
             this.ReadyToRun = false;
 
             if (ContainerModification.ModificationType == ModificationType.Mod)

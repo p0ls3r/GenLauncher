@@ -8,13 +8,13 @@ namespace GenLauncherNet
 {
     public interface IUpdater
     {
-        event Action<long?, long, double?, ModificationContainer, string> ProgressChanged;
-        event Action<ModificationContainer, DownloadResult> Done;
-        ModificationContainer ModBoxData { get; }
+        event Action<long?, long, double?, ModificationViewModel, string> ProgressChanged;
+        event Action<ModificationViewModel, DownloadResult> Done;
+        ModificationViewModel ModBoxData { get; }
         DownloadReadiness GetDownloadReadiness();
         Task StartDownloadModification();
         void CancelDownload();
-        void SetModificationInfo(ModificationContainer modification);
+        void SetModificationInfo(ModificationViewModel modification);
         DownloadResult GetResult();
         void Dispose();
     }

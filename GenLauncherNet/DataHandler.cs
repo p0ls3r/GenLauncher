@@ -60,8 +60,7 @@ namespace GenLauncherNet
                     AddDownloadedModificationData(reposMod);
                 }
 
-                await ReadOriginalGameAddonsAndPatches();
-
+                //await ReadOriginalGameAddonsAndPatches();
 
                 if (GetSelectedMod() != null)
                 {
@@ -304,6 +303,11 @@ namespace GenLauncherNet
             //}
 
             //return null;
+        }
+
+        internal static List<string> GetAllModificationsNames()
+        {
+            return Data.Modifications.Select(m => m.Name).ToList();
         }
 
         internal static List<GameModification> GetPatchesForSelectedMod()

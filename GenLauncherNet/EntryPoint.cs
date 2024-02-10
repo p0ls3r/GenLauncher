@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -9,6 +10,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WPFLocalizeExtension.Engine;
 
 namespace GenLauncherNet
 {
@@ -20,8 +22,8 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GLM";
         public const string GenLauncherModsFolderOld = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "1.0.0.4";
-        public const int LaunchesCountForUpdateAdverising = 25;
+        public const string Version = "1.0.0.6";
+        public const int LaunchesCountForUpdateAdverising = 50;
 
         public const string ZHRepos =
             @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH3.yaml";
@@ -78,15 +80,24 @@ namespace GenLauncherNet
         {
             try
             {
-                var app = new App();
+                if (File.Exists(LauncherFolder + "eng"))
+                {
+                    LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("en-us");
+                } else
+                {
+                    LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo(System.Globalization.CultureInfo.InstalledUICulture.Name);
+                }
+
+               
+                Unpacker.ExtractLangDlls();                
 
                 if (!GeneralUtilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
                 {
                     var result =
                         MessageBox.Show(
-                            $".NET Framework {RequiredNetFrameworkVersion} or later is required for GenLauncher. " +
-                            $"Would you like to download a compatible version?",
-                            $".NET Framework {RequiredNetFrameworkVersion} or later required",
+                            String.Format(LocalizedStrings.Instance["NetRequired"], RequiredNetFrameworkVersion) +
+                            LocalizedStrings.Instance["DownloadNet"],
+                            String.Format(LocalizedStrings.Instance["NetRequired2"], RequiredNetFrameworkVersion),
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning
                         );
@@ -102,7 +113,7 @@ namespace GenLauncherNet
 
                 if (!IsLauncherInGameFolder())
                 {
-                    MessageBox.Show("Please move launcher to the Generals ZH or Generals game folder");
+                    MessageBox.Show(LocalizedStrings.Instance["MoveLauncher"]);
                     return;
                 }
 
@@ -111,7 +122,7 @@ namespace GenLauncherNet
                 if (!CanCreateSymbLink())
                 {
                     MessageBox.Show(
-                        "Failed to create a test symbolic link. Without the ability to create symbolic links, GenLauncher will not work. \r\rMost often, the inability to create a symbolic link is related to the type of file system where GenLauncher is installed, symbolic links are supported on the NTFS file system, please make sure that GenLauncher is installed on drive with this particular file system. \r\rAlso make sure that the creation of symbolic links does not interfere with the lack of any rights and the work of the anti-virus.");
+                        LocalizedStrings.Instance["SymbLink"]);
                     return;
                 }
 
@@ -119,7 +130,9 @@ namespace GenLauncherNet
                 {
                     MoveExistingWindowOnTop();
                     return;
-                }
+                }                
+
+                var app = new App();
 
                 var initWindow = new InitWindow()
                     { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
@@ -131,7 +144,7 @@ namespace GenLauncherNet
             catch (Exception e)
             {
                 MessageBox.Show(String.Format(
-                    "GenLauncher version: {2} \r\n GenLauncher tech support in discord: {3} \r\n Error: {0} \r\n StackTrace: {1} ",
+                    LocalizedStrings.Instance["ErrorMsg"],
                     e.Message, e.StackTrace, Version, @"https://discord.gg/fFGpudz5hV"));
             }
         }   

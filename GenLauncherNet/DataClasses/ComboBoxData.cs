@@ -11,9 +11,9 @@ namespace GenLauncherNet
         public string VersionName { get; set; }
         public ModificationVersion SelectedVersion { get; set; }
 
-        public ModificationContainer ModBoxData { get; set; }
+        public ModificationViewModel ModBoxData { get; set; }
 
-        public ComboBoxData(ModificationVersion SelectedModification, string version, ModificationContainer modBoxData)
+        public ComboBoxData(ModificationVersion SelectedModification, string version, ModificationViewModel modBoxData)
         {
             SelectedVersion = SelectedModification;
             VersionName = version;

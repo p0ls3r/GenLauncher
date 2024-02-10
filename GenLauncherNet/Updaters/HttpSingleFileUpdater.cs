@@ -16,9 +16,9 @@ namespace GenLauncherNet
 {
     public class HttpSingleFileUpdater: IUpdater
     {
-        public event Action<long?, long, double?, ModificationContainer, string> ProgressChanged;
-        public event Action<ModificationContainer, DownloadResult> Done;
-        public ModificationContainer ModBoxData { get; private set; }
+        public event Action<long?, long, double?, ModificationViewModel, string> ProgressChanged;
+        public event Action<ModificationViewModel, DownloadResult> Done;
+        public ModificationViewModel ModBoxData { get; private set; }
 
         string _downloadUrl;
         string _destinationFilePath;
@@ -57,7 +57,7 @@ namespace GenLauncherNet
             return new DownloadReadiness { ReadyToDownload = true, Error = 0 };
         }
 
-        public void SetModificationInfo(ModificationContainer modification)
+        public void SetModificationInfo(ModificationViewModel modification)
         {
             ModBoxData = modification;                  
         } 

@@ -54,13 +54,13 @@ namespace GenLauncherNet
         {
             if (String.IsNullOrEmpty(ModificationName.Text))
             {
-                CreateErrorWindow("Operation aborted", "Enter modification name");
+                CreateErrorWindow(LocalizedStrings.Instance["OperationAborted"], LocalizedStrings.Instance["EnterModName"]);
                 return;
             }
 
             if (String.IsNullOrEmpty(Version.Text))
             {
-                CreateErrorWindow("Operation aborted", "Enter modification version");
+                CreateErrorWindow(LocalizedStrings.Instance["OperationAborted"], LocalizedStrings.Instance["EnterModVersion"]);
                 return;
             }
             else
@@ -69,7 +69,7 @@ namespace GenLauncherNet
 
                 if (digits.Length == 0)
                 {
-                    CreateErrorWindow("Operation aborted", "Version must contain numbers");
+                    CreateErrorWindow(LocalizedStrings.Instance["OperationAborted"], LocalizedStrings.Instance["VersionMustContainNumbers"]);
                     return;
                 }
             }
@@ -79,7 +79,7 @@ namespace GenLauncherNet
 
             if (validCharactersModificationName.Length == 0 || validCharactersVersion.Length == 0)
             {
-                CreateErrorWindow("Operation aborted", "Modification Name and Version should contain valid characters");
+                CreateErrorWindow(LocalizedStrings.Instance["OperationAborted"], LocalizedStrings.Instance["NameAndVersionValidSymbols"]);
                 return;
             }
 

@@ -4,6 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GenLauncherNet"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="uk"
+        lex:ResxLocalizationProvider.DefaultAssembly="GenLauncher"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="GenLauncherNet.Windows.MainWindow"
         mc:Ignorable="d"
         Background="{DynamicResource GenLauncherBackGroundImage}"
@@ -625,7 +629,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContextMenu}">
                         <Border BorderThickness="1" BorderBrush="{DynamicResource GenLauncherBorderColor}" x:Name="Border" Background="{DynamicResource GenLauncherDarkBackGround}">
-                            <StackPanel ClipToBounds="True" Orientation="Vertical" IsItemsHost="True" />
+                            <StackPanel ClipToBounds="True" Orientation="Vertical" IsItemsHost="True"  />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -643,7 +647,7 @@
                 <Rectangle x:Name="InnerBorder" Margin="1" RadiusY="2" RadiusX="2"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="300"/>
                     </Grid.ColumnDefinitions>
 
                     <ContentPresenter Grid.Column="0" ContentSource="Header" Margin="10,0,0,0" Height="24" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
@@ -661,12 +665,12 @@
         <DataTemplate x:Key="VersionTemplate" >
             <Grid x:Name="GridItem">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="140" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="Name" Grid.Column="0" Text="{Binding VersionName}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" />
-                <Button Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" x:Name="Delete"  Content="Delete" Grid.Column="1" HorizontalAlignment="Center" Click="DeleteVersion_Click" Width="45"/>
+                <TextBlock Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="Name" Grid.Column="0" Text="{Binding VersionName}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="135" Margin="5,0,0,0" />
+                <Button Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" x:Name="Delete"  Content="{lex:Loc Delete}" Grid.Column="1" FontSize="11" Grid.ColumnSpan="2" HorizontalAlignment="Center" Click="DeleteVersion_Click" Width="60"/>
             </Grid>
         </DataTemplate>
 
@@ -674,15 +678,15 @@
             <Grid x:Name="GridItem" Loaded="GridItem_Loaded" Width="550">
 
                 <Grid.ContextMenu>
-                    <ContextMenu Opened="ContextMenu_Opened" >
-                        <MenuItem Header="Open mod folder" Click="OpenModFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-                        <MenuItem Header="Open game folder" Click="OpenGameFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-                        <MenuItem Header="Open maps folder" Click="OpenMapsFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-                        <MenuItem Header="Open replays folder" Click="OpenReplaysFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-                        <MenuItem Header="Set image (500x100)" Click="ChangeVersionImage" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                    <ContextMenu Opened="ContextMenu_Opened">
+                        <MenuItem Header="{lex:Loc OpenModFolder}" Click="OpenModFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc OpenGameFolder}" Click="OpenGameFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc OpenMapsFolder}" Click="OpenMapsFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc OpenReplaysFolder}" Click="OpenReplaysFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc SetImage}" Click="ChangeVersionImage" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                         <Separator Margin="-30,5,25,5"></Separator>
-                        <MenuItem Header="Visit ModdB page" Click="OpenModdbLink" FontSize="18" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-                        <MenuItem Header="Join Discord Server" Click="OpenDiscordLink" FontSize="18" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc Moddb}" Click="OpenModdbLink" FontSize="18" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc Discord}" Click="OpenDiscordLink" FontSize="18" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                     </ContextMenu >
                 </Grid.ContextMenu>
 
@@ -742,10 +746,10 @@
 
                 <ProgressBar Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="{DynamicResource GenLauncherInactiveBorder}"/>
                 <local:InfoTextBlock MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" FontWeight="Bold" Grid.Row="4" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="25,0,40,0"/>
-                <local:UpdateButton  MouseEnter="UpdateButton_MouseEnter" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource UpdateButtonStyle}" Opacity="1" x:Name="Update" Content="UPDATE!" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15"/>
-                <local:UpdateButton  MouseEnter="UpdateButton_MouseEnter" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource UpdateButtonStyle}" Opacity="1" x:Name="Support" Content="Donate" Click="Support_Click" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="190,-5,10,0" Width="100" Height="30" FontSize="15"/>
-                <local:NetworkInfoButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Content="How to play online?" Click="NetworkInfo_Click" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" Margin="230,-5, 0,0" Width="150" Height="30" FontSize="15"/>
-                <local:ChangeLogButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="ChangeLog" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="10,-5,10,0" Width="90" Height="30" FontSize="15"/>
+                <local:UpdateButton  MouseEnter="UpdateButton_MouseEnter" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource UpdateButtonStyle}" Opacity="1" x:Name="Update" Content="{lex:Loc Update}" Grid.Row="6" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="15"/>
+                <local:UpdateButton  MouseEnter="UpdateButton_MouseEnter" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource UpdateButtonStyle}" Opacity="1" x:Name="Support" Content="{lex:Loc Donate}" Click="Support_Click" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="190,-5,10,0" Width="100" Height="30" FontSize="14"/>
+                <local:NetworkInfoButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Content="{lex:Loc PlayOnline}" Click="NetworkInfo_Click" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" HorizontalAlignment="Center" Margin="230,-5, 0,0" Width="150" Height="30" FontSize="14"/>
+                <local:ChangeLogButton MouseEnter="BlockDragAndDrop" MouseLeave="EnableDragAndDrop" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="{lex:Loc ChangelogOnly}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Click="Change_Click" HorizontalAlignment="Right" Margin="10,-5,10,0" Width="90" Height="30" FontSize="14"/>
 
             </Grid>
         </DataTemplate>
@@ -755,8 +759,8 @@
 
                 <Grid.ContextMenu>
                     <ContextMenu Opened="ContextMenu_Opened" >
-                        <MenuItem Header="Open addon folder" Click="OpenModFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-                        <MenuItem Header="Open game folder" Click="OpenGameFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc OpenModFolder}" Click="OpenModFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
+                        <MenuItem Header="{lex:Loc OpenGameFolder}" Click="OpenGameFolder" FontSize="16" HorizontalAlignment="Left" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
                     </ContextMenu>
                 </Grid.ContextMenu>
 
@@ -785,9 +789,9 @@
 
                 <ProgressBar Grid.Row="2" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Center" Margin="10,0,10,0" BorderBrush="{DynamicResource GenLauncherInactiveBorder}"/>
                 <local:InfoTextBlock FontWeight="Bold" Grid.Row="2" Foreground="Black" Opacity="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="40,0,40,0"/>
-                <local:UpdateButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Update" Content="Update!" Grid.Row="3" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="18"/>
-                <local:ChangeLogButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="ChangeLog / News" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="15"/>
-                <local:NetworkInfoButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Click="NetworkInfo_Click" Content="How to play online?" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="15"/>
+                <local:UpdateButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Update" Content="{lex:Loc Update}" Grid.Row="3" Grid.Column="0" Click="Update_Click" HorizontalAlignment="Left" Margin="10,-5,10,0" Width="140" Height="30" FontSize="18"/>
+                <local:ChangeLogButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="Change" Content="{lex:Loc ChangelogOnly}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Click="Change_Click" HorizontalAlignment="Right" Margin="5,-5,5,0" Width="140" Height="30" FontSize="14"/>
+                <local:NetworkInfoButton Foreground="{DynamicResource GenLauncherDefaultTextColor}" Style="{StaticResource DefaultButtonStyle}" Opacity="1" x:Name="NetworkInfo" Click="NetworkInfo_Click" Content="{lex:Loc PlayOnline}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Margin="0,-5,-40,0" Width="150" Height="30" FontSize="14"/>
 
             </Grid>
         </DataTemplate>
@@ -822,18 +826,18 @@
         <ListBox Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Grid.RowSpan="2" Margin="12,0,10,40" BorderThickness="0" Background="#00FFFFFF" VirtualizingPanel.ScrollUnit="Pixel" x:Name="AddonsList" ItemTemplate="{StaticResource AddonsTemplate}"  SelectionChanged="AddonsList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Multiple" >
         </ListBox>
 
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonStartGame" FontSize="17" Focusable="False" Content="LAUNCH GAME" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Launch_Click" Grid.Column="6" Grid.Row="2" Grid.RowSpan="2"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonWorldBuilder" FontSize="17" Focusable="False" Content="WORLD BUILDER" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWorldBuilder_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonWindowed" FontSize="17" Focusable="False" Content="CHANGE TO FULL SCREEN" HorizontalAlignment="Left" Margin="25,64,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWindowed_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonQuickStart" FontSize="17" Focusable="False" Content="CHANGE TO NORMAL START" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonQuickStart_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonOptions" FontSize="17" Focusable="False"  Content="OPTIONS"  HorizontalAlignment="Left" Margin="25,154,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonOptions_Click" Grid.Column="6" Grid.Row="3"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonExit" FontSize="17" Focusable="False"  Content="EXIT" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Button_Click" Grid.Column="6" Grid.Row="3">
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonStartGame" FontSize="17" Focusable="False" Content="{lex:Loc Launch}" HorizontalAlignment="Left" Margin="25,14,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Launch_Click" Grid.Column="6" Grid.Row="2" Grid.RowSpan="2"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonWorldBuilder" FontSize="17" Focusable="False" Content="{lex:Loc WorldBuilder}" HorizontalAlignment="Left" Margin="25,19,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWorldBuilder_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonWindowed" FontSize="17" Focusable="False" Content="{lex:Loc ChangeToFullScreen}" HorizontalAlignment="Left" Margin="25,64,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonWindowed_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonQuickStart" FontSize="17" Focusable="False" Content="{lex:Loc ChangeToNormalStart}" HorizontalAlignment="Left" Margin="25,109,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonQuickStart_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonOptions" FontSize="17" Focusable="False"  Content="{lex:Loc Options}"  HorizontalAlignment="Left" Margin="25,154,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="ButtonOptions_Click" Grid.Column="6" Grid.Row="3"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ButtonExit" FontSize="17" Focusable="False"  Content="{lex:Loc Exit}" HorizontalAlignment="Left" Margin="25,211,0,0" VerticalAlignment="Top" Width="229" Height="40" Click="Button_Click" Grid.Column="6" Grid.Row="3">
 
         </Button>
 
-        <TextBlock x:Name="LauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,6,0,0" Text="Current version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="22" Grid.Column="6" Grid.Row="4"/>
-        <TextBlock x:Name="LatestLauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,33,0,0" Text="Latest version " TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="23" Grid.Column="6" Grid.Row="4"/>
-        <local:UpdateButton Style="{StaticResource UpdateButtonStyle}" x:Name="LauncherUpdate" BlinkCount="100" Focusable="False" Content="Update!" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" MouseEnter="UpdateButton_MouseEnter" Grid.Column="6" Grid.Row="4"/>
+        <TextBlock x:Name="LauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,6,0,0" Text="{lex:Loc CurrentVersion}" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="22" Grid.Column="6" Grid.Row="4"/>
+        <TextBlock x:Name="LatestLauncherVersion" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="15" HorizontalAlignment="Left" Margin="20,33,0,0" Text="{lex:Loc LatestVersion}" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" Height="23" Grid.Column="6" Grid.Row="4"/>
+        <local:UpdateButton Style="{StaticResource UpdateButtonStyle}" x:Name="LauncherUpdate" BlinkCount="100" Focusable="False" Content="{lex:Loc Update}" FontSize="18" HorizontalAlignment="Left" Margin="20,56,0,0" VerticalAlignment="Top" Height="35" Width="229" IsEnabled="False" Click="LauncherUpdate_Click" MouseEnter="UpdateButton_MouseEnter" Grid.Column="6" Grid.Row="4"/>
         <ProgressBar x:Name="UpdateProgressBar" HorizontalAlignment="Left" Height="24" Margin="20,96,0,0" VerticalAlignment="Top" Width="229" Grid.Column="6" Grid.Row="4"/>
         <TextBlock  x:Name="UpdateProgress" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Left" FontSize="13" Margin="25,100,0,0" TextWrapping="Wrap" TextAlignment="Center"  VerticalAlignment="Top" Width="224" Height="20" Grid.Column="6" Grid.Row="4"/>
 
@@ -857,15 +861,15 @@
         </Image>
         <Image x:Name="DownloadingImage2"  Source="/Images/gl01.png" Visibility="Hidden" HorizontalAlignment="Center" Width="139" Grid.Column="4" Grid.Row="0" Grid.RowSpan="6" Margin="20,0,110,0"/>
 
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="1" Grid.Row ="1" x:Name="ModsButton" Content="Mods" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Click="ModsButton_Click" Height="25"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="2" Grid.Row ="1" Grid.ColumnSpan="2" x:Name="PatchesButton" FontSize="14" Content="Patches" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="PatchesButton_Click" Height="25"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="14" Content="Addons for" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="AddonsButton_Click" Height="25"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="25" Text="In memory of my friend and comrade Aziz" VerticalAlignment="Center" Width="605" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="1" Grid.Row ="1" x:Name="ModsButton" Content="{lex:Loc Mods}" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66" Click="ModsButton_Click" Height="25"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="2" Grid.Row ="1" Grid.ColumnSpan="2" x:Name="PatchesButton" FontSize="14" Content="{lex:Loc Patches}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="PatchesButton_Click" Height="25"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Column="4" Grid.Row ="1" x:Name="AddonsButton" FontSize="14" Content="{lex:Loc Addons}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="265" Click="AddonsButton_Click" Height="25"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontSize="25" Text="{lex:Loc InMemoryOfAziz}" VerticalAlignment="Center" Width="605" Height="38" Grid.ColumnSpan="4" Grid.Row="4" Grid.Column="1" Margin="10,108,0,39" Grid.RowSpan="2"/>
 
-        <local:UpdateButton Style="{StaticResource UpdateButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="ADD MOD!" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="142" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" MouseEnter="UpdateButton_MouseEnter" />
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddMod" FontSize="16" Content="Add mod from files" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="170,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="172" Height="28" Click="ManualAddMod_Click" Grid.ColumnSpan="2"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddPatch" FontSize="13" Content="Add patch for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddPatch_Click"/>
-        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddAddon" FontSize="13" Content="Add addon for " FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="340" Height="28" Click="ManualAddAddon_Click"/>
+        <local:UpdateButton Style="{StaticResource UpdateButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Grid.Row="2" x:Name="AddModButton" FontWeight="Bold" FontSize="16" Content="{lex:Loc AddMod}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="160" Click="AddMod_Click" Height="28" Grid.Column="2" Grid.ColumnSpan="2" Margin="25,7,0,0" MouseEnter="UpdateButton_MouseEnter" />
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddMod" FontSize="16" Content="{lex:Loc AddModFrFiles}" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" Margin="170,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="240" Height="28" Click="ManualAddMod_Click" Grid.ColumnSpan="2"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddPatch" FontSize="13" Content="{lex:Loc AddPatchFromFiles}" FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="360" Height="28" Click="ManualAddPatch_Click"/>
+        <Button Style="{StaticResource DefaultButtonStyle}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ManualAddAddon" FontSize="13" Content="{lex:Loc AddAddonFromFiles}" FontWeight="Bold" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1,7,0,0" Grid.Row="2" VerticalAlignment="Top" Width="360" Height="28" Click="ManualAddAddon_Click"/>
 
     </Grid>
 </Window>

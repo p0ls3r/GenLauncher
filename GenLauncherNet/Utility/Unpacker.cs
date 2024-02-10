@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,15 +18,30 @@ namespace GenLauncherNet
     {
         public static void ExtractDlls()
         {
-            Delete7zDllsIfItsOutDated();
-            CheckAndExtractDll("SevenZipExtractor.dll");
-            CheckAndExtractDll("SymbolicLinkSupport.dll");
-            CheckAndExtractDll("YamlDotNet.dll");
-            CheckAndExtractDll("Minio.dll");
-            CheckAndExtractDll("RestSharp.dll");
-            CheckAndExtractDll("System.Reactive.dll");
-            CheckAndExtract7zDll("x64");
-            CheckAndExtract7zDll("x86");
+            CheckAndExtractDllInSubFolder("x64", "7z.dll");
+            CheckAndExtractDllInSubFolder("x86", "7z.dll");
+        }
+
+        public static void ExtractLangDlls()
+        {
+            var langHash = new HashSet<string>() { "ar", "de", "es", "fr", "hr", "pt", "ru", "tr", "uk", "zh" };
+
+            var cultureInfo = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
+            if (langHash.Contains(cultureInfo))
+            {
+                CheckAndExtractDllInSubFolder(cultureInfo, "GenLauncher.resources.dll");
+            }
+
+            //fucking .net can't extract resource from folder with "-", so it can't extract dll from "zh-Hant" and in the same time, it doesn't know culture zh, only zh-Hant.
+            if (cultureInfo == "zh")
+            {
+                if (Directory.Exists("zh-Hant"))
+                {
+                    Directory.Delete("zh-Hant", true);
+                }
+                Directory.Move("zh", "zh-Hant");
+            }
         }
 
         public static void ExctractImages()
@@ -79,18 +98,41 @@ namespace GenLauncherNet
             }
         }
 
-        private static void CheckAndExtract7zDll(string folder)
+        private static void CheckAndExtractDllInSubFolder(string folder, string filename)
         {
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
-
-            if (!File.Exists(folder + "\\" + "7z.dll"))
+            if (File.Exists(folder + "\\" + filename))
             {
-                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("GenLauncherNet.Dlls." + folder + "." + "7z.dll"))
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("GenLauncherNet.Dlls." + folder + "." + filename))
                 {
-                    using (var file = new FileStream(folder + "\\" + "7z.dll", FileMode.Create, FileAccess.Write))
+                    using (MD5 md5 = MD5.Create())
                     {
-                        resource?.CopyTo(file);
+                        if (stream != null)
+                        {
+                            var hash = md5.ComputeHash(stream);
+                            var resourceHash = BitConverter.ToString(hash).Replace("-", String.Empty);
+                            var currentHash = MD5ChecksumCalculator.ComputeMD5Checksum($"{folder + "/" + filename}");
+                            if (resourceHash != currentHash)
+                            {
+                                File.Delete($"{folder + "/" + filename}");
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!File.Exists(folder + "\\" + filename))
+            {
+                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream("GenLauncherNet.Dlls." + folder + "." + filename))
+                {
+                    if (resource != null)
+                    {
+                        if (!Directory.Exists(folder))
+                            Directory.CreateDirectory(folder);
+
+                        using (var file = new FileStream(folder + "\\" + filename, FileMode.Create, FileAccess.Write))
+                        {
+                            resource?.CopyTo(file);
+                        }
                     }
                 }
             }

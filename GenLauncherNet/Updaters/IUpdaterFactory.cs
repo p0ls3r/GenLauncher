@@ -8,6 +8,6 @@ namespace GenLauncherNet
 {
     public interface IUpdaterFactory
     {
-        IUpdater CreateUpdater(ModificationContainer modification, bool httpSingleFileDownload = false);
+        IUpdater CreateUpdater(ModificationViewModel modification, bool httpSingleFileDownload = false);
     }
 }

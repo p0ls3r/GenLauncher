@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GenLauncherNet.Windows;
+using WPFLocalizeExtension.Engine;
 
 namespace GenLauncherNet
 {
@@ -51,9 +53,7 @@ namespace GenLauncherNet
         }
 
         public async Task<bool> PrepareLauncher()
-        {
-            await Task.Run(() => Unpacker.ExtractDlls());
-
+        {            
             await Task.Run(() => GameLauncher.RenameGameFilesToOriginalState());
 
             await Task.Run(() => EntryPoint.DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory())));
@@ -70,6 +70,7 @@ namespace GenLauncherNet
                 Directory.CreateDirectory(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder));
 
             await Task.Run(() => Unpacker.ExctractImages());
+            await Task.Run(() => Unpacker.ExtractDlls());
 
 
             var connected = await CheckConnection();
@@ -87,7 +88,7 @@ namespace GenLauncherNet
                     await DataHandler.ReadPatchesAndAddonsForMod(lastActivatedMod);
             }
             else
-                MessageBox.Show("Cannot connect to https://github.com/, installing modifications from internet is not available!");
+                MessageBox.Show(LocalizedStrings.Instance["CannotConnect"]);
 
             client.Dispose();
 

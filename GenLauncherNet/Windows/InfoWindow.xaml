@@ -3,6 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="ru"
+        lex:ResxLocalizationProvider.DefaultAssembly="GenLauncher"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:local="clr-namespace:GenLauncherNet"
         mc:Ignorable="d"
         Title="InfoWindow" Height="180" Width="400" ResizeMode="NoResize" WindowStyle="None" Topmost="True">
@@ -78,9 +82,9 @@
 
         <TextBlock x:Name="MainMessage" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" Margin="83,10,20,0" Text="TextBlock" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="297"/>
         <TextBlock x:Name="ModsMessage" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" Margin="93,67,10,0" FontSize="18" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Width="297" Height="68"/>
-        <Button x:Name="Continue" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Content="Continue anyway" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" Width="169" Click="Continue_Click"/>
-        <Button x:Name="Cancel" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Content="Cancel" HorizontalAlignment="Right" Margin="0,140,30,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click"/>
-        <Button x:Name="Ok" Content="OK" Margin="152,141,152,0" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="96" Click="Ok_Click" Height="30"/>
+        <Button x:Name="Continue" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Content="{lex:Loc Continue}" HorizontalAlignment="Left" Margin="30,141,0,0" VerticalAlignment="Top" Width="169" Click="Continue_Click"/>
+        <Button x:Name="Cancel" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource GenLauncherDefaultTextColor}" Content="{lex:Loc Cancel}" HorizontalAlignment="Right" Margin="0,140,30,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click"/>
+        <Button x:Name="Ok" Content="{lex:Loc Ok}" Margin="152,141,152,0" Foreground="{DynamicResource GenLauncherDefaultTextColor}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Width="96" Click="Ok_Click" Height="30"/>
         <Rectangle HorizontalAlignment="Center" Height="180" Stroke="{DynamicResource GenLauncherDarkFillColor}" StrokeThickness="2" VerticalAlignment="Center" Width="400"/>
     </Grid>
 </Window>

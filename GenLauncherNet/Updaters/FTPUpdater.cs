@@ -8,10 +8,10 @@ namespace GenLauncherNet
 {
     internal class FTPUpdater : IUpdater
     {
-        public event Action<long?, long, double?, ModificationContainer, string> ProgressChanged;
-        public event Action<ModificationContainer, DownloadResult> Done;
+        public event Action<long?, long, double?, ModificationViewModel, string> ProgressChanged;
+        public event Action<ModificationViewModel, DownloadResult> Done;
         public DownloadResult DownloadResult { get; set; }
-        public ModificationContainer ModBoxData { get; set; }
+        public ModificationViewModel ModBoxData { get; set; }
 
         public FTPUpdater()
         {
@@ -33,7 +33,7 @@ namespace GenLauncherNet
             throw new NotImplementedException();
         }
 
-        public void SetModificationInfo(ModificationContainer modification)
+        public void SetModificationInfo(ModificationViewModel modification)
         {
             throw new NotImplementedException();
         }

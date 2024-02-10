@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Linq;
+using WPFLocalizeExtension.Engine;
 
 namespace GenLauncherNet
 {
@@ -58,6 +59,15 @@ namespace GenLauncherNet
                 defaultCamera.IsEnabled = false;
                 CameraHeightSlider.IsEnabled = false;
                 DataHandler.SetCameraHeight(0);
+            }
+
+            if (File.Exists(EntryPoint.LauncherFolder + "eng"))
+            {
+                LangEng.IsChecked = true;
+            }
+            else
+            {
+                LocalLang.IsChecked = true;
             }
 
             FillResolutionComboBox();
@@ -545,6 +555,19 @@ namespace GenLauncherNet
                 HeatEffects.IsChecked = false;
                 gameOptions["HeatEffects"] = " no";
             }
+        }
+
+        private void English_Click(object sender, RoutedEventArgs e)
+        {
+            LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("en-us");
+            using (File.Create(EntryPoint.LauncherFolder + "eng")) { }
+        }
+
+        private void Local_Click(object sender, RoutedEventArgs e)
+        {
+            LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo(System.Globalization.CultureInfo.InstalledUICulture.Name);
+            if (File.Exists(EntryPoint.LauncherFolder + "eng"))
+            File.Delete(EntryPoint.LauncherFolder + "eng");
         }
     }
 }

@@ -3,6 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="ru"
+        lex:ResxLocalizationProvider.DefaultAssembly="GenLauncher"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         xmlns:local="clr-namespace:GenLauncherNet"
         mc:Ignorable="d"
         Title="Enter Modification Name" Height="220" Width="600" ResizeMode="NoResize" WindowStyle="None" Topmost="True">
@@ -92,17 +96,16 @@
 
     <Grid Background="{DynamicResource GenLauncherDarkBackGround}">
 
-        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="22" Content="Input modification data" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Width="286" Height="38"/>
+        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="22" Content="{lex:Loc InputModData}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="500" Height="41"/>
 
         <Button Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="100,166,253,0" Click="Button_Click" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="0,166,100,0" Click="Button_Click_1" Foreground="{DynamicResource GenLauncherDefaultTextColor}"/>
-        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="16" Content="Modification Name:" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="162" Height="33"/>
-        <TextBox Background="Black" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherBorderColor}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ModificationName" HorizontalAlignment="Left" Height="23" Margin="170,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
-        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="16" Content="Version:" HorizontalAlignment="Left" Margin="100,98,0,0" VerticalAlignment="Top" Width="70" Height="32"/>
-        <TextBox Background="Black" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherBorderColor}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="Version"  HorizontalAlignment="Left" Height="23" Margin="170,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
+        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="16" Content="{lex:Loc ModificationName}" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="329" Height="33"/>
+        <TextBox Background="Black" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherBorderColor}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="ModificationName" HorizontalAlignment="Left" Height="23" Margin="10,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="564"/>
+        <Label Foreground="{DynamicResource GenLauncherDefaultTextColor}" FontWeight="Bold" FontSize="16" Content="{lex:Loc CurrentVersion}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="329" Height="32"/>
+        <TextBox Background="Black" BorderThickness="2" BorderBrush="{DynamicResource GenLauncherBorderColor}" Foreground="{DynamicResource GenLauncherDefaultTextColor}" x:Name="Version"  HorizontalAlignment="Left" Height="23" Margin="10,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="564"/>
 
-        <Button Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="100,166,253,0" Click="Button_Click"/>
-        <Button Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="0,166,100,0" Click="Button_Click_1"/>
-        <Rectangle HorizontalAlignment="Center" Height="220" Stroke="{DynamicResource GenLauncherDarkFillColor}" StrokeThickness="2" VerticalAlignment="Center" Width="600"/>
+        <Button Content="{lex:Loc Ok}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="100,166,253,0" Click="Button_Click"/>
+        <Button Content="{lex:Loc Cancel}" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Width="108" Height="35" Margin="0,166,100,0" Click="Button_Click_1"/>
+
     </Grid>
 </Window>

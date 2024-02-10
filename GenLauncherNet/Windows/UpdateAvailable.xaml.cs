@@ -24,7 +24,7 @@ namespace GenLauncherNet
             InitializeComponent();
             SetColors();
 
-            InfoTextBox.Text = String.Format("New update {0} for GenLauncher is available to download!", VersionName);
+            InfoTextBox.Text = String.Format(LocalizedStrings.Instance["NewUpdateForGenLauncher"], VersionName);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

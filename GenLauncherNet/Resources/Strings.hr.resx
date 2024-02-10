@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="2DShadows" xml:space="preserve">
+    <value>2D Sjene</value>
+  </data>
+  <data name="3DShadows" xml:space="preserve">
+    <value>3D Sjene</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj!</value>
+  </data>
+  <data name="AddAddonFromFiles" xml:space="preserve">
+    <value>Ubaci dodatak za {0} iz datoteka</value>
+  </data>
+  <data name="AdditionalParams" xml:space="preserve">
+    <value>Potrebni dodatni parametri za započeti igru:</value>
+  </data>
+  <data name="AddMod" xml:space="preserve">
+    <value>DODAJ MOD!</value>
+  </data>
+  <data name="AddModFrFiles" xml:space="preserve">
+    <value>Dodaj mod iz datoteka</value>
+  </data>
+  <data name="Addons" xml:space="preserve">
+    <value>Dodaci za </value>
+  </data>
+  <data name="AddPatchFromFiles" xml:space="preserve">
+    <value>Dodati patch za {0} iz datoteka</value>
+  </data>
+  <data name="AlternateMouseSetup" xml:space="preserve">
+    <value>Alternativne Postavke Miša</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Primjeni</value>
+  </data>
+  <data name="ApplyDefaultSettings" xml:space="preserve">
+    <value>Želite li primjeniti preporučene postavke?</value>
+  </data>
+  <data name="AskToCheck" xml:space="preserve">
+    <value>Pitaj prije provjere integriteta datoteka moda</value>
+  </data>
+  <data name="Authors" xml:space="preserve">
+    <value>Autori i doprinositelji</value>
+  </data>
+  <data name="AutoDelete" xml:space="preserve">
+    <value>Autmatski izbriši stare verzije modofikacije</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Preuzimanje otkazano</value>
+  </data>
+  <data name="CannotFindPath" xml:space="preserve">
+    <value>Nemoguće naći mapu na putu: </value>
+  </data>
+  <data name="CantCheckGentool" xml:space="preserve">
+    <value>Nemoguće provjeriti gentool</value>
+  </data>
+  <data name="CantDownloadWB" xml:space="preserve">
+    <value>Nemoguće preuzeti WorldbuilderNT27</value>
+  </data>
+  <data name="CantSync" xml:space="preserve">
+    <value>Nemoguće sinkronizirati vaše vrijeme sustava!</value>
+  </data>
+  <data name="Changelog" xml:space="preserve">
+    <value>Changelog</value>
+  </data>
+  <data name="ChangelogOnly" xml:space="preserve">
+    <value>Dnevnik Promjena</value>
+  </data>
+  <data name="ChangeToFullScreen" xml:space="preserve">
+    <value>PROMJENI NA PUNI ZASLON</value>
+  </data>
+  <data name="ChangeToNormalStart" xml:space="preserve">
+    <value>PROMJENI NA PUNI POČETAK</value>
+  </data>
+  <data name="ChangeToQuickStart" xml:space="preserve">
+    <value>PROMJENI NA BRZI POČETAK</value>
+  </data>
+  <data name="ChangeToWindowed" xml:space="preserve">
+    <value>PROMJENI NA PROZOR</value>
+  </data>
+  <data name="CheckFiles" xml:space="preserve">
+    <value>Da, provjeri datoteke</value>
+  </data>
+  <data name="CheckIntegrety" xml:space="preserve">
+    <value>Provjeriti integritet datoteka modifikacije prije početka?</value>
+  </data>
+  <data name="CheckIntegretyOption" xml:space="preserve">
+    <value>Provjeriti integritet datoteka modifikacije. Radi samo za najnoviju verziju modifikacije.</value>
+  </data>
+  <data name="CloudShadows" xml:space="preserve">
+    <value>Sjene Oblaka</value>
+  </data>
+  <data name="Compatibility" xml:space="preserve">
+    <value>Kompatibilnost sa modifikacijom nije garantirana!</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Svejedno nastavi</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Verzija: </value>
+  </data>
+  <data name="CustomCamera" xml:space="preserve">
+    <value>Koristi prilagođenu visinu kamere</value>
+  </data>
+  <data name="DefaultCamera" xml:space="preserve">
+    <value>Koristi zadanu visinu kamere (preporučeno)</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="Deprecated" xml:space="preserve">
+    <value>{0} je Zastarilo</value>
+  </data>
+  <data name="DisableGentool" xml:space="preserve">
+    <value>Onemogući Gentool</value>
+  </data>
+  <data name="DisableLOD" xml:space="preserve">
+    <value>Onemogući Dinamičnu Količinu Detalja</value>
+  </data>
+  <data name="Discord" xml:space="preserve">
+    <value>Pridruži se Serveru na Discordu</value>
+  </data>
+  <data name="DisplayUnits" xml:space="preserve">
+    <value>Prikaži Jedinke Kroz Građevine</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>Doniraj</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Preuzmi {0}: {1}MB / {2}MB</value>
+  </data>
+  <data name="DownloadInProgress" xml:space="preserve">
+    <value>Preuzima se {0}MB / {1}MB</value>
+  </data>
+  <data name="DownloadNet" xml:space="preserve">
+    <value>Želite li preuzeti kompatibilnu verziju?</value>
+  </data>
+  <data name="EnterModName" xml:space="preserve">
+    <value>Unesi Ime Modifikacije</value>
+  </data>
+  <data name="EnterModVersion" xml:space="preserve">
+    <value>Unesi Verziju Modifikacije</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>GREŠKA: </value>
+  </data>
+  <data name="ErrorMsg" xml:space="preserve">
+    <value>Verzija GenLaunchera: {2} \r\n Tehnička podrška za GenLauncher u discordu: {3} \r\n Greška: {0} \r\n StackTrace: {1} Nije moguće povezati se sa https://github.com/, instalirati modifikacije s interneta nije dostupno!</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>IZLAZ</value>
+  </data>
+  <data name="ExtraAnimation" xml:space="preserve">
+    <value>Dodatna Animacija</value>
+  </data>
+  <data name="ExtraGroundLighting" xml:space="preserve">
+    <value>Dodatno Osvijetljenje Tla</value>
+  </data>
+  <data name="FilesCorrupted" xml:space="preserve">
+    <value>Neke datoteke modifikacije nedostaju ili su korumpirane!</value>
+  </data>
+  <data name="FinishInstall" xml:space="preserve">
+    <value>Molimo dovršite sva instaliranja</value>
+  </data>
+  <data name="FinishProccess" xml:space="preserve">
+    <value>Dovrši proces igre prije otvaranja postavki</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>Izgleda da vam igra radi po prvi put</value>
+  </data>
+  <data name="GameIsStillRunning" xml:space="preserve">
+    <value>Igra još radi!</value>
+  </data>
+  <data name="GameRunning" xml:space="preserve">
+    <value>Igra Generals već radi!</value>
+  </data>
+  <data name="GentoolRecommended" xml:space="preserve">
+    <value>(Preporuča se Gentool)</value>
+  </data>
+  <data name="HeatEffects" xml:space="preserve">
+    <value>Efekti Vrućine (preporučamo da ih isključite)</value>
+  </data>
+  <data name="HideLauncher" xml:space="preserve">
+    <value>Sakrijte GenLauncher dok igra radi</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Slika</value>
+  </data>
+  <data name="InMemoryOfAziz" xml:space="preserve">
+    <value>U spomen mom prijatelju i drugu Azizu</value>
+  </data>
+  <data name="InputModData" xml:space="preserve">
+    <value>Unesi podatke modifikacije</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>INSTALIRAJ!</value>
+  </data>
+  <data name="InstallGentool" xml:space="preserve">
+    <value>Instaliraj i automatski ažuriraj Gentool (preporučeno)</value>
+  </data>
+  <data name="InstallInProgress" xml:space="preserve">
+    <value>nemoguće pokrenuti {0} - još se instalira!</value>
+  </data>
+  <data name="JoinDiscord" xml:space="preserve">
+    <value>Pridruži se Discordu Genlaunchera!</value>
+  </data>
+  <data name="LatestVersion" xml:space="preserve">
+    <value>Najnovija verzija: </value>
+  </data>
+  <data name="Launch" xml:space="preserve">
+    <value>POKRENI IGRU</value>
+  </data>
+  <data name="LaunchAborted" xml:space="preserve">
+    <value>Pokretanje otkazano</value>
+  </data>
+  <data name="LowAndHigh" xml:space="preserve">
+    <value>Niže - bolja performansa, više - kvalitetnija grafika</value>
+  </data>
+  <data name="MaximumPart" xml:space="preserve">
+    <value>Maksimalni broj čestica:</value>
+  </data>
+  <data name="Moddb" xml:space="preserve">
+    <value>Odite na stranicu na Moddb-u</value>
+  </data>
+  <data name="ModdedExe" xml:space="preserve">
+    <value>Koristiti modificirane datoteke exe (preporučeno)</value>
+  </data>
+  <data name="ModificationName" xml:space="preserve">
+    <value>Ime modifikacije: </value>
+  </data>
+  <data name="ModificationsWithUpdate" xml:space="preserve">
+    <value>Ima modifikacija koje se mogu ažurirati:</value>
+  </data>
+  <data name="ModIsUpToDate" xml:space="preserve">
+    <value>Odabrana modifikacija je ažurirana</value>
+  </data>
+  <data name="Mods" xml:space="preserve">
+    <value>Mods</value>
+  </data>
+  <data name="MoveLauncher" xml:space="preserve">
+    <value>Molimo vas prebacite pokretač u mapu igre Generals ZH ili Generals</value>
+  </data>
+  <data name="NameAndVersionValidSymbols" xml:space="preserve">
+    <value>Ime i Verzija Modifikacije moraju sadržavati valjane znakove</value>
+  </data>
+  <data name="NeedToInstallAddon" xml:space="preserve">
+    <value>Trebate instalirati dodatak prije nego mu otvorite mapu</value>
+  </data>
+  <data name="NeedToInstallMod" xml:space="preserve">
+    <value>Trebate instalirati modifikaciju prije nego joj otvorite mapu</value>
+  </data>
+  <data name="NeedToInstallPatch" xml:space="preserve">
+    <value>Trebate instalirati patch prije nego mu otvorite mapu</value>
+  </data>
+  <data name="NetRequired" xml:space="preserve">
+    <value>GenLauncher zahtjeva .NET Framework {0} ili novije</value>
+  </data>
+  <data name="NetRequired2" xml:space="preserve">
+    <value>Potreban je .NET Framework {0} ili novije</value>
+  </data>
+  <data name="NewUpdateForGenLauncher" xml:space="preserve">
+    <value>Dostupno je novo ažuriranje {0} za GenLauncher!</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="NoConnection" xml:space="preserve">
+    <value>Nema veze s GitHubom</value>
+  </data>
+  <data name="NotInstalled" xml:space="preserve">
+    <value>{0} je odabran ali ne instaliran -  pokretanje otkazano!</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OpenGameFolder" xml:space="preserve">
+    <value>Otvori mapu igre</value>
+  </data>
+  <data name="OpenMapsFolder" xml:space="preserve">
+    <value>Otvori mapu karte</value>
+  </data>
+  <data name="OpenModFolder" xml:space="preserve">
+    <value>Otvori mapu modifikacije</value>
+  </data>
+  <data name="OpenReplaysFolder" xml:space="preserve">
+    <value>Otvori mapu snimaka</value>
+  </data>
+  <data name="OperationAborted" xml:space="preserve">
+    <value>Operacija otkazana</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>OPCIJE</value>
+  </data>
+  <data name="OriginalExe" xml:space="preserve">
+    <value>Koristi originalne datoteke exe</value>
+  </data>
+  <data name="OutOfSync" xml:space="preserve">
+    <value>Vrijeme sustava nije sinkronizirano!</value>
+  </data>
+  <data name="OutOfSyncCantUpdate" xml:space="preserve">
+    <value>Vrijeme sustava nije sinkronizirano - modifikaciju nije moguće ažurirati</value>
+  </data>
+  <data name="Patches" xml:space="preserve">
+    <value>Patchevi za </value>
+  </data>
+  <data name="PlayOnline" xml:space="preserve">
+    <value>Kako igrati online?</value>
+  </data>
+  <data name="Preparing" xml:space="preserve">
+    <value>Priprema se, pričekajte...</value>
+  </data>
+  <data name="Reinstall" xml:space="preserve">
+    <value> Preporuča se da ponovo instalirate modifikaciju. \r U postavkama možete isključiti ovu provjeru.</value>
+  </data>
+  <data name="Resolution" xml:space="preserve">
+    <value>Razlučivost:</value>
+  </data>
+  <data name="SelectMod" xml:space="preserve">
+    <value>Odaberite koju modifikaciju treba dodati</value>
+  </data>
+  <data name="SetDefaultOptions" xml:space="preserve">
+    <value>Postavi zadane opcije</value>
+  </data>
+  <data name="SetImage" xml:space="preserve">
+    <value>Postavi sliku (500x100)</value>
+  </data>
+  <data name="SetRecommended" xml:space="preserve">
+    <value>Postavi zadane postavke</value>
+  </data>
+  <data name="ShowProps" xml:space="preserve">
+    <value>Prikaži rekvizite</value>
+  </data>
+  <data name="SmoothWaterBorders" xml:space="preserve">
+    <value>Izglađene Granice Vode</value>
+  </data>
+  <data name="Sponsors" xml:space="preserve">
+    <value>Sponzori</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>STANI</value>
+  </data>
+  <data name="SuportDevelopment" xml:space="preserve">
+    <value>Podržite Razvoj GenLaunchera!</value>
+  </data>
+  <data name="SupportNews" xml:space="preserve">
+    <value>Podrška, novosti, i... više ništa ¯\_(ツ)_/¯</value>
+  </data>
+  <data name="SymbLink" xml:space="preserve">
+    <value>Stvaranje probne simbolične poveznice nije uspjelo. Bez sposobnosti stvaranja simboličnih poveznica, GenLauncher ne radi.
+\r\rNesposobnost stvaranja simboličnih poveznica najčešće ima veze s vrstom sustava mapa na kojem je instaliran GenLauncher, simbolične poveznice su podržane na sustavu datoteka NTFS, molimo vas provjerite je li GenLauncher instaliran na pogonu s ovim sustavom datoteka. \r\rTakođer provjerite je li stvaranje simboličnih poveznica ometa ikakav nedostatak prava ili rad antivirusa.</value>
+  </data>
+  <data name="SyncManually" xml:space="preserve">
+    <value>Molimo vas, sami podesite datum i vrijeme u postavkama</value>
+  </data>
+  <data name="SyncNow" xml:space="preserve">
+    <value>Sinkroniziraj sad!</value>
+  </data>
+  <data name="SyncTime" xml:space="preserve">
+    <value>Treba sinkronizirati vrijeme sustava da bi se ažuriralo.</value>
+  </data>
+  <data name="TakeLongTime" xml:space="preserve">
+    <value>OPREZ! Ova operacija možda dugo potraje, možete je isključiti u opcijama.</value>
+  </data>
+  <data name="Texture" xml:space="preserve">
+    <value>Kvaliteta tekstura:</value>
+  </data>
+  <data name="ThankYou" xml:space="preserve">
+    <value>Hvala vam!</value>
+  </data>
+  <data name="ToggleOff" xml:space="preserve">
+    <value>Isključite radi bolje performanse i stabilnosti</value>
+  </data>
+  <data name="UninstalledUpdate" xml:space="preserve">
+    <value>Postoji neinstalirano ažuriranje za {0} </value>
+  </data>
+  <data name="UnIsntalledAddon" xml:space="preserve">
+    <value>Neinstalirani dodatak</value>
+  </data>
+  <data name="UnIsntalledMod" xml:space="preserve">
+    <value>Neinstalirana modifikacija</value>
+  </data>
+  <data name="UnIsntalledPatch" xml:space="preserve">
+    <value>Neinstalirani patch</value>
+  </data>
+  <data name="Unpacking" xml:space="preserve">
+    <value>Izdvajanje...</value>
+  </data>
+  <data name="UnpackingPreparing" xml:space="preserve">
+    <value>Izdvajanje/Priprema...</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Ažuriraj!</value>
+  </data>
+  <data name="VersionMustContainNumbers" xml:space="preserve">
+    <value>Verzija mora sadržavati brojeve</value>
+  </data>
+  <data name="Vulkan" xml:space="preserve">
+    <value>Koristite Vulkan API radi bolje performanse.</value>
+  </data>
+  <data name="VulkanWarning" xml:space="preserve">
+    <value>OPREZ! Ova značajka je još u stadiju eksperimenta, možda bude glitcheva. Sve kvarove prijavite u discord kanalu za tehničku podršku ili autoru integracije /r1d#7366</value>
+  </data>
+  <data name="WarningOption" xml:space="preserve">
+    <value>OPREZ! Ova provjera možda dugo potraje prije nego igra započne.!</value>
+  </data>
+  <data name="WorldBuilder" xml:space="preserve">
+    <value>WORLD BUILDER</value>
+  </data>
+  <data name="WorldBuilderRunning" xml:space="preserve">
+    <value>World Builder već radi!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Da</value>
+  </data>
+</root>
