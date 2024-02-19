@@ -1,50 +1,55 @@
-<img align="left" src="GenLauncherNet/fd.ico" width="100" alt="GenLauncher Icon">
+<div style="text-align: center;">
 
-# GenLauncher
-[![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
-[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/fFGpudz5hV)
-<br>
+<h1>GenLauncher</h1>
 
-### About
+![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/fFGpudz5hV)
 
-GenLauncher is a mod management utility for the game **Command & Conquer: Generals and it's expansion Zero Hour** 
-that provides various faculties that ease the burden of setting up and maintaining a modded game.
+![GenLauncher](GenLauncherNet/Images/GenLauncher%201.0.0.png)
 
-### Features
+</div>
 
-- Supports both Command & Conquer: Generals and it's expansion Zero Hour.
-- Easily download, install and update mods from a repository.
-- Easily download, install and update patches and addons for installed mods.
-- Manually add mods to be managed by GenLauncher.
-- Manually add patches and addons to installed mods to be managed by GenLauncher.
-- Allows multiple mods to be run from a single game directory.
-- Can launch the game or world builder with a specific installed mod along with it's corresponding patches and addons.
-- Supports common commandline arguments such as running the game in windowed mode, quickstart mode aswell as user specified command line arguments.
-- Installed modifications are consolidated to there own respective directories and are linked to the game folder during game launch 
-and unlinked after closing the game ensuring that the game folder remains relatively untouched.
-- Contains an options menu that can be used to adjust every single graphical option in the game aswell as a variety of other things such as ingame camera height.
-- Can install and use the [modded game executable](https://www.gentool.net/download/executables/) by xezon that allows for mods to bypass the ingame camera height restriction in LAN games (Zero Hour only, can be disabled).
-- Can install and update [GenTool](https://www.gentool.net/).
+## :bookmark_tabs: About
 
-### Download
+GenLauncher is a versatile mod management utility for **Command & Conquer: Generals and its expansion Zero Hour**. Providing facilities that simplify setting up and maintaining a modded game.
 
-* [ModDB](https://www.moddb.com/mods/genlauncher)
-* [GenLauncher Discord](https://discord.gg/fFGpudz5hV)
-* [Through GenPatcher](https://legi.cc/downloads/genpatcher/)
+## :rocket: Features
 
-### Installation
+- Compatibility with both Command & Conquer: Generals and its expansion Zero Hour.
+- Facilitates downloading, installing, and updating mods from a repository.
+- Manages the install and updating of patches and addons for installed mods.
+- Ability to manually import mods for GenLauncher management.
+- Multiple mods can be run from a single game directory.
+- Launch the game or world builder with a specific installed mod along with its corresponding patches and addons.
+- Supports passing user-specified command-line arguments to the game upon launch with default options for running in windowed mode and quickstart mode.
+- Installed modifications are segregated into their own directories, linked to the game folder on game launch, and delinked upon exiting the game, keeping the game folder relatively untouched.
+- includes an a settings menu to adjust all graphical options in the game and other features such as in-game camera height adjustment or integrating the game with the Vulkin API.
+- Installs and updates [GenTool](https://www.gentool.net/).
+- Supports multiple languages.
 
-GenLauncher can be used for both **Command & Conquer: Generals and it's expansion Zero Hour**. To install GenLauncher for either game, simply extract GenLauncher.exe 
-into the respective game folder that you wish to use GenLauncher with.
+## :floppy_disk: Download
 
-**Note:** Ensure that the game is installed on a drive with a filesystem that supports symbolic links such NTFS otherwise GenLauncher won't work.
+- [ModDB](https://www.moddb.com/mods/genlauncher)
+- [GenLauncher Discord](https://discord.gg/fFGpudz5hV)
+- [Through GenPatcher](https://legi.cc/downloads/genpatcher/)
 
-**Running GenLauncher on non windows operating systems or under wine has not been tested and is not officially supported.**
+## :hammer_and_wrench: Installation
 
-### Submitting Bug Reports and Feature Requests
+GenLauncher is compatible for both **Command & Conquer: Generals and its expansion Zero Hour**. To install, simply extract GenLauncher.exe into the respective game folder.
 
-Please use the projects [issue tracker](https://github.com/p0ls3r/GenLauncher/issues) to submit bug reports or feature requests or join the [GenLauncher discord](https://discord.gg/fFGpudz5hV) and post in the respective channels.
+> **Note:** Ensure the game is installed on a drive supporting symbolic links such as NTFS, otherwise GenLauncher will not work.
 
-### Donate
+> **Warning:** Running GenLauncher on non-windows operating systems or under wine is untested and not officially supported.
 
-Want to support the project and author? You can donate by [boosty](https://boosty.to/genlauncher/single-payment/donation/157147?share=target_link).
+## :beetle: Submitting Bug Reports and Feature Requests
+
+Please use the project's [issue tracker](https://github.com/p0ls3r/GenLauncher/issues) to submit bug reports or feature requests, or join the [GenLauncher discord](https://discord.gg/fFGpudz5hV) and post in the respective channels.
+
+## :writing_hand: Acknowledgments
+
+- [Contributors](https://github.com/p0ls3r/GenLauncherModsData/blob/master/Authors.txt)
+- [Sponsors](https://github.com/p0ls3r/GenLauncherModsData/blob/master/Sponsors.txt)
+
+## :moneybag: Donate
+
+Love the project and want to support the author? You can contribute by [boosty](https://boosty.to/genlauncher/single-payment/donation/157147?share=target_link).
