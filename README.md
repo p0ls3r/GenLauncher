@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div align="center">
 
 <h1>GenLauncher</h1>
 
@@ -8,6 +8,8 @@
 ![GenLauncher](GenLauncherNet/Images/GenLauncher%201.0.0.png)
 
 </div>
+<br>
+
 
 ## :bookmark_tabs: About
 
