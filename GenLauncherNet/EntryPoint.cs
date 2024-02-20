@@ -150,6 +150,7 @@ namespace GenLauncherNet
                             MessageBoxButton.OK,
                             MessageBoxImage.Error
                         );
+                        return;
                     }
                 }
 
