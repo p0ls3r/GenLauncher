@@ -1429,7 +1429,7 @@ namespace GenLauncherNet.Windows
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 infoWindow.Ok.Visibility = Visibility.Hidden;
 
-                infoWindow.Continue.Content = LocalizedStrings.Instance["Set default options"];
+                infoWindow.Continue.Content = LocalizedStrings.Instance["SetDefaultOptions"];
                 infoWindow.Cancel.Content = LocalizedStrings.Instance["No"];
 
                 infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
