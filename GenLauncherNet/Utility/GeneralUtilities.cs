@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Net;
 using Microsoft.Win32;
 
 namespace GenLauncherNet.Utility
@@ -12,11 +11,11 @@ namespace GenLauncherNet.Utility
     internal static class GeneralUtilities
     {
         /// <summary>
-        ///     Checks the registry if there is a installed .NET Framework version matching or exceeding a specified version.
+        /// Checks the registry if there is an installed .NET Framework version matching or exceeding a specified version based on it's release keys.
         /// </summary>
-        /// <param name="requiredVersionReleaseKey">Numerical release key of the .NET Framework version to check for.</param>
-        /// <returns></returns>
-        internal static bool IsRequiredNetFrameworkVersionInstalled(uint requiredVersionReleaseKey)
+        /// <param name="requiredVersionReleaseKeys">An array of numerical release keys of the .NET Framework version to check for.</param>
+        /// <returns>True if the required version is installed; otherwise, false.</returns>
+        internal static bool IsRequiredNetFrameworkVersionInstalled(uint[] requiredVersionReleaseKeys)
         {
             const string registrySubKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
 
@@ -24,33 +23,40 @@ namespace GenLauncherNet.Utility
                        .OpenSubKey(registrySubKey))
             {
                 if (ndpKey?.GetValue("Release") != null)
-                    // Does it match or exceed the required version?
-                    return (int)ndpKey.GetValue("Release") >=
-                           requiredVersionReleaseKey;
+                    // Does it match or exceed any of the release keys?
+                    foreach (var releaseKey in requiredVersionReleaseKeys)
+                    {
+                        return (int)ndpKey.GetValue("Release") >=
+                               releaseKey;
+                    }
             }
 
-            return false; // Not installed
+            return false; // Required version not installed.
         }
 
         /// <summary>
-        ///     Opens a specific webpage in the user's default browser based on a given URL.
+        /// Downloads and silently Installs a specified .NET Framework runtime on the user's computer from a given download URL.
         /// </summary>
-        /// <param name="webpageUrl">URL of the webpage to open.</param>
-        internal static void OpenWebpageInBrowser(string webpageUrl)
+        /// <param name="downloadUrl">The download URL of the .NET Framework runtime version to download and install.</param>
+        internal static void DownloadAndInstallNetFrameworkRuntime(string downloadUrl)
         {
-            try
+            string tempFilePath = Path.ChangeExtension(Path.GetTempFileName(), ".exe");
+
+            /*
+             * Download the specified .NET Framework runtime installer and save it as a temporary file on the user's filesystem
+             * which is then run silently and deleted when the installer finishes.
+             */
+            using (var webClient = new WebClient())
             {
-                Process.Start(webpageUrl);
+                webClient.DownloadFile(downloadUrl, tempFilePath);
             }
-            catch (Win32Exception noBrowser)
-            {
-                if (noBrowser.ErrorCode == -2147467259)
-                    MessageBox.Show(noBrowser.Message);
-            }
-            catch (Exception other)
-            {
-                MessageBox.Show(other.Message);
-            }
+
+            var installerProcess = new Process();
+            installerProcess.StartInfo.FileName = tempFilePath;
+            installerProcess.StartInfo.Arguments = "/quiet /norestart";
+            installerProcess.Start();
+            installerProcess.WaitForExit();
+            File.Delete(tempFilePath);
         }
     }
 }

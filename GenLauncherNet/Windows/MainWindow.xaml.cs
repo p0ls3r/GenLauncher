@@ -86,9 +86,9 @@ namespace GenLauncherNet.Windows
         private void UpdateLaunchesCount()
         {
             if (DataHandler.GetLauncherCount() < 0)
-                DataHandler.SetLaunchesCount(EntryPoint.LaunchesCountForUpdateAdverising);
+                DataHandler.SetLaunchesCount(EntryPoint.LaunchersCountForUpdateAdvertising);
 
-            if (DataHandler.GetLauncherCount() > EntryPoint.LaunchesCountForUpdateAdverising)
+            if (DataHandler.GetLauncherCount() > EntryPoint.LaunchersCountForUpdateAdvertising)
             {
                 DataHandler.SetLaunchesCount(0);
 
@@ -841,7 +841,7 @@ namespace GenLauncherNet.Windows
 
         private void Exit()
         {
-            DataHandler.SetLaunchesCount(EntryPoint.LaunchesCountForUpdateAdverising);
+            DataHandler.SetLaunchesCount(EntryPoint.LaunchersCountForUpdateAdvertising);
             this.Close();
         }
 
