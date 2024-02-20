@@ -1,537 +1,560 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="2DShadows" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="2DShadows" xml:space="preserve">
     <value>2D Тени</value>
   </data>
-  <data name="3DShadows" xml:space="preserve">
+    <data name="3DShadows" xml:space="preserve">
     <value>3D Тени</value>
   </data>
-  <data name="Add" xml:space="preserve">
+    <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
-  <data name="AddAddonFromFiles" xml:space="preserve">
+    <data name="AddAddonFromFiles" xml:space="preserve">
     <value>Аддон для {0} из файлов</value>
   </data>
-  <data name="AdditionalParams" xml:space="preserve">
+    <data name="AdditionalParams" xml:space="preserve">
     <value>Дополнительные параметры для игры:</value>
   </data>
-  <data name="AddMod" xml:space="preserve">
+    <data name="AddMod" xml:space="preserve">
     <value>ДОБАВИТЬ МОД</value>
   </data>
-  <data name="AddModFrFiles" xml:space="preserve">
+    <data name="AddModFrFiles" xml:space="preserve">
     <value>Мод из файлов</value>
   </data>
-  <data name="Addons" xml:space="preserve">
+    <data name="Addons" xml:space="preserve">
     <value>Аддоны для </value>
   </data>
-  <data name="AddPatchFromFiles" xml:space="preserve">
+    <data name="AddPatchFromFiles" xml:space="preserve">
     <value>Патч для {0} из файлов</value>
   </data>
-  <data name="AlternateMouseSetup" xml:space="preserve">
+    <data name="AlternateMouseSetup" xml:space="preserve">
     <value>Альтернативная раскладка мыши</value>
   </data>
-  <data name="Apply" xml:space="preserve">
+    <data name="Apply" xml:space="preserve">
     <value>Применить</value>
   </data>
-  <data name="ApplyDefaultSettings" xml:space="preserve">
+    <data name="ApplyDefaultSettings" xml:space="preserve">
     <value>Хотите применить рекомендованные настройки?</value>
   </data>
-  <data name="AskToCheck" xml:space="preserve">
+    <data name="AskToCheck" xml:space="preserve">
     <value>Спрашивать перед проверкой целостности</value>
   </data>
-  <data name="Authors" xml:space="preserve">
+    <data name="Authors" xml:space="preserve">
     <value>Авторы и участники</value>
   </data>
-  <data name="AutoDelete" xml:space="preserve">
+    <data name="AutoDelete" xml:space="preserve">
     <value>Авто удаление устаревших версий</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+    <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
-  <data name="Canceled" xml:space="preserve">
+    <data name="Canceled" xml:space="preserve">
     <value>Загрузка отменена</value>
   </data>
-  <data name="CannotConnect" xml:space="preserve">
+    <data name="CannotConnect" xml:space="preserve">
     <value>Не могу подключиться к https://github.com/, установка модификаций из интернета недоступна!</value>
   </data>
-  <data name="CannotFindPath" xml:space="preserve">
+    <data name="CannotFindPath" xml:space="preserve">
     <value>Не удалось найти папку по пути:</value>
   </data>
-  <data name="CantCheckGentool" xml:space="preserve">
+    <data name="CantCheckGentool" xml:space="preserve">
     <value>Не удалось проверить gentool</value>
   </data>
-  <data name="CantDownloadWB" xml:space="preserve">
+    <data name="CantDownloadWB" xml:space="preserve">
     <value>Не удалось загрузить WorldbuilderNT27</value>
   </data>
-  <data name="CantSync" xml:space="preserve">
+    <data name="CantSync" xml:space="preserve">
     <value>Не удалось синхронизировать время!</value>
   </data>
-  <data name="Changelog" xml:space="preserve">
+    <data name="Changelog" xml:space="preserve">
     <value>Чейнджлог/новости</value>
   </data>
-  <data name="ChangelogOnly" xml:space="preserve">
+    <data name="ChangelogOnly" xml:space="preserve">
     <value>Чейнджлог</value>
   </data>
-  <data name="ChangeToFullScreen" xml:space="preserve">
+    <data name="ChangeToFullScreen" xml:space="preserve">
     <value>ПОЛНЫЙ ЭКРАН</value>
   </data>
-  <data name="ChangeToNormalStart" xml:space="preserve">
+    <data name="ChangeToNormalStart" xml:space="preserve">
     <value>НОРМАЛЬНЫЙ СТАРТ</value>
   </data>
-  <data name="ChangeToQuickStart" xml:space="preserve">
+    <data name="ChangeToQuickStart" xml:space="preserve">
     <value>БЫСТРЫЙ СТАРТ</value>
   </data>
-  <data name="ChangeToWindowed" xml:space="preserve">
+    <data name="ChangeToWindowed" xml:space="preserve">
     <value>ОКОННЫЙ РЕЖИМ</value>
   </data>
-  <data name="CheckFiles" xml:space="preserve">
+    <data name="CheckFiles" xml:space="preserve">
     <value>Да, проверить файлы</value>
   </data>
-  <data name="CheckIntegrety" xml:space="preserve">
+    <data name="CheckIntegrety" xml:space="preserve">
     <value>Проверить целостность файлов?</value>
   </data>
-  <data name="CheckIntegretyOption" xml:space="preserve">
+    <data name="CheckIntegretyOption" xml:space="preserve">
     <value>Проверять целостность файлов. Только для последних версий</value>
   </data>
-  <data name="CloudShadows" xml:space="preserve">
+    <data name="CloudShadows" xml:space="preserve">
     <value>Тени облаков</value>
   </data>
-  <data name="Compatibility" xml:space="preserve">
+    <data name="Compatibility" xml:space="preserve">
     <value>Совместимость не может быть гарантированна</value>
   </data>
-  <data name="Continue" xml:space="preserve">
+    <data name="Continue" xml:space="preserve">
     <value>Продолжить всё равно</value>
   </data>
-  <data name="CurrentVersion" xml:space="preserve">
+    <data name="CurrentVersion" xml:space="preserve">
     <value>Версия: </value>
   </data>
-  <data name="CustomCamera" xml:space="preserve">
+    <data name="CustomCamera" xml:space="preserve">
     <value>Настраиваемая высота камеры</value>
   </data>
-  <data name="DefaultCamera" xml:space="preserve">
+    <data name="DefaultCamera" xml:space="preserve">
     <value>Высота камеры по умолчанию (рекомендовано)</value>
   </data>
-  <data name="Delete" xml:space="preserve">
+    <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="Deprecated" xml:space="preserve">
+    <data name="Deprecated" xml:space="preserve">
     <value>{0} устарел</value>
   </data>
-  <data name="DisableGentool" xml:space="preserve">
+    <data name="DisableGentool" xml:space="preserve">
     <value>Отключить gentool</value>
   </data>
-  <data name="DisableLOD" xml:space="preserve">
+    <data name="DisableLOD" xml:space="preserve">
     <value>Отключить LOD</value>
   </data>
-  <data name="Discord" xml:space="preserve">
+    <data name="Discord" xml:space="preserve">
     <value>Присоединиться к Discord</value>
   </data>
-  <data name="DisplayUnits" xml:space="preserve">
+    <data name="DisplayUnits" xml:space="preserve">
     <value>Показывать юниты сквозь здания</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+    <data name="Donate" xml:space="preserve">
     <value>Поддержать</value>
   </data>
-  <data name="Download" xml:space="preserve">
+    <data name="Download" xml:space="preserve">
     <value>Загрузка {0}: {1}MB / {2}MB</value>
   </data>
-  <data name="DownloadInProgress" xml:space="preserve">
+    <data name="DownloadInProgress" xml:space="preserve">
     <value>Процесс загрузки: {0}MB / {1}MB</value>
   </data>
-  <data name="DownloadNet" xml:space="preserve">
+    <data name="DownloadNet" xml:space="preserve">
     <value>Хотите загрузить совместимую версию?</value>
   </data>
-  <data name="EnterModName" xml:space="preserve">
+    <data name="EnterModName" xml:space="preserve">
     <value>Введите имя мода</value>
   </data>
-  <data name="EnterModVersion" xml:space="preserve">
+    <data name="EnterModVersion" xml:space="preserve">
     <value>Введите версию мода</value>
   </data>
-  <data name="Error" xml:space="preserve">
+    <data name="Error" xml:space="preserve">
     <value>Ошибка: </value>
   </data>
-  <data name="ErrorMsg" xml:space="preserve">
+    <data name="ErrorMsg" xml:space="preserve">
     <value>Версия GenLauncher: {2} \r\n Техподдержка GenLauncher в Discord: {3} \r\n Ошибка: {0} \r\n StackTrace: {1}</value>
   </data>
-  <data name="Exit" xml:space="preserve">
+    <data name="Exit" xml:space="preserve">
     <value>ВЫХОД</value>
   </data>
-  <data name="ExtraAnimation" xml:space="preserve">
+    <data name="ExtraAnimation" xml:space="preserve">
     <value>Доп анимации</value>
   </data>
-  <data name="ExtraGroundLighting" xml:space="preserve">
+    <data name="ExtraGroundLighting" xml:space="preserve">
     <value>Доп подсветка земли</value>
   </data>
-  <data name="FilesCorrupted" xml:space="preserve">
+    <data name="FilesCorrupted" xml:space="preserve">
     <value>Некоторые файлы модов повреждены!</value>
   </data>
-  <data name="FinishInstall" xml:space="preserve">
+    <data name="FinishInstall" xml:space="preserve">
     <value>Закончите все установки!</value>
   </data>
-  <data name="FinishProccess" xml:space="preserve">
+    <data name="FinishProccess" xml:space="preserve">
     <value>Закройте игру перед открытием опций!</value>
   </data>
-  <data name="FirstRun" xml:space="preserve">
+    <data name="FirstRun" xml:space="preserve">
     <value>Похоже вы запускаете игру в первый раз</value>
   </data>
-  <data name="GameIsStillRunning" xml:space="preserve">
+    <data name="GameIsStillRunning" xml:space="preserve">
     <value>Игра всё ещё работает!</value>
   </data>
-  <data name="GameRunning" xml:space="preserve">
+    <data name="GameRunning" xml:space="preserve">
     <value>Игра уже запущена!</value>
   </data>
-  <data name="GentoolRecommended" xml:space="preserve">
+    <data name="GentoolRecommended" xml:space="preserve">
     <value>(Gentool рекомендован)</value>
   </data>
-  <data name="HeatEffects" xml:space="preserve">
+    <data name="HeatEffects" xml:space="preserve">
     <value>Тепловые эффекты (рекомендовано выключить)</value>
   </data>
-  <data name="HideLauncher" xml:space="preserve">
+    <data name="HideLauncher" xml:space="preserve">
     <value>Скрывать лаунчер во время игры</value>
   </data>
-  <data name="Image" xml:space="preserve">
+    <data name="Image" xml:space="preserve">
     <value>Изображение</value>
   </data>
-  <data name="InMemoryOfAziz" xml:space="preserve">
+    <data name="InMemoryOfAziz" xml:space="preserve">
     <value>В память о моём друге и товарище Азизе</value>
   </data>
-  <data name="InputModData" xml:space="preserve">
+    <data name="InputModData" xml:space="preserve">
     <value>Введите информацию о моде</value>
   </data>
-  <data name="Install" xml:space="preserve">
+    <data name="Install" xml:space="preserve">
     <value>Установить!</value>
   </data>
-  <data name="InstallGentool" xml:space="preserve">
+    <data name="InstallGentool" xml:space="preserve">
     <value>Установить и обновить Gentool (рекомендовано)</value>
   </data>
-  <data name="InstallInProgress" xml:space="preserve">
+    <data name="InstallInProgress" xml:space="preserve">
     <value>Нельзя запустить {0} - установка в процессе!</value>
   </data>
-  <data name="JoinDiscord" xml:space="preserve">
+    <data name="JoinDiscord" xml:space="preserve">
     <value>Дискорд GenLauncher</value>
   </data>
-  <data name="LatestVersion" xml:space="preserve">
+    <data name="LatestVersion" xml:space="preserve">
     <value>Последняя версия: </value>
   </data>
-  <data name="Launch" xml:space="preserve">
+    <data name="Launch" xml:space="preserve">
     <value>ЗАПУСК ИГРЫ</value>
   </data>
-  <data name="LaunchAborted" xml:space="preserve">
+    <data name="LaunchAborted" xml:space="preserve">
     <value>Запуск отменён</value>
   </data>
-  <data name="LowAndHigh" xml:space="preserve">
+    <data name="LowAndHigh" xml:space="preserve">
     <value>Меньше - лучше производительность, выше - лучше графика</value>
   </data>
-  <data name="MaximumPart" xml:space="preserve">
+    <data name="MaximumPart" xml:space="preserve">
     <value>Максимум частиц:</value>
   </data>
-  <data name="Moddb" xml:space="preserve">
+    <data name="Moddb" xml:space="preserve">
     <value>Страница Moddb</value>
   </data>
-  <data name="ModdedExe" xml:space="preserve">
+    <data name="ModdedExe" xml:space="preserve">
     <value>Использовать модифицированные exe (рекомендовано)</value>
   </data>
-  <data name="ModificationName" xml:space="preserve">
+    <data name="ModificationName" xml:space="preserve">
     <value>Имя мода: </value>
   </data>
-  <data name="ModificationsWithUpdate" xml:space="preserve">
+    <data name="ModificationsWithUpdate" xml:space="preserve">
     <value>Модификации могут быть обновлены:</value>
   </data>
-  <data name="ModIsUpToDate" xml:space="preserve">
+    <data name="ModIsUpToDate" xml:space="preserve">
     <value>Выбранный мод актуален</value>
   </data>
-  <data name="Mods" xml:space="preserve">
+    <data name="Mods" xml:space="preserve">
     <value>Моды</value>
   </data>
-  <data name="MoveLauncher" xml:space="preserve">
+    <data name="MoveLauncher" xml:space="preserve">
     <value>Переместите лаунчер в папку с игрой Generals или Generals ZH</value>
   </data>
-  <data name="NameAndVersionValidSymbols" xml:space="preserve">
+    <data name="NameAndVersionValidSymbols" xml:space="preserve">
     <value>Имя и версия мода должны иметь валидные символы</value>
   </data>
-  <data name="NeedToInstallAddon" xml:space="preserve">
+    <data name="NeedToInstallAddon" xml:space="preserve">
     <value>Нужно установить аддон перед открытие его папки</value>
   </data>
-  <data name="NeedToInstallMod" xml:space="preserve">
+    <data name="NeedToInstallMod" xml:space="preserve">
     <value>Нужно установить мод перед открытие его папки</value>
   </data>
-  <data name="NeedToInstallPatch" xml:space="preserve">
+    <data name="NeedToInstallPatch" xml:space="preserve">
     <value>Нужно установить патч перед открытие его папки</value>
   </data>
-  <data name="NetRequired" xml:space="preserve">
+    <data name="NetRequired" xml:space="preserve">
     <value>Требуется .NET Framework {0} или более поздняя версия .</value>
   </data>
-  <data name="NetRequired2" xml:space="preserve">
+    <data name="NetRequired2" xml:space="preserve">
     <value>Требуется .NET Framework {0} или более поздняя версия</value>
   </data>
-  <data name="NewUpdateForGenLauncher" xml:space="preserve">
+    <data name="NewUpdateForGenLauncher" xml:space="preserve">
     <value>Доступно новое обновление {0} для GenLauncher!</value>
   </data>
-  <data name="No" xml:space="preserve">
+    <data name="No" xml:space="preserve">
     <value>Нет</value>
   </data>
-  <data name="NoConnection" xml:space="preserve">
+    <data name="NoConnection" xml:space="preserve">
     <value>Нет соединения с GitHub</value>
   </data>
-  <data name="NotInstalled" xml:space="preserve">
+    <data name="NotInstalled" xml:space="preserve">
     <value>{0} выбран, но не установлен - запуск отменён!</value>
   </data>
-  <data name="Ok" xml:space="preserve">
+    <data name="Ok" xml:space="preserve">
     <value>ОК</value>
   </data>
-  <data name="OpenGameFolder" xml:space="preserve">
+    <data name="OpenGameFolder" xml:space="preserve">
     <value>Открыть папку с игрой</value>
   </data>
-  <data name="OpenMapsFolder" xml:space="preserve">
+    <data name="OpenMapsFolder" xml:space="preserve">
     <value>Открыть папку с картами</value>
   </data>
-  <data name="OpenModFolder" xml:space="preserve">
+    <data name="OpenModFolder" xml:space="preserve">
     <value>Открыть папку с модом</value>
   </data>
-  <data name="OpenReplaysFolder" xml:space="preserve">
+    <data name="OpenReplaysFolder" xml:space="preserve">
     <value>Открыть папку с реплеями</value>
   </data>
-  <data name="OperationAborted" xml:space="preserve">
+    <data name="OperationAborted" xml:space="preserve">
     <value>Операция отменена</value>
   </data>
-  <data name="Options" xml:space="preserve">
+    <data name="Options" xml:space="preserve">
     <value>НАСТРОЙКИ</value>
   </data>
-  <data name="OriginalExe" xml:space="preserve">
+    <data name="OriginalExe" xml:space="preserve">
     <value>Использовать оригинальные exe</value>
   </data>
-  <data name="OutOfSync" xml:space="preserve">
+    <data name="OutOfSync" xml:space="preserve">
     <value>Системное время некорректно!</value>
   </data>
-  <data name="OutOfSyncCantUpdate" xml:space="preserve">
+    <data name="OutOfSyncCantUpdate" xml:space="preserve">
     <value>Системное время некорректн - мод нельзя обновить</value>
   </data>
-  <data name="Patches" xml:space="preserve">
+    <data name="Patches" xml:space="preserve">
     <value>Патчи для </value>
   </data>
-  <data name="PlayOnline" xml:space="preserve">
+    <data name="PlayOnline" xml:space="preserve">
     <value>Как играть онлайн?</value>
   </data>
-  <data name="Preparing" xml:space="preserve">
+    <data name="Preparing" xml:space="preserve">
     <value>Подготовка, пожалуйста подождите...</value>
   </data>
-  <data name="Reinstall" xml:space="preserve">
+    <data name="Reinstall" xml:space="preserve">
     <value>Рекомендовано переустановить мод. \r Эту проверку можно отключить в настройках</value>
   </data>
-  <data name="Resolution" xml:space="preserve">
+    <data name="Resolution" xml:space="preserve">
     <value>Разрешение:</value>
   </data>
-  <data name="SelectMod" xml:space="preserve">
+    <data name="SelectMod" xml:space="preserve">
     <value>Выберете мод</value>
   </data>
-  <data name="SetDefaultOptions" xml:space="preserve">
+    <data name="SetDefaultOptions" xml:space="preserve">
     <value>Установить стандартные настройки</value>
   </data>
-  <data name="SetImage" xml:space="preserve">
+    <data name="SetImage" xml:space="preserve">
     <value>Set image (500x100)</value>
   </data>
-  <data name="SetRecommended" xml:space="preserve">
+    <data name="SetRecommended" xml:space="preserve">
     <value>Рекомендованные настройки</value>
   </data>
-  <data name="ShowProps" xml:space="preserve">
+    <data name="ShowProps" xml:space="preserve">
     <value>Показывать доп детали</value>
   </data>
-  <data name="SmoothWaterBorders" xml:space="preserve">
+    <data name="SmoothWaterBorders" xml:space="preserve">
     <value>Гладкие границы воды</value>
   </data>
-  <data name="Sponsors" xml:space="preserve">
+    <data name="Sponsors" xml:space="preserve">
     <value>Спонсоры</value>
   </data>
-  <data name="Stop" xml:space="preserve">
+    <data name="Stop" xml:space="preserve">
     <value>СТОП</value>
   </data>
-  <data name="SuportDevelopment" xml:space="preserve">
+    <data name="SuportDevelopment" xml:space="preserve">
     <value>Поддержи разработку GenLauncher!</value>
   </data>
-  <data name="SupportNews" xml:space="preserve">
+    <data name="SupportNews" xml:space="preserve">
     <value>Поддержка, новости и... больше ничего ¯\_(ツ)_/¯</value>
   </data>
-  <data name="SymbLink" xml:space="preserve">
+    <data name="SymbLink" xml:space="preserve">
     <value>Не удалось создать тестовую символьную ссылку. Лаунчер не может функционировать без символьных ссылок. \r\r Чаще всего невозможность создания символьной ссылки связана с файловой системой, где находится GenLauncher, символьные ссылки поддерживаются файловой системой NTFS, убедитесь что GenLauncher установлен на носителе именно с этой файловой системой. \r\r Также убедитесь, что создание символьных ссылок не блокируется недостатком прав или работой антивируса.</value>
   </data>
-  <data name="SyncManually" xml:space="preserve">
+    <data name="SyncManually" xml:space="preserve">
     <value>Пожалуйста, сделайте это вручную</value>
   </data>
-  <data name="SyncNow" xml:space="preserve">
+    <data name="SyncNow" xml:space="preserve">
     <value>Снихронизировать!</value>
   </data>
-  <data name="SyncTime" xml:space="preserve">
+    <data name="SyncTime" xml:space="preserve">
     <value>Для обновления нужно синхронизировать время</value>
   </data>
-  <data name="TakeLongTime" xml:space="preserve">
+    <data name="TakeLongTime" xml:space="preserve">
     <value>ВНИМАНИЕ! Эта операция может занять много времени. Проверку можно отключить в настройках.</value>
   </data>
-  <data name="Texture" xml:space="preserve">
+    <data name="Texture" xml:space="preserve">
     <value>Качество текстур:</value>
   </data>
-  <data name="ThankYou" xml:space="preserve">
+    <data name="ThankYou" xml:space="preserve">
     <value>Спасибо!</value>
   </data>
-  <data name="ToggleOff" xml:space="preserve">
+    <data name="ToggleOff" xml:space="preserve">
     <value>Отключите для улучшения стабильности</value>
   </data>
-  <data name="UninstalledUpdate" xml:space="preserve">
+    <data name="UninstalledUpdate" xml:space="preserve">
     <value>Неустановлено обновления для {0} </value>
   </data>
-  <data name="UnIsntalledAddon" xml:space="preserve">
+    <data name="UnIsntalledAddon" xml:space="preserve">
     <value>Неустановлен аддон</value>
   </data>
-  <data name="UnIsntalledMod" xml:space="preserve">
+    <data name="UnIsntalledMod" xml:space="preserve">
     <value>Неустановлен мод</value>
   </data>
-  <data name="UnIsntalledPatch" xml:space="preserve">
+    <data name="UnIsntalledPatch" xml:space="preserve">
     <value>Неустановлен патч</value>
   </data>
-  <data name="Unpacking" xml:space="preserve">
+    <data name="Unpacking" xml:space="preserve">
     <value>Распаковка...</value>
   </data>
-  <data name="UnpackingPreparing" xml:space="preserve">
+    <data name="UnpackingPreparing" xml:space="preserve">
     <value>Распаковка/Подготовка...</value>
   </data>
-  <data name="Update" xml:space="preserve">
+    <data name="Update" xml:space="preserve">
     <value>ОБНОВИТЬ!</value>
   </data>
-  <data name="VersionMustContainNumbers" xml:space="preserve">
+    <data name="VersionMustContainNumbers" xml:space="preserve">
     <value>Версия должна содержать цифры</value>
   </data>
-  <data name="Vulkan" xml:space="preserve">
+    <data name="Vulkan" xml:space="preserve">
     <value>Использовать Vulkan для повышения FPS</value>
   </data>
-  <data name="VulkanWarning" xml:space="preserve">
+    <data name="VulkanWarning" xml:space="preserve">
     <value>ВНИМАНИЕ! Это эксперементальная фича, могут быть баги, обо всех случая, пожалуйста, свяжитесь через дискорд с автором интеграции /r1d#7366 или в канале техподдержки</value>
   </data>
-  <data name="WarningOption" xml:space="preserve">
+    <data name="WarningOption" xml:space="preserve">
     <value>ВНИМАНИЕ! Эта проверка может занимать много времени!</value>
   </data>
-  <data name="WorldBuilder" xml:space="preserve">
+    <data name="WorldBuilder" xml:space="preserve">
     <value>РЕДАКТОР КАРТ</value>
   </data>
-  <data name="WorldBuilderRunning" xml:space="preserve">
+    <data name="WorldBuilderRunning" xml:space="preserve">
     <value>Редактор карт уже запущен!</value>
   </data>
-  <data name="Yes" xml:space="preserve">
+    <data name="Yes" xml:space="preserve">
     <value>Да</value>
   </data>
+    <data name="RequiredNETFrameworkNotFoundTitle" xml:space="preserve">
+    <value>Требуется .NET Framework {0} или более поздняя версия.</value>
+</data>
+    <data name="RequiredNETFrameworkNotFoundDescription" xml:space="preserve">
+    <value>Для GenLauncher требуется .NET Framework {0} или более поздняя версия. Хотите загрузить и установить подходящую версию?</value>
+</data>
+    <data name="RequiredNETFrameworkAutoInstallTitle" xml:space="preserve">
+    <value>Продолжить загрузку и установку?</value>
+</data>
+    <data name="RequiredNETFrameworkAutoInstallDescription" xml:space="preserve">
+    <value>.NET Framework {0} будет загружен с следующего URL: {1}</value>
+</data>
+    <data name="RequiredNETFrameworkInstallErrorDescription" xml:space="preserve">
+    <value>.NET Framework {0} не удалось установить. Пожалуйста, установите его вручную.</value>
+</data>
+    <data name="RequiredNETFrameworkInstallErrorTitle" xml:space="preserve">
+    <value>.NET Framework {0} не удалось установить.</value>
+</data>
 </root>

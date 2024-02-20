@@ -105,9 +105,10 @@ namespace GenLauncherNet
                 {
                     var setupPromptResult =
                         MessageBox.Show(
-                            $".NET Framework {RequiredNetFrameworkVersion} or later is required for GenLauncher. " +
-                            "Would you like to download and install a compatible version?",
-                            $".NET Framework {RequiredNetFrameworkVersion} or later required.",
+                            string.Format(LocalizedStrings.Instance["RequiredNETFrameworkNotFoundDescription"],
+                                RequiredNetFrameworkVersion),
+                            string.Format(LocalizedStrings.Instance["RequiredNETFrameworkNotFoundTitle"],
+                                RequiredNetFrameworkVersion),
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning
                         );
@@ -119,9 +120,9 @@ namespace GenLauncherNet
 
                     var proceedPromptResult =
                         MessageBox.Show(
-                            $".NET Framework {RequiredNetFrameworkVersion} will be downloaded from the following URL: " +
-                            $"{RequiredNetFrameworkVersionDownloadUrl}",
-                            "Proceed with download and installation?",
+                            string.Format(LocalizedStrings.Instance["RequiredNETFrameworkAutoInstallDescription"],
+                                RequiredNetFrameworkVersion, RequiredNetFrameworkVersionDownloadUrl),
+                            LocalizedStrings.Instance["RequiredNETFrameworkAutoInstallTitle"],
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Question
                         );
@@ -142,11 +143,13 @@ namespace GenLauncherNet
                             RequiredNetFrameworkVersionReleaseKeys))
                     {
                         MessageBox.Show(
-                            $".NET Framework {RequiredNetFrameworkVersion} could not be installed. Please install it manually.",
-                            $".NET Framework {RequiredNetFrameworkVersion} could not be installed.",
+                            string.Format(LocalizedStrings.Instance["RequiredNETFrameworkInstallErrorDescription"],
+                                RequiredNetFrameworkVersion),
+                            string.Format(LocalizedStrings.Instance["RequiredNETFrameworkInstallErrorTitle"],
+                                RequiredNetFrameworkVersion),
                             MessageBoxButton.OK,
-                            MessageBoxImage.Error);
-                        return;
+                            MessageBoxImage.Error
+                        );
                     }
                 }
 

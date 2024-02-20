@@ -1,538 +1,561 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="2DShadows" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="2DShadows" xml:space="preserve">
     <value>2D图形</value>
   </data>
-  <data name="3DShadows" xml:space="preserve">
+    <data name="3DShadows" xml:space="preserve">
     <value>3D图形</value>
   </data>
-  <data name="Add" xml:space="preserve">
+    <data name="Add" xml:space="preserve">
     <value>添加</value>
   </data>
-  <data name="AddAddonFromFiles" xml:space="preserve">
+    <data name="AddAddonFromFiles" xml:space="preserve">
     <value>从文件中为{0}添加插件</value>
   </data>
-  <data name="AdditionalParams" xml:space="preserve">
+    <data name="AdditionalParams" xml:space="preserve">
     <value>游戏开始的附加参数：</value>
   </data>
-  <data name="AddMod" xml:space="preserve">
+    <data name="AddMod" xml:space="preserve">
     <value>添加模组！</value>
   </data>
-  <data name="AddModFrFiles" xml:space="preserve">
+    <data name="AddModFrFiles" xml:space="preserve">
     <value>从文件中添加模组</value>
   </data>
-  <data name="Addons" xml:space="preserve">
+    <data name="Addons" xml:space="preserve">
     <value>的插件</value>
   </data>
-  <data name="AddPatchFromFiles" xml:space="preserve">
+    <data name="AddPatchFromFiles" xml:space="preserve">
     <value>从文件中为｛0｝添加补丁</value>
   </data>
-  <data name="AlternateMouseSetup" xml:space="preserve">
+    <data name="AlternateMouseSetup" xml:space="preserve">
     <value>备用鼠标设置</value>
   </data>
-  <data name="Apply" xml:space="preserve">
+    <data name="Apply" xml:space="preserve">
     <value>接受</value>
   </data>
-  <data name="ApplyDefaultSettings" xml:space="preserve">
+    <data name="ApplyDefaultSettings" xml:space="preserve">
     <value>是否要应用默认的推荐设置？</value>
   </data>
-  <data name="AskToCheck" xml:space="preserve">
+    <data name="AskToCheck" xml:space="preserve">
     <value>检查模组文件完整性前询问</value>
   </data>
-  <data name="Authors" xml:space="preserve">
+    <data name="Authors" xml:space="preserve">
     <value>作者和贡献者</value>
   </data>
-  <data name="AutoDelete" xml:space="preserve">
+    <data name="AutoDelete" xml:space="preserve">
     <value>自动删除过时的模组版本</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+    <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Canceled" xml:space="preserve">
+    <data name="Canceled" xml:space="preserve">
     <value>下载已取消</value>
   </data>
-  <data name="CannotConnect" xml:space="preserve">
+    <data name="CannotConnect" xml:space="preserve">
     <value>无法连接到https://github.com/, 无法在线安装模组!</value>
   </data>
-  <data name="CannotFindPath" xml:space="preserve">
+    <data name="CannotFindPath" xml:space="preserve">
     <value>无法沿路径找到文件夹：</value>
   </data>
-  <data name="CantCheckGentool" xml:space="preserve">
+    <data name="CantCheckGentool" xml:space="preserve">
     <value>无法检查gentool</value>
   </data>
-  <data name="CantDownloadWB" xml:space="preserve">
+    <data name="CantDownloadWB" xml:space="preserve">
     <value>无法下载WorldbuilderNT27</value>
   </data>
-  <data name="CantSync" xml:space="preserve">
+    <data name="CantSync" xml:space="preserve">
     <value>无法同步您的系统时间！</value>
   </data>
-  <data name="Changelog" xml:space="preserve">
+    <data name="Changelog" xml:space="preserve">
     <value>更新日志/新闻</value>
   </data>
-  <data name="ChangelogOnly" xml:space="preserve">
+    <data name="ChangelogOnly" xml:space="preserve">
     <value>更新日志</value>
   </data>
-  <data name="ChangeToFullScreen" xml:space="preserve">
+    <data name="ChangeToFullScreen" xml:space="preserve">
     <value>更改为全屏</value>
   </data>
-  <data name="ChangeToNormalStart" xml:space="preserve">
+    <data name="ChangeToNormalStart" xml:space="preserve">
     <value>更改为正常启动</value>
   </data>
-  <data name="ChangeToQuickStart" xml:space="preserve">
+    <data name="ChangeToQuickStart" xml:space="preserve">
     <value>更改为快速启动</value>
   </data>
-  <data name="ChangeToWindowed" xml:space="preserve">
+    <data name="ChangeToWindowed" xml:space="preserve">
     <value>更改为窗口模式</value>
   </data>
-  <data name="CheckFiles" xml:space="preserve">
+    <data name="CheckFiles" xml:space="preserve">
     <value>是，检查文件</value>
   </data>
-  <data name="CheckIntegrety" xml:space="preserve">
+    <data name="CheckIntegrety" xml:space="preserve">
     <value>启动前检查模组文件的完整性？</value>
   </data>
-  <data name="CheckIntegretyOption" xml:space="preserve">
+    <data name="CheckIntegretyOption" xml:space="preserve">
     <value>检查模组文件的完整性。仅适用于最新版本的模组。</value>
   </data>
-  <data name="CloudShadows" xml:space="preserve">
+    <data name="CloudShadows" xml:space="preserve">
     <value>云阴影</value>
   </data>
-  <data name="Compatibility" xml:space="preserve">
+    <data name="Compatibility" xml:space="preserve">
     <value>无法保证与模组的兼容性！</value>
   </data>
-  <data name="Continue" xml:space="preserve">
+    <data name="Continue" xml:space="preserve">
     <value>依旧继续</value>
   </data>
-  <data name="CurrentVersion" xml:space="preserve">
+    <data name="CurrentVersion" xml:space="preserve">
     <value>版本：</value>
   </data>
-  <data name="CustomCamera" xml:space="preserve">
+    <data name="CustomCamera" xml:space="preserve">
     <value>使用自定义相机高度</value>
   </data>
-  <data name="DefaultCamera" xml:space="preserve">
+    <data name="DefaultCamera" xml:space="preserve">
     <value>使用默认相机高度（推荐）</value>
   </data>
-  <data name="Delete" xml:space="preserve">
+    <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="Deprecated" xml:space="preserve">
+    <data name="Deprecated" xml:space="preserve">
     <value>｛0｝已弃用</value>
   </data>
-  <data name="DisableGentool" xml:space="preserve">
+    <data name="DisableGentool" xml:space="preserve">
     <value>禁用Gentool</value>
   </data>
-  <data name="DisableLOD" xml:space="preserve">
+    <data name="DisableLOD" xml:space="preserve">
     <value>禁用动态详细级别</value>
   </data>
-  <data name="Discord" xml:space="preserve">
+    <data name="Discord" xml:space="preserve">
     <value>加入Discord服务器</value>
   </data>
-  <data name="DisplayUnits" xml:space="preserve">
+    <data name="DisplayUnits" xml:space="preserve">
     <value>显示穿过建筑物的单位</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+    <data name="Donate" xml:space="preserve">
     <value>捐赠</value>
   </data>
-  <data name="Download" xml:space="preserve">
+    <data name="Download" xml:space="preserve">
     <value>下载 {0}: {1}MB / {2}MB</value>
   </data>
-  <data name="DownloadInProgress" xml:space="preserve">
+    <data name="DownloadInProgress" xml:space="preserve">
     <value>下载中 {0}MB / {1}MB</value>
   </data>
-  <data name="DownloadNet" xml:space="preserve">
+    <data name="DownloadNet" xml:space="preserve">
     <value>您需要下载一个兼容版本吧?</value>
   </data>
-  <data name="EnterModName" xml:space="preserve">
+    <data name="EnterModName" xml:space="preserve">
     <value>输入模组名称</value>
   </data>
-  <data name="EnterModVersion" xml:space="preserve">
+    <data name="EnterModVersion" xml:space="preserve">
     <value>输入模组版本</value>
   </data>
-  <data name="Error" xml:space="preserve">
+    <data name="Error" xml:space="preserve">
     <value>错误：</value>
   </data>
-  <data name="ErrorMsg" xml:space="preserve">
+    <data name="ErrorMsg" xml:space="preserve">
     <value>启动器版本: {2} \r\n discord里的启动器技术支持: {3} \r\n 错误: {0} \r\n 堆栈追踪: {1}</value>
   </data>
-  <data name="Exit" xml:space="preserve">
+    <data name="Exit" xml:space="preserve">
     <value>退出</value>
   </data>
-  <data name="ExtraAnimation" xml:space="preserve">
+    <data name="ExtraAnimation" xml:space="preserve">
     <value>额外动画</value>
   </data>
-  <data name="ExtraGroundLighting" xml:space="preserve">
+    <data name="ExtraGroundLighting" xml:space="preserve">
     <value>额外地面光照</value>
   </data>
-  <data name="FilesCorrupted" xml:space="preserve">
+    <data name="FilesCorrupted" xml:space="preserve">
     <value>部分模组文件丢失或损坏</value>
   </data>
-  <data name="FinishInstall" xml:space="preserve">
+    <data name="FinishInstall" xml:space="preserve">
     <value>请完成全部安装</value>
   </data>
-  <data name="FinishProccess" xml:space="preserve">
+    <data name="FinishProccess" xml:space="preserve">
     <value>在开始游戏之前请完成所有设置</value>
   </data>
-  <data name="FirstRun" xml:space="preserve">
+    <data name="FirstRun" xml:space="preserve">
     <value>看样子这是你第一次运行这个游戏</value>
   </data>
-  <data name="GameIsStillRunning" xml:space="preserve">
+    <data name="GameIsStillRunning" xml:space="preserve">
     <value>游戏还在跑呢！</value>
   </data>
-  <data name="GameRunning" xml:space="preserve">
+    <data name="GameRunning" xml:space="preserve">
     <value>将军已经在运行啦！</value>
   </data>
-  <data name="GentoolRecommended" xml:space="preserve">
+    <data name="GentoolRecommended" xml:space="preserve">
     <value>(强烈推荐Gentool)</value>
   </data>
-  <data name="HeatEffects" xml:space="preserve">
+    <data name="HeatEffects" xml:space="preserve">
     <value>热能效果(建议关了)</value>
   </data>
-  <data name="HideLauncher" xml:space="preserve">
+    <data name="HideLauncher" xml:space="preserve">
     <value>游戏开始之后隐藏启动器</value>
   </data>
-  <data name="Image" xml:space="preserve">
+    <data name="Image" xml:space="preserve">
     <value>图像</value>
   </data>
-  <data name="InMemoryOfAziz" xml:space="preserve">
+    <data name="InMemoryOfAziz" xml:space="preserve">
     <value>永远怀念我的朋友与同志Aziz！！！！</value>
   </data>
-  <data name="InputModData" xml:space="preserve">
+    <data name="InputModData" xml:space="preserve">
     <value>输入模组数据</value>
   </data>
-  <data name="Install" xml:space="preserve">
+    <data name="Install" xml:space="preserve">
     <value>安装！</value>
   </data>
-  <data name="InstallGentool" xml:space="preserve">
+    <data name="InstallGentool" xml:space="preserve">
     <value>安装并自动升级gentool（推荐）</value>
   </data>
-  <data name="InstallInProgress" xml:space="preserve">
+    <data name="InstallInProgress" xml:space="preserve">
     <value>无法启动 {0} - 正在安装!</value>
   </data>
-  <data name="JoinDiscord" xml:space="preserve">
+    <data name="JoinDiscord" xml:space="preserve">
     <value>加入启动器的Discord！</value>
   </data>
-  <data name="LatestVersion" xml:space="preserve">
+    <data name="LatestVersion" xml:space="preserve">
     <value>最新版本：</value>
   </data>
-  <data name="Launch" xml:space="preserve">
+    <data name="Launch" xml:space="preserve">
     <value>启动游戏</value>
   </data>
-  <data name="LaunchAborted" xml:space="preserve">
+    <data name="LaunchAborted" xml:space="preserve">
     <value>取消启动</value>
   </data>
-  <data name="LowAndHigh" xml:space="preserve">
+    <data name="LowAndHigh" xml:space="preserve">
     <value>低 - 更好的性能, 高 - 更高的画质</value>
   </data>
-  <data name="MaximumPart" xml:space="preserve">
+    <data name="MaximumPart" xml:space="preserve">
     <value>最大粒子数量：</value>
   </data>
-  <data name="Moddb" xml:space="preserve">
+    <data name="Moddb" xml:space="preserve">
     <value>访问ModdB的页面</value>
   </data>
-  <data name="ModdedExe" xml:space="preserve">
+    <data name="ModdedExe" xml:space="preserve">
     <value>使用改版exe文件（推荐）</value>
   </data>
-  <data name="ModificationName" xml:space="preserve">
+    <data name="ModificationName" xml:space="preserve">
     <value>模组名称</value>
   </data>
-  <data name="ModificationsWithUpdate" xml:space="preserve">
+    <data name="ModificationsWithUpdate" xml:space="preserve">
     <value>这些模组可以升级：</value>
   </data>
-  <data name="ModIsUpToDate" xml:space="preserve">
+    <data name="ModIsUpToDate" xml:space="preserve">
     <value>选择的模组是最新的</value>
   </data>
-  <data name="Mods" xml:space="preserve">
+    <data name="Mods" xml:space="preserve">
     <value>模组</value>
   </data>
-  <data name="MoveLauncher" xml:space="preserve">
+    <data name="MoveLauncher" xml:space="preserve">
     <value>请把启动器放到将军本体或绝命时刻的文件夹里。</value>
   </data>
-  <data name="NameAndVersionValidSymbols" xml:space="preserve">
+    <data name="NameAndVersionValidSymbols" xml:space="preserve">
     <value>模组名称和版本应该包含有效字符</value>
   </data>
-  <data name="NeedToInstallAddon" xml:space="preserve">
+    <data name="NeedToInstallAddon" xml:space="preserve">
     <value>你需要装好插件之后再访问其文件夹</value>
   </data>
-  <data name="NeedToInstallMod" xml:space="preserve">
+    <data name="NeedToInstallMod" xml:space="preserve">
     <value>你需要装好模组之后再访问其文件夹</value>
   </data>
-  <data name="NeedToInstallPatch" xml:space="preserve">
+    <data name="NeedToInstallPatch" xml:space="preserve">
     <value>你需要装好补丁之后再访问其文件夹</value>
   </data>
-  <data name="NetRequired" xml:space="preserve">
+    <data name="NetRequired" xml:space="preserve">
     <value>启动器需要更高版本的.NET Framework {0} 。</value>
   </data>
-  <data name="NetRequired2" xml:space="preserve">
+    <data name="NetRequired2" xml:space="preserve">
     <value>需要更高版本的.NET Framework {0}</value>
   </data>
-  <data name="NewUpdateForGenLauncher" xml:space="preserve">
+    <data name="NewUpdateForGenLauncher" xml:space="preserve">
     <value>启动器有新版本可以下载！</value>
   </data>
-  <data name="No" xml:space="preserve">
+    <data name="No" xml:space="preserve">
     <value>不了</value>
   </data>
-  <data name="NoConnection" xml:space="preserve">
+    <data name="NoConnection" xml:space="preserve">
     <value>连不上Github</value>
   </data>
-  <data name="NotInstalled" xml:space="preserve">
+    <data name="NotInstalled" xml:space="preserve">
     <value>选了{0} 但是没装上 -  取消启动!</value>
   </data>
-  <data name="Ok" xml:space="preserve">
+    <data name="Ok" xml:space="preserve">
     <value>好的</value>
   </data>
-  <data name="OpenGameFolder" xml:space="preserve">
+    <data name="OpenGameFolder" xml:space="preserve">
     <value>打开游戏本体文件夹</value>
   </data>
-  <data name="OpenMapsFolder" xml:space="preserve">
+    <data name="OpenMapsFolder" xml:space="preserve">
     <value>打开游戏地图文件夹</value>
   </data>
-  <data name="OpenModFolder" xml:space="preserve">
+    <data name="OpenModFolder" xml:space="preserve">
     <value>打开游戏模组文件夹</value>
   </data>
-  <data name="OpenReplaysFolder" xml:space="preserve">
+    <data name="OpenReplaysFolder" xml:space="preserve">
     <value>打开游戏回放文件夹</value>
   </data>
-  <data name="OperationAborted" xml:space="preserve">
+    <data name="OperationAborted" xml:space="preserve">
     <value>行动取消</value>
   </data>
-  <data name="Options" xml:space="preserve">
+    <data name="Options" xml:space="preserve">
     <value>选项</value>
   </data>
-  <data name="OriginalExe" xml:space="preserve">
+    <data name="OriginalExe" xml:space="preserve">
     <value>使用原始exe文件</value>
   </data>
-  <data name="OutOfSync" xml:space="preserve">
+    <data name="OutOfSync" xml:space="preserve">
     <value>系统时间未同步！</value>
   </data>
-  <data name="OutOfSyncCantUpdate" xml:space="preserve">
+    <data name="OutOfSyncCantUpdate" xml:space="preserve">
     <value>系统时间未同步- 无法升级模组</value>
   </data>
-  <data name="Patches" xml:space="preserve">
+    <data name="Patches" xml:space="preserve">
     <value>补丁</value>
   </data>
-  <data name="PlayOnline" xml:space="preserve">
+    <data name="PlayOnline" xml:space="preserve">
     <value>如何在线游戏</value>
   </data>
-  <data name="Preparing" xml:space="preserve">
+    <data name="Preparing" xml:space="preserve">
     <value>准备中，请稍后……</value>
   </data>
-  <data name="Reinstall" xml:space="preserve">
+    <data name="Reinstall" xml:space="preserve">
     <value>强烈建议重装模组。 \r 你可以在设置中关了这个检查。</value>
   </data>
-  <data name="Resolution" xml:space="preserve">
+    <data name="Resolution" xml:space="preserve">
     <value>游戏分辨率：</value>
   </data>
-  <data name="SelectMod" xml:space="preserve">
+    <data name="SelectMod" xml:space="preserve">
     <value>选择添加的模组</value>
   </data>
-  <data name="SetDefaultOptions" xml:space="preserve">
+    <data name="SetDefaultOptions" xml:space="preserve">
     <value>设置默认选项</value>
   </data>
-  <data name="SetImage" xml:space="preserve">
+    <data name="SetImage" xml:space="preserve">
     <value>选择图片(500*100)</value>
   </data>
-  <data name="SetRecommended" xml:space="preserve">
+    <data name="SetRecommended" xml:space="preserve">
     <value>选择推荐选项</value>
   </data>
-  <data name="ShowProps" xml:space="preserve">
+    <data name="ShowProps" xml:space="preserve">
     <value>显示道具</value>
   </data>
-  <data name="SmoothWaterBorders" xml:space="preserve">
+    <data name="SmoothWaterBorders" xml:space="preserve">
     <value>平滑的水边界</value>
   </data>
-  <data name="Sponsors" xml:space="preserve">
+    <data name="Sponsors" xml:space="preserve">
     <value>赞助者</value>
   </data>
-  <data name="Stop" xml:space="preserve">
+    <data name="Stop" xml:space="preserve">
     <value>停止</value>
   </data>
-  <data name="SuportDevelopment" xml:space="preserve">
+    <data name="SuportDevelopment" xml:space="preserve">
     <value>支持启动器的开发！</value>
   </data>
-  <data name="SupportNews" xml:space="preserve">
+    <data name="SupportNews" xml:space="preserve">
     <value>支持,新闻然后没了 ¯\_(ツ)_/¯</value>
   </data>
-  <data name="SymbLink" xml:space="preserve">
+    <data name="SymbLink" xml:space="preserve">
     <value>同步连接测试失败。 如果不能同步连接，启动器将无法工作 \r\r通常建立不了同步的原因可能和启动器安装的盘的文件系统有关系，需要用NTFS文件系统的驱动器，请确保启动器安到这种文件系统的驱动器里面。\r\r同样别忘了给启动器管理员权限以及确保不被杀毒软件误杀。</value>
   </data>
-  <data name="SyncManually" xml:space="preserve">
+    <data name="SyncManually" xml:space="preserve">
     <value>请手动校准时间</value>
   </data>
-  <data name="SyncNow" xml:space="preserve">
+    <data name="SyncNow" xml:space="preserve">
     <value>立刻同步时间</value>
   </data>
-  <data name="SyncTime" xml:space="preserve">
+    <data name="SyncTime" xml:space="preserve">
     <value>为了升级，您需要同步系统时间</value>
   </data>
-  <data name="TakeLongTime" xml:space="preserve">
+    <data name="TakeLongTime" xml:space="preserve">
     <value>警告！这个要花很长时间，你可以在设置里面关闭这个选项</value>
   </data>
-  <data name="Texture" xml:space="preserve">
+    <data name="Texture" xml:space="preserve">
     <value>图形质量：</value>
   </data>
-  <data name="ThankYou" xml:space="preserve">
+    <data name="ThankYou" xml:space="preserve">
     <value>谢谢！</value>
   </data>
-  <data name="ToggleOff" xml:space="preserve">
+    <data name="ToggleOff" xml:space="preserve">
     <value>关闭这个以提高性能和稳定性</value>
   </data>
-  <data name="UninstalledUpdate" xml:space="preserve">
+    <data name="UninstalledUpdate" xml:space="preserve">
     <value>有一个{0}的卸载更新 </value>
   </data>
-  <data name="UnIsntalledAddon" xml:space="preserve">
+    <data name="UnIsntalledAddon" xml:space="preserve">
     <value>卸载插件</value>
   </data>
-  <data name="UnIsntalledMod" xml:space="preserve">
+    <data name="UnIsntalledMod" xml:space="preserve">
     <value>卸载模组</value>
   </data>
-  <data name="UnIsntalledPatch" xml:space="preserve">
+    <data name="UnIsntalledPatch" xml:space="preserve">
     <value>卸载补丁</value>
   </data>
-  <data name="Unpacking" xml:space="preserve">
+    <data name="Unpacking" xml:space="preserve">
     <value>解压缩中</value>
   </data>
-  <data name="UnpackingPreparing" xml:space="preserve">
+    <data name="UnpackingPreparing" xml:space="preserve">
     <value>解压缩&amp;准备中</value>
   </data>
-  <data name="Update" xml:space="preserve">
+    <data name="Update" xml:space="preserve">
     <value>升级！</value>
   </data>
-  <data name="VersionMustContainNumbers" xml:space="preserve">
+    <data name="VersionMustContainNumbers" xml:space="preserve">
     <value>版本号必须包含数字</value>
   </data>
-  <data name="Vulkan" xml:space="preserve">
+    <data name="Vulkan" xml:space="preserve">
     <value>使用Vulkan API来提高性能</value>
   </data>
-  <data name="VulkanWarning" xml:space="preserve">
+    <data name="VulkanWarning" xml:space="preserve">
     <value>警告！这是实验性功能，也许有漏洞或者出毛病。
 有问题请赶紧联系Discord的技术支持频道或者拷打作者。 /r1d#7366</value>
   </data>
-  <data name="WarningOption" xml:space="preserve">
+    <data name="WarningOption" xml:space="preserve">
     <value>警告！这个检查在开始游戏之前很耗时间！</value>
   </data>
-  <data name="WorldBuilder" xml:space="preserve">
+    <data name="WorldBuilder" xml:space="preserve">
     <value>地图编辑器</value>
   </data>
-  <data name="WorldBuilderRunning" xml:space="preserve">
+    <data name="WorldBuilderRunning" xml:space="preserve">
     <value>地图编辑器运行中！</value>
   </data>
-  <data name="Yes" xml:space="preserve">
+    <data name="Yes" xml:space="preserve">
     <value>好的</value>
   </data>
+    <data name="RequiredNETFrameworkNotFoundTitle" xml:space="preserve">
+    <value>需要.NET Framework {0}或更高版本。</value>
+</data>
+    <data name="RequiredNETFrameworkNotFoundDescription" xml:space="preserve">
+    <value>GenLauncher需要.NET Framework {0}或更高版本。 您想下载并安装兼容的版本吗？</value>
+</data>
+    <data name="RequiredNETFrameworkAutoInstallTitle" xml:space="preserve">
+    <value>继续下载和安装？</value>
+</data>
+    <data name="RequiredNETFrameworkAutoInstallDescription" xml:space="preserve">
+    <value>将从以下URL下载.NET Framework {0}：{1}</value>
+</data>
+    <data name="RequiredNETFrameworkInstallErrorDescription" xml:space="preserve">
+    <value>.NET Framework {0}无法安装。 请手动安装。</value>
+</data>
+    <data name="RequiredNETFrameworkInstallErrorTitle" xml:space="preserve">
+    <value>.NET Framework {0}无法安装。</value>
+</data>
 </root>

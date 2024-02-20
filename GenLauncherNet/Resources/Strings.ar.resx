@@ -1,535 +1,561 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <!-- 
+      Microsoft ResX Schema 
+      
+      Version 2.0
+      
+      The primary goals of this format is to allow a simple XML format 
+      that is mostly human readable. The generation and parsing of the 
+      various data types are done through the TypeConverter classes 
+      associated with the data types.
+      
+      Example:
+      
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+                  
+      There are any number of "resheader" rows that contain simple 
+      name/value pairs.
+      
+      Each data row contains a name, and value. The row also contains a 
+      type or mimetype. Type corresponds to a .NET class that support 
+      text/value conversion through the TypeConverter architecture. 
+      Classes that don't support this are serialized and stored with the 
+      mimetype set.
+      
+      The mimetype is used for serialized objects, and tells the 
+      ResXResourceReader how to depersist the object. This is currently not 
+      extensible. For a given mimetype the value must be set accordingly:
+      
+      Note - application/x-microsoft.net.object.binary.base64 is the format 
+      that the ResXResourceWriter will generate, however the reader can 
+      read any of the formats listed below.
+      
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+      
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with 
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+  
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array 
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="2DShadows" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="2DShadows" xml:space="preserve">
     <value>ظلال ثنائية الأبعاد</value>
   </data>
-  <data name="3DShadows" xml:space="preserve">
+    <data name="3DShadows" xml:space="preserve">
     <value>ظلال ثلاثية الأبعاد</value>
   </data>
-  <data name="Add" xml:space="preserve">
+    <data name="Add" xml:space="preserve">
     <value>إضافة!</value>
   </data>
-  <data name="AddAddonFromFiles" xml:space="preserve">
+    <data name="AddAddonFromFiles" xml:space="preserve">
     <value>أضف إضافة لـ{0} من الملفات</value>
   </data>
-  <data name="AdditionalParams" xml:space="preserve">
+    <data name="AdditionalParams" xml:space="preserve">
     <value>تحتاج لعوامل إضافية لبدء اللعبة:</value>
   </data>
-  <data name="AddMod" xml:space="preserve">
+    <data name="AddMod" xml:space="preserve">
     <value>إضافة مود!</value>
   </data>
-  <data name="AddModFrFiles" xml:space="preserve">
+    <data name="AddModFrFiles" xml:space="preserve">
     <value>إضافة مود من الملفات</value>
   </data>
-  <data name="Addons" xml:space="preserve">
+    <data name="Addons" xml:space="preserve">
     <value>إضافة لـ </value>
   </data>
-  <data name="AddPatchFromFiles" xml:space="preserve">
+    <data name="AddPatchFromFiles" xml:space="preserve">
     <value>إضافة باتش لـ {0} من الملفات</value>
   </data>
-  <data name="AlternateMouseSetup" xml:space="preserve">
+    <data name="AlternateMouseSetup" xml:space="preserve">
     <value>إعدادات الفأره البديلة</value>
   </data>
-  <data name="Apply" xml:space="preserve">
+    <data name="Apply" xml:space="preserve">
     <value>نفّذ</value>
   </data>
-  <data name="ApplyDefaultSettings" xml:space="preserve">
+    <data name="ApplyDefaultSettings" xml:space="preserve">
     <value>هل ترغب في تطبيق الإعدادات الافتراضية الموصي بها؟</value>
   </data>
-  <data name="AskToCheck" xml:space="preserve">
+    <data name="AskToCheck" xml:space="preserve">
     <value>إسأل قبل التحقق من سلامة ملفات المود</value>
   </data>
-  <data name="Authors" xml:space="preserve">
+    <data name="Authors" xml:space="preserve">
     <value>المؤلفون والمساهمون</value>
   </data>
-  <data name="AutoDelete" xml:space="preserve">
+    <data name="AutoDelete" xml:space="preserve">
     <value>الحذف التلقائي لإصدارات المود القديمة</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+    <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
-  <data name="Canceled" xml:space="preserve">
+    <data name="Canceled" xml:space="preserve">
     <value>التحميل تم إلغاءه</value>
   </data>
-  <data name="CannotFindPath" xml:space="preserve">
+    <data name="CannotFindPath" xml:space="preserve">
     <value>لا يمكن العثور علي الملف علي طول المسار: </value>
   </data>
-  <data name="CantCheckGentool" xml:space="preserve">
+    <data name="CantCheckGentool" xml:space="preserve">
     <value>غير قادر علي التحقق من Gentool</value>
   </data>
-  <data name="CantDownloadWB" xml:space="preserve">
+    <data name="CantDownloadWB" xml:space="preserve">
     <value>لا يمكن تحميل WorldbuilderNT27</value>
   </data>
-  <data name="CantSync" xml:space="preserve">
+    <data name="CantSync" xml:space="preserve">
     <value>غير قادر علي مزامنة ساعة النظام الخاص بك!</value>
   </data>
-  <data name="Changelog" xml:space="preserve">
+    <data name="Changelog" xml:space="preserve">
     <value>سجل التغييرات / الأخبار</value>
   </data>
-  <data name="ChangelogOnly" xml:space="preserve">
+    <data name="ChangelogOnly" xml:space="preserve">
     <value>سجل التغييرات</value>
   </data>
-  <data name="ChangeToFullScreen" xml:space="preserve">
+    <data name="ChangeToFullScreen" xml:space="preserve">
     <value>تغيير لوضع ملئ الشاشة</value>
   </data>
-  <data name="ChangeToNormalStart" xml:space="preserve">
+    <data name="ChangeToNormalStart" xml:space="preserve">
     <value>تغيير إلي البداية العادية</value>
   </data>
-  <data name="ChangeToQuickStart" xml:space="preserve">
+    <data name="ChangeToQuickStart" xml:space="preserve">
     <value>تغيير إلي البداية السريعة</value>
   </data>
-  <data name="ChangeToWindowed" xml:space="preserve">
+    <data name="ChangeToWindowed" xml:space="preserve">
     <value>تغيير لوضع النافذة</value>
   </data>
-  <data name="CheckFiles" xml:space="preserve">
+    <data name="CheckFiles" xml:space="preserve">
     <value>نعم, افحص الملفات</value>
   </data>
-  <data name="CheckIntegrety" xml:space="preserve">
+    <data name="CheckIntegrety" xml:space="preserve">
     <value>هل تريد التحقق من سلامة ملفات المود قبل البدء؟</value>
   </data>
-  <data name="CheckIntegretyOption" xml:space="preserve">
+    <data name="CheckIntegretyOption" xml:space="preserve">
     <value>التحقق من سلامة ملفات المود, يعمل فقط مع احدث إصدار للمودات</value>
   </data>
-  <data name="CloudShadows" xml:space="preserve">
+    <data name="CloudShadows" xml:space="preserve">
     <value>ظلال السحاب</value>
   </data>
-  <data name="Compatibility" xml:space="preserve">
+    <data name="Compatibility" xml:space="preserve">
     <value>التوافق مع المود ليس اكيداً!</value>
   </data>
-  <data name="Continue" xml:space="preserve">
+    <data name="Continue" xml:space="preserve">
     <value>استمر علي اي حال</value>
   </data>
-  <data name="CurrentVersion" xml:space="preserve">
+    <data name="CurrentVersion" xml:space="preserve">
     <value>الإصدار الحالي: </value>
   </data>
-  <data name="CustomCamera" xml:space="preserve">
+    <data name="CustomCamera" xml:space="preserve">
     <value>استخدم ارتفاع الكاميرا المخصص</value>
   </data>
-  <data name="DefaultCamera" xml:space="preserve">
+    <data name="DefaultCamera" xml:space="preserve">
     <value>استخدام ارتفاع الكاميرا الافتراضي (موصى به)</value>
   </data>
-  <data name="Delete" xml:space="preserve">
+    <data name="Delete" xml:space="preserve">
     <value>امسح</value>
   </data>
-  <data name="Deprecated" xml:space="preserve">
+    <data name="Deprecated" xml:space="preserve">
     <value>{0} تم إهماله</value>
   </data>
-  <data name="DisableGentool" xml:space="preserve">
+    <data name="DisableGentool" xml:space="preserve">
     <value>عطل Gentool</value>
   </data>
-  <data name="DisableLOD" xml:space="preserve">
+    <data name="DisableLOD" xml:space="preserve">
     <value>تعطيل المستوى الديناميكي للتفاصيل</value>
   </data>
-  <data name="Discord" xml:space="preserve">
+    <data name="Discord" xml:space="preserve">
     <value>الانضمام إلي الدسكورد </value>
   </data>
-  <data name="DisplayUnits" xml:space="preserve">
+    <data name="DisplayUnits" xml:space="preserve">
     <value>عرض الوحدات خلف المباني</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+    <data name="Donate" xml:space="preserve">
     <value>تبرع</value>
   </data>
-  <data name="Download" xml:space="preserve">
+    <data name="Download" xml:space="preserve">
     <value>تحميل {0}: {1}ميجا / {2}ميجا</value>
   </data>
-  <data name="DownloadInProgress" xml:space="preserve">
+    <data name="DownloadInProgress" xml:space="preserve">
     <value>قيد التحميل {0}ميجا / {1}ميجا</value>
   </data>
-  <data name="DownloadNet" xml:space="preserve">
+    <data name="DownloadNet" xml:space="preserve">
     <value>هل ترغب في تنزيل إصدار متوافق؟</value>
   </data>
-  <data name="EnterModName" xml:space="preserve">
+    <data name="EnterModName" xml:space="preserve">
     <value>ادخل اسم المود</value>
   </data>
-  <data name="EnterModVersion" xml:space="preserve">
+    <data name="EnterModVersion" xml:space="preserve">
     <value>ادخل إصدار المود</value>
   </data>
-  <data name="Error" xml:space="preserve">
+    <data name="Error" xml:space="preserve">
     <value>خطأ: </value>
   </data>
-  <data name="Exit" xml:space="preserve">
+    <data name="Exit" xml:space="preserve">
     <value>الخروج</value>
   </data>
-  <data name="ExtraAnimation" xml:space="preserve">
+    <data name="ExtraAnimation" xml:space="preserve">
     <value>انيميشن إضافي </value>
   </data>
-  <data name="ExtraGroundLighting" xml:space="preserve">
+    <data name="ExtraGroundLighting" xml:space="preserve">
     <value>إضاءة ارضية إضافية</value>
   </data>
-  <data name="FilesCorrupted" xml:space="preserve">
+    <data name="FilesCorrupted" xml:space="preserve">
     <value>بعض ملفات المود مفقودة أو تالفة!</value>
   </data>
-  <data name="FinishInstall" xml:space="preserve">
+    <data name="FinishInstall" xml:space="preserve">
     <value>يرجي الانتهاء من جميع التثبيتات</value>
   </data>
-  <data name="FinishProccess" xml:space="preserve">
+    <data name="FinishProccess" xml:space="preserve">
     <value>قم بإغلاق اللعبة قبل فتح الإعدادات</value>
   </data>
-  <data name="FirstRun" xml:space="preserve">
+    <data name="FirstRun" xml:space="preserve">
     <value>يبدو أنك تقوم بتشغيل اللعبة لأول مرة</value>
   </data>
-  <data name="GameIsStillRunning" xml:space="preserve">
+    <data name="GameIsStillRunning" xml:space="preserve">
     <value>اللعبة مازالت قيد التشغيل</value>
   </data>
-  <data name="GameRunning" xml:space="preserve">
+    <data name="GameRunning" xml:space="preserve">
     <value>لعبة Generals قيد التشغيل بالفعل!</value>
   </data>
-  <data name="GentoolRecommended" xml:space="preserve">
+    <data name="GentoolRecommended" xml:space="preserve">
     <value>(يوصي بهGentool)</value>
   </data>
-  <data name="HeatEffects" xml:space="preserve">
+    <data name="HeatEffects" xml:space="preserve">
     <value>تأثيرات الحرارة (يوصي بإغلاق تشغيله)</value>
   </data>
-  <data name="HideLauncher" xml:space="preserve">
+    <data name="HideLauncher" xml:space="preserve">
     <value>إخفي Genlauncher بينما اللعبة قيد التشغيل </value>
   </data>
-  <data name="Image" xml:space="preserve">
+    <data name="Image" xml:space="preserve">
     <value>صورة</value>
   </data>
-  <data name="InMemoryOfAziz" xml:space="preserve">
+    <data name="InMemoryOfAziz" xml:space="preserve">
     <value>في ذكرى صديقي و رفيقي عبد العزيز</value>
   </data>
-  <data name="InputModData" xml:space="preserve">
+    <data name="InputModData" xml:space="preserve">
     <value>ادخل بيانات المود</value>
   </data>
-  <data name="Install" xml:space="preserve">
+    <data name="Install" xml:space="preserve">
     <value>قم بالتثبيت!</value>
   </data>
-  <data name="InstallGentool" xml:space="preserve">
+    <data name="InstallGentool" xml:space="preserve">
     <value>ثبّت و حدث Gentool تلقائياً (موصي به)</value>
   </data>
-  <data name="InstallInProgress" xml:space="preserve">
+    <data name="InstallInProgress" xml:space="preserve">
     <value>لا يمكن بدأ اللعبة {0} - عملية التثبيت قيد التنفيذ!</value>
   </data>
-  <data name="JoinDiscord" xml:space="preserve">
+    <data name="JoinDiscord" xml:space="preserve">
     <value>انضم لدسكورد Genlauncher!</value>
   </data>
-  <data name="LatestVersion" xml:space="preserve">
+    <data name="LatestVersion" xml:space="preserve">
     <value>الإصدار الأحدث: </value>
   </data>
-  <data name="Launch" xml:space="preserve">
+    <data name="Launch" xml:space="preserve">
     <value>ابدأ اللعبه</value>
   </data>
-  <data name="LaunchAborted" xml:space="preserve">
+    <data name="LaunchAborted" xml:space="preserve">
     <value>تم إلغاء البدء</value>
   </data>
-  <data name="LowAndHigh" xml:space="preserve">
+    <data name="LowAndHigh" xml:space="preserve">
     <value> أقل  - أداء أفضل، أعلى - جودة رسومات أفضل</value>
   </data>
-  <data name="MaximumPart" xml:space="preserve">
+    <data name="MaximumPart" xml:space="preserve">
     <value>الحد الأقصى لعدد الجسيمات:</value>
   </data>
-  <data name="Moddb" xml:space="preserve">
+    <data name="Moddb" xml:space="preserve">
     <value>زُر Moddb</value>
   </data>
-  <data name="ModdedExe" xml:space="preserve">
+    <data name="ModdedExe" xml:space="preserve">
     <value>استخدم ملفات exe المعدلة (موصي به)</value>
   </data>
-  <data name="ModificationName" xml:space="preserve">
+    <data name="ModificationName" xml:space="preserve">
     <value>اسم المود: </value>
   </data>
-  <data name="ModificationsWithUpdate" xml:space="preserve">
+    <data name="ModificationsWithUpdate" xml:space="preserve">
     <value>هنالك مودات يمكن تحديثها:</value>
   </data>
-  <data name="ModIsUpToDate" xml:space="preserve">
+    <data name="ModIsUpToDate" xml:space="preserve">
     <value>المود محدث بالفعل</value>
   </data>
-  <data name="Mods" xml:space="preserve">
+    <data name="Mods" xml:space="preserve">
     <value>المودات</value>
   </data>
-  <data name="MoveLauncher" xml:space="preserve">
+    <data name="MoveLauncher" xml:space="preserve">
     <value>يرجى نقل المشغل إلى مجلد لعبة Generals ZH أو Generals</value>
   </data>
-  <data name="NameAndVersionValidSymbols" xml:space="preserve">
+    <data name="NameAndVersionValidSymbols" xml:space="preserve">
     <value>يجب علي إسم و إصدار المود الاحتواء علي احرف صالحة</value>
   </data>
-  <data name="NeedToInstallAddon" xml:space="preserve">
+    <data name="NeedToInstallAddon" xml:space="preserve">
     <value>تحتاج إلي تثبيت الإضافة قبل فتح مجلد الخاص به </value>
   </data>
-  <data name="NeedToInstallMod" xml:space="preserve">
+    <data name="NeedToInstallMod" xml:space="preserve">
     <value>تحتاج إلي تثبيت المود قبل فتح المجلد الخاص به</value>
   </data>
-  <data name="NeedToInstallPatch" xml:space="preserve">
+    <data name="NeedToInstallPatch" xml:space="preserve">
     <value>تحتاج إلي تثبيت الباتش قبل فتح المجلد الخاص به</value>
   </data>
-  <data name="NetRequired" xml:space="preserve">
+    <data name="NetRequired" xml:space="preserve">
     <value>مطلوب إصدار NET Framework {0} او أحدث لتشغيل Genlauncher</value>
   </data>
-  <data name="NetRequired2" xml:space="preserve">
+    <data name="NetRequired2" xml:space="preserve">
     <value>مطلوب إصدار NET Framework {0} أو أحدث</value>
   </data>
-  <data name="NewUpdateForGenLauncher" xml:space="preserve">
+    <data name="NewUpdateForGenLauncher" xml:space="preserve">
     <value>تحديث جديد {0} لـGenlauncher متاح للتحميل</value>
   </data>
-  <data name="No" xml:space="preserve">
+    <data name="No" xml:space="preserve">
     <value>لا</value>
   </data>
-  <data name="NoConnection" xml:space="preserve">
+    <data name="NoConnection" xml:space="preserve">
     <value>لا يوجد اتصال بـ GitHub</value>
   </data>
-  <data name="NotInstalled" xml:space="preserve">
+    <data name="NotInstalled" xml:space="preserve">
     <value>{0} تم اختياره و لكن لم يتم يثبيته -  تم إلغاء البدء!</value>
   </data>
-  <data name="Ok" xml:space="preserve">
+    <data name="Ok" xml:space="preserve">
     <value>تم</value>
   </data>
-  <data name="OpenGameFolder" xml:space="preserve">
+    <data name="OpenGameFolder" xml:space="preserve">
     <value>افتح ملف اللعبة</value>
   </data>
-  <data name="OpenMapsFolder" xml:space="preserve">
+    <data name="OpenMapsFolder" xml:space="preserve">
     <value>افتح ملف الخرائط</value>
   </data>
-  <data name="OpenModFolder" xml:space="preserve">
+    <data name="OpenModFolder" xml:space="preserve">
     <value>افتح ملف المود</value>
   </data>
-  <data name="OpenReplaysFolder" xml:space="preserve">
+    <data name="OpenReplaysFolder" xml:space="preserve">
     <value>افتح ملف الإعادة</value>
   </data>
-  <data name="OperationAborted" xml:space="preserve">
+    <data name="OperationAborted" xml:space="preserve">
     <value>تم الغاء العملية</value>
   </data>
-  <data name="Options" xml:space="preserve">
+    <data name="Options" xml:space="preserve">
     <value>الإعدادات</value>
   </data>
-  <data name="OriginalExe" xml:space="preserve">
+    <data name="OriginalExe" xml:space="preserve">
     <value>استخدم ملفات exe الأصلية</value>
   </data>
-  <data name="OutOfSync" xml:space="preserve">
+    <data name="OutOfSync" xml:space="preserve">
     <value>ساعة النظام غير متزامنة!</value>
   </data>
-  <data name="OutOfSyncCantUpdate" xml:space="preserve">
+    <data name="OutOfSyncCantUpdate" xml:space="preserve">
     <value>ساعة النظام غير متزامنة - لا يمكن تحديث المود</value>
   </data>
-  <data name="Patches" xml:space="preserve">
+    <data name="Patches" xml:space="preserve">
     <value>باتشات لـ </value>
   </data>
-  <data name="PlayOnline" xml:space="preserve">
+    <data name="PlayOnline" xml:space="preserve">
     <value>كيف العب اونلاين؟</value>
   </data>
-  <data name="Preparing" xml:space="preserve">
+    <data name="Preparing" xml:space="preserve">
     <value>جاري التنفيذ, الرجاء الإنتظار...</value>
   </data>
-  <data name="Reinstall" xml:space="preserve">
+    <data name="Reinstall" xml:space="preserve">
     <value> يفضل إعادة تثبيت المود. \r يمكنك إيقاف هذا الفحص من الإعدادات</value>
   </data>
-  <data name="Resolution" xml:space="preserve">
+    <data name="Resolution" xml:space="preserve">
     <value>دقة اللعبة:</value>
   </data>
-  <data name="SelectMod" xml:space="preserve">
+    <data name="SelectMod" xml:space="preserve">
     <value>الحدد المود المراد إضافته</value>
   </data>
-  <data name="SetDefaultOptions" xml:space="preserve">
+    <data name="SetDefaultOptions" xml:space="preserve">
     <value>ضبط الإعدادات الافتراضية</value>
   </data>
-  <data name="SetImage" xml:space="preserve">
+    <data name="SetImage" xml:space="preserve">
     <value>تعيين الصورة (500x100)</value>
   </data>
-  <data name="SetRecommended" xml:space="preserve">
+    <data name="SetRecommended" xml:space="preserve">
     <value>تعيين الاعدادات الموصي بها</value>
   </data>
-  <data name="ShowProps" xml:space="preserve">
+    <data name="ShowProps" xml:space="preserve">
     <value>عرض الدعائم</value>
   </data>
-  <data name="SmoothWaterBorders" xml:space="preserve">
+    <data name="SmoothWaterBorders" xml:space="preserve">
     <value>حدود مائية ناعمة</value>
   </data>
-  <data name="Sponsors" xml:space="preserve">
+    <data name="Sponsors" xml:space="preserve">
     <value>الراعون</value>
   </data>
-  <data name="Stop" xml:space="preserve">
+    <data name="Stop" xml:space="preserve">
     <value>اوقف</value>
   </data>
-  <data name="SuportDevelopment" xml:space="preserve">
+    <data name="SuportDevelopment" xml:space="preserve">
     <value>ادعم تطوير Genlauncher</value>
   </data>
-  <data name="SupportNews" xml:space="preserve">
+    <data name="SupportNews" xml:space="preserve">
     <value>الدعم, الأخبار و... فقط ¯\_(ツ)_/¯</value>
   </data>
-  <data name="SymbLink" xml:space="preserve">
+    <data name="SymbLink" xml:space="preserve">
     <value>فشل في إنشاء رابط رمزي للاختبار. بدون القدرة على إنشاء روابط رمزية، GenLauncher لن يعمل.
 في الأغلب، يرتبط عدم القدرة على إنشاء رابط رمزي بنوع نظام الملفات المثبت عليه GenLauncher ، 
 الروابط الرمزية مدعومة على نظام الملفات NTFS,
 يرجى التأكد من تثبيت GenLauncher على Drive يستخدم نظام الملفات المحدد.
 تأكد أيضًا من أن إنشاء الروابط الرمزية لا يتعارض مع عدم وجود أي حقوق وعمل برامج مكافحة الفيروسات.</value>
   </data>
-  <data name="SyncManually" xml:space="preserve">
+    <data name="SyncManually" xml:space="preserve">
     <value>يرجي القيام بذلك يدوياً في إعدادات التاريخ والوقت</value>
   </data>
-  <data name="SyncNow" xml:space="preserve">
+    <data name="SyncNow" xml:space="preserve">
     <value>مزامنة الأن!</value>
   </data>
-  <data name="SyncTime" xml:space="preserve">
+    <data name="SyncTime" xml:space="preserve">
     <value>من أجل التحديث، يجب مزامنة ساعة النظام لديك</value>
   </data>
-  <data name="TakeLongTime" xml:space="preserve">
+    <data name="TakeLongTime" xml:space="preserve">
     <value>تحذير! قد تستغرق هذه العملية وقتاً طويلاً، يمكنك إيقافها من  الإعدادات</value>
   </data>
-  <data name="Texture" xml:space="preserve">
+    <data name="Texture" xml:space="preserve">
     <value>مستوى جودة الملمس:</value>
   </data>
-  <data name="ThankYou" xml:space="preserve">
+    <data name="ThankYou" xml:space="preserve">
     <value>شكراً لك!</value>
   </data>
-  <data name="ToggleOff" xml:space="preserve">
+    <data name="ToggleOff" xml:space="preserve">
     <value>اوقفه لتحسين الأداء والاستقرار</value>
   </data>
-  <data name="UninstalledUpdate" xml:space="preserve">
+    <data name="UninstalledUpdate" xml:space="preserve">
     <value>هناك تحديث تم إلغاء تثبيته لـ {0} </value>
   </data>
-  <data name="UnIsntalledAddon" xml:space="preserve">
+    <data name="UnIsntalledAddon" xml:space="preserve">
     <value>تم إلغاء تثبيت الإضافة</value>
   </data>
-  <data name="UnIsntalledMod" xml:space="preserve">
+    <data name="UnIsntalledMod" xml:space="preserve">
     <value>تم إلغاء تثبيت المود</value>
   </data>
-  <data name="UnIsntalledPatch" xml:space="preserve">
+    <data name="UnIsntalledPatch" xml:space="preserve">
     <value>تم إلغاء تثبيت الباتش</value>
   </data>
-  <data name="Unpacking" xml:space="preserve">
+    <data name="Unpacking" xml:space="preserve">
     <value>جاري التفريغ...</value>
   </data>
-  <data name="UnpackingPreparing" xml:space="preserve">
+    <data name="UnpackingPreparing" xml:space="preserve">
     <value>جاري التفريغ/ جاري الإعداد...</value>
   </data>
-  <data name="Update" xml:space="preserve">
+    <data name="Update" xml:space="preserve">
     <value>حدّث!</value>
   </data>
-  <data name="VersionMustContainNumbers" xml:space="preserve">
+    <data name="VersionMustContainNumbers" xml:space="preserve">
     <value>يجب علي الإصدار أن يحتوي علي أرقام</value>
   </data>
-  <data name="Vulkan" xml:space="preserve">
+    <data name="Vulkan" xml:space="preserve">
     <value>استخدم Vulkan API لتحسين الأداء</value>
   </data>
-  <data name="VulkanWarning" xml:space="preserve">
+    <data name="VulkanWarning" xml:space="preserve">
     <value>تحذير! هذه الميزة تجريبية، قد يكون هنالك اخطاء, إن وجدت خطأ، يرجى  الاتصال بالدسكورد في قناة الدعم الفني أو إلي المؤلف /r1d#7366</value>
   </data>
-  <data name="WarningOption" xml:space="preserve">
+    <data name="WarningOption" xml:space="preserve">
     <value>تحذير! قد يستغرق هذا الفحص وقتًا طويلاً قبل بدء اللعبة!</value>
   </data>
-  <data name="WorldBuilder" xml:space="preserve">
+    <data name="WorldBuilder" xml:space="preserve">
     <value>WORLD BUILDER</value>
   </data>
-  <data name="WorldBuilderRunning" xml:space="preserve">
+    <data name="WorldBuilderRunning" xml:space="preserve">
     <value>World Builder قيد التشغيل بالفعل!</value>
   </data>
-  <data name="Yes" xml:space="preserve">
+    <data name="Yes" xml:space="preserve">
     <value>نعم</value>
+  </data>
+    <data name="RequiredNETFrameworkNotFoundTitle" xml:space="preserve">
+    <value>. يجب أن يكون إطار عمل .NET {0} أو أحدث </value>
+  </data>
+    <data name="RequiredNETFrameworkNotFoundDescription" xml:space="preserve">
+    <value>.NET Framework {0} أو أحدث مطلوب لـ GenLauncher. هل ترغب في تنزيل وتثبيت نسخة متوافقة؟</value>
+  </data>
+    <data name="RequiredNETFrameworkAutoInstallTitle" xml:space="preserve">
+    <value>الشروع في التنزيل والتثبيت؟</value>
+  </data>
+    <data name="RequiredNETFrameworkAutoInstallDescription" xml:space="preserve">
+    <value>.NET Framework {0} سيتم تنزيله من الرابط التالي: {1}</value>
+  </data>
+    <data name="RequiredNETFrameworkInstallErrorDescription" xml:space="preserve">
+    <value>.لم يتم تثبيت .NET Framework {0}. يرجى تثبيته يدويا</value>
+  </data>
+    <data name="RequiredNETFrameworkInstallErrorTitle" xml:space="preserve">
+    <value>.لم يتم تثبيت .NET Framework {0}</value>
+  </data>
+    <data name="CannotConnect" xml:space="preserve">
+    <value>لا يمكن الاتصال بـ https://github.com/ ، تثبيت التعديلات من الإنترنت غير متاح!</value>
   </data>
 </root>
