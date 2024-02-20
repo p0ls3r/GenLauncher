@@ -51,7 +51,7 @@ namespace GenLauncherNet
             observable.Subscribe(
                 item => fileList.Add(new ModificationFileInfo(item.Key.Replace(version.S3FolderName + '/', ""),
                     item.ETag, item.Size)),
-                ex => throw ex,
+                ex => throw new Exception("Cannot enumerate objects in S3 storage", ex),
                 () => finished.TrySetResult(true)
             );
 
