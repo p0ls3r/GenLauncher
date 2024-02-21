@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Microsoft.Win32;
 
@@ -15,23 +17,27 @@ namespace GenLauncherNet.Utility
         /// </summary>
         /// <param name="requiredVersionReleaseKeys">An array of numerical release keys of the .NET Framework version to check for.</param>
         /// <returns>True if the required version is installed; otherwise, false.</returns>
-        internal static bool IsRequiredNetFrameworkVersionInstalled(uint[] requiredVersionReleaseKeys)
+        internal static bool IsRequiredNetFrameworkVersionInstalled(IEnumerable<uint> requiredVersionReleaseKeys)
         {
             const string registrySubKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
 
-            using (var ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
+            using (var registryKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Default)
                        .OpenSubKey(registrySubKey))
             {
-                if (ndpKey?.GetValue("Release") != null)
-                    // Does it match or exceed any of the release keys?
-                    foreach (var releaseKey in requiredVersionReleaseKeys)
+                var currentlyInstalledReleaseKey = registryKey?.GetValue("Release");
+
+                if (currentlyInstalledReleaseKey != null)
+                {
+                    // Does the installed .NET Framework version match or exceed any of the release keys?
+                    if (requiredVersionReleaseKeys.Any(requiredReleaseKey =>
+                            (int)currentlyInstalledReleaseKey >= requiredReleaseKey))
                     {
-                        return (int)ndpKey.GetValue("Release") >=
-                               releaseKey;
+                        return true; // Required version is installed
                     }
+                }
             }
 
-            return false; // Required version not installed.
+            return false; // Required version not installed
         }
 
         /// <summary>
