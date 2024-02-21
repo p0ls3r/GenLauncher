@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using System.Linq;
 using WPFLocalizeExtension.Engine;
 
 namespace GenLauncherNet
