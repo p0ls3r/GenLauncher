@@ -48,21 +48,34 @@ namespace GenLauncherNet.Utility
         {
             string tempFilePath = Path.ChangeExtension(Path.GetTempFileName(), ".exe");
 
-            /*
-             * Download the specified .NET Framework runtime installer and save it as a temporary file on the user's filesystem
-             * which is then run silently and deleted when the installer finishes.
-             */
-            using (var webClient = new WebClient())
+            try
             {
-                webClient.DownloadFile(downloadUrl, tempFilePath);
-            }
+                using (var webClient = new WebClient())
+                {
+                    webClient.DownloadFile(downloadUrl, tempFilePath);
+                }
 
-            var installerProcess = new Process();
-            installerProcess.StartInfo.FileName = tempFilePath;
-            installerProcess.StartInfo.Arguments = "/quiet /norestart";
-            installerProcess.Start();
-            installerProcess.WaitForExit();
-            File.Delete(tempFilePath);
+                using (var installerProcess = new Process())
+                {
+                    installerProcess.StartInfo = new ProcessStartInfo
+                    {
+                        FileName = tempFilePath,
+                        Arguments = "/quiet /norestart",
+                        UseShellExecute = false
+                    };
+
+                    installerProcess.Start();
+                    installerProcess.WaitForExit();
+                }
+            }
+            finally
+            {
+                // Ensure deletion of temporary file even in case of exceptions
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
         }
     }
 }
