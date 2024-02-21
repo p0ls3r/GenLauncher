@@ -1,13 +1,7 @@
-﻿using GenLauncherNet;
-using SevenZipExtractor;
+﻿using SevenZipExtractor;
 using System;
-using System.Collections.Generic;
-using System.Data.OleDb;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
