@@ -20,7 +20,7 @@ that provides various faculties that ease the burden of setting up and maintaini
 - Allows multiple mods to be run from a single game directory.
 - Can launch the game or world builder with a specific installed mod along with it's corresponding patches and addons.
 - Supports common commandline arguments such as running the game in windowed mode, quickstart mode aswell as user specified command line arguments.
-- Installed modifications are consolidated to there own respective directories and are linked to the game folder during game launch 
+- Installed modifications are consolidated to their own respective directories and are linked to the game folder during game launch 
 and unlinked after closing the game ensuring that the game folder remains relatively untouched.
 - Contains an options menu that can be used to adjust every single graphical option in the game aswell as a variety of other things such as ingame camera height.
 - Can install and use the [modded game executable](https://www.gentool.net/download/executables/) by xezon that allows for mods to bypass the ingame camera height restriction in LAN games (Zero Hour only, can be disabled).
