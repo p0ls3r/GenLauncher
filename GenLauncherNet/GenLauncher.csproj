@@ -349,9 +349,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Strings.tr.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings.tr.resx" />
     <EmbeddedResource Include="Resources\Strings.uk.resx" />
     <EmbeddedResource Include="Resources\Strings.zh.resx" />
     <None Include="app1.manifest" />
@@ -451,15 +449,20 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dlls\ar\GenLauncher.resources.dll" />
-    <EmbeddedResource Include="Dlls\de\GenLauncher.resources.dll" />
     <EmbeddedResource Include="Dlls\es\GenLauncher.resources.dll" />
     <EmbeddedResource Include="Dlls\fr\GenLauncher.resources.dll" />
     <EmbeddedResource Include="Dlls\ru\GenLauncher.resources.dll" />
-    <EmbeddedResource Include="Dlls\tr\GenLauncher.resources.dll" />
     <EmbeddedResource Include="Dlls\uk\GenLauncher.resources.dll" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dlls\zh\GenLauncher.resources.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Dlls\tr\GenLauncher.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dlls\de\GenLauncher.resources.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SevenZipExtractor.1.0.17\build\SevenZipExtractor.targets" Condition="Exists('..\packages\SevenZipExtractor.1.0.17\build\SevenZipExtractor.targets')" />

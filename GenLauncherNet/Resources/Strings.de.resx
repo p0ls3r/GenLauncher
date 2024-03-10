@@ -151,7 +151,7 @@
     <value>Übernehmen</value>
   </data>
   <data name="ApplyDefaultSettings" xml:space="preserve">
-    <value>Wollen Sie die empfohlene Einstellungen übernehmen?Would you like to apply the default recommended settings?</value>
+    <value>Wollen Sie die empfohlene Einstellungen übernehmen?</value>
   </data>
   <data name="AskToCheck" xml:space="preserve">
     <value>Fragen bevor die Integrität von Mod Dateien geprüft wird</value>

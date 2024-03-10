@@ -147,6 +147,8 @@ namespace GenLauncherNet
             EntryPoint.GameFiles.Add("W3DSpanishZH.big".ToLower());
             EntryPoint.GameFiles.Add("W3DZH.big".ToLower());
             EntryPoint.GameFiles.Add("WindowZH.big".ToLower());
+
+
         }
 
         private static void FillGeneralsFiles()

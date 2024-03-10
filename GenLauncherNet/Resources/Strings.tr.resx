@@ -145,10 +145,10 @@
     <value>{0} için dosyalardan yama ekle</value>
   </data>
   <data name="AlternateMouseSetup" xml:space="preserve">
-    <value>Altnatif fare ayarı</value>
+    <value>Alternatif fare ayarı</value>
   </data>
   <data name="Apply" xml:space="preserve">
-    <value>Uyugula</value>
+    <value>Uygula</value>
   </data>
   <data name="ApplyDefaultSettings" xml:space="preserve">
     <value>Varsayılan önerilen ayarları uygulamak ister misiniz?</value>

@@ -22,8 +22,9 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GLM";
         public const string GenLauncherModsFolderOld = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "1.0.0.6";
-        public const int LaunchesCountForUpdateAdverising = 50;
+        public const string Version = "1.0.0.7";
+        public const int LaunchesCountForUpdateAdverising = 100;
+        public const string SteamFolderName = "ZH_Generals";
 
         public const string ZHRepos =
             @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH3.yaml";
@@ -85,6 +86,7 @@ namespace GenLauncherNet
                     LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("en-us");
                 } else
                 {
+                    //LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("hr");
                     LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo(System.Globalization.CultureInfo.InstalledUICulture.Name);
                 }
 

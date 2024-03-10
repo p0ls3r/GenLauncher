@@ -150,7 +150,7 @@ namespace GenLauncherNet
 
         private static void RenameNonGameBigFile(FileInfo file)
         {
-            if (Path.GetExtension(file.FullName).Contains("big") && BigHandler.IsBigArchive(file.FullName) && !EntryPoint.GameFiles.Contains(file.Name.ToLower()))
+            if (Path.GetExtension(file.FullName).Contains("big") && BigHandler.IsBigArchive(file.FullName) && !EntryPoint.GameFiles.Contains(file.Name.ToLower()) && !file.FullName.Contains(EntryPoint.SteamFolderName))
             {
                 ReplaceFile(file.FullName);
             }
@@ -158,7 +158,7 @@ namespace GenLauncherNet
 
         private static void RenameCustomFiles(FileInfo file)
         {
-            if (customFileExtensions.Contains(Path.GetExtension(file.FullName)) && !file.FullName.Contains(EntryPoint.GenLauncherModsFolder))
+            if (customFileExtensions.Contains(Path.GetExtension(file.FullName)) && !file.FullName.Contains(EntryPoint.GenLauncherModsFolder) && !file.FullName.Contains(EntryPoint.SteamFolderName))
             {
                 ReplaceFile(file.FullName);
             }

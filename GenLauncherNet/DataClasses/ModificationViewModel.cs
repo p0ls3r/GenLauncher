@@ -162,7 +162,7 @@ namespace GenLauncherNet
 
         private void SetImage(string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
                 return;
 
             var stream = File.OpenRead(path);

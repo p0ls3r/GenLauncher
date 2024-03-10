@@ -1159,6 +1159,11 @@ namespace GenLauncherNet.Windows
                 return;
             }
 
+            if (!DataHandler.GentoolAutoUpdate())
+            {
+                return;
+            }
+
             if (!await GentoolHandler.CanConnectToGentoolWebSite())
             {
                 UpdateProgress.Text = LocalizedStrings.Instance["CantCheckGentool"];
@@ -1429,7 +1434,7 @@ namespace GenLauncherNet.Windows
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 infoWindow.Ok.Visibility = Visibility.Hidden;
 
-                infoWindow.Continue.Content = LocalizedStrings.Instance["Set default options"];
+                infoWindow.Continue.Content = LocalizedStrings.Instance["Apply"];
                 infoWindow.Cancel.Content = LocalizedStrings.Instance["No"];
 
                 infoWindow.WarningPolygon1.Visibility = Visibility.Visible;
@@ -1931,7 +1936,9 @@ namespace GenLauncherNet.Windows
                 { WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen };
                 optionsWindow.ShowDialog();
                 this.Show();
+                UpdateTabs();
                 UpdateWindowedStatus();
+                SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
                 DataHandler.SaveLauncherData();
             }
             else
