@@ -450,14 +450,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Dlls\ar\GenLauncher.resources.dll" />
     <EmbeddedResource Include="Dlls\es\GenLauncher.resources.dll" />
-    <EmbeddedResource Include="Dlls\fr\GenLauncher.resources.dll" />
     <EmbeddedResource Include="Dlls\ru\GenLauncher.resources.dll" />
     <EmbeddedResource Include="Dlls\uk\GenLauncher.resources.dll" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dlls\zh\GenLauncher.resources.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Dlls\fr\GenLauncher.resources.dll" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dlls\tr\GenLauncher.resources.dll" />
   </ItemGroup>

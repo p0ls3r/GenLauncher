@@ -87,7 +87,7 @@ namespace GenLauncherNet
         {
             foreach (var info in filesInfo)
             {
-                if (exceptExtensions.Contains(Path.GetExtension(info.FileName).ToLower()))
+                if (exceptExtensions.Contains(Path.GetExtension(info.FileName).ToLower()) || String.IsNullOrEmpty(Path.GetExtension(info.FileName).ToLower()))
                     continue;
 
                 var createdFileName = String.Empty;                
@@ -99,7 +99,7 @@ namespace GenLauncherNet
                     createdFileName = Path.ChangeExtension(info.FileName, "big");
 
                 if (string.IsNullOrEmpty(createdFileName))
-                    return false;                
+                    return false;
 
                 if ((extensionsToCheckHash.Contains(Path.GetExtension(createdFileName).ToLower()) || BigHandler.IsBigArchive(createdFileName)) &&
                     !String.Equals(MD5ChecksumCalculator.ComputeMD5Checksum(createdFileName), info.Hash, StringComparison.OrdinalIgnoreCase))
@@ -126,6 +126,10 @@ namespace GenLauncherNet
                 RemoveFileSuffix(Directory.GetCurrentDirectory() + "/Data/Scripts/MultiplayerScripts.scb.GLR", EntryPoint.GenLauncherReplaceSuffix);
                 RemoveFileSuffix(Directory.GetCurrentDirectory() + "/Data/Scripts/Scripts.ini.GLR", EntryPoint.GenLauncherReplaceSuffix);
                 RemoveFileSuffix(Directory.GetCurrentDirectory() + "/Data/Scripts/SkirmishScripts.scb.GLR", EntryPoint.GenLauncherReplaceSuffix);
+
+                RemoveFileSuffix(Directory.GetCurrentDirectory() + "/" + EntryPoint.SteamFolderName + "/Data/Scripts/MultiplayerScripts.scb.GLR", EntryPoint.GenLauncherReplaceSuffix);
+                RemoveFileSuffix(Directory.GetCurrentDirectory() + "/" + EntryPoint.SteamFolderName + "/Data/Scripts/Scripts.ini.GLR", EntryPoint.GenLauncherReplaceSuffix);                
+                RemoveFileSuffix(Directory.GetCurrentDirectory() + "/" + EntryPoint.SteamFolderName + "/Data/Scripts/SkirmishScripts.scb.GLR", EntryPoint.GenLauncherReplaceSuffix);
             }
 
             if (setCameraHeight && EntryPoint.SessionInfo.GameMode == Game.ZeroHour)
@@ -158,7 +162,7 @@ namespace GenLauncherNet
 
         private static void RenameCustomFiles(FileInfo file)
         {
-            if (customFileExtensions.Contains(Path.GetExtension(file.FullName)) && !file.FullName.Contains(EntryPoint.GenLauncherModsFolder) && !file.FullName.Contains(EntryPoint.SteamFolderName))
+            if (customFileExtensions.Contains(Path.GetExtension(file.FullName)) && !file.FullName.Contains(EntryPoint.GenLauncherModsFolder))
             {
                 ReplaceFile(file.FullName);
             }

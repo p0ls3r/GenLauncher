@@ -397,16 +397,16 @@
     <value>OK</value>
   </data>
   <data name="OpenGameFolder" xml:space="preserve">
-    <value>Ouvrir le docier du jeu</value>
+    <value>Ouvrir le dossier du jeu</value>
   </data>
   <data name="OpenMapsFolder" xml:space="preserve">
-    <value>Ouvrir le docier des cartes</value>
+    <value>Ouvrir le dossier des cartes</value>
   </data>
   <data name="OpenModFolder" xml:space="preserve">
-    <value>Ouvrir le docier du mod</value>
+    <value>Ouvrir le dossier du mod</value>
   </data>
   <data name="OpenReplaysFolder" xml:space="preserve">
-    <value>Ouvrir le docier des rediffusions </value>
+    <value>Ouvrir le dossier des rediffusions </value>
   </data>
   <data name="OperationAborted" xml:space="preserve">
     <value>Opération annulée</value>

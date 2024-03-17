@@ -1940,6 +1940,11 @@ namespace GenLauncherNet.Windows
                 UpdateWindowedStatus();
                 SetSelfUpdatingInfo(EntryPoint.SessionInfo.Connected);
                 DataHandler.SaveLauncherData();
+
+                foreach (var modData in ModsListSource)
+                {
+                    modData.UpdataContainerData();
+                }
             }
             else
             {

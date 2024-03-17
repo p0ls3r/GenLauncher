@@ -26,7 +26,7 @@ namespace GenLauncherNet
         public BitmapImage ImageSource { get; }
 
         public string NameInfo { get; private set; }
-        public string LatestVersionInfo { get; private set; }
+        public string LatestVersionInfo { get; set; }
         public bool ReadyToRun { get; set; } = true;
 
         public ColorsInfo Colors { get; set; }
@@ -64,9 +64,15 @@ namespace GenLauncherNet
                 if (ContainerModification.ModificationType == ModificationType.Advertising)
                 {
                     LatestVersionInfo = LatestVersion.Version;
+                    if (_GridControls != null && _GridControls._VersionTextBlock != null)
+                        _GridControls._VersionTextBlock.Text = LatestVersionInfo;                    
                 }
                 else
+                {                                 
                     LatestVersionInfo = LocalizedStrings.Instance["LatestVersion"] + LatestVersion.Version;
+                    if (_GridControls != null && _GridControls._VersionTextBlock != null)
+                        _GridControls._VersionTextBlock.Text = LatestVersionInfo;
+                }                    
             }
         }
 

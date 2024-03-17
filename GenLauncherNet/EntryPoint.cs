@@ -22,7 +22,7 @@ namespace GenLauncherNet
         public const string GenLauncherModsFolder = "GLM";
         public const string GenLauncherModsFolderOld = "GenLauncherModifications";
         public const string LauncherImageSubFolder = "LauncherImages";
-        public const string Version = "1.0.0.7";
+        public const string Version = "1.0.0.8";
         public const int LaunchesCountForUpdateAdverising = 100;
         public const string SteamFolderName = "ZH_Generals";
 
@@ -86,12 +86,12 @@ namespace GenLauncherNet
                     LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("en-us");
                 } else
                 {
-                    //LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("hr");
+                    //LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("de");
                     LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo(System.Globalization.CultureInfo.InstalledUICulture.Name);
                 }
 
                
-                Unpacker.ExtractLangDlls();                
+                //Unpacker.ExtractLangDlls();                
 
                 if (!GeneralUtilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
                 {

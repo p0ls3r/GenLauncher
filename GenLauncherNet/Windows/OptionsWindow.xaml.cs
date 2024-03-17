@@ -560,12 +560,14 @@ namespace GenLauncherNet
         private void English_Click(object sender, RoutedEventArgs e)
         {
             LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("en-us");
+            LocalizedStrings.Instance.SetCulture("en-us");
             using (File.Create(EntryPoint.LauncherFolder + "eng")) { }
         }
 
         private void Local_Click(object sender, RoutedEventArgs e)
         {
             LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo(System.Globalization.CultureInfo.InstalledUICulture.Name);
+            LocalizedStrings.Instance.SetCulture(System.Globalization.CultureInfo.InstalledUICulture.Name);
             if (File.Exists(EntryPoint.LauncherFolder + "eng"))
             File.Delete(EntryPoint.LauncherFolder + "eng");
         }

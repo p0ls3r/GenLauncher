@@ -59,11 +59,11 @@ namespace GenLauncherNet
             await Task.Run(() => EntryPoint.DeleteTempFolders(new DirectoryInfo(Directory.GetCurrentDirectory())));
             await Task.Run(() => DeleteOldGenLauncherFile());
 
-            SetSessionInfo();
+            SetSessionInfo();            
             SetColorsInfo();
+            CheckForCustomVisualInfo();
+            CheckForCustomBG();
 
-            await Task.Run(() => CheckForCustomVisualInfo());
-            await Task.Run(() => CheckForCustomBG());
             await Task.Run(() => EntryPoint.ReplaceDlls());
 
             if (!Directory.Exists(Path.Combine(EntryPoint.LauncherFolder, EntryPoint.LauncherImageSubFolder)))
