@@ -1,15 +1,11 @@
-﻿using GenLauncherNet.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using WPFLocalizeExtension.Engine;
 
 namespace GenLauncherNet
@@ -30,7 +26,7 @@ namespace GenLauncherNet
             @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataZH3.yaml";
 
         public const string GenRepos =
-           @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals3.yaml";
+            @"https://raw.githubusercontent.com/p0ls3r/GenLauncherModsData/master/ReposModificationDataGenerals3.yaml";
 
         //public const string Version = "0.0.0.1 Test";
         public const string ModdedExeDownloadLink =
@@ -51,9 +47,6 @@ namespace GenLauncherNet
         public static SessionInformation SessionInfo;
         public static ColorsInfo Colors;
         public static ColorsInfo DefaultColors;
-
-        private const uint RequiredNetFrameworkVersionReleaseKey = 393295; // Version 4.6
-        private const string RequiredNetFrameworkVersion = "4.6"; // Release key = 393295
 
         private static Mutex _mutex1;
 
@@ -84,34 +77,15 @@ namespace GenLauncherNet
                 if (File.Exists(LauncherFolder + "eng"))
                 {
                     LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("en-us");
-                } else
+                }
+                else
                 {
                     //LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo("de");
-                    LocalizeDictionary.Instance.Culture = new System.Globalization.CultureInfo(System.Globalization.CultureInfo.InstalledUICulture.Name);
+                    LocalizeDictionary.Instance.Culture =
+                        new System.Globalization.CultureInfo(System.Globalization.CultureInfo.InstalledUICulture.Name);
                 }
 
-               
                 //Unpacker.ExtractLangDlls();                
-
-                if (!GeneralUtilities.IsRequiredNetFrameworkVersionInstalled(RequiredNetFrameworkVersionReleaseKey))
-                {
-                    var result =
-                        MessageBox.Show(
-                            String.Format(LocalizedStrings.Instance["NetRequired"], RequiredNetFrameworkVersion) +
-                            LocalizedStrings.Instance["DownloadNet"],
-                            String.Format(LocalizedStrings.Instance["NetRequired2"], RequiredNetFrameworkVersion),
-                            MessageBoxButton.YesNo,
-                            MessageBoxImage.Warning
-                        );
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        GeneralUtilities.OpenWebpageInBrowser(
-                            "https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer");
-                    }
-
-                    return;
-                }
 
                 if (!IsLauncherInGameFolder())
                 {
@@ -132,7 +106,7 @@ namespace GenLauncherNet
                 {
                     MoveExistingWindowOnTop();
                     return;
-                }                
+                }
 
                 var app = new App();
 
@@ -149,7 +123,7 @@ namespace GenLauncherNet
                     LocalizedStrings.Instance["ErrorMsg"],
                     e.Message, e.StackTrace, Version, @"https://discord.gg/fFGpudz5hV"));
             }
-        }   
+        }
 
         private static void ReturnGameFolderToOriginalState()
         {
@@ -181,7 +155,7 @@ namespace GenLauncherNet
             var windowHandle = proc.MainWindowHandle;
             ShowWindowAsync(new HandleRef(null, windowHandle), SW_RESTORE);
             SetForegroundWindow(windowHandle);
-        }        
+        }
 
         public static bool CanCreateSymbLink()
         {
@@ -225,13 +199,15 @@ namespace GenLauncherNet
         {
             if (File.Exists(filename))
                 File.Move(filename, filename + GenLauncherReplaceSuffix);
-        }        
+        }
 
         private static bool IsLauncherInGameFolder()
         {
             //TODO improve checking
             if (File.Exists("generals.exe") && File.Exists("BINKW32.DLL") &&
-                (File.Exists("WindowZH.big") || File.Exists("Window.big") || File.Exists("WindowZH.big" + GenLauncherReplaceSuffix) || File.Exists("Window.big" + GenLauncherReplaceSuffix)))
+                (File.Exists("WindowZH.big") || File.Exists("Window.big") ||
+                 File.Exists("WindowZH.big" + GenLauncherReplaceSuffix) ||
+                 File.Exists("Window.big" + GenLauncherReplaceSuffix)))
             {
                 return true;
             }

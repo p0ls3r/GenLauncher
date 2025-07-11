@@ -232,7 +232,6 @@
     <Compile Include="DataClasses\ModificationFileInfo.cs" />
     <Compile Include="DataClasses\StringHashSet.cs" />
     <Compile Include="DataClasses\SessionInformation.cs" />
-    <Compile Include="Utility\GeneralUtilities.cs" />
     <Compile Include="Utility\TimeUtility.cs" />
     <Compile Include="Utility\VulkanDllsHandler.cs" />
     <Compile Include="DataClasses\VulkanData.cs" />
