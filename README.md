@@ -74,22 +74,20 @@ For developers who want to build GenLauncher from source:
 - Visual Studio 2017 or newer with C# and WPF support
 - [.NET Framework 4.6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net46)
 
-### Quick Start
+### Quick Start (Using Visual Studio 2017 or newer)
 
 1. Clone the repository:
 
    ```bash
    git clone https://github.com/p0ls3r/GenLauncher.git
-   cd GenLauncher
    ```
+2. Open `GenLauncher.sln` in Visual Studio.
 
-2. Open `GenLauncher.sln` in Visual Studio
+3. Restore NuGet packages (Right-click solution → "Restore NuGet Packages").
 
-3. Restore NuGet packages (Right-click solution → "Restore NuGet Packages")
+4. Set `GenLauncherNet` as the startup project.
 
-4. Set `GenLauncherNet` as the startup project
-
-5. Build and run with `F5`
+5. Build and run with the project.
 
 ## Donate
 
