@@ -1,50 +1,95 @@
-<img align="left" src="GenLauncherNet/fd.ico" width="100" alt="GenLauncher Icon">
+<p align="center">
+  <img src="GenLauncherNet/fd.ico" width="100" alt="GenLauncher Icon">
+</p>
 
-# GenLauncher
-[![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
-[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/fFGpudz5hV)
-<br>
+<h1 align="center">GenLauncher</h1>
 
-### About
+<p align="center">
+  <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows">
+  <a href="https://discord.gg/fFGpudz5hV">
+    <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+  </a>
+</p>
 
-GenLauncher is a mod management utility for the game **Command & Conquer: Generals and it's expansion Zero Hour** 
-that provides various faculties that ease the burden of setting up and maintaining a modded game.
+**GenLauncher** is a mod management utility for **Command & Conquer: Generals** and its expansion **Zero Hour** that simplifies the process of setting up and maintaining a modded game experience.
 
-### Features
+## Features
 
-- Supports both Command & Conquer: Generals and it's expansion Zero Hour.
-- Easily download, install and update mods from a repository.
-- Easily download, install and update patches and addons for installed mods.
-- Manually add mods to be managed by GenLauncher.
-- Manually add patches and addons to installed mods to be managed by GenLauncher.
-- Allows multiple mods to be run from a single game directory.
-- Can launch the game or world builder with a specific installed mod along with it's corresponding patches and addons.
-- Supports common commandline arguments such as running the game in windowed mode, quickstart mode aswell as user specified command line arguments.
-- Installed modifications are consolidated to their own respective directories and are linked to the game folder during game launch 
-and unlinked after closing the game ensuring that the game folder remains relatively untouched.
-- Contains an options menu that can be used to adjust every single graphical option in the game aswell as a variety of other things such as ingame camera height.
-- Can install and use the [modded game executable](https://www.gentool.net/download/executables/) by xezon that allows for mods to bypass the ingame camera height restriction in LAN games (Zero Hour only, can be disabled).
-- Can install and update [GenTool](https://www.gentool.net/).
+- **Multi-Game Support**: Compatible with both Command & Conquer: Generals and its expansion Zero Hour.
+- **Repository Integration**: Easily download, install, and update mods from repositories.
+- **Patch and Addon Management**: Download, install, and update patches and addons for both installed mods and the vanilla game.
+- **Manually Import Mods, Patches, and Addons**: Import mods, patches, and addons manually from your local filesystem.
+- **Multiple Mod Support**: Run multiple mods from a single game directory.
+- **Game Launch**: Launch the game or world builder with specific mods and their corresponding patches/addons.
+- **Command-Line Arguments**: Support for windowed mode, quickstart mode, as well as custom command-line arguments.
+- **Game Directory Is Kept Clean**: Mods, patches, and addons are consolidated into their own directories and then linked to the game directory upon game launch and then unlinked when the game exits, keeping the game folder clean.
+- **Built-in Graphics Options Menu**: Comprehensive options menu for adjusting all of the game's graphical settings as well as setting custom in-game camera height.
+- **Modded Executable**: Installs and uses the [modded game executable](https://www.gentool.net/download/executables/) by xezon for enhanced features. (Optional)
+- **GenTool Integration**: Install and update [GenTool](https://www.gentool.net/) by xezon. (Optional)
 
-### Download
+## Installation
 
-* [ModDB](https://www.moddb.com/mods/genlauncher)
-* [GenLauncher Discord](https://discord.gg/fFGpudz5hV)
-* [Through GenPatcher](https://legi.cc/downloads/genpatcher/)
+### Prerequisites
 
-### Installation
+- Either **Command & Conquer: Generals** or **Zero Hour** installed (or both)
+- [.NET Framework 4.6 or higher](https://dotnet.microsoft.com/en-us/download/dotnet-framework) (Most likely already installed on your system if you're running Windows 7 or later).
+- Game is installed on an NTFS file system (required for symbolic link support).
+- System is running a Windows operating system (GenLauncher is not officially supported on non-Windows operating systems).
+- Ability to run programs with administrative privileges (most users will have this).
 
-GenLauncher can be used for both **Command & Conquer: Generals and it's expansion Zero Hour**. To install GenLauncher for either game, simply extract GenLauncher.exe 
-into the respective game folder that you wish to use GenLauncher with.
+### Steps
 
-**Note:** Ensure that the game is installed on a drive with a filesystem that supports symbolic links such NTFS otherwise GenLauncher won't work.
+1. Download `GenLauncher.exe` from one of the sources listed in the [Download](#download) section.
+2. Extract the executable to your game directory (where the game exe is located).
+3. Run `GenLauncher.exe`.
 
-**Running GenLauncher on non windows operating systems or under wine has not been tested and is not officially supported.**
+## Download
 
-### Submitting Bug Reports and Feature Requests
+- [ModDB](https://www.moddb.com/mods/genlauncher)
+- [GenLauncher Discord](https://discord.gg/fFGpudz5hV)
+- [Through GenPatcher](https://legi.cc/downloads/genpatcher/)
 
-Please use the projects [issue tracker](https://github.com/p0ls3r/GenLauncher/issues) to submit bug reports or feature requests or join the [GenLauncher discord](https://discord.gg/fFGpudz5hV) and post in the respective channels.
+## Contributing
 
-### Donate
+We welcome contributions! Please:
 
-Want to support the project and author? You can donate by [boosty](https://boosty.to/genlauncher/single-payment/donation/157147?share=target_link).
+1. Use the project's [issue tracker](https://github.com/p0ls3r/GenLauncher/issues) to submit bug reports or feature requests.
+2. Join the [GenLauncher Discord](https://discord.gg/fFGpudz5hV) and post in the appropriate channels.
+3. Follow the project's coding standards when submitting pull requests.
+
+## Support
+
+If you encounter issues or need help:
+
+- Check the [issue tracker](https://github.com/p0ls3r/GenLauncher/issues) for existing solutions.
+- Join our [Discord community](https://discord.gg/fFGpudz5hV) for real-time support.
+- Create a new issue with detailed information about your problem.
+
+## Building from Source
+
+For developers who want to build GenLauncher from source:
+
+### Development Requirements
+
+- [.NET Framework 4.6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net46)
+
+### Quick Start (Using Visual Studio 2022)
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/p0ls3r/GenLauncher.git
+   ```
+2. Open `GenLauncher.sln` in Visual Studio.
+
+3. Restore NuGet packages (Right-click solution → "Restore NuGet Packages").
+
+4. Set `GenLauncherNet` as the startup project.
+
+5. Build and run the project.
+
+## Donate
+
+Support the project and its development:
+
+[![Donate via Boosty](https://img.shields.io/badge/Donate-Boosty-orange)](https://boosty.to/genlauncher/single-payment/donation/157147?share=target_link)
