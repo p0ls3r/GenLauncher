@@ -71,10 +71,9 @@ For developers who want to build GenLauncher from source:
 
 ### Development Requirements
 
-- Visual Studio 2017 or newer with C# and WPF support
 - [.NET Framework 4.6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net46)
 
-### Quick Start (Using Visual Studio 2017 or newer)
+### Quick Start (Using Visual Studio 2022)
 
 1. Clone the repository:
 
