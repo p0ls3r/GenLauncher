@@ -87,7 +87,7 @@ For developers who want to build GenLauncher from source:
 
 4. Set `GenLauncherNet` as the startup project.
 
-5. Build and run with the project.
+5. Build and run the project.
 
 ## Donate
 
