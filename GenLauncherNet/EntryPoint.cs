@@ -54,8 +54,8 @@ namespace GenLauncherNet
         public static ColorsInfo Colors;
         public static ColorsInfo DefaultColors;
 
-        private const uint RequiredNetFrameworkVersionReleaseKey = 393295; // Version 4.6
-        private const string RequiredNetFrameworkVersion = "4.6"; // Release key = 393295
+        private const uint RequiredNetFrameworkVersionReleaseKey = 528040; // Minimum release key for version 4.8
+        private const string RequiredNetFrameworkVersion = "4.8";
 
         private static Mutex _mutex1;
 

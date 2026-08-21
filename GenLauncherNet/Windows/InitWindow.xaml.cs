@@ -258,7 +258,7 @@ namespace GenLauncherNet
             if (!File.Exists("Colors.yaml"))
                 return;
 
-            var deSerializer = new YamlDotNet.Serialization.Deserializer();
+            var deSerializer = new YamlDotNet.Serialization.DeserializerBuilder().Build();
 
             ColorsInfoString colors = new ColorsInfoString();
 

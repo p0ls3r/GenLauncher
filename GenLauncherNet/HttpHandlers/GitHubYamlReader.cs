@@ -72,7 +72,7 @@ namespace GenLauncherNet
 
                 memStream.Seek(0, SeekOrigin.Begin);
 
-                var deSerializer = new Deserializer();
+                var deSerializer = new DeserializerBuilder().Build();
 
                 var reposData = deSerializer.Deserialize<T>(new StreamReader(memStream));
 

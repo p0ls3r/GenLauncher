@@ -815,7 +815,7 @@ namespace GenLauncherNet
             {
                 CreateLauncherFolder();
 
-                var deSerializer = new YamlDotNet.Serialization.Deserializer();
+                var deSerializer = new YamlDotNet.Serialization.DeserializerBuilder().Build();
 
                 using (FileStream fstream = new FileStream(EntryPoint.ConfigName, FileMode.OpenOrCreate))
                 {
@@ -856,7 +856,7 @@ namespace GenLauncherNet
                 if (File.Exists(EntryPoint.ConfigName))
                     File.Delete(EntryPoint.ConfigName);
 
-                var serializer = new YamlDotNet.Serialization.Serializer();
+                var serializer = new YamlDotNet.Serialization.SerializerBuilder().Build();
 
                 using (TextWriter writer = File.CreateText(EntryPoint.ConfigName))
                 {

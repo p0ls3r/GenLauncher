@@ -2,7 +2,6 @@
 using SevenZipExtractor;
 using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
